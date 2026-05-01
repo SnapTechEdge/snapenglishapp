@@ -79,8 +79,8 @@ export async function onRequestPost(context) {
       reply_to: trimmed.email,
       subject: `[お問い合わせ] ${trimmed.subject} - ${trimmed.name}`,
       text: [
-        `名前: ${trimmed.name}`,
-        `メール: ${trimmed.email}`,
+        `お名前: ${trimmed.name}`,
+        `メールアドレス: ${trimmed.email}`,
         `件名: ${trimmed.subject}`,
         '',
         'メッセージ:',
