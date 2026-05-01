@@ -93,7 +93,7 @@ export async function onRequestPost(context) {
 
     // 2) ユーザー宛て自動返信
     const autoReply = sendMail(env.RESEND_API_KEY, {
-      from: 'SnapEnglish <support@snapenglishapp.com>',
+      from: 'SnapEnglish <noreply@snapenglishapp.com>',
       to: [trimmed.email],
       reply_to: 'support@snapenglishapp.com',
       subject: '【SnapEnglish】お問い合わせを受け付けました',
