@@ -32,6 +32,55 @@
             min-height: 100vh;
         }
 
+        /* Flowing English background */
+        .bg-marquee {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+            mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+        }
+        .bg-lane {
+            position: absolute;
+            display: flex;
+            white-space: nowrap;
+            color: rgba(13, 148, 136, 0.09);
+            font-style: italic;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            will-change: transform;
+        }
+        .bg-lane span {
+            padding-right: 3rem;
+        }
+        .bg-lane.size-lg { font-size: 2.5rem; }
+        .bg-lane.size-md { font-size: 1.875rem; }
+        .bg-lane.size-sm { font-size: 1.375rem; }
+        @media (max-width: 640px) {
+            .bg-lane.size-lg { font-size: 1.625rem; }
+            .bg-lane.size-md { font-size: 1.25rem; }
+            .bg-lane.size-sm { font-size: 1rem; }
+        }
+        @keyframes flow-left {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+        @keyframes flow-right {
+            from { transform: translateX(-50%); }
+            to   { transform: translateX(0); }
+        }
+        .flow-left  { animation: flow-left  linear infinite; }
+        .flow-right { animation: flow-right linear infinite; }
+        @media (prefers-reduced-motion: reduce) {
+            .flow-left, .flow-right { animation: none; }
+        }
+        /* Make sure content sits above marquee */
+        body > header,
+        body > main,
+        body > footer { position: relative; z-index: 1; }
+
         /* Phone mockup */
         .phone-frame {
             background: linear-gradient(145deg, #1f2937, #111827);
@@ -363,6 +412,30 @@
     </style>
 </head>
 <body class="text-slate-900 antialiased">
+
+    <!-- Flowing English example sentences (background) -->
+    <div class="bg-marquee" aria-hidden="true">
+        <div class="bg-lane size-lg flow-left" style="top: 6%; animation-duration: 90s;">
+            <span>How are you doing today?</span><span>Could you tell me the way to the station?</span><span>I'd like to make a reservation for two.</span><span>It's been a while since we last met.</span><span>Would you mind helping me with this?</span><span>I'm looking forward to hearing from you.</span>
+            <span>How are you doing today?</span><span>Could you tell me the way to the station?</span><span>I'd like to make a reservation for two.</span><span>It's been a while since we last met.</span><span>Would you mind helping me with this?</span><span>I'm looking forward to hearing from you.</span>
+        </div>
+        <div class="bg-lane size-md flow-right" style="top: 22%; animation-duration: 110s;">
+            <span>Let me think about it for a moment.</span><span>Could I have the bill, please?</span><span>What do you do for a living?</span><span>I couldn't agree more.</span><span>That sounds like a great idea.</span><span>Sorry to keep you waiting.</span>
+            <span>Let me think about it for a moment.</span><span>Could I have the bill, please?</span><span>What do you do for a living?</span><span>I couldn't agree more.</span><span>That sounds like a great idea.</span><span>Sorry to keep you waiting.</span>
+        </div>
+        <div class="bg-lane size-sm flow-left" style="top: 40%; animation-duration: 75s;">
+            <span>How long have you been studying English?</span><span>Could you say that one more time?</span><span>It depends on the situation.</span><span>I'll get back to you as soon as possible.</span><span>Take your time, there's no rush.</span><span>Would you like something to drink?</span>
+            <span>How long have you been studying English?</span><span>Could you say that one more time?</span><span>It depends on the situation.</span><span>I'll get back to you as soon as possible.</span><span>Take your time, there's no rush.</span><span>Would you like something to drink?</span>
+        </div>
+        <div class="bg-lane size-md flow-right" style="top: 58%; animation-duration: 100s;">
+            <span>What time does the next train leave?</span><span>I'm afraid I have to disagree.</span><span>Could you spell that for me, please?</span><span>It's nice to finally meet you.</span><span>Don't worry about it.</span><span>How can I help you today?</span>
+            <span>What time does the next train leave?</span><span>I'm afraid I have to disagree.</span><span>Could you spell that for me, please?</span><span>It's nice to finally meet you.</span><span>Don't worry about it.</span><span>How can I help you today?</span>
+        </div>
+        <div class="bg-lane size-lg flow-left" style="top: 76%; animation-duration: 95s;">
+            <span>I'd appreciate it if you could let me know.</span><span>Sounds good to me.</span><span>Why don't we try a different approach?</span><span>I'm not sure I follow you.</span><span>Could you do me a favor?</span>
+            <span>I'd appreciate it if you could let me know.</span><span>Sounds good to me.</span><span>Why don't we try a different approach?</span><span>I'm not sure I follow you.</span><span>Could you do me a favor?</span>
+        </div>
+    </div>
 
     <!-- Header (sticky) -->
     <header class="nav-blur sticky top-0 z-50 border-b border-slate-200/60">
