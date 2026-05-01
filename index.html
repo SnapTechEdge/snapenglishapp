@@ -889,8 +889,8 @@
             const submitBtn = document.getElementById('submit-btn');
             const submitLabel = document.getElementById('submit-label');
             const result = document.getElementById('form-result');
-            const subjectInput = form.elements.subject;
-            const messageInput = form.elements.message;
+            const subjectInput = form.querySelector('[name="subject"]');
+            const messageInput = form.querySelector('[name="message"]');
             const subjectCount = document.getElementById('subject-count');
             const messageCount = document.getElementById('message-count');
 
@@ -908,12 +908,14 @@
                 submitLabel.textContent = '送信中…';
                 result.className = 'hidden';
 
+                // FormData ベースで取得 (form.elements.name の予約語衝突を回避)
+                const fd = new FormData(form);
                 const data = {
-                    name: form.elements.name.value.trim(),
-                    email: form.elements.email.value.trim(),
-                    subject: form.elements.subject.value.trim(),
-                    message: form.elements.message.value.trim(),
-                    website: form.elements.website.value, // honeypot
+                    name: (fd.get('name') || '').toString().trim(),
+                    email: (fd.get('email') || '').toString().trim(),
+                    subject: (fd.get('subject') || '').toString().trim(),
+                    message: (fd.get('message') || '').toString().trim(),
+                    website: (fd.get('website') || '').toString(),
                 };
 
                 try {
