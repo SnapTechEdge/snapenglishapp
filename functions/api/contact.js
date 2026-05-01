@@ -71,8 +71,10 @@ export async function onRequestPost(context) {
     const ua = request.headers.get('User-Agent') || 'unknown';
 
     // 1) 運営宛てメール (お問い合わせ通知)
+    //    運営はこの通知から「Reply」してユーザーに返信するため from は support@ にする。
+    //    reply_to はユーザーのメールアドレスを設定済みなので、Reply ボタンで直接ユーザーに届く。
     const adminMail = sendMail(env.RESEND_API_KEY, {
-      from: 'noreply@snapenglishapp.com',
+      from: 'support@snapenglishapp.com',
       to: ['support@snapenglishapp.com'],
       reply_to: trimmed.email,
       subject: `[お問い合わせ] ${trimmed.subject} - ${trimmed.name}`,
