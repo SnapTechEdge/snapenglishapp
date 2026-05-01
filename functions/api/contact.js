@@ -94,10 +94,11 @@ export async function onRequestPost(context) {
     });
 
     // 2) ユーザー宛て自動返信
+    //    純粋な no-reply: reply_to を設定せず、Reply された場合は noreply@ に届いて bounce する。
+    //    本文に「support@ 宛に新規メールで」と明記済み。
     const autoReply = sendMail(env.RESEND_API_KEY, {
       from: 'noreply@snapenglishapp.com',
       to: [trimmed.email],
-      reply_to: 'support@snapenglishapp.com',
       subject: '【SnapEnglish】お問い合わせを受け付けました',
       text: [
         `${trimmed.name} 様`,
