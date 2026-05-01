@@ -805,13 +805,14 @@
                     </label>
                 </div>
                 <label class="block">
-                    <span class="text-sm font-semibold text-slate-700">件名</span>
-                    <input type="text" name="subject" maxlength="200" class="mt-1.5 w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 focus:outline-none transition" placeholder="例: 購入後の機能について">
+                    <span class="text-sm font-semibold text-slate-700">件名 <span class="text-rose-500">*</span></span>
+                    <input type="text" name="subject" required maxlength="100" class="mt-1.5 w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 focus:outline-none transition" placeholder="例: 購入後の機能について">
+                    <span class="text-xs text-slate-400 mt-1 block"><span id="subject-count">0</span> / 100</span>
                 </label>
                 <label class="block">
                     <span class="text-sm font-semibold text-slate-700">メッセージ <span class="text-rose-500">*</span></span>
                     <textarea name="message" required maxlength="5000" rows="6" class="mt-1.5 w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 focus:outline-none transition resize-y" placeholder="お問い合わせ内容をご記入ください"></textarea>
-                    <span class="text-xs text-slate-400 mt-1 block"><span id="char-count">0</span> / 5000</span>
+                    <span class="text-xs text-slate-400 mt-1 block"><span id="message-count">0</span> / 5000</span>
                 </label>
 
                 <!-- ハニーポット (bot 対策、ユーザーには見えない) -->
@@ -888,12 +889,17 @@
             const submitBtn = document.getElementById('submit-btn');
             const submitLabel = document.getElementById('submit-label');
             const result = document.getElementById('form-result');
+            const subjectInput = form.elements.subject;
             const messageInput = form.elements.message;
-            const charCount = document.getElementById('char-count');
+            const subjectCount = document.getElementById('subject-count');
+            const messageCount = document.getElementById('message-count');
 
             // 文字数カウント
+            subjectInput.addEventListener('input', () => {
+                subjectCount.textContent = subjectInput.value.length;
+            });
             messageInput.addEventListener('input', () => {
-                charCount.textContent = messageInput.value.length;
+                messageCount.textContent = messageInput.value.length;
             });
 
             form.addEventListener('submit', async (e) => {
@@ -920,8 +926,9 @@
 
                     if (res.ok && json.ok) {
                         form.reset();
-                        charCount.textContent = '0';
-                        result.textContent = '✓ お問い合わせを送信しました。返信までしばらくお待ちください。';
+                        subjectCount.textContent = '0';
+                        messageCount.textContent = '0';
+                        result.textContent = '✓ お問い合わせを送信しました。受付完了メールをお送りしましたのでご確認ください。';
                         result.className = 'text-sm text-center font-medium text-teal-600 mt-2';
                     } else {
                         const msg = json.message || '送信に失敗しました。時間をおいて再度お試しください。';
