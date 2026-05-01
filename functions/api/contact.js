@@ -86,7 +86,7 @@ export async function onRequestPost(context) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'SnapEnglish Contact <noreply@send.snapenglishapp.com>',
+        from: 'SnapEnglish Contact <noreply@snapenglishapp.com>',
         to: ['support@snapenglishapp.com'],
         reply_to: email.trim(),
         subject: subjectLine,
