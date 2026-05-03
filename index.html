@@ -104,6 +104,7 @@
     </script>
 
     <link rel="stylesheet" href="tailwind.css">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap');
 
@@ -776,6 +777,8 @@
                     送信前に <a href="privacy.html" class="text-teal-600 underline hover:text-teal-700">プライバシーポリシー</a> をご確認ください。<br>送信されたメールアドレスは返信目的のみに使用します。
                 </p>
 
+                <div id="turnstile-widget" class="cf-turnstile flex justify-center" data-sitekey="0x4AAAAAADIgK7Q0xDZ3ndlm" data-theme="light"></div>
+
                 <button type="submit" id="submit-btn" class="w-full px-7 py-3.5 rounded-full bg-gradient-to-r from-teal-500 to-emerald-600 text-white font-semibold shadow-lg shadow-teal-500/30 hover:shadow-teal-500/50 transition disabled:opacity-50 disabled:cursor-not-allowed">
                     <span id="submit-label">送信する</span>
                 </button>
@@ -870,7 +873,17 @@
                     subject: (fd.get('subject') || '').toString().trim(),
                     message: (fd.get('message') || '').toString().trim(),
                     website: (fd.get('website') || '').toString(),
+                    cfTurnstileResponse: (fd.get('cf-turnstile-response') || '').toString(),
                 };
+
+                // Turnstile 未完了チェック (画面に出る前に submit 押下した場合の早期エラー)
+                if (!data.cfTurnstileResponse) {
+                    result.textContent = '⚠ ボット対策の検証が完了していません。少しお待ちのうえ再度お試しください。';
+                    result.className = 'text-sm text-center font-medium text-rose-600 mt-2';
+                    submitBtn.disabled = false;
+                    submitLabel.textContent = '送信する';
+                    return;
+                }
 
                 try {
                     const res = await fetch('/api/contact', {
@@ -897,6 +910,10 @@
                 } finally {
                     submitBtn.disabled = false;
                     submitLabel.textContent = '送信する';
+                    // Turnstile token は単回使い切り。結果に関わらず widget をリセット。
+                    if (window.turnstile) {
+                        try { window.turnstile.reset('#turnstile-widget'); } catch (_) {}
+                    }
                 }
             });
         })();

@@ -26,7 +26,7 @@ export async function onRequestPost(context) {
       return jsonError(400, 'invalid_json', 'リクエストボディの形式が不正です');
     }
 
-    const { name = '', email = '', subject = '', message = '', website = '' } = data;
+    const { name = '', email = '', subject = '', message = '', website = '', cfTurnstileResponse = '' } = data;
 
     // ハニーポット (bot 対策): website フィールドが埋まっていたら spam 扱いで「成功」を返す
     if (website.trim() !== '') {
@@ -66,8 +66,36 @@ export async function onRequestPost(context) {
       console.error('RESEND_API_KEY is not configured');
       return jsonError(500, 'server_misconfigured', 'サーバー設定エラー (管理者に連絡してください)');
     }
+    if (!env.TURNSTILE_SECRET_KEY) {
+      console.error('TURNSTILE_SECRET_KEY is not configured');
+      return jsonError(500, 'server_misconfigured', 'サーバー設定エラー (管理者に連絡してください)');
+    }
 
     const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+
+    // Cloudflare Turnstile 検証
+    if (!cfTurnstileResponse) {
+      return jsonError(403, 'turnstile_missing', 'ボット対策の検証が完了していません。ページを再読み込みして再度お試しください。');
+    }
+    try {
+      const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          secret: env.TURNSTILE_SECRET_KEY,
+          response: cfTurnstileResponse,
+          remoteip: ip,
+        }),
+      });
+      const verifyJson = await verifyRes.json().catch(() => ({}));
+      if (!verifyJson.success) {
+        console.warn('Turnstile verify failed', verifyJson['error-codes']);
+        return jsonError(403, 'turnstile_failed', 'ボット対策の検証に失敗しました。ページを再読み込みして再度お試しください。');
+      }
+    } catch (e) {
+      console.error('Turnstile verify error', e);
+      return jsonError(502, 'turnstile_error', 'ボット対策の検証中にエラーが発生しました。時間をおいて再度お試しください。');
+    }
     const ua = request.headers.get('User-Agent') || 'unknown';
 
     // 1) 運営宛てメール (お問い合わせ通知)
