@@ -7,19 +7,26 @@
   <link rel="icon" type="image/png" sizes="64x64" href="icon-64.png">
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
   <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme');
+      var isDark = stored === 'dark' || (stored !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) document.documentElement.classList.add('dark');
+    })();
+  </script>
   <link rel="stylesheet" href="tailwind.css">
 </head>
-<body class="bg-white text-slate-800 antialiased">
+<body class="bg-white text-slate-800 antialiased dark:bg-slate-900 dark:text-slate-100">
   <!-- 背景装飾 -->
   <div class="fixed inset-0 -z-10 overflow-hidden">
-    <div class="absolute -top-40 -right-40 w-96 h-96 bg-teal-100 rounded-full blur-3xl opacity-60"></div>
-    <div class="absolute top-1/2 -left-40 w-80 h-80 bg-emerald-100 rounded-full blur-3xl opacity-50"></div>
+    <div class="absolute -top-40 -right-40 w-96 h-96 bg-teal-100 rounded-full blur-3xl opacity-60 dark:bg-teal-900/40"></div>
+    <div class="absolute top-1/2 -left-40 w-80 h-80 bg-emerald-100 rounded-full blur-3xl opacity-50 dark:bg-emerald-900/40"></div>
   </div>
 
   <div class="max-w-3xl mx-auto px-6 py-8">
     <!-- ヘッダー -->
     <header class="flex items-center justify-between mb-10">
-      <a href="index.html" class="inline-flex items-center gap-2 text-slate-600 hover:text-teal-600 transition">
+      <a href="index.html" class="inline-flex items-center gap-2 text-slate-600 hover:text-teal-600 transition dark:text-slate-300 dark:hover:text-teal-400">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
         </svg>
@@ -27,38 +34,38 @@
       </a>
       <a href="index.html" class="inline-flex items-center gap-2 text-lg font-bold">
         <img src="icon-64.png" alt="SnapEnglish" class="w-8 h-8 rounded-lg shadow-sm">
-        <span><span style="color: #2E8752">Snap</span><span class="text-slate-800">English</span></span>
+        <span><span style="color: #2E8752">Snap</span><span class="text-slate-800 dark:text-slate-100">English</span></span>
       </a>
     </header>
 
     <!-- 本文 -->
-    <main class="bg-white rounded-3xl border border-slate-200 shadow-sm p-8 sm:p-10">
+    <main class="bg-white rounded-3xl border border-slate-200 shadow-sm p-8 sm:p-10 dark:bg-slate-900 dark:border-slate-700">
       <header class="mb-10">
-        <p class="text-sm font-medium text-teal-600 mb-2">Terms</p>
-        <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">利用規約</h1>
-        <p class="text-slate-600 leading-relaxed">
+        <p class="text-sm font-medium text-teal-600 mb-2 dark:text-teal-400">Terms</p>
+        <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-4 dark:text-slate-50">利用規約</h1>
+        <p class="text-slate-600 leading-relaxed dark:text-slate-300">
           本規約は、SnapEnglish（以下「本アプリ」）の利用に関する条件を定めるものです。ユーザーは本規約に同意の上、本アプリをご利用ください。本アプリをインストールまたは使用した時点で、本規約に同意したものとみなします。
         </p>
       </header>
 
       <div class="space-y-8">
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="text-teal-600 text-sm font-bold">第1条</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="text-teal-600 text-sm font-bold dark:text-teal-400">第1条</span>
             適用
           </h2>
-          <p class="text-slate-600 leading-relaxed">
+          <p class="text-slate-600 leading-relaxed dark:text-slate-300">
             本規約は、本アプリの利用に関するすべての関係に適用されるものとします。本規約に定めのない事項については、関連法令の定めに従います。
           </p>
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="text-teal-600 text-sm font-bold">第2条</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="text-teal-600 text-sm font-bold dark:text-teal-400">第2条</span>
             サービス内容
           </h2>
-          <p class="text-slate-600 mb-3">本アプリは、英語学習のための以下の機能を提供します。</p>
-          <ul class="text-slate-600 space-y-1.5 ml-4">
+          <p class="text-slate-600 mb-3 dark:text-slate-300">本アプリは、英語学習のための以下の機能を提供します。</p>
+          <ul class="text-slate-600 space-y-1.5 ml-4 dark:text-slate-300">
             <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span>英作文の練習（入力モード・並べ替えモード）</li>
             <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span>単語の練習（例文穴埋めモード）</li>
             <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span>音声認識による回答入力・発音練習</li>
@@ -67,38 +74,38 @@
             <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span>例文音声の読み上げ再生</li>
             <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span>学習進捗の管理・可視化</li>
           </ul>
-          <p class="text-slate-600 mt-3">
+          <p class="text-slate-600 mt-3 dark:text-slate-300">
             提供する機能やコンテンツは、予告なく変更・追加・廃止される場合があります。
           </p>
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="text-teal-600 text-sm font-bold">第3条</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="text-teal-600 text-sm font-bold dark:text-teal-400">第3条</span>
             アカウント
           </h2>
-          <p class="text-slate-600 leading-relaxed">
+          <p class="text-slate-600 leading-relaxed dark:text-slate-300">
             本アプリは、サインインなしで基本機能をご利用いただけます。複数デバイス間での学習データの同期・引き継ぎを希望する場合に限り、Google アカウントまたは Apple ID による任意のサインインをご利用いただけます。サインインを行ったユーザーは、自身のアカウント情報を適切に管理する責任を負い、第三者への譲渡・貸与はできません。不正利用が判明した場合、運営者は該当アカウントを停止または削除する権利を有します。
           </p>
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="text-teal-600 text-sm font-bold">第4条</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="text-teal-600 text-sm font-bold dark:text-teal-400">第4条</span>
             利用料金
           </h2>
-          <p class="text-slate-600 leading-relaxed">
-            本アプリはダウンロード後 7 日間の無料体験期間を提供します。無料体験期間終了後は、サブスクリプション（定期購読）の契約が必要です。サブスクリプションの料金、期間、更新および解約に関する条件は、Apple App Store の規約および本サイトの<a href="tokushoho.html" class="text-teal-600 hover:underline">特定商取引法に基づく表記</a>に従います。
+          <p class="text-slate-600 leading-relaxed dark:text-slate-300">
+            本アプリはダウンロード後 7 日間の無料体験期間を提供します。無料体験期間終了後は、サブスクリプション（定期購読）の契約が必要です。サブスクリプションの料金、期間、更新および解約に関する条件は、Apple App Store の規約および本サイトの<a href="tokushoho.html" class="text-teal-600 hover:underline dark:text-teal-400">特定商取引法に基づく表記</a>に従います。
           </p>
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="text-teal-600 text-sm font-bold">第5条</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="text-teal-600 text-sm font-bold dark:text-teal-400">第5条</span>
             禁止事項
           </h2>
-          <p class="text-slate-600 mb-3">ユーザーは以下の行為を行ってはなりません。</p>
-          <ul class="text-slate-600 space-y-1.5 ml-4">
+          <p class="text-slate-600 mb-3 dark:text-slate-300">ユーザーは以下の行為を行ってはなりません。</p>
+          <ul class="text-slate-600 space-y-1.5 ml-4 dark:text-slate-300">
             <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span>不正アクセス、リバースエンジニアリング、改ざん行為</li>
             <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span>本アプリのコンテンツの無断複製、転載、再配布</li>
             <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span>他のユーザーまたは第三者への迷惑行為、誹謗中傷</li>
@@ -108,24 +115,24 @@
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="text-teal-600 text-sm font-bold">第6条</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="text-teal-600 text-sm font-bold dark:text-teal-400">第6条</span>
             知的財産権
           </h2>
-          <p class="text-slate-600 leading-relaxed">
+          <p class="text-slate-600 leading-relaxed dark:text-slate-300">
             本アプリに含まれるすべてのコンテンツ（問題文、音声データ、デザイン、ソースコード等）に関する知的財産権は、運営者または正当な権利者に帰属します。
           </p>
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="text-teal-600 text-sm font-bold">第7条</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="text-teal-600 text-sm font-bold dark:text-teal-400">第7条</span>
             音声機能
           </h2>
-          <div class="text-slate-600 leading-relaxed space-y-3">
+          <div class="text-slate-600 leading-relaxed space-y-3 dark:text-slate-300">
             <p><strong>(1) 音声入力機能</strong></p>
             <p class="ml-4">回答入力および発音練習のためマイクへのアクセスを求める場合があります。</p>
-            <ul class="text-slate-600 space-y-1.5 ml-4">
+            <ul class="text-slate-600 space-y-1.5 ml-4 dark:text-slate-300">
               <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span>回答入力時：Apple の音声認識により端末上で処理されます。音声データは外部サーバーに送信されません。</li>
               <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span>発音練習時：録音した音声データは Microsoft の音声解析サービスに送信され、発音の分析に使用されます。いずれの場合も、音声データが運営者のサーバーに保存されることはありません。</li>
             </ul>
@@ -135,68 +142,68 @@
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="text-teal-600 text-sm font-bold">第8条</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="text-teal-600 text-sm font-bold dark:text-teal-400">第8条</span>
             免責事項
           </h2>
-          <p class="text-slate-600 leading-relaxed">
+          <p class="text-slate-600 leading-relaxed dark:text-slate-300">
             本アプリは「現状有姿」で提供され、英語力の向上や特定の学習効果を保証するものではありません。本アプリの利用により生じた損害について、運営者は法令上許容される範囲で責任を負いません。通信環境やデバイスの状態により、一部機能が正常に動作しない場合があります。
           </p>
-          <p class="text-slate-600 leading-relaxed mt-3">
+          <p class="text-slate-600 leading-relaxed mt-3 dark:text-slate-300">
             本アプリの AI 機能（添削・発音フィードバック）は外部の AI サービスおよび音声解析サービスを利用しており、サーバーの混雑やメンテナンス等により一時的に利用できない場合があります。AI 機能の結果は参考情報であり、正確性・完全性を保証するものではありません。
           </p>
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="text-teal-600 text-sm font-bold">第9条</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="text-teal-600 text-sm font-bold dark:text-teal-400">第9条</span>
             サービスの中断・終了
           </h2>
-          <p class="text-slate-600 leading-relaxed">
+          <p class="text-slate-600 leading-relaxed dark:text-slate-300">
             運営者は、システムの保守、天災、その他やむを得ない事由により、予告なくサービスを一時中断または終了することがあります。
           </p>
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="text-teal-600 text-sm font-bold">第10条</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="text-teal-600 text-sm font-bold dark:text-teal-400">第10条</span>
             規約の変更
           </h2>
-          <p class="text-slate-600 leading-relaxed">
+          <p class="text-slate-600 leading-relaxed dark:text-slate-300">
             運営者は、必要に応じて本規約を変更することがあります。重要な変更がある場合は、本アプリ内またはウェブサイト上で通知します。変更後も本アプリを継続して利用した場合、変更後の規約に同意したものとみなします。
           </p>
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="text-teal-600 text-sm font-bold">第11条</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="text-teal-600 text-sm font-bold dark:text-teal-400">第11条</span>
             準拠法・管轄
           </h2>
-          <p class="text-slate-600 leading-relaxed">
+          <p class="text-slate-600 leading-relaxed dark:text-slate-300">
             本規約は日本法に準拠し、本規約に関する紛争は東京地方裁判所を第一審の専属的合意管轄裁判所とします。
           </p>
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="text-teal-600 text-sm font-bold">第12条</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="text-teal-600 text-sm font-bold dark:text-teal-400">第12条</span>
             お問い合わせ
           </h2>
-          <p class="text-slate-600 mb-3">本規約に関するご質問は、以下までお願いいたします。</p>
-          <a href="mailto:support@snapenglishapp.com" class="text-teal-600 hover:text-teal-700 font-medium">
+          <p class="text-slate-600 mb-3 dark:text-slate-300">本規約に関するご質問は、以下までお願いいたします。</p>
+          <a href="mailto:support@snapenglishapp.com" class="text-teal-600 hover:text-teal-700 font-medium dark:text-teal-400 dark:hover:text-teal-300">
             support@snapenglishapp.com
           </a>
         </section>
       </div>
 
-      <div class="mt-10 pt-6 border-t border-slate-200 text-right text-sm text-slate-500">
+      <div class="mt-10 pt-6 border-t border-slate-200 text-right text-sm text-slate-500 dark:border-slate-700">
         最終更新日：2026年5月1日
       </div>
     </main>
 
     <!-- フッター -->
     <footer class="mt-8 mb-8 text-sm text-slate-500 flex items-center justify-between">
-      <a href="index.html" class="hover:text-teal-600 transition">トップページへ</a>
+      <a href="index.html" class="hover:text-teal-600 transition dark:hover:text-teal-400">トップページへ</a>
       <span>© <span id="year">2026</span> SnapTechEdge</span>
     </footer>
   </div>

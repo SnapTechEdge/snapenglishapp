@@ -7,19 +7,26 @@
   <link rel="icon" type="image/png" sizes="64x64" href="icon-64.png">
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
   <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme');
+      var isDark = stored === 'dark' || (stored !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) document.documentElement.classList.add('dark');
+    })();
+  </script>
   <link rel="stylesheet" href="tailwind.css">
 </head>
-<body class="bg-white text-slate-800 antialiased">
+<body class="bg-white text-slate-800 antialiased dark:bg-slate-900 dark:text-slate-100">
   <!-- 背景装飾 -->
   <div class="fixed inset-0 -z-10 overflow-hidden">
-    <div class="absolute -top-40 -right-40 w-96 h-96 bg-teal-100 rounded-full blur-3xl opacity-60"></div>
-    <div class="absolute top-1/2 -left-40 w-80 h-80 bg-emerald-100 rounded-full blur-3xl opacity-50"></div>
+    <div class="absolute -top-40 -right-40 w-96 h-96 bg-teal-100 rounded-full blur-3xl opacity-60 dark:bg-teal-900/40"></div>
+    <div class="absolute top-1/2 -left-40 w-80 h-80 bg-emerald-100 rounded-full blur-3xl opacity-50 dark:bg-emerald-900/40"></div>
   </div>
 
   <div class="max-w-3xl mx-auto px-6 py-8">
     <!-- ヘッダー -->
     <header class="flex items-center justify-between mb-10">
-      <a href="index.html" class="inline-flex items-center gap-2 text-slate-600 hover:text-teal-600 transition">
+      <a href="index.html" class="inline-flex items-center gap-2 text-slate-600 hover:text-teal-600 transition dark:text-slate-300 dark:hover:text-teal-400">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
         </svg>
@@ -27,28 +34,28 @@
       </a>
       <a href="index.html" class="inline-flex items-center gap-2 text-lg font-bold">
         <img src="icon-64.png" alt="SnapEnglish" class="w-8 h-8 rounded-lg shadow-sm">
-        <span><span style="color: #2E8752">Snap</span><span class="text-slate-800">English</span></span>
+        <span><span style="color: #2E8752">Snap</span><span class="text-slate-800 dark:text-slate-100">English</span></span>
       </a>
     </header>
 
     <!-- 本文 -->
-    <main class="bg-white rounded-3xl border border-slate-200 shadow-sm p-8 sm:p-10">
+    <main class="bg-white rounded-3xl border border-slate-200 shadow-sm p-8 sm:p-10 dark:bg-slate-900 dark:border-slate-700">
       <header class="mb-10">
-        <p class="text-sm font-medium text-teal-600 mb-2">Policy</p>
-        <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">プライバシーポリシー</h1>
-        <p class="text-slate-600 leading-relaxed">
+        <p class="text-sm font-medium text-teal-600 mb-2 dark:text-teal-400">Policy</p>
+        <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-4 dark:text-slate-50">プライバシーポリシー</h1>
+        <p class="text-slate-600 leading-relaxed dark:text-slate-300">
           SnapTechEdge（以下「当組織」）は、提供するアプリケーション「SnapEnglish」（以下「本アプリ」）および本ウェブサイトにおけるユーザーの個人情報の取扱いについて、個人情報の保護に関する法律その他関連法令を遵守し、適切に管理・保護することに努めます。
         </p>
       </header>
 
       <div class="space-y-8">
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold">1</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold dark:bg-teal-900/40 dark:text-teal-400">1</span>
             収集する情報
           </h2>
-          <p class="text-slate-600 mb-3">当組織は、本アプリの提供に必要な範囲で、以下の情報を取得します。</p>
-          <ul class="text-slate-600 space-y-1.5 ml-4">
+          <p class="text-slate-600 mb-3 dark:text-slate-300">当組織は、本アプリの提供に必要な範囲で、以下の情報を取得します。</p>
+          <ul class="text-slate-600 space-y-1.5 ml-4 dark:text-slate-300">
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
               <span><strong>メールアドレス</strong>：Apple ID または Google アカウントによるサインイン時に取得します。アカウント識別および本人確認に使用します。</span>
@@ -80,12 +87,12 @@
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold">2</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold dark:bg-teal-900/40 dark:text-teal-400">2</span>
             利用目的
           </h2>
-          <p class="text-slate-600 mb-3">取得した情報は、以下の目的の範囲でのみ利用します。</p>
-          <ul class="text-slate-600 space-y-1.5 ml-4">
+          <p class="text-slate-600 mb-3 dark:text-slate-300">取得した情報は、以下の目的の範囲でのみ利用します。</p>
+          <ul class="text-slate-600 space-y-1.5 ml-4 dark:text-slate-300">
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
               本アプリの機能提供および学習進捗の管理
@@ -114,12 +121,12 @@
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold">3</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold dark:bg-teal-900/40 dark:text-teal-400">3</span>
             外部サービス（処理委託先）
           </h2>
-          <p class="text-slate-600 mb-3">本アプリでは、機能提供のために以下の外部サービスを利用しています。各サービスのプライバシーポリシーもあわせてご確認ください。</p>
-          <ul class="text-slate-600 space-y-1.5 ml-4">
+          <p class="text-slate-600 mb-3 dark:text-slate-300">本アプリでは、機能提供のために以下の外部サービスを利用しています。各サービスのプライバシーポリシーもあわせてご確認ください。</p>
+          <ul class="text-slate-600 space-y-1.5 ml-4 dark:text-slate-300">
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
               <span><strong>Google（Firebase）</strong>：認証、データベース（Firestore）、音声ファイル配信（Cloud Storage）</span>
@@ -144,42 +151,42 @@
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold">4</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold dark:bg-teal-900/40 dark:text-teal-400">4</span>
             国外への移転
           </h2>
-          <p class="text-slate-600 leading-relaxed">
+          <p class="text-slate-600 leading-relaxed dark:text-slate-300">
             上記の外部サービスの一部は米国その他の海外サーバー上で運用されており、ユーザー情報がそれらの国に移転される場合があります。当組織は、移転先における個人情報保護水準を確認し、適切な保護措置を講じた上で利用します。本アプリを利用することにより、当該移転に同意したものとみなします。
           </p>
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold">5</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold dark:bg-teal-900/40 dark:text-teal-400">5</span>
             安全管理措置
           </h2>
-          <p class="text-slate-600 leading-relaxed">
+          <p class="text-slate-600 leading-relaxed dark:text-slate-300">
             当組織は、個人情報の漏えい、滅失または毀損の防止のために、適切な組織的、人的、技術的施策を講じます。学習データおよびアカウント情報は暗号化された通信（HTTPS）で送受信され、クラウド上に安全に保管されます。
           </p>
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold">6</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold dark:bg-teal-900/40 dark:text-teal-400">6</span>
             第三者提供
           </h2>
-          <p class="text-slate-600 leading-relaxed">
+          <p class="text-slate-600 leading-relaxed dark:text-slate-300">
             当組織は、法令に基づき開示が認められる場合および前項に記載の処理委託の場合を除き、あらかじめユーザーの同意を得ることなく個人情報を第三者に提供することはありません。当組織は、個人情報を販売することはありません。
           </p>
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold">7</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold dark:bg-teal-900/40 dark:text-teal-400">7</span>
             ユーザーの権利・アカウント削除
           </h2>
-          <p class="text-slate-600 mb-3">ユーザーは以下の権利を有します。</p>
-          <ul class="text-slate-600 space-y-1.5 ml-4">
+          <p class="text-slate-600 mb-3 dark:text-slate-300">ユーザーは以下の権利を有します。</p>
+          <ul class="text-slate-600 space-y-1.5 ml-4 dark:text-slate-300">
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
               自身の個人情報の開示、訂正、削除、利用停止の請求
@@ -193,51 +200,51 @@
               通知やデータ収集のオプトアウト
             </li>
           </ul>
-          <p class="text-slate-600 mt-3">
+          <p class="text-slate-600 mt-3 dark:text-slate-300">
             アプリ内の機能で対応できない請求については、本人確認の上、最終項のお問い合わせ先にご連絡ください。
           </p>
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold">8</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold dark:bg-teal-900/40 dark:text-teal-400">8</span>
             子どものプライバシー
           </h2>
-          <p class="text-slate-600 leading-relaxed">
+          <p class="text-slate-600 leading-relaxed dark:text-slate-300">
             本アプリは 13 歳未満の児童を対象としていません。13 歳未満の方が利用される場合は、保護者の同意と監督のもとでご利用ください。13 歳未満の児童から意図せず個人情報を取得したことが判明した場合、速やかに削除します。
           </p>
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold">9</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold dark:bg-teal-900/40 dark:text-teal-400">9</span>
             プライバシーポリシーの改定
           </h2>
-          <p class="text-slate-600 leading-relaxed">
+          <p class="text-slate-600 leading-relaxed dark:text-slate-300">
             当組織は、必要に応じて本ポリシーを変更することがあります。重要な変更がある場合は、本アプリ内またはウェブサイト上での掲示によりユーザーに通知いたします。
           </p>
         </section>
 
         <section>
-          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold">10</span>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 dark:text-slate-50">
+            <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold dark:bg-teal-900/40 dark:text-teal-400">10</span>
             お問い合わせ先
           </h2>
-          <p class="text-slate-600 mb-3">個人情報の取扱いに関するお問い合わせは、以下までお願いいたします。</p>
-          <a href="mailto:support@snapenglishapp.com" class="text-teal-600 hover:text-teal-700 font-medium">
+          <p class="text-slate-600 mb-3 dark:text-slate-300">個人情報の取扱いに関するお問い合わせは、以下までお願いいたします。</p>
+          <a href="mailto:support@snapenglishapp.com" class="text-teal-600 hover:text-teal-700 font-medium dark:text-teal-400 dark:hover:text-teal-300">
             support@snapenglishapp.com
           </a>
         </section>
       </div>
 
-      <div class="mt-10 pt-6 border-t border-slate-200 text-right text-sm text-slate-500">
+      <div class="mt-10 pt-6 border-t border-slate-200 text-right text-sm text-slate-500 dark:border-slate-700">
         最終更新日：2026年5月1日
       </div>
     </main>
 
     <!-- フッター -->
     <footer class="mt-8 mb-8 text-sm text-slate-500 flex items-center justify-between">
-      <a href="index.html" class="hover:text-teal-600 transition">トップページへ</a>
+      <a href="index.html" class="hover:text-teal-600 transition dark:hover:text-teal-400">トップページへ</a>
       <span>© <span id="year">2026</span> SnapTechEdge</span>
     </footer>
   </div>
