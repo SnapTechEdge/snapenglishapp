@@ -46,232 +46,19 @@
         .phone-screen {
             background: #f5f5f7;
             border-radius: 34px;
-            aspect-ratio: 9/19.5;
+            aspect-ratio: 1206/2622;
             overflow: hidden;
             position: relative;
         }
-        .phone-frame::before {
-            content: '';
-            position: absolute;
-            top: 18px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 24px;
-            background: #111827;
-            border-radius: 14px;
-            z-index: 10;
-        }
-
-        /* Phone UI replica */
-        .phone-ui {
-            padding: 36px 14px 0;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        .phone-screen img {
+            width: 100%;
             height: 100%;
-            font-size: 10px;
-            color: #0f172a;
-            font-family: 'Inter', 'Noto Sans JP', sans-serif;
-        }
-        .phone-statusbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 0 6px;
-            margin-bottom: 6px;
-        }
-        .phone-greeting {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 4px;
-        }
-        .phone-greeting-title {
-            font-size: 14px;
-            font-weight: 800;
-            line-height: 1.1;
-        }
-        .phone-greeting-sub {
-            font-size: 8px;
-            color: #64748b;
-            margin-top: 2px;
-        }
-        .phone-icon-row {
-            display: flex;
-            gap: 6px;
-            background: white;
-            padding: 5px 8px;
-            border-radius: 14px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-        }
-        .phone-icon-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #e2e8f0;
-        }
-        .phone-cal {
-            background: #1e293b;
-            color: white;
-            border-radius: 14px;
-            padding: 10px;
-        }
-        .phone-cal-month {
-            text-align: center;
-            font-size: 11px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        .phone-cal-days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 2px;
-            text-align: center;
-            font-size: 7px;
-            color: #94a3b8;
-            margin-bottom: 2px;
-        }
-        .phone-cal-nums {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 2px;
-            text-align: center;
-            font-size: 11px;
-            font-weight: 600;
-        }
-        .phone-cal-active {
-            background: #6366f1;
-            border-radius: 999px;
-            padding: 4px 0;
-        }
-        .phone-cal-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
-            font-size: 7px;
-            color: #94a3b8;
-        }
-        .phone-cal-stats strong {
             display: block;
-            font-size: 13px;
-            font-weight: 800;
-            color: white;
-            margin-bottom: 1px;
+            object-fit: cover;
         }
-        .phone-cal-stats .accent { color: #f97316; }
-        .phone-cal-stats .accent2 { color: #14b8a6; }
-        .phone-section-h {
-            font-size: 13px;
-            font-weight: 800;
-            margin-top: 4px;
-            padding: 0 4px;
+        @media (prefers-color-scheme: dark) {
+            .phone-screen { background: #000; }
         }
-        .phone-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px;
-        }
-        .phone-card {
-            background: white;
-            border-radius: 10px;
-            padding: 8px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-        }
-        .phone-card-label {
-            font-size: 7px;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            color: #14b8a6;
-            margin-bottom: 2px;
-        }
-        .phone-card-title {
-            font-size: 11px;
-            font-weight: 800;
-            line-height: 1.1;
-        }
-        .phone-card-sub {
-            font-size: 7px;
-            color: #64748b;
-            margin-top: 3px;
-        }
-        .phone-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 8px;
-            font-weight: 700;
-            padding: 0 4px;
-        }
-        .phone-pill::before {
-            content: '';
-            width: 3px;
-            height: 10px;
-            background: #14b8a6;
-            border-radius: 2px;
-        }
-        .phone-mode {
-            background: linear-gradient(115deg, #134e4a, #115e59);
-            border-radius: 12px;
-            padding: 8px 10px;
-            color: white;
-            position: relative;
-        }
-        .phone-mode-2 {
-            background: linear-gradient(115deg, #064e3b, #047857);
-        }
-        .phone-mode-badges {
-            display: flex;
-            gap: 3px;
-            margin-bottom: 4px;
-        }
-        .phone-mode-badge {
-            font-size: 6px;
-            background: rgba(255,255,255,0.18);
-            padding: 1px 4px;
-            border-radius: 999px;
-            font-weight: 700;
-        }
-        .phone-mode-title {
-            font-size: 12px;
-            font-weight: 800;
-        }
-        .phone-mode-en {
-            font-size: 7px;
-            opacity: 0.7;
-            margin-top: 1px;
-        }
-        .phone-bottom-nav {
-            margin-top: auto;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            border-top-left-radius: 14px;
-            border-top-right-radius: 14px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            text-align: center;
-            padding: 8px 0 14px;
-            font-size: 7px;
-            color: #94a3b8;
-            font-weight: 700;
-        }
-        .phone-bottom-nav .nav-active {
-            color: #ef4444;
-        }
-        .phone-nav-icon {
-            display: block;
-            width: 14px;
-            height: 14px;
-            margin: 0 auto 2px;
-            border-radius: 3px;
-            background: #cbd5e1;
-        }
-        .nav-active .phone-nav-icon { background: #ef4444; }
 
         /* Coming soon pill */
         .pill-soon {
@@ -423,101 +210,14 @@
             <div class="flex justify-center lg:justify-end fade-up visible">
                 <div class="phone-frame w-72 sm:w-80 relative">
                     <div class="phone-screen">
-                        <div class="phone-ui">
-                            <!-- Status bar -->
-                            <div class="phone-statusbar">
-                                <span>9:41</span>
-                                <span style="display:flex;gap:3px;align-items:center;">
-                                    <svg width="12" height="9" viewBox="0 0 12 9" fill="currentColor"><rect x="0" y="6" width="2" height="3" rx="0.5"/><rect x="3" y="4" width="2" height="5" rx="0.5"/><rect x="6" y="2" width="2" height="7" rx="0.5"/><rect x="9" y="0" width="2" height="9" rx="0.5"/></svg>
-                                    <svg width="13" height="9" viewBox="0 0 13 9" fill="currentColor"><path d="M6.5.5a8.4 8.4 0 016 2.4l-.7.7a7.4 7.4 0 00-10.6 0L.5 2.9A8.4 8.4 0 016.5.5zm0 2.5a5.9 5.9 0 014.2 1.7l-.7.7a4.9 4.9 0 00-7 0L2.3 4.7A5.9 5.9 0 016.5 3zm0 2.5a3.4 3.4 0 012.4 1l-.7.7a2.4 2.4 0 00-3.4 0L4.1 6.5A3.4 3.4 0 016.5 5.5zm0 2.4a1 1 0 11-1 1 1 1 0 011-1z"/></svg>
-                                    <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><rect x="0.5" y="0.5" width="18" height="9" rx="2" stroke="currentColor" stroke-opacity="0.4"/><rect x="2" y="2" width="15" height="6" rx="1" fill="#10b981"/><rect x="19" y="3" width="2" height="4" rx="0.5" fill="currentColor" fill-opacity="0.4"/></svg>
-                                </span>
-                            </div>
-
-                            <!-- Greeting -->
-                            <div class="phone-greeting">
-                                <div>
-                                    <div class="phone-greeting-title">Good Night,</div>
-                                    <div class="phone-greeting-sub">Guest</div>
-                                </div>
-                                <div class="phone-icon-row">
-                                    <div class="phone-icon-dot"></div>
-                                    <div class="phone-icon-dot"></div>
-                                    <div class="phone-icon-dot"></div>
-                                </div>
-                            </div>
-
-                            <!-- Calendar card -->
-                            <div class="phone-cal">
-                                <div class="phone-cal-month">2026年5月</div>
-                                <div class="phone-cal-days">
-                                    <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
-                                </div>
-                                <div class="phone-cal-nums">
-                                    <span>27</span><span>28</span><span>29</span><span>30</span>
-                                    <span class="phone-cal-active">1</span>
-                                    <span>2</span><span>3</span>
-                                </div>
-                                <div class="phone-cal-stats">
-                                    <div><strong class="accent">1</strong>STREAK</div>
-                                    <div><strong>0</strong>今日の累計</div>
-                                    <div><strong class="accent2">8%</strong>4 / 45 問</div>
-                                </div>
-                            </div>
-
-                            <!-- 英作文 section -->
-                            <div class="phone-section-h">英作文</div>
-                            <div class="phone-row">
-                                <div class="phone-card">
-                                    <div class="phone-card-label">▶ CONTINUE</div>
-                                    <div class="phone-card-title">第1文型(SV)</div>
-                                    <div class="phone-card-sub">日常・文法編</div>
-                                </div>
-                                <div class="phone-card">
-                                    <div class="phone-card-label">📋 TODAY'S TASK</div>
-                                    <div class="phone-card-title">0 / 10 問</div>
-                                    <div class="phone-card-sub">あと 10 問で達成</div>
-                                </div>
-                            </div>
-
-                            <!-- Tab pill -->
-                            <div class="phone-pill">日常 — 毎日の生活で使える実用英語</div>
-
-                            <!-- Mode cards -->
-                            <div class="phone-mode">
-                                <div class="phone-mode-badges">
-                                    <span class="phone-mode-badge">初級</span>
-                                    <span class="phone-mode-badge">中級</span>
-                                </div>
-                                <div class="phone-mode-title">文法編</div>
-                                <div class="phone-mode-en">Grammar · 0%</div>
-                            </div>
-                            <div class="phone-mode phone-mode-2">
-                                <div class="phone-mode-badges">
-                                    <span class="phone-mode-badge">初級</span>
-                                    <span class="phone-mode-badge">中級</span>
-                                    <span class="phone-mode-badge">上級</span>
-                                </div>
-                                <div class="phone-mode-title">シーン編</div>
-                                <div class="phone-mode-en">Scene · Start</div>
-                            </div>
-
-                            <!-- Bottom nav -->
-                            <div class="phone-bottom-nav">
-                                <div class="nav-active">
-                                    <span class="phone-nav-icon"></span>
-                                    Home
-                                </div>
-                                <div>
-                                    <span class="phone-nav-icon"></span>
-                                    Review
-                                </div>
-                                <div>
-                                    <span class="phone-nav-icon"></span>
-                                    Progress
-                                </div>
-                            </div>
-                        </div>
+                        <picture>
+                            <source srcset="screenshots/home-dark.webp" media="(prefers-color-scheme: dark)" type="image/webp">
+                            <img src="screenshots/home-light.webp"
+                                 alt="SnapEnglish ホーム画面 — 学習進捗カレンダーと英作文コース一覧"
+                                 width="603" height="1311"
+                                 loading="eager"
+                                 fetchpriority="high">
+                        </picture>
                     </div>
                 </div>
             </div>
