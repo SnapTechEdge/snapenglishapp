@@ -1,0 +1,25 @@
+{
+  "name": "snapenglish-web",
+  "version": "1.0.0",
+  "description": "`snapenglishapp.com` のソース。SnapEnglish アプリの公式サイト。",
+  "main": "index.js",
+  "scripts": {
+    "build": "tailwindcss -i ./src/input.css -o ./tailwind.css --minify",
+    "watch": "tailwindcss -i ./src/input.css -o ./tailwind.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SnapTechEdge/snapenglishapp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/SnapTechEdge/snapenglishapp/issues"
+  },
+  "homepage": "https://github.com/SnapTechEdge/snapenglishapp#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
+  }
+}
