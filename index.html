@@ -307,7 +307,29 @@
                     近日公開
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 </a>
+                <button id="mobile-menu-btn" type="button"
+                    aria-label="メニューを開く"
+                    aria-expanded="false"
+                    aria-controls="mobile-menu"
+                    class="sm:hidden p-2 rounded-full text-slate-600 hover:text-teal-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-teal-400 transition">
+                    <svg data-icon="menu" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    <svg data-icon="close" class="hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
             </div>
+        </div>
+        <!-- Mobile menu drawer -->
+        <div id="mobile-menu" class="hidden sm:hidden border-t border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur">
+            <nav class="flex flex-col px-6 py-3 text-sm text-slate-700 dark:text-slate-200">
+                <a href="#how" class="py-2.5 hover:text-teal-600 dark:hover:text-teal-400 transition">使い方</a>
+                <a href="#features" class="py-2.5 hover:text-teal-600 dark:hover:text-teal-400 transition">機能</a>
+                <a href="#pricing" class="py-2.5 hover:text-teal-600 dark:hover:text-teal-400 transition">料金</a>
+                <a href="#faq" class="py-2.5 hover:text-teal-600 dark:hover:text-teal-400 transition">FAQ</a>
+                <a href="#contact" class="py-2.5 hover:text-teal-600 dark:hover:text-teal-400 transition">お問い合わせ</a>
+                <a href="#cta" class="mt-2 mb-2 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full bg-slate-900 text-white font-medium hover:bg-slate-800 dark:bg-teal-500 dark:hover:bg-teal-600 transition">
+                    近日公開
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+            </nav>
         </div>
     </header>
 
@@ -447,9 +469,9 @@
                     </ul>
                 </div>
                 <div class="order-1 md:order-2 flex justify-center">
-                    <div class="flex gap-3 sm:gap-4 items-start">
+                    <div class="grid grid-cols-2 gap-3 sm:gap-4 items-start w-full max-w-md">
                         <div class="text-center">
-                            <div class="phone-frame w-44 sm:w-48 lg:w-56 mb-3">
+                            <div class="phone-frame mb-3">
                                 <span class="phone-btn phone-btn-action"></span>
                                 <span class="phone-btn phone-btn-vol-up"></span>
                                 <span class="phone-btn phone-btn-vol-dn"></span>
@@ -464,7 +486,7 @@
                             <p class="text-xs font-semibold text-slate-600 tracking-wide dark:text-slate-300">入力モード</p>
                         </div>
                         <div class="text-center">
-                            <div class="phone-frame w-44 sm:w-48 lg:w-56 mb-3">
+                            <div class="phone-frame mb-3">
                                 <span class="phone-btn phone-btn-action"></span>
                                 <span class="phone-btn phone-btn-vol-up"></span>
                                 <span class="phone-btn phone-btn-vol-dn"></span>
@@ -485,9 +507,9 @@
             <!-- Feature 2: AI 添削 -->
             <div class="grid md:grid-cols-2 gap-12 items-start mb-24">
                 <div class="flex justify-center">
-                    <div class="flex gap-3 sm:gap-4 items-start">
+                    <div class="grid grid-cols-2 gap-3 sm:gap-4 items-start w-full max-w-md">
                         <div class="text-center">
-                            <div class="phone-frame w-44 sm:w-48 lg:w-56 mb-3">
+                            <div class="phone-frame mb-3">
                                 <span class="phone-btn phone-btn-action"></span>
                                 <span class="phone-btn phone-btn-vol-up"></span>
                                 <span class="phone-btn phone-btn-vol-dn"></span>
@@ -502,7 +524,7 @@
                             <p class="text-xs font-semibold text-slate-600 tracking-wide dark:text-slate-300">入力モード</p>
                         </div>
                         <div class="text-center">
-                            <div class="phone-frame w-44 sm:w-48 lg:w-56 mb-3">
+                            <div class="phone-frame mb-3">
                                 <span class="phone-btn phone-btn-action"></span>
                                 <span class="phone-btn phone-btn-vol-up"></span>
                                 <span class="phone-btn phone-btn-vol-dn"></span>
@@ -551,9 +573,9 @@
                     </ul>
                 </div>
                 <div class="order-1 md:order-2 flex justify-center">
-                    <div class="flex gap-3 sm:gap-4 items-start">
+                    <div class="grid grid-cols-2 gap-3 sm:gap-4 items-start w-full max-w-md">
                         <div class="text-center">
-                            <div class="phone-frame w-44 sm:w-48 lg:w-56 mb-3">
+                            <div class="phone-frame mb-3">
                                 <span class="phone-btn phone-btn-action"></span>
                                 <span class="phone-btn phone-btn-vol-up"></span>
                                 <span class="phone-btn phone-btn-vol-dn"></span>
@@ -568,7 +590,7 @@
                             <p class="text-xs font-semibold text-slate-600 tracking-wide dark:text-slate-300">問題</p>
                         </div>
                         <div class="text-center">
-                            <div class="phone-frame w-44 sm:w-48 lg:w-56 mb-3">
+                            <div class="phone-frame mb-3">
                                 <span class="phone-btn phone-btn-action"></span>
                                 <span class="phone-btn phone-btn-vol-up"></span>
                                 <span class="phone-btn phone-btn-vol-dn"></span>
@@ -589,9 +611,9 @@
             <!-- Feature 4: 進捗 -->
             <div class="grid md:grid-cols-2 gap-12 items-start">
                 <div class="flex justify-center">
-                    <div class="flex gap-3 sm:gap-4 items-start">
+                    <div class="grid grid-cols-2 gap-3 sm:gap-4 items-start w-full max-w-md">
                         <div class="text-center">
-                            <div class="phone-frame w-44 sm:w-48 lg:w-56 mb-3">
+                            <div class="phone-frame mb-3">
                                 <span class="phone-btn phone-btn-action"></span>
                                 <span class="phone-btn phone-btn-vol-up"></span>
                                 <span class="phone-btn phone-btn-vol-dn"></span>
@@ -606,7 +628,7 @@
                             <p class="text-xs font-semibold text-slate-600 tracking-wide dark:text-slate-300">全体ビュー</p>
                         </div>
                         <div class="text-center">
-                            <div class="phone-frame w-44 sm:w-48 lg:w-56 mb-3">
+                            <div class="phone-frame mb-3">
                                 <span class="phone-btn phone-btn-action"></span>
                                 <span class="phone-btn phone-btn-vol-up"></span>
                                 <span class="phone-btn phone-btn-vol-dn"></span>
@@ -859,6 +881,32 @@
 
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // モバイルメニュー (ハンバーガー → ドロワー)
+        (function() {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            if (!btn || !menu) return;
+            const iconMenu = btn.querySelector('[data-icon="menu"]');
+            const iconClose = btn.querySelector('[data-icon="close"]');
+            function setOpen(open) {
+                menu.classList.toggle('hidden', !open);
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                iconMenu.classList.toggle('hidden', open);
+                iconClose.classList.toggle('hidden', !open);
+            }
+            btn.addEventListener('click', () => {
+                setOpen(menu.classList.contains('hidden'));
+            });
+            // リンククリックでクローズ
+            menu.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => setOpen(false));
+            });
+            // sm 以上にリサイズしたら自動クローズ (ハンバーガー自体が消えるので念のため)
+            window.matchMedia('(min-width: 640px)').addEventListener('change', e => {
+                if (e.matches) setOpen(false);
+            });
+        })();
 
         // テーマ切替 (auto → light → dark → auto)
         (function() {
