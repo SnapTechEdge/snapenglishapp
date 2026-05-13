@@ -386,7 +386,8 @@
             <div class="flex justify-center lg:justify-end fade-up visible">
                 <div class="phone-pair">
                     <!-- ライトモード -->
-                    <div class="phone-frame w-48 sm:w-52 lg:w-60">
+                    <!-- モバイル w-40 (160px) × 2 + gap 14px = 334px で標準幅 (342px content) に収まる -->
+                    <div class="phone-frame w-40 sm:w-52 lg:w-60">
                         <span class="phone-btn phone-btn-action"></span>
                         <span class="phone-btn phone-btn-vol-up"></span>
                         <span class="phone-btn phone-btn-vol-dn"></span>
@@ -399,8 +400,8 @@
                                  fetchpriority="high">
                         </div>
                     </div>
-                    <!-- ダークモード -->
-                    <div class="phone-frame w-48 sm:w-52 lg:w-60 hidden sm:block">
+                    <!-- ダークモード (モバイルでも横並び表示) -->
+                    <div class="phone-frame w-40 sm:w-52 lg:w-60">
                         <span class="phone-btn phone-btn-action"></span>
                         <span class="phone-btn phone-btn-vol-up"></span>
                         <span class="phone-btn phone-btn-vol-dn"></span>

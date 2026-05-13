@@ -365,7 +365,8 @@
             <div class="flex justify-center lg:justify-end fade-up visible">
                 <div class="phone-pair">
                     <!-- Light mode -->
-                    <div class="phone-frame w-48 sm:w-52 lg:w-60">
+                    <!-- Mobile w-40 (160px) × 2 + gap 14px = 334px fits within 342px content area -->
+                    <div class="phone-frame w-40 sm:w-52 lg:w-60">
                         <span class="phone-btn phone-btn-action"></span>
                         <span class="phone-btn phone-btn-vol-up"></span>
                         <span class="phone-btn phone-btn-vol-dn"></span>
@@ -378,8 +379,8 @@
                                  fetchpriority="high">
                         </div>
                     </div>
-                    <!-- Dark mode -->
-                    <div class="phone-frame w-48 sm:w-52 lg:w-60 hidden sm:block">
+                    <!-- Dark mode (also shown on mobile, side-by-side) -->
+                    <div class="phone-frame w-40 sm:w-52 lg:w-60">
                         <span class="phone-btn phone-btn-action"></span>
                         <span class="phone-btn phone-btn-vol-up"></span>
                         <span class="phone-btn phone-btn-vol-dn"></span>
