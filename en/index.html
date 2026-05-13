@@ -113,8 +113,16 @@
     <script>
       // Theme initialization (sync, before stylesheet to prevent FOUC)
       (function() {
+        // On mobile (< 640px), the manual toggle is hidden and we always follow
+        // the OS preference. Otherwise iOS Safari's status bar (which is tied to
+        // the OS color scheme) can mismatch the page when the user picks a
+        // different theme.
+        var isMobile = window.matchMedia && window.matchMedia('(max-width: 639px)').matches;
         var stored = localStorage.getItem('theme'); // 'light' | 'dark' | null(=auto)
-        var isDark = stored === 'dark' || (stored !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var isDark = isMobile
+          ? systemDark
+          : (stored === 'dark' || (stored !== 'light' && systemDark));
         if (isDark) document.documentElement.classList.add('dark');
         var meta = document.getElementById('theme-color-meta');
         if (meta) meta.setAttribute('content', isDark ? '#0f172a' : '#ffffff');
@@ -292,10 +300,13 @@
                 <a href="../" hreflang="ja" lang="ja"
                     class="px-2.5 py-1 rounded-md text-xs font-semibold text-slate-600 hover:text-teal-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-teal-400 transition"
                     title="日本語版へ">JP</a>
+                <!-- Manual theme toggle is hidden on mobile (iOS Safari status bar
+                     color is tightly coupled to the OS preference; mismatching them
+                     produces a visible band of the wrong color above the page). -->
                 <button id="theme-toggle" type="button"
                     aria-label="Toggle theme (auto / light / dark)"
                     title="Toggle theme (auto / light / dark)"
-                    class="p-2 rounded-full text-slate-600 hover:text-teal-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-teal-400 transition">
+                    class="hidden sm:inline-flex p-2 rounded-full text-slate-600 hover:text-teal-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-teal-400 transition">
                     <!-- Auto: half-filled circle (left = light outline / right = dark fill).
                          The previous "sun with rays" was nearly identical to the light icon. -->
                     <svg data-theme-icon="auto" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke-width="2"/><path d="M12 3 a9 9 0 0 1 0 18 z" fill="currentColor"/></svg>
@@ -909,15 +920,21 @@
         })();
 
         // Theme toggle (auto → light → dark → auto)
+        // Disabled on mobile via CSS (button is hidden), so no clicks reach here.
         (function() {
             const btn = document.getElementById('theme-toggle');
             if (!btn) return;
             const mql = window.matchMedia('(prefers-color-scheme: dark)');
+            const mqlMobile = window.matchMedia('(max-width: 639px)');
             const themeMeta = document.getElementById('theme-color-meta');
 
             function applyTheme() {
+                const isMobile = mqlMobile.matches;
                 const stored = localStorage.getItem('theme');
-                const isDark = stored === 'dark' || (stored !== 'light' && mql.matches);
+                // Mobile always follows OS preference; manual override is ignored.
+                const isDark = isMobile
+                    ? mql.matches
+                    : (stored === 'dark' || (stored !== 'light' && mql.matches));
                 document.documentElement.classList.toggle('dark', isDark);
                 if (themeMeta) themeMeta.setAttribute('content', isDark ? '#0f172a' : '#ffffff');
             }

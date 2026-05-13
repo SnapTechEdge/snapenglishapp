@@ -112,10 +112,17 @@
     <script>
       // テーマ初期化 (FOUC 防止のため stylesheet 前に同期実行)
       (function() {
+        // モバイル (< 640px) では手動切替を提供せず、OS 設定 (prefers-color-scheme)
+        // のみに従う。iOS Safari のステータスバー色は OS 設定に強く連動するため、
+        // サイトの手動テーマと OS が逆だと「OS=light / ページ=dark なのに
+        // ステータスバーが白」のような不整合が出る。
+        var isMobile = window.matchMedia && window.matchMedia('(max-width: 639px)').matches;
         var stored = localStorage.getItem('theme'); // 'light' | 'dark' | null(=auto)
-        var isDark = stored === 'dark' || (stored !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var isDark = isMobile
+          ? systemDark
+          : (stored === 'dark' || (stored !== 'light' && systemDark));
         if (isDark) document.documentElement.classList.add('dark');
-        // ステータスバー色を body 背景に合わせる (light: #ffffff / dark: slate-900 #0f172a)
         var meta = document.getElementById('theme-color-meta');
         if (meta) meta.setAttribute('content', isDark ? '#0f172a' : '#ffffff');
       })();
@@ -311,10 +318,13 @@
                 <a href="en/" hreflang="en" lang="en"
                     class="px-2.5 py-1 rounded-md text-xs font-semibold text-slate-600 hover:text-teal-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-teal-400 transition"
                     title="English version">EN</a>
+                <!-- モバイルでは手動切替を廃止 (iOS Safari のステータスバー色は
+                     OS 設定に強く依存し、サイトのテーマと OS が逆だとバーが浮く)。
+                     sm 以上のみ表示する -->
                 <button id="theme-toggle" type="button"
                     aria-label="テーマ切替（自動・ライト・ダーク）"
                     title="テーマ切替（自動・ライト・ダーク）"
-                    class="p-2 rounded-full text-slate-600 hover:text-teal-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-teal-400 transition">
+                    class="hidden sm:inline-flex p-2 rounded-full text-slate-600 hover:text-teal-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-teal-400 transition">
                     <!-- Auto: 半円アイコン (左=ライト白抜き / 右=ダーク塗りつぶし)。
                          「サン + 光線」の従来案は light アイコンとほぼ同じで紛らわしいため、
                          iOS / Linear / Vercel 等で広く使われる半円表現に統一した -->
@@ -934,17 +944,22 @@
         })();
 
         // テーマ切替 (auto → light → dark → auto)
+        // モバイルでは無効 (CSS で button 自体を hidden にしているので click は来ない)。
         (function() {
             const btn = document.getElementById('theme-toggle');
             if (!btn) return;
             const mql = window.matchMedia('(prefers-color-scheme: dark)');
+            const mqlMobile = window.matchMedia('(max-width: 639px)');
             const themeMeta = document.getElementById('theme-color-meta');
 
             function applyTheme() {
+                const isMobile = mqlMobile.matches;
                 const stored = localStorage.getItem('theme');
-                const isDark = stored === 'dark' || (stored !== 'light' && mql.matches);
+                // モバイルは OS 連動のみ (localStorage は無視)
+                const isDark = isMobile
+                    ? mql.matches
+                    : (stored === 'dark' || (stored !== 'light' && mql.matches));
                 document.documentElement.classList.toggle('dark', isDark);
-                // iOS Safari ステータスバー / Android Chrome アドレスバー色も連動
                 if (themeMeta) themeMeta.setAttribute('content', isDark ? '#0f172a' : '#ffffff');
             }
             function updateIcon() {
