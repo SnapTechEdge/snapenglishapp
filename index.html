@@ -129,6 +129,9 @@
                 radial-gradient(ellipse at bottom left, rgba(16, 185, 129, 0.06), transparent 60%),
                 #ffffff;
             min-height: 100vh;
+            /* モバイルでの予期せぬ横スクロールを防ぐ。clip は hidden と違い
+               スクロールコンテキストを作らないため sticky header と干渉しない */
+            overflow-x: clip;
         }
         html.dark body {
             background:
@@ -273,6 +276,13 @@
             -webkit-backdrop-filter: blur(12px);
             background: rgba(255, 255, 255, 0.85);
         }
+
+        /* SM 以上のみ word-break: keep-all (日本語の段組み整形)。
+           モバイルでは自然折返しさせて overflow を防ぐ。
+           Tailwind プリビルドの tailwind.css に sm-break-keep が無いため自前で定義。 */
+        @media (min-width: 640px) {
+            .sm-break-keep { word-break: keep-all; }
+        }
     </style>
 </head>
 <body class="text-slate-900 antialiased dark:text-slate-50">
@@ -343,11 +353,12 @@
                     App Store にて近日公開
                 </span>
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
-                    使える英語を、<br>
+                    使える英語を、<br class="hidden sm:inline">
                     <span class="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">毎日コツコツ</span>。
                 </h1>
-                <p class="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl break-keep dark:text-slate-300">
-                    AI 添削つきの瞬間英作文と、例文で覚える単語学習。<br>
+                <!-- break-keep は SM 以上のみ。モバイルは自然折返しで overflow を防ぐ -->
+                <p class="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl sm-break-keep dark:text-slate-300">
+                    AI 添削つきの瞬間英作文と、例文で覚える単語学習。<br class="hidden sm:inline">
                     表現力・単語力を毎日積み上げる新しい学習アプリです。
                 </p>
                 <div class="flex flex-wrap items-center gap-4 mb-6">
@@ -429,18 +440,18 @@
                 <div class="text-center">
                     <div class="step-num mx-auto mb-5">1</div>
                     <h3 class="text-lg font-bold mb-2">日本語のお題が出る</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed break-keep dark:text-slate-300">毎日レベルに合った問題を表示。<br>「考える前に答える」設計。</p>
+                    <p class="text-slate-600 text-sm leading-relaxed sm-break-keep dark:text-slate-300">毎日レベルに合った問題を表示。<br class="hidden sm:inline">「考える前に答える」設計。</p>
                 </div>
                 <div class="text-center">
                     <div class="step-num mx-auto mb-5">2</div>
                     <h3 class="text-lg font-bold mb-2">英語で答える</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed break-keep dark:text-slate-300">入力モード（タイプ・音声）で挑戦、<br>または並べ替えモードで難易度を下げる。</p>
+                    <p class="text-slate-600 text-sm leading-relaxed sm-break-keep dark:text-slate-300">入力モード（タイプ・音声）で挑戦、<br class="hidden sm:inline">または並べ替えモードで難易度を下げる。</p>
                 </div>
                 <div class="text-center">
                     <div class="step-num mx-auto mb-5">3</div>
                     <h3 class="text-lg font-bold mb-2">AI が即添削</h3>
                     <p class="text-xs font-medium text-slate-600 mb-1 dark:text-slate-300">入力モード時のみ</p>
-                    <p class="text-slate-600 text-sm leading-relaxed break-keep dark:text-slate-300">意味・自然さ・文法についてフィードバック。<br>どう改善すべきかも学べます。</p>
+                    <p class="text-slate-600 text-sm leading-relaxed sm-break-keep dark:text-slate-300">意味・自然さ・文法についてフィードバック。<br class="hidden sm:inline">どう改善すべきかも学べます。</p>
                 </div>
             </div>
         </section>

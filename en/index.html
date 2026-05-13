@@ -130,6 +130,9 @@
                 radial-gradient(ellipse at bottom left, rgba(16, 185, 129, 0.06), transparent 60%),
                 #ffffff;
             min-height: 100vh;
+            /* Prevent unexpected horizontal scroll on mobile; clip avoids creating
+               a new scroll context that would break sticky header behavior. */
+            overflow-x: clip;
         }
         html.dark body {
             background:
@@ -332,11 +335,11 @@
                     Coming Soon — Launching on the App Store
                 </span>
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
-                    Practical English,<br>
+                    Practical English,<br class="hidden sm:inline">
                     <span class="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">day by day</span>.
                 </h1>
                 <p class="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl dark:text-slate-300">
-                    AI-graded instant composition and example-based vocabulary practice.<br>
+                    AI-graded instant composition and example-based vocabulary practice.<br class="hidden sm:inline">
                     A new app to build expression and vocabulary, every single day.
                 </p>
                 <div class="flex flex-wrap items-center gap-4 mb-6">
@@ -418,18 +421,18 @@
                 <div class="text-center">
                     <div class="step-num mx-auto mb-5">1</div>
                     <h3 class="text-lg font-bold mb-2">A Japanese prompt appears</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed dark:text-slate-300">A prompt matched to your level, every day.<br>Designed to build instinctive recall, not slow translation.</p>
+                    <p class="text-slate-600 text-sm leading-relaxed dark:text-slate-300">A prompt matched to your level, every day.<br class="hidden sm:inline">Designed to build instinctive recall, not slow translation.</p>
                 </div>
                 <div class="text-center">
                     <div class="step-num mx-auto mb-5">2</div>
                     <h3 class="text-lg font-bold mb-2">Answer in English</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed dark:text-slate-300">Challenge yourself with input mode (typing or voice),<br>or use arrange mode to lower the difficulty.</p>
+                    <p class="text-slate-600 text-sm leading-relaxed dark:text-slate-300">Challenge yourself with input mode (typing or voice),<br class="hidden sm:inline">or use arrange mode to lower the difficulty.</p>
                 </div>
                 <div class="text-center">
                     <div class="step-num mx-auto mb-5">3</div>
                     <h3 class="text-lg font-bold mb-2">Instant AI feedback</h3>
                     <p class="text-xs font-medium text-slate-600 mb-1 dark:text-slate-300">Input mode only</p>
-                    <p class="text-slate-600 text-sm leading-relaxed dark:text-slate-300">Get feedback on meaning, naturalness, and grammar.<br>Learn how to improve, not just what was wrong.</p>
+                    <p class="text-slate-600 text-sm leading-relaxed dark:text-slate-300">Get feedback on meaning, naturalness, and grammar.<br class="hidden sm:inline">Learn how to improve, not just what was wrong.</p>
                 </div>
             </div>
         </section>
