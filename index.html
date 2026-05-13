@@ -106,18 +106,12 @@
     }
     </script>
 
-    <!-- iOS Safari の上部ステータスバー / Android Chrome のアドレスバーの色。
-         初期値はライト想定。JS が dark を検知した場合は同期で content を書き換える -->
-    <meta name="theme-color" id="theme-color-meta" content="#ffffff">
     <script>
       // テーマ初期化 (FOUC 防止のため stylesheet 前に同期実行)
       (function() {
         var stored = localStorage.getItem('theme'); // 'light' | 'dark' | null(=auto)
         var isDark = stored === 'dark' || (stored !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
         if (isDark) document.documentElement.classList.add('dark');
-        // ステータスバー色を body 背景に合わせる (light: #ffffff / dark: slate-900 #0f172a)
-        var meta = document.getElementById('theme-color-meta');
-        if (meta) meta.setAttribute('content', isDark ? '#0f172a' : '#ffffff');
       })();
     </script>
     <link rel="stylesheet" href="tailwind.css?v=20260506">
@@ -938,14 +932,11 @@
             const btn = document.getElementById('theme-toggle');
             if (!btn) return;
             const mql = window.matchMedia('(prefers-color-scheme: dark)');
-            const themeMeta = document.getElementById('theme-color-meta');
 
             function applyTheme() {
                 const stored = localStorage.getItem('theme');
                 const isDark = stored === 'dark' || (stored !== 'light' && mql.matches);
                 document.documentElement.classList.toggle('dark', isDark);
-                // iOS Safari ステータスバー / Android Chrome アドレスバー色も連動
-                if (themeMeta) themeMeta.setAttribute('content', isDark ? '#0f172a' : '#ffffff');
             }
             function updateIcon() {
                 const stored = localStorage.getItem('theme');
