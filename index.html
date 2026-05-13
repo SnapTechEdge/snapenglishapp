@@ -353,7 +353,11 @@
                     App Store にて近日公開
                 </span>
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
-                    使える英語を、<br class="hidden sm:inline">
+                    <!-- h1 は 1 行が短い (8 文字) ためモバイルでも overflow しないので、
+                         <br> を常時有効にして「、」の自然な区切りで改行させる。
+                         responsive <br> にすると句点後の空白が wrap 候補となり、
+                         "使える英語を、 毎日 / コツコツ。" のように途中で折れる -->
+                    使える英語を、<br>
                     <span class="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">毎日コツコツ</span>。
                 </h1>
                 <!-- break-keep は SM 以上のみ。モバイルは自然折返しで overflow を防ぐ -->
