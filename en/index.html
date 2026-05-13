@@ -107,12 +107,17 @@
     }
     </script>
 
+    <!-- iOS Safari status bar / Android Chrome address bar color.
+         Defaults to white; the script below switches to slate-900 in dark mode. -->
+    <meta name="theme-color" id="theme-color-meta" content="#ffffff">
     <script>
       // Theme initialization (sync, before stylesheet to prevent FOUC)
       (function() {
         var stored = localStorage.getItem('theme'); // 'light' | 'dark' | null(=auto)
         var isDark = stored === 'dark' || (stored !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
         if (isDark) document.documentElement.classList.add('dark');
+        var meta = document.getElementById('theme-color-meta');
+        if (meta) meta.setAttribute('content', isDark ? '#0f172a' : '#ffffff');
       })();
     </script>
     <link rel="stylesheet" href="../tailwind.css?v=20260506">
@@ -908,11 +913,13 @@
             const btn = document.getElementById('theme-toggle');
             if (!btn) return;
             const mql = window.matchMedia('(prefers-color-scheme: dark)');
+            const themeMeta = document.getElementById('theme-color-meta');
 
             function applyTheme() {
                 const stored = localStorage.getItem('theme');
                 const isDark = stored === 'dark' || (stored !== 'light' && mql.matches);
                 document.documentElement.classList.toggle('dark', isDark);
+                if (themeMeta) themeMeta.setAttribute('content', isDark ? '#0f172a' : '#ffffff');
             }
             function updateIcon() {
                 const stored = localStorage.getItem('theme');
