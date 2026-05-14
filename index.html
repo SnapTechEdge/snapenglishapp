@@ -36,6 +36,8 @@
       "applicationCategory": "EducationalApplication",
       "description": "AI添削つき瞬間英作文とレベル別の単語学習が1つになった英語学習アプリ。",
       "url": "https://snapenglishapp.com/",
+      "installUrl": "https://apps.apple.com/jp/app/id6757105670",
+      "downloadUrl": "https://apps.apple.com/jp/app/id6757105670",
       "offers": [
         { "@type": "Offer", "name": "月額プラン", "price": "800", "priceCurrency": "JPY" },
         { "@type": "Offer", "name": "年額プラン", "price": "8000", "priceCurrency": "JPY" }
@@ -217,11 +219,11 @@
         /* 右側 */
         .phone-btn-power   { right: -2px; top: 22.5%; height: 9.5%; border-radius: 0 1.5px 1.5px 0; }
 
-        /* Coming soon pill */
-        .pill-soon {
+        /* App Store CTA pill (配信中) */
+        .pill-live {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
             padding: 1rem 1.75rem;
             border-radius: 9999px;
             background: linear-gradient(135deg, #14b8a6, #0d9488);
@@ -229,18 +231,31 @@
             font-size: 0.95rem;
             font-weight: 600;
             box-shadow: 0 8px 24px rgba(20, 184, 166, 0.35);
-            cursor: not-allowed;
+            text-decoration: none;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
         }
-        .pill-soon .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
+        .pill-live:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 28px rgba(20, 184, 166, 0.45);
+        }
+        .pill-live svg {
+            width: 1.15rem;
+            height: 1.15rem;
+        }
+        /* CTA section の白背景ピル (上の .pill-live と差別化) */
+        .pill-live-on-dark {
             background: white;
-            animation: pulse 2s infinite;
+            color: #0f766e;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
         }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.85); }
+        :root[data-theme="dark"] .pill-live-on-dark,
+        .dark .pill-live-on-dark {
+            background: rgb(15 23 42);
+            color: #5eead4;
+        }
+        .pill-live-on-dark:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
         }
 
         /* Step number */
@@ -332,8 +347,8 @@
                     <svg data-theme-icon="light" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7a5 5 0 100 10 5 5 0 000-10zM12 1v3M12 20v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M1 12h3M20 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                     <svg data-theme-icon="dark" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
                 </button>
-                <a href="#cta" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-medium hover:bg-slate-800 dark:bg-teal-500 dark:hover:bg-teal-600 transition">
-                    近日公開
+                <a href="https://apps.apple.com/jp/app/id6757105670" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-medium hover:bg-slate-800 dark:bg-teal-500 dark:hover:bg-teal-600 transition">
+                    ダウンロード
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 </a>
                 <button id="mobile-menu-btn" type="button"
@@ -354,8 +369,8 @@
                 <a href="#pricing" class="py-2.5 hover:text-teal-600 dark:hover:text-teal-400 transition">料金</a>
                 <a href="#faq" class="py-2.5 hover:text-teal-600 dark:hover:text-teal-400 transition">FAQ</a>
                 <a href="#contact" class="py-2.5 hover:text-teal-600 dark:hover:text-teal-400 transition">お問い合わせ</a>
-                <a href="#cta" class="mt-2 mb-2 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full bg-slate-900 text-white font-medium hover:bg-slate-800 dark:bg-teal-500 dark:hover:bg-teal-600 transition">
-                    近日公開
+                <a href="https://apps.apple.com/jp/app/id6757105670" target="_blank" rel="noopener" class="mt-2 mb-2 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full bg-slate-900 text-white font-medium hover:bg-slate-800 dark:bg-teal-500 dark:hover:bg-teal-600 transition">
+                    ダウンロード
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 </a>
             </nav>
@@ -369,7 +384,7 @@
             <div class="fade-up visible">
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-700 text-xs font-semibold tracking-wide uppercase mb-6 dark:bg-teal-950/30 dark:text-teal-300">
                     <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                    App Store にて近日公開
+                    App Store で配信中
                 </span>
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
                     <!-- h1 は 1 行が短い (8 文字) ためモバイルでも overflow しないので、
@@ -385,10 +400,10 @@
                     表現力・単語力を毎日積み上げる新しい学習アプリです。
                 </p>
                 <div class="flex flex-wrap items-center gap-4 mb-6">
-                    <span class="pill-soon">
-                        <span class="dot"></span>
-                        App Store で近日公開
-                    </span>
+                    <a href="https://apps.apple.com/jp/app/id6757105670" target="_blank" rel="noopener" class="pill-live" aria-label="App Store でダウンロード">
+                        <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.564 13.0c-.039-3.969 3.234-5.876 3.382-5.97-1.851-2.704-4.728-3.073-5.748-3.114-2.444-.247-4.776 1.443-6.018 1.443-1.243 0-3.158-1.408-5.193-1.371-2.673.039-5.139 1.554-6.51 3.945-2.776 4.812-.71 11.94 1.997 15.85 1.327 1.92 2.91 4.062 4.999 3.984 2.005-.082 2.766-1.299 5.187-1.299s3.094 1.299 5.219 1.255c2.151-.039 3.519-1.949 4.838-3.872 1.524-2.224 2.156-4.395 2.193-4.508-.048-.018-4.213-1.617-4.252-6.43zM13.611 1.55c1.107-1.34 1.852-3.197 1.65-5.05-1.595.064-3.526 1.062-4.671 2.4-1.025 1.184-1.92 3.077-1.677 4.892 1.781.137 3.59-.905 4.698-2.241z" transform="scale(0.7) translate(6, 6)"/></svg>
+                        App Store でダウンロード
+                    </a>
                     <a href="#features" class="text-slate-700 text-sm font-medium hover:text-teal-600 transition inline-flex items-center gap-1 dark:text-slate-200 dark:hover:text-teal-400">
                         機能を見る
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
@@ -884,10 +899,10 @@
                     <p class="text-lg text-teal-50 mb-8 max-w-xl mx-auto leading-relaxed">
                         7 日間の無料体験で全機能をお試しください。<br>契約不要なので安心してお試しいただけます。
                     </p>
-                    <span class="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-white text-teal-700 text-base font-semibold shadow-xl cursor-not-allowed dark:bg-slate-900 dark:text-teal-300">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.564 13.0c-.039-3.969 3.234-5.876 3.382-5.97-1.851-2.704-4.728-3.073-5.748-3.114-2.444-.247-4.776 1.443-6.018 1.443-1.243 0-3.158-1.408-5.193-1.371-2.673.039-5.139 1.554-6.51 3.945-2.776 4.812-.71 11.94 1.997 15.85 1.327 1.92 2.91 4.062 4.999 3.984 2.005-.082 2.766-1.299 5.187-1.299s3.094 1.299 5.219 1.255c2.151-.039 3.519-1.949 4.838-3.872 1.524-2.224 2.156-4.395 2.193-4.508-.048-.018-4.213-1.617-4.252-6.43zM13.611 1.55c1.107-1.34 1.852-3.197 1.65-5.05-1.595.064-3.526 1.062-4.671 2.4-1.025 1.184-1.92 3.077-1.677 4.892 1.781.137 3.59-.905 4.698-2.241z" transform="scale(0.65) translate(7, 8)"/></svg>
-                        App Store で近日公開
-                    </span>
+                    <a href="https://apps.apple.com/jp/app/id6757105670" target="_blank" rel="noopener" class="pill-live pill-live-on-dark" aria-label="App Store でダウンロード">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.564 13.0c-.039-3.969 3.234-5.876 3.382-5.97-1.851-2.704-4.728-3.073-5.748-3.114-2.444-.247-4.776 1.443-6.018 1.443-1.243 0-3.158-1.408-5.193-1.371-2.673.039-5.139 1.554-6.51 3.945-2.776 4.812-.71 11.94 1.997 15.85 1.327 1.92 2.91 4.062 4.999 3.984 2.005-.082 2.766-1.299 5.187-1.299s3.094 1.299 5.219 1.255c2.151-.039 3.519-1.949 4.838-3.872 1.524-2.224 2.156-4.395 2.193-4.508-.048-.018-4.213-1.617-4.252-6.43zM13.611 1.55c1.107-1.34 1.852-3.197 1.65-5.05-1.595.064-3.526 1.062-4.671 2.4-1.025 1.184-1.92 3.077-1.677 4.892 1.781.137 3.59-.905 4.698-2.241z" transform="scale(0.65) translate(7, 8)"/></svg>
+                        App Store でダウンロード
+                    </a>
                 </div>
                 <div class="absolute -top-20 -right-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
                 <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
