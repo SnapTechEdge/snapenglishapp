@@ -201,37 +201,30 @@
             display: block;
             object-fit: cover;
         }
-        /* ヒーロー右: シーンを「枠なし」で面に敷くフィールド（箱・背景・影なし）。
-           auto-fill でフレーム幅に応じ列数が変わり、多数のシーンが自然に埋まる。 */
+        /* ヒーロー右: 左にシーンの壁(枠なし)、右に会話ショット(実UI)の2枚構成。 */
+        .hero-visual { display: flex; align-items: center; justify-content: center; gap: 18px; }
+        .hero-shot {
+            width: 100%; max-width: 272px; height: auto;
+            border-radius: 22px; display: block; flex: 0 0 auto;
+            box-shadow: 0 26px 54px -20px rgba(0, 0, 0, .55);
+        }
         .scene-field {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
-            gap: 10px;
-            width: 100%;
-            /* 既定(モバイル/タブレット・縦積み): 下端を背景へフェード＋高さを抑える */
-            max-height: 300px;
-            overflow: hidden;
-            -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent);
-            mask-image: linear-gradient(to bottom, #000 78%, transparent);
+            grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+            gap: 10px; width: 100%;
         }
-        .scene-field img {
-            width: 100%;
-            aspect-ratio: 3 / 2;
-            object-fit: cover;
-            border-radius: 10px;
-            display: block;
-        }
+        .scene-field img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 10px; display: block; }
+        /* モバイル: 会話ショットを主役にし、シーンの壁は隠す(縦に伸ばしすぎない)。 */
+        @media (max-width: 1023px) { .scene-field { display: none; } }
+        /* デスクトップ(2カラム): 左にシーンの壁(高さを抑え下端フェード)、右に会話ショット。 */
         @media (min-width: 1024px) {
-            /* 2カラム時: 5列固定＝25枚が5行で割り切れて右下の欠けが出ない。
-               左隣のテキストへ向けて左端をフェード。高さ制限は解除して面で敷く。 */
             .scene-field {
-                grid-template-columns: repeat(5, 1fr);
-                max-height: none;
-                overflow: visible;
-                gap: 12px;
-                -webkit-mask-image: linear-gradient(to right, transparent, #000 16%);
-                mask-image: linear-gradient(to right, transparent, #000 16%);
+                flex: 1; grid-template-columns: repeat(3, 1fr); gap: 10px;
+                max-height: 520px; overflow: hidden;
+                -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent);
+                mask-image: linear-gradient(to bottom, #000 82%, transparent);
             }
+            .hero-shot { width: 44%; max-width: 290px; }
         }
         /* iPhone 側面ボタン */
         .phone-btn {
@@ -424,10 +417,10 @@
                 </div>
             </div>
 
-            <!-- 英会話シーンを「枠なし」で右エリアに面で敷く（148シーンの世界観を訴求）。
-                 実UIの信頼性は下の「機能」セクション(conversation-*.webp)で担保。 -->
-            <div class="fade-up visible" role="img" aria-label="AI英会話の148シーンのイラスト一覧">
-                <div class="scene-field">
+            <!-- 右ビジュアル: 左=英会話シーンの壁(枠なし)、右=会話ショット(実UI・台本モード)。 -->
+            <div class="fade-up visible">
+                <div class="hero-visual">
+                    <div class="scene-field" role="img" aria-label="AI英会話の148シーンのイラスト一覧">
                                 <img src="screenshots/scenes/scene-01.webp" alt="" loading="eager" fetchpriority="high" width="420" height="280">
                                 <img src="screenshots/scenes/scene-02.webp" alt="" loading="lazy" width="420" height="280">
                                 <img src="screenshots/scenes/scene-03.webp" alt="" loading="lazy" width="420" height="280">
@@ -453,6 +446,9 @@
                                 <img src="screenshots/scenes/scene-23.webp" alt="" loading="lazy" width="420" height="280">
                                 <img src="screenshots/scenes/scene-24.webp" alt="" loading="lazy" width="420" height="280">
                                 <img src="screenshots/scenes/scene-25.webp" alt="" loading="lazy" width="420" height="280">
+                    </div>
+                    <img class="hero-shot" src="screenshots/conversation-hero.webp?v=0707"
+                         alt="AI英会話（台本モード）— 場面ごとにキャラクターと会話し AI が採点" width="603" height="1311" loading="lazy">
                 </div>
             </div>
         </section>
