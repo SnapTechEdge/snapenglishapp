@@ -218,13 +218,14 @@
         @media (max-width: 1023px) { .scene-field { display: none; } }
         /* デスクトップ(2カラム): 左にシーンの壁(高さを抑え下端フェード)、右に会話ショット。 */
         @media (min-width: 1024px) {
+            /* 会話ショットとシーン壁を同じ高さに揃える(高さ基準・幅はアスペクトで自動)。 */
+            .hero-shot { height: 560px; width: auto; max-width: none; }
             .scene-field {
                 flex: 1; grid-template-columns: repeat(3, 1fr); gap: 10px;
-                max-height: 520px; overflow: hidden;
+                height: 560px; max-height: 560px; overflow: hidden;
                 -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent);
                 mask-image: linear-gradient(to bottom, #000 82%, transparent);
             }
-            .hero-shot { width: 44%; max-width: 290px; }
         }
         /* iPhone 側面ボタン */
         .phone-btn {
