@@ -222,8 +222,10 @@
             display: block;
         }
         @media (min-width: 1024px) {
-            /* 2カラム時: 左隣のテキストへ向けて左端をフェード。高さ制限は解除して面で敷く。 */
+            /* 2カラム時: 5列固定＝25枚が5行で割り切れて右下の欠けが出ない。
+               左隣のテキストへ向けて左端をフェード。高さ制限は解除して面で敷く。 */
             .scene-field {
+                grid-template-columns: repeat(5, 1fr);
                 max-height: none;
                 overflow: visible;
                 gap: 12px;
@@ -450,6 +452,7 @@
                                 <img src="screenshots/scenes/scene-22.webp" alt="" loading="lazy" width="420" height="280">
                                 <img src="screenshots/scenes/scene-23.webp" alt="" loading="lazy" width="420" height="280">
                                 <img src="screenshots/scenes/scene-24.webp" alt="" loading="lazy" width="420" height="280">
+                                <img src="screenshots/scenes/scene-25.webp" alt="" loading="lazy" width="420" height="280">
                 </div>
             </div>
         </section>
