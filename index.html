@@ -201,7 +201,9 @@
             display: block;
             object-fit: cover;
         }
-        /* ヒーロー右: 左にシーンの壁(枠なし)、右に会話ショット(実UI)の2枚構成。 */
+        /* ヒーロー右: シーンの壁(枠なし)＋会話ショット(実UI)の2枚構成。
+           DOM順=シーン壁→会話ショット。lg では row-reverse で視覚上は
+           左=会話ショット / 右=シーン壁 に反転する。 */
         .hero-visual { display: flex; align-items: center; justify-content: center; gap: 18px; }
         .hero-shot {
             width: 100%; max-width: 272px; height: auto;
@@ -218,6 +220,8 @@
         @media (max-width: 1023px) { .scene-field { display: none; } }
         /* デスクトップ(2カラム): 左にシーンの壁(高さを抑え下端フェード)、右に会話ショット。 */
         @media (min-width: 1024px) {
+            /* 左右入れ替え: 会話ショットを左・シーン壁を右に。 */
+            .hero-visual { flex-direction: row-reverse; }
             /* 会話ショットとシーン壁を同じ高さに揃える(高さ基準・幅はアスペクトで自動)。 */
             .hero-shot { height: 560px; width: auto; max-width: none; }
             .scene-field {
@@ -418,7 +422,8 @@
                 </div>
             </div>
 
-            <!-- 右ビジュアル: 左=英会話シーンの壁(枠なし)、右=会話ショット(実UI・台本モード)。 -->
+            <!-- 右ビジュアル: 英会話シーンの壁(枠なし)＋会話ショット(実UI・台本モード)。
+                 lg では row-reverse で視覚上は 左=会話ショット / 右=シーン壁。 -->
             <div class="fade-up visible">
                 <div class="hero-visual">
                     <div class="scene-field" role="img" aria-label="AI英会話の148シーンのイラスト一覧">
