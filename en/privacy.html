@@ -82,7 +82,7 @@
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
-              <span><strong>Voice data</strong>: only when you use the pronunciation practice feature, your recorded audio is sent to <strong>Microsoft</strong>'s speech analysis service (consent obtained in-app before sending). It is not stored on our servers. Voice input for answers is processed on-device and not sent externally.</span>
+              <span><strong>Voice data</strong>: only when you use the pronunciation practice feature, your recorded audio is sent to <strong>Microsoft</strong>'s speech analysis service (consent obtained in-app before sending). It is not stored on our servers. Voice input for question answers is processed on-device and not sent externally. Voice input for AI conversation is transcribed by Apple's speech recognition service (which may include server-side processing) on iOS, and by OpenAI's speech recognition service on Android.</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
@@ -119,7 +119,7 @@
           <ul class="text-slate-600 space-y-1.5 ml-4 dark:text-slate-300">
             <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>Google (Firebase)</strong>: authentication, database (Firestore), audio file delivery (Cloud Storage)</span></li>
             <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>RevenueCat</strong>: subscription state management</span></li>
-            <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>Apple</strong>: speech recognition (when answering, on-device), Sign in with Apple</span></li>
+            <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>Apple</strong>: speech recognition (on-device for question answers; Apple's speech recognition service for AI conversation voice input), Sign in with Apple</span></li>
             <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>Anthropic</strong>: AI feedback (composition/rearrangement), AI conversation responses and grading, pronunciation feedback generation. Receives the English text you enter or speak.</span></li>
             <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>Google</strong>: AI conversation response generation. Receives your conversation messages.</span></li>
             <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>Microsoft</strong>: pronunciation analysis (sending recorded audio), AI conversation speech synthesis</span></li>
