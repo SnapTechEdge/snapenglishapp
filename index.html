@@ -378,27 +378,8 @@
        バーのぶん(実測7px)だけ横スクロールが出る。body 側を overflow-x:clip で切る
        （hidden と違い position:sticky を壊さない）。 */
     html, body{ overflow-x:clip; }
-    .wall-section{ position:relative; overflow:hidden; isolation:isolate;
-        min-height:min(80vh,680px); display:grid; align-content:end;
-        margin:0 calc(50% - 50vw); }
-    .wall-grid{ position:absolute; inset:-8% -3%; z-index:1; display:grid;
-        grid-template-columns:repeat(4,1fr); gap:10px; transform:rotate(-4deg) scale(1.24); }
-    .wall-col{ display:grid; gap:10px; animation:se-drift 52s linear infinite; }
-    .wall-col:nth-child(even){ animation-direction:reverse; animation-duration:66s; }
-    .wall-col img{ width:100%; aspect-ratio:3/4; object-fit:cover; object-position:50% 20%; border-radius:2px; }
     @keyframes se-drift{ from{ transform:translateY(0) } to{ transform:translateY(-50%) } }
-    @media(prefers-reduced-motion:reduce){ .wall-col{ animation:none } }
-    .wall-veil{ position:absolute; inset:0; z-index:2;
-        background:linear-gradient(180deg,rgba(var(--se-scrim),.66) 0%,rgba(var(--se-scrim),.82) 45%,
-                   rgba(var(--se-scrim),.97) 100%); }
-    .wall-copy{ position:relative; z-index:3; width:100%; max-width:1152px; margin:0 auto;
-        padding:0 1.5rem clamp(32px,6vw,64px); color:#F7F7F4; }
-    .wall-count{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; margin:0 0 4px;
-        font-size:clamp(40px,8.6vw,92px); line-height:1; letter-spacing:-.03em; color:var(--se-accent); }
-    .wall-h{ margin:0; font-weight:900; letter-spacing:-.035em; line-height:1.18;
-        font-size:clamp(24px,4.4vw,44px); max-width:min(18em,94%); text-wrap:balance; }
-    .wall-sub{ margin:14px 0 0; font-size:clamp(13px,1.5vw,16px); line-height:1.9;
-        max-width:34em; color:#D8DBE0; }
+    @media(prefers-reduced-motion:reduce){ .hero-stage .wall-col{ animation:none } }
     </style>
     <!-- アクセス解析: Cloudflare Web Analytics。Cookie を使わず個人を追跡しないため
          プライバシーポリシーの変更を要しない。トークンは Cloudflare の管理画面で発行して差し替える。
