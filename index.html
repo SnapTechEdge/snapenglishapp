@@ -322,7 +322,77 @@
         @media (min-width: 640px) {
             .sm-break-keep { word-break: keep-all; }
         }
+
+    /* ===== 2026-07 リニューアル: ヒーロー/ループ帯/シーン壁 =====
+       配色はアプリのアイコン（濃紺の地・オレンジのチェック）から採る。
+       既存のティール系グラデーションは訴求面では使わない（どのSaaSにもある色で顔にならない）。 */
+    :root{ --se-accent:#FF6B3D; --se-scrim:12,18,28; }
+
+    .hero-stage{ position:relative; min-height:min(88vh,760px); display:grid; overflow:hidden; isolation:isolate; }
+    .hero-shotwrap{ position:absolute; inset:0; z-index:1; }
+    .hero-shotwrap img{ width:100%; height:100%; object-fit:cover; object-position:50% 38%; }
+    .hero-veil{ position:absolute; inset:0; z-index:2;
+        background:linear-gradient(180deg,rgba(var(--se-scrim),.20) 0%,rgba(var(--se-scrim),.34) 38%,
+                   rgba(var(--se-scrim),.90) 80%,rgba(var(--se-scrim),.97) 100%); }
+    .hero-copy{ position:relative; z-index:3; align-self:end;
+        width:100%; max-width:1152px; margin:0 auto; padding:0 1.5rem clamp(32px,6vw,72px); color:#F7F7F4; }
+    .hero-kicker{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:11px;
+        letter-spacing:.18em; color:var(--se-accent); margin:0 0 14px; }
+    /* 見出しの折返し幅は「見出し自身」に持たせる。親に em で持たせると
+       親のフォントサイズ基準になり、巨大な見出しが1〜2文字で折れる。 */
+    .hero-h1{ margin:0; font-weight:900; letter-spacing:-.045em; line-height:1.12;
+        font-size:clamp(34px,7.2vw,76px); max-width:min(15em,94%); text-wrap:balance; }
+    .hero-sub{ margin:16px 0 26px; font-size:clamp(14px,1.6vw,17px); line-height:1.9;
+        max-width:34em; color:#D8DBE0; }
+    .hero-actions{ display:flex; flex-wrap:wrap; align-items:center; gap:1rem; }
+    .hero-secondary{ display:inline-flex; align-items:center; gap:.35rem; color:#E7E9ED;
+        font-size:.875rem; font-weight:500; text-decoration:none; transition:color .18s ease; }
+    .hero-secondary:hover{ color:var(--se-accent); }
+    .hero-note{ margin:14px 0 0; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+        font-size:11px; letter-spacing:.06em; color:#AEB5C0; }
+
+    .loop-band{ border-bottom:1px solid rgb(226 232 240); }
+    .dark .loop-band{ border-color:rgb(51 65 85); }
+    .loop-list{ list-style:none; margin:0 auto; padding:clamp(22px,3.5vw,34px) 1.5rem;
+        max-width:1152px; display:flex; flex-wrap:wrap; align-items:baseline; gap:.75rem 1.5rem; }
+    .loop-list li{ display:flex; align-items:baseline; gap:.6rem; }
+    .loop-step{ font-weight:800; font-size:1.05rem; letter-spacing:-.01em; }
+    .loop-desc{ font-size:.8125rem; color:rgb(100 116 139); }
+    .dark .loop-desc{ color:rgb(148 163 184); }
+    .loop-arrow{ color:var(--se-accent); font-weight:700; }
+    @media(max-width:720px){ .loop-arrow{ display:none; } .loop-list{ flex-direction:column; align-items:flex-start; } }
+
+    /* main の幅制約から全幅へ抜ける。50vw はスクロールバー幅を含むため、そのままだと
+       バーのぶん(実測7px)だけ横スクロールが出る。body 側を overflow-x:clip で切る
+       （hidden と違い position:sticky を壊さない）。 */
+    html, body{ overflow-x:clip; }
+    .wall-section{ position:relative; overflow:hidden; isolation:isolate;
+        min-height:min(72vh,620px); display:grid; align-content:end;
+        margin:0 calc(50% - 50vw); }
+    .wall-grid{ position:absolute; inset:-8% -3%; z-index:1; display:grid;
+        grid-template-columns:repeat(4,1fr); gap:10px; transform:rotate(-6deg) scale(1.2); }
+    .wall-col{ display:grid; gap:10px; animation:se-drift 52s linear infinite; }
+    .wall-col:nth-child(even){ animation-direction:reverse; animation-duration:66s; }
+    .wall-col img{ width:100%; aspect-ratio:3/2; object-fit:cover; border-radius:2px; }
+    @keyframes se-drift{ from{ transform:translateY(0) } to{ transform:translateY(-50%) } }
+    @media(prefers-reduced-motion:reduce){ .wall-col{ animation:none } }
+    .wall-veil{ position:absolute; inset:0; z-index:2;
+        background:linear-gradient(180deg,rgba(var(--se-scrim),.66) 0%,rgba(var(--se-scrim),.82) 45%,
+                   rgba(var(--se-scrim),.97) 100%); }
+    .wall-copy{ position:relative; z-index:3; width:100%; max-width:1152px; margin:0 auto;
+        padding:0 1.5rem clamp(32px,6vw,64px); color:#F7F7F4; }
+    .wall-count{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; margin:0 0 4px;
+        font-size:clamp(44px,10vw,104px); line-height:1; letter-spacing:-.03em; color:var(--se-accent); }
+    .wall-h{ margin:0; font-weight:900; letter-spacing:-.035em; line-height:1.18;
+        font-size:clamp(24px,4.4vw,44px); max-width:min(18em,94%); text-wrap:balance; }
+    .wall-sub{ margin:14px 0 0; font-size:clamp(13px,1.5vw,16px); line-height:1.9;
+        max-width:34em; color:#D8DBE0; }
     </style>
+    <!-- アクセス解析: Cloudflare Web Analytics。Cookie を使わず個人を追跡しないため
+         プライバシーポリシーの変更を要しない。トークンは Cloudflare の管理画面で発行して差し替える。
+         未設定のうちは何も送信されない（beacon は token 不正時に no-op）。 -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon='{"token": "REPLACE_WITH_CLOUDFLARE_WEB_ANALYTICS_TOKEN"}'></script>
 </head>
 <body class="text-slate-900 antialiased dark:text-slate-50">
 
@@ -380,89 +450,42 @@
         </div>
     </header>
 
+<!-- Hero: 一枚絵。<main> の外に出して全幅で敷く -->
+<section class="hero-stage">
+    <div class="hero-shotwrap">
+        <img src="screenshots/scenes/scene-01.webp" alt="" aria-hidden="true" fetchpriority="high" width="420" height="280">
+    </div>
+    <div class="hero-veil"></div>
+    <div class="hero-copy">
+        <p class="hero-kicker">AI ENGLISH — SNAPENGLISH</p>
+        <h1 class="hero-h1">その場面、英語で言えますか。</h1>
+        <p class="hero-sub">予約のドタキャンを詫びる。会議で反対する。<br class="hidden sm:inline">
+            “いざ困る場面”だけを集めて、AI と話して練習します。</p>
+        <div class="hero-actions">
+            <a href="https://apps.apple.com/jp/app/id6757105670" target="_blank" rel="noopener" class="app-store-badge" aria-label="App Store でダウンロード">
+                <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp?releaseDate=2026-05-14" alt="App Store でダウンロード">
+            </a>
+            <a href="#how" class="hero-secondary">仕組みを見る
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            </a>
+        </div>
+        <p class="hero-note">7日間無料 / iOS・iPadOS 18.0 以降 / ダークモード対応</p>
+    </div>
+</section>
+
+<!-- 2画面目: 仕組みを1本の線で -->
+<section class="loop-band" aria-label="学習の流れ">
+    <ol class="loop-list">
+        <li><span class="loop-step">書く</span><span class="loop-desc">日本語の意味から、自分で英語を組み立てる</span></li>
+        <li aria-hidden="true" class="loop-arrow">→</li>
+        <li><span class="loop-step">直す</span><span class="loop-desc">AI が理由つきで添削し、自然な言い回しを示す</span></li>
+        <li aria-hidden="true" class="loop-arrow">→</li>
+        <li><span class="loop-step">使う</span><span class="loop-desc">覚えた表現を、AI との会話でその場で使う</span></li>
+    </ol>
+</section>
+
     <main class="max-w-6xl mx-auto px-6">
 
-        <!-- Hero -->
-        <section class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center pt-16 lg:pt-24 pb-20 lg:pb-28">
-            <div class="fade-up visible">
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-700 text-xs font-semibold tracking-wide uppercase mb-6 dark:bg-teal-950/30 dark:text-teal-300">
-                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                    App Store で配信中
-                </span>
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
-                    <!-- h1 は 1 行が短い (8 文字) ためモバイルでも overflow しないので、
-                         <br> を常時有効にして「、」の自然な区切りで改行させる。
-                         responsive <br> にすると句点後の空白が wrap 候補となり、
-                         "使える英語を、 毎日 / コツコツ。" のように途中で折れる -->
-                    使える英語を、<br>
-                    <span class="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">毎日コツコツ</span>。
-                </h1>
-                <!-- break-keep は SM 以上のみ。モバイルは自然折返しで overflow を防ぐ -->
-                <p class="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl sm-break-keep dark:text-slate-300">
-                    AI英会話・英作文・英文法・単語。英語学習は、これ1つ。<br class="hidden sm:inline">
-                    AI と話し、AI があなたの英語を添削＆自然に言い換え。<br class="hidden sm:inline">
-                    反復学習で「知っている」を「使える」に。
-                </p>
-                <div class="flex flex-wrap items-center gap-4 mb-6">
-                    <a href="https://apps.apple.com/jp/app/id6757105670" target="_blank" rel="noopener" class="app-store-badge" aria-label="App Store でダウンロード">
-                        <img
-                            src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp?releaseDate=2026-05-14"
-                            alt="App Store でダウンロード">
-                    </a>
-                    <a href="#features" class="text-slate-700 text-sm font-medium hover:text-teal-600 transition inline-flex items-center gap-1 dark:text-slate-200 dark:hover:text-teal-400">
-                        機能を見る
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
-                    </a>
-                </div>
-                <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-600 dark:text-slate-300">
-                    <span class="inline-flex items-center gap-1.5"><svg class="w-4 h-4 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>7日間無料</span>
-                    <span class="inline-flex items-center gap-1.5"><svg class="w-4 h-4 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>iOS / iPadOS 18.0 以降</span>
-                    <span class="inline-flex items-center gap-1.5"><svg class="w-4 h-4 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>iPhone・iPad 対応</span>
-                    <span class="inline-flex items-center gap-1.5"><svg class="w-4 h-4 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>ダークモード完全対応</span>
-                </div>
-            </div>
-
-            <!-- 右ビジュアル: 英会話シーンの壁(枠なし)＋会話ショット(実UI・台本モード)。
-                 lg では row-reverse で視覚上は 左=会話ショット / 右=シーン壁。 -->
-            <div class="fade-up visible">
-                <div class="hero-visual">
-                    <div class="scene-field" role="img" aria-label="AI英会話の148シーンのイラスト一覧">
-                                <img src="screenshots/scenes/scene-01.webp" alt="" loading="eager" fetchpriority="high" width="420" height="280">
-                                <img src="screenshots/scenes/scene-02.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-03.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-04.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-05.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-06.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-07.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-08.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-09.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-10.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-11.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-12.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-13.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-14.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-15.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-16.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-17.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-18.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-19.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-20.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-21.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-22.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-23.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-24.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-25.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-26.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-27.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-28.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-29.webp" alt="" loading="lazy" width="420" height="280">
-                                <img src="screenshots/scenes/scene-30.webp" alt="" loading="lazy" width="420" height="280">
-                    </div>
-                    <img class="hero-shot" src="screenshots/conversation-hero.webp?v=0707"
-                         alt="AI英会話（台本モード）— 場面ごとにキャラクターと会話し AI が採点" width="603" height="1311" loading="lazy">
-                </div>
-            </div>
-        </section>
 
         <!-- Stats / Trust bar -->
         <section class="grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-4 sm:gap-8 py-10 border-y border-slate-200 dark:border-slate-700">
@@ -538,6 +561,21 @@
         </section>
 
         <!-- Features (左右交互レイアウト) -->
+        <section id="scenes" class="wall-section" aria-labelledby="wall-h">
+            <div class="wall-grid" aria-hidden="true">
+                <div class="wall-col"><img src="screenshots/scenes/scene-01.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-02.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-03.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-04.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-05.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-06.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-07.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-08.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-09.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-10.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-11.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-12.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-01.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-02.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-03.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-04.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-05.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-06.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-07.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-08.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-09.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-10.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-11.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-12.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"></div>
+                <div class="wall-col"><img src="screenshots/scenes/scene-01.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-02.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-03.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-04.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-05.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-06.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-07.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-08.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-09.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-10.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-11.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-12.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-01.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-02.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-03.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-04.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-05.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-06.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-07.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-08.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-09.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-10.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-11.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-12.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"></div>
+                <div class="wall-col"><img src="screenshots/scenes/scene-01.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-02.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-03.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-04.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-05.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-06.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-07.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-08.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-09.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-10.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-11.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-12.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-01.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-02.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-03.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-04.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-05.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-06.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-07.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-08.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-09.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-10.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-11.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-12.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"></div>
+                <div class="wall-col"><img src="screenshots/scenes/scene-01.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-02.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-03.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-04.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-05.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-06.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-07.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-08.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-09.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-10.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-11.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-12.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-01.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-02.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-03.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-04.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-05.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-06.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-07.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-08.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-09.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-10.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-11.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"><img src="screenshots/scenes/scene-12.webp" alt="" aria-hidden="true" loading="lazy" width="420" height="280"></div>
+            </div>
+            <div class="wall-veil"></div>
+            <div class="wall-copy">
+                <p class="wall-count">148</p>
+                <h2 id="wall-h" class="wall-h">の“困る場面”を、ぜんぶ練習できる。</h2>
+                <p class="wall-sub">謝る・断る・交渉する・雑談する。教科書に出てこない場面ほど、実際には毎日やってくる。</p>
+            </div>
+        </section>
+
         <section id="features" class="py-20 lg:py-28">
             <div class="text-center mb-16">
                 <p class="text-xs font-bold tracking-widest uppercase text-teal-600 mb-3 dark:text-teal-400">Features</p>
