@@ -365,11 +365,10 @@
     @keyframes se-drift{ from{ transform:translateY(0) } to{ transform:translateY(-50%) } }
     @media(prefers-reduced-motion:reduce){ .hero-stage .wall-col{ animation:none } }
     </style>
-    <!-- アクセス解析: Cloudflare Web Analytics。Cookie を使わず個人を追跡しないため
-         プライバシーポリシーの変更を要しない。トークンは Cloudflare の管理画面で発行して差し替える。
-         未設定のうちは何も送信されない（beacon は token 不正時に no-op）。 -->
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
-            data-cf-beacon='{"token": "REPLACE_WITH_CLOUDFLARE_WEB_ANALYTICS_TOKEN"}'></script>
+    <!-- アクセス解析: Cloudflare Web Analytics は Pages のダッシュボードから有効化する。
+         以前ここに置いていた beacon.min.js の script は token が
+         REPLACE_WITH_... のプレースホルダのままで、日本語版だけに入っており、
+         計測されないまま外部リクエストだけ発生していたため撤去した。 -->
 </head>
 <body class="text-slate-900 antialiased dark:text-slate-50">
 
