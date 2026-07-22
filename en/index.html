@@ -275,6 +275,92 @@
             -webkit-backdrop-filter: blur(12px);
             background: rgba(255, 255, 255, 0.85);
         }
+    /* ===== 2026-07 redesign: hero / loop band / scene wall =====
+       Accent taken from the app icon (deep navy ground, orange check).
+       The old teal gradient is not used for the pitch: every SaaS has it, so it reads as nobody. */
+    :root{ --se-accent:#FF6B3D; --se-scrim:12,18,28; }
+
+    .hero-stage{ position:relative; min-height:min(92vh,820px); display:grid; overflow:hidden; isolation:isolate; }
+    /* Hero background = the wall of scenes. Small tiles, many columns, tight gaps: the point is volume. */
+    .hero-stage .wall-grid{ position:absolute; inset:-6% -3%; z-index:1; display:grid;
+        grid-template-columns:repeat(7,1fr); gap:6px; transform:rotate(-4deg) scale(1.22); }
+    .hero-stage .wall-col{ display:grid; gap:6px; animation:se-drift 56s linear infinite; }
+    .hero-stage .wall-col:nth-child(even){ animation-direction:reverse; animation-duration:70s; }
+    .hero-stage .wall-col:nth-child(3n){ animation-duration:64s; }
+    .hero-stage .wall-col img{ width:100%; aspect-ratio:3/4; object-fit:cover;
+        object-position:50% 18%; border-radius:2px; }
+    /* More columns than before, so drop the count below tablet or each tile gets crushed. */
+    @media(max-width:900px){ .hero-stage .wall-grid{ grid-template-columns:repeat(5,1fr); } }
+    @media(max-width:560px){ .hero-stage .wall-grid{ grid-template-columns:repeat(4,1fr); } }
+    .hero-veil{ position:absolute; inset:0; z-index:2;
+        background:
+          linear-gradient(180deg,rgba(var(--se-scrim),.42) 0%,rgba(var(--se-scrim),.40) 30%,
+                   rgba(var(--se-scrim),.88) 82%,rgba(var(--se-scrim),.97) 100%),
+          radial-gradient(120% 90% at 20% 68%, rgba(var(--se-scrim),.55), transparent 60%); }
+    .hero-copy{ position:relative; z-index:3; align-self:end;
+        width:100%; max-width:1152px; margin:0 auto; padding:0 1.5rem clamp(32px,6vw,72px); color:#F7F7F4; }
+    .hero-kicker{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:11px;
+        letter-spacing:.18em; color:var(--se-accent); margin:0 0 14px; }
+    /* Put the wrap width on the heading itself. On the parent, an em value resolves against the
+       parent font size, which breaks a huge headline after one or two words. */
+    .hero-h1{ margin:0; font-weight:900; letter-spacing:-.045em; line-height:1.12;
+        font-size:clamp(34px,7.2vw,76px); max-width:min(15em,94%); text-wrap:balance; }
+    .hero-sub{ margin:16px 0 26px; font-size:clamp(14px,1.6vw,17px); line-height:1.9;
+        max-width:34em; color:#D8DBE0; }
+    .hero-actions{ display:flex; flex-wrap:wrap; align-items:center; gap:1rem; }
+    .hero-secondary{ display:inline-flex; align-items:center; gap:.35rem; color:#E7E9ED;
+        font-size:.875rem; font-weight:500; text-decoration:none; transition:color .18s ease; }
+    .hero-secondary:hover{ color:var(--se-accent); }
+    .hero-strong{ color:var(--se-accent); font-weight:800; font-size:1.15em; }
+    .hero-note{ margin:14px 0 0; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+        font-size:11px; letter-spacing:.06em; color:#AEB5C0; }
+
+    .loop-band{ border-bottom:1px solid rgb(226 232 240); }
+    .dark .loop-band{ border-color:rgb(51 65 85); }
+    .loop-wrap{ max-width:1152px; margin:0 auto; padding:clamp(40px,6vw,72px) 1.5rem; }
+    .loop-eyebrow{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:11px;
+        letter-spacing:.16em; color:var(--se-accent); margin:0 0 10px; }
+    .loop-title{ font-size:clamp(22px,3vw,32px); font-weight:800; letter-spacing:-.02em;
+        line-height:1.35; margin:0 0 6px; }
+    .loop-title b{ color:var(--se-accent); font-weight:800; }
+    .loop-lead{ font-size:clamp(13px,1.5vw,15px); color:rgb(100 116 139); margin:0 0 clamp(28px,4vw,40px); }
+    .dark .loop-lead{ color:rgb(148 163 184); }
+    /* 3 cards + arrows */
+    .loop-flow{ list-style:none; margin:0; padding:0; display:grid;
+        grid-template-columns:1fr auto 1fr auto 1fr; align-items:stretch; gap:0; }
+    .loop-card{ position:relative; padding:clamp(20px,2.4vw,28px); border-radius:16px;
+        border:1px solid rgb(226 232 240); background:rgb(255 255 255);
+        box-shadow:0 1px 2px rgba(15,23,42,.04); transition:transform .2s ease, box-shadow .2s ease; }
+    .dark .loop-card{ border-color:rgb(51 65 85); background:rgb(15 23 42); box-shadow:none; }
+    .loop-card:hover{ transform:translateY(-3px); box-shadow:0 10px 30px rgba(15,23,42,.10); }
+    .dark .loop-card:hover{ box-shadow:0 10px 30px rgba(0,0,0,.35); }
+    .loop-num{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px;
+        font-weight:600; color:var(--se-accent); letter-spacing:.06em; }
+    .loop-icon{ width:40px; height:40px; margin:12px 0 14px; display:grid; place-items:center;
+        border-radius:11px; background:rgba(255,107,61,.10); color:var(--se-accent); }
+    .loop-icon svg{ width:22px; height:22px; }
+    .loop-verb{ font-size:clamp(19px,2.2vw,24px); font-weight:800; letter-spacing:-.01em; margin:0 0 6px; }
+    .loop-body{ font-size:.8125rem; line-height:1.85; color:rgb(71 85 105); margin:0; }
+    .dark .loop-body{ color:rgb(148 163 184); }
+    .loop-conn{ display:grid; place-items:center; width:clamp(28px,3vw,52px); color:rgb(203 213 225); }
+    .dark .loop-conn{ color:rgb(71 85 105); }
+    .loop-conn svg{ width:26px; height:26px; }
+    /* the "it loops" line */
+    .loop-cycle{ display:flex; align-items:center; justify-content:center; gap:10px;
+        margin-top:clamp(22px,3vw,30px); font-size:13px; color:rgb(100 116 139); }
+    .dark .loop-cycle{ color:rgb(148 163 184); }
+    .loop-cycle b{ color:var(--se-accent); font-weight:700; }
+    .loop-cycle svg{ width:18px; height:18px; color:var(--se-accent); }
+    @media(max-width:760px){
+        .loop-flow{ grid-template-columns:1fr; gap:0; }
+        .loop-conn{ width:auto; height:34px; transform:rotate(90deg); }
+    }
+
+    /* Break out of main's width cap to full bleed. 50vw includes the scrollbar, which leaks a
+       horizontal scroll (measured 7px), so clip it on body — clip, not hidden, keeps sticky working. */
+    html, body{ overflow-x:clip; }
+    @keyframes se-drift{ from{ transform:translateY(0) } to{ transform:translateY(-50%) } }
+    @media(prefers-reduced-motion:reduce){ .hero-stage .wall-col{ animation:none } }
     </style>
 </head>
 <body class="text-slate-900 antialiased dark:text-slate-50">
@@ -332,79 +418,77 @@
         </div>
     </header>
 
+<!-- Hero: copy laid over the wall of scenes (single-image hero + the volume pitch, merged) -->
+<section class="hero-stage" aria-labelledby="hero-h">
+    <div class="wall-grid" aria-hidden="true"><div class="wall-col"><img src="../screenshots/scenes/wall-01.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-02.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-03.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-04.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-05.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-06.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-01.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-02.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-03.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-04.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-05.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-06.webp" alt="" loading="lazy" width="420" height="560"></div><div class="wall-col"><img src="../screenshots/scenes/wall-07.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-08.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-09.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-10.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-11.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-12.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-07.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-08.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-09.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-10.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-11.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-12.webp" alt="" loading="lazy" width="420" height="560"></div><div class="wall-col"><img src="../screenshots/scenes/wall-13.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-14.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-15.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-16.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-17.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-18.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-13.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-14.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-15.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-16.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-17.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-18.webp" alt="" loading="lazy" width="420" height="560"></div><div class="wall-col"><img src="../screenshots/scenes/wall-19.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-20.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-21.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-22.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-23.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-24.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-19.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-20.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-21.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-22.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-23.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-24.webp" alt="" loading="lazy" width="420" height="560"></div><div class="wall-col"><img src="../screenshots/scenes/wall-25.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-26.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-27.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-28.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-29.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-30.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-25.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-26.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-27.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-28.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-29.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-30.webp" alt="" loading="lazy" width="420" height="560"></div><div class="wall-col"><img src="../screenshots/scenes/wall-31.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-32.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-33.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-34.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-35.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-36.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-31.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-32.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-33.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-34.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-35.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-36.webp" alt="" loading="lazy" width="420" height="560"></div><div class="wall-col"><img src="../screenshots/scenes/wall-37.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-38.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-39.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-40.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-41.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-42.webp" alt="" loading="eager" width="420" height="560"><img src="../screenshots/scenes/wall-37.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-38.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-39.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-40.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-41.webp" alt="" loading="lazy" width="420" height="560"><img src="../screenshots/scenes/wall-42.webp" alt="" loading="lazy" width="420" height="560"></div></div>
+    <div class="hero-veil"></div>
+    <div class="hero-copy">
+        <p class="hero-kicker">AI ENGLISH — SNAPENGLISH</p>
+        <h1 id="hero-h" class="hero-h1">Could you handle that moment in English?</h1>
+        <p class="hero-sub">Apologizing for a last-minute cancellation. Disagreeing in a meeting.<br class="hidden sm:inline">
+            <b class="hero-strong">~150</b> situations you actually run into — practice each one by talking with AI.</p>
+        <div class="hero-actions">
+            <a href="https://apps.apple.com/app/id6757105670" target="_blank" rel="noopener" class="app-store-badge" aria-label="Download on the App Store">
+                <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?releaseDate=2026-05-14" alt="Download on the App Store">
+            </a>
+            <a href="#how" class="hero-secondary">See how it works
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            </a>
+        </div>
+        <p class="hero-note">7-day free trial / iOS &amp; iPadOS 18.0 or later / full dark mode</p>
+    </div>
+</section>
+
+<!-- Second screen: the method as one continuous line -->
+<section id="how" class="loop-band" aria-labelledby="loop-title">
+    <div class="loop-wrap">
+        <p class="loop-eyebrow">HOW IT WORKS</p>
+        <h2 id="loop-title" class="loop-title">Stop just memorizing English.<br class="hidden sm:inline">Three steps: <b>write it, fix it, use it</b>.</h2>
+        <p class="loop-lead">You produce the English yourself instead of taking it in passively. That's why it comes out when the moment arrives.</p>
+
+        <ol class="loop-flow">
+            <li class="loop-card">
+                <span class="loop-num">STEP 01</span>
+                <div class="loop-icon" aria-hidden="true">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+                </div>
+                <h3 class="loop-verb">Write</h3>
+                <p class="loop-body">Build the English yourself from the meaning. Recall is what turns into speech.</p>
+            </li>
+            <li class="loop-conn" aria-hidden="true">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg>
+            </li>
+            <li class="loop-card">
+                <span class="loop-num">STEP 02</span>
+                <div class="loop-icon" aria-hidden="true">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.5l2 2 4-4.5M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>
+                </div>
+                <h3 class="loop-verb">Fix</h3>
+                <p class="loop-body">AI corrects it with reasons and shows the natural phrasing — so you learn why it's said that way.</p>
+            </li>
+            <li class="loop-conn" aria-hidden="true">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg>
+            </li>
+            <li class="loop-card">
+                <span class="loop-num">STEP 03</span>
+                <div class="loop-icon" aria-hidden="true">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12a8 8 0 01-11.5 7.2L4 20l1-4.5A8 8 0 1121 12z"/></svg>
+                </div>
+                <h3 class="loop-verb">Use</h3>
+                <p class="loop-body">Put the phrase to work in a conversation with AI. It's only yours once you've used it.</p>
+            </li>
+        </ol>
+
+        <p class="loop-cycle">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h5M20 20v-5h-5M4.5 9a8 8 0 0114-3M19.5 15a8 8 0 01-14 3"/></svg>
+            <span><b>What you notice you're missing</b> feeds the next "write". The more you loop, the more you speak.</span>
+        </p>
+    </div>
+</section>
+
     <main class="max-w-6xl mx-auto px-6">
 
         <!-- Hero -->
-        <section class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center pt-16 lg:pt-24 pb-20 lg:pb-28">
-            <div class="fade-up visible">
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-700 text-xs font-semibold tracking-wide uppercase mb-6 dark:bg-teal-950/30 dark:text-teal-300">
-                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                    Now Available on the App Store
-                </span>
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
-                    <!-- Keep <br> visible on all viewports so the comma break is preserved.
-                         English can still word-wrap if the first line is too long. -->
-                    Practical English,<br>
-                    <span class="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">day by day</span>.
-                </h1>
-                <p class="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl dark:text-slate-300">
-                    AI conversation, composition, grammar, vocabulary — all your English in one app.<br class="hidden sm:inline">
-                    Talk with AI, and AI corrects your English and rewrites it the natural way.<br class="hidden sm:inline">
-                    Spaced review turns what you know into English you actually use.
-                </p>
-                <div class="flex flex-wrap items-center gap-4 mb-6">
-                    <a href="https://apps.apple.com/app/id6757105670" target="_blank" rel="noopener" class="app-store-badge" aria-label="Download on the App Store">
-                        <img
-                            src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?releaseDate=2026-05-14"
-                            alt="Download on the App Store">
-                    </a>
-                    <a href="#features" class="text-slate-700 text-sm font-medium hover:text-teal-600 transition inline-flex items-center gap-1 dark:text-slate-200 dark:hover:text-teal-400">
-                        See features
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
-                    </a>
-                </div>
-                <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-600 dark:text-slate-300">
-                    <span class="inline-flex items-center gap-1.5"><svg class="w-4 h-4 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>7-day free trial</span>
-                    <span class="inline-flex items-center gap-1.5"><svg class="w-4 h-4 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>iOS / iPadOS 18.0 or later</span>
-                    <span class="inline-flex items-center gap-1.5"><svg class="w-4 h-4 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>iPhone & iPad</span>
-                    <span class="inline-flex items-center gap-1.5"><svg class="w-4 h-4 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Full dark mode</span>
-                </div>
-            </div>
-
-            <div class="flex justify-center lg:justify-end fade-up visible">
-                <div class="phone-pair">
-                    <!-- Light mode -->
-                    <!-- Mobile w-40 (160px) × 2 + gap 14px = 334px fits within 342px content area -->
-                    <div class="phone-frame w-40 sm:w-52 lg:w-60">
-                        <span class="phone-btn phone-btn-action"></span>
-                        <span class="phone-btn phone-btn-vol-up"></span>
-                        <span class="phone-btn phone-btn-vol-dn"></span>
-                        <span class="phone-btn phone-btn-power"></span>
-                        <div class="phone-screen">
-                            <img src="../screenshots/home-light.webp?v=0701"
-                                 alt="SnapEnglish home screen, light mode — calendar and composition courses"
-                                 width="603" height="1311"
-                                 loading="eager"
-                                 fetchpriority="high">
-                        </div>
-                    </div>
-                    <!-- Dark mode (also shown on mobile, side-by-side) -->
-                    <div class="phone-frame w-40 sm:w-52 lg:w-60">
-                        <span class="phone-btn phone-btn-action"></span>
-                        <span class="phone-btn phone-btn-vol-up"></span>
-                        <span class="phone-btn phone-btn-vol-dn"></span>
-                        <span class="phone-btn phone-btn-power"></span>
-                        <div class="phone-screen phone-screen-dark">
-                            <img src="../screenshots/home-dark.webp?v=0701"
-                                 alt="SnapEnglish home screen, dark mode"
-                                 width="603" height="1311"
-                                 loading="lazy">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Stats / Trust bar -->
         <section class="grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-4 sm:gap-8 py-10 border-y border-slate-200 dark:border-slate-700">
             <div class="text-center">
@@ -439,7 +523,7 @@
         </section>
 
         <!-- How it works -->
-        <section id="how" class="py-20 lg:py-28">
+        <section id="modes" class="py-20 lg:py-28">
             <div class="text-center mb-14">
                 <p class="text-xs font-bold tracking-widest uppercase text-teal-600 mb-3 dark:text-teal-400">How it works</p>
                 <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Four ways to train, all in one</h2>
