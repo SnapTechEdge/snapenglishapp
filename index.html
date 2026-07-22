@@ -387,6 +387,11 @@
     .loop-icon{ width:40px; height:40px; margin:12px 0 14px; display:grid; place-items:center;
         border-radius:11px; background:rgba(255,107,61,.10); color:var(--se-accent); }
     .loop-icon svg{ width:22px; height:22px; }
+    /* STEP 01 は入力手段が2つ（声/キーボード）あるので、アイコンも2つ並べる。
+       1つだけだと片方の手段しか無いように見える。幅は中身なりに広げる。 */
+    /* display は flex（inline-flex にすると STEP ラベルの行へ回り込む）。
+       幅は中身なりだが、ブロックとして改行させるため fit-content にする。 */
+    .loop-icon--pair{ width:fit-content; display:flex; align-items:center; gap:8px; padding:0 11px; }
     .loop-verb{ font-size:clamp(19px,2.2vw,24px); font-weight:800; letter-spacing:-.01em; margin:0 0 6px; }
     .loop-body{ font-size:.8125rem; line-height:1.85; color:rgb(71 85 105); margin:0; }
     .dark .loop-body{ color:rgb(148 163 184); }
@@ -504,8 +509,9 @@
         <ol class="loop-flow">
             <li class="loop-card">
                 <span class="loop-num">STEP 01</span>
-                <div class="loop-icon" aria-hidden="true">
+                <div class="loop-icon loop-icon--pair" aria-hidden="true">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3a3 3 0 013 3v6a3 3 0 01-6 0V6a3 3 0 013-3zM19 11a7 7 0 01-14 0M12 18v3"/></svg>
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5h18a1 1 0 011 1v7a1 1 0 01-1 1H3a1 1 0 01-1-1v-7a1 1 0 011-1zM6 11h.01M9.5 11h.01M13 11h.01M16.5 11h.01M7.5 13.5h9"/></svg>
                 </div>
                 <h3 class="loop-verb">話す・書く</h3>
                 <p class="loop-body">日本語の意味から、自分で英語を組み立てる。声でも文字でも、まず自分の言葉で出す。</p>
