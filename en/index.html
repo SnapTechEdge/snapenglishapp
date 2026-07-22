@@ -94,7 +94,7 @@
           "name": "How is my personal data handled?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "We collect only your email address, user ID, learning progress, and purchase history. We do not perform any tracking. See our Privacy Policy for details."
+            "text": "We collect your account details (email address and user ID), learning data, and purchase history. In addition, only when you use the AI features, the English you type or speak and your pronunciation-practice audio are sent to AI services — we ask for your consent the first time, and you can withdraw it at any time in Settings. We do no advertising tracking. See our Privacy Policy for details."
           }
         },
         {
@@ -157,16 +157,6 @@
             color: #f8fafc;
         }
         html.dark .nav-blur { background: rgba(15, 23, 42, 0.7); }
-
-        /* Phone mockup */
-        .phone-pair {
-            display: flex;
-            gap: 14px;
-            align-items: flex-start;
-        }
-        @media (min-width: 640px) {
-            .phone-pair { gap: 18px; }
-        }
         .phone-frame {
             background:
                 linear-gradient(145deg,
@@ -235,30 +225,10 @@
             .app-store-badge img { height: 56px; }
         }
 
-        .step-num {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #14b8a6, #0d9488);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            font-weight: 700;
-            box-shadow: 0 8px 16px rgba(20, 184, 166, 0.25);
-        }
-
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .fade-up {
-            animation: fadeUp 0.6s ease-out forwards;
-            opacity: 0;
-            animation-play-state: paused;
-        }
-        .fade-up.visible { animation-play-state: running; }
 
         .price-card-highlight { position: relative; }
         .price-card-highlight::before {
@@ -1069,7 +1039,7 @@
                         <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </summary>
                     <p class="mt-4 text-slate-600 leading-relaxed text-sm dark:text-slate-300">
-                        We collect only your email address, user ID, learning progress, and purchase history. We do not perform any tracking. See our <a href="privacy.html" class="text-teal-600 underline hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300">Privacy Policy</a> for details.
+                        We collect your account details (email address and user ID), learning data, and purchase history. In addition, only when you use the AI features, the English you type or speak and your pronunciation-practice audio are sent to AI services — we ask for your consent the first time, and you can withdraw it at any time in Settings. We do no advertising tracking. See our <a href="privacy.html" class="text-teal-600 underline hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300">Privacy Policy</a> for details.
                     </p>
                 </details>
 
@@ -1138,7 +1108,7 @@
                 <div class="relative z-10">
                     <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">Take the first step toward practical English.</h2>
                     <p class="text-lg text-teal-50 mb-8 max-w-xl mx-auto leading-relaxed">
-                        Try every feature with a 7-day free trial.<br>No subscription required, so you can try it risk-free.
+                        Try every feature with a 7-day free trial (AI conversation is capped at 3 a day).<br>No subscription required, so you can try it risk-free.
                     </p>
                     <a href="https://apps.apple.com/app/id6757105670" target="_blank" rel="noopener" class="app-store-badge" aria-label="Download on the App Store">
                         <img
@@ -1237,17 +1207,6 @@
             });
             updateIcon();
         })();
-
-        // Fade-up on scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.fade-up:not(.visible)').forEach(el => observer.observe(el));
 
         // Contact form submission
         (() => {

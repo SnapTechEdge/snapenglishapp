@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://snapenglishapp.com/</loc>
-    <lastmod>2026-05-04</lastmod>
+    <lastmod>2026-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/"/>
@@ -12,7 +12,7 @@
   </url>
   <url>
     <loc>https://snapenglishapp.com/en/</loc>
-    <lastmod>2026-05-04</lastmod>
+    <lastmod>2026-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/"/>
@@ -21,7 +21,7 @@
   </url>
   <url>
     <loc>https://snapenglishapp.com/privacy.html</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-07-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/privacy.html"/>
@@ -29,7 +29,7 @@
   </url>
   <url>
     <loc>https://snapenglishapp.com/en/privacy.html</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-07-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/privacy.html"/>
@@ -37,7 +37,7 @@
   </url>
   <url>
     <loc>https://snapenglishapp.com/terms.html</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-07-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/terms.html"/>
@@ -45,7 +45,7 @@
   </url>
   <url>
     <loc>https://snapenglishapp.com/en/terms.html</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-07-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/terms.html"/>
@@ -53,7 +53,7 @@
   </url>
   <url>
     <loc>https://snapenglishapp.com/tokushoho.html</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-07-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>

@@ -93,7 +93,7 @@
           "name": "個人情報の取り扱いは？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "メールアドレス、ユーザー ID、学習進捗、購入履歴のみを取得し、トラッキングは一切行いません。詳細はプライバシーポリシーをご確認ください。"
+            "text": "アカウント情報（メールアドレス・ユーザー ID）と学習データ、購入履歴を取得します。加えて、AI 機能を使ったときに限り、入力・発話した英文や発音練習の音声を AI サービスへ送信します（初回に同意を確認し、設定からいつでも撤回できます）。広告目的のトラッキングは一切行いません。詳細はプライバシーポリシーをご確認ください。"
           }
         },
         {
@@ -156,16 +156,6 @@
             color: #f8fafc; /* 防御: 古いCSSがキャッシュされていても文字色を確保 */
         }
         html.dark .nav-blur { background: rgba(15, 23, 42, 0.7); }
-
-        /* Phone mockup */
-        .phone-pair {
-            display: flex;
-            gap: 14px;
-            align-items: flex-start;
-        }
-        @media (min-width: 640px) {
-            .phone-pair { gap: 18px; }
-        }
         .phone-frame {
             background:
                 linear-gradient(145deg,
@@ -201,36 +191,8 @@
             display: block;
             object-fit: cover;
         }
-        /* ヒーロー右: シーンの壁(枠なし)＋会話ショット(実UI)の2枚構成。
-           DOM順=シーン壁→会話ショット。lg では row-reverse で視覚上は
-           左=会話ショット / 右=シーン壁 に反転する。 */
-        .hero-visual { display: flex; align-items: center; justify-content: center; gap: 18px; }
-        .hero-shot {
-            width: 100%; max-width: 272px; height: auto;
-            border-radius: 22px; display: block; flex: 0 0 auto;
-            box-shadow: 0 26px 54px -20px rgba(0, 0, 0, .55);
-        }
-        .scene-field {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
-            gap: 10px; width: 100%;
-        }
-        .scene-field img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 10px; display: block; }
         /* モバイル: 会話ショットを主役にし、シーンの壁は隠す(縦に伸ばしすぎない)。 */
-        @media (max-width: 1023px) { .scene-field { display: none; } }
         /* デスクトップ(2カラム): 左にシーンの壁(高さを抑え下端フェード)、右に会話ショット。 */
-        @media (min-width: 1024px) {
-            /* 左右入れ替え: 会話ショットを左・シーン壁を右に。 */
-            .hero-visual { flex-direction: row-reverse; }
-            /* 会話ショットとシーン壁を同じ高さに揃える(高さ基準・幅はアスペクトで自動)。 */
-            .hero-shot { height: 560px; width: auto; max-width: none; }
-            .scene-field {
-                flex: 1; grid-template-columns: repeat(3, 1fr); gap: 10px;
-                height: 560px; max-height: 560px; overflow: hidden;
-                -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent);
-                mask-image: linear-gradient(to bottom, #000 82%, transparent);
-            }
-        }
         /* iPhone 側面ボタン */
         .phone-btn {
             position: absolute;
@@ -269,32 +231,11 @@
             .app-store-badge img { height: 56px; }
         }
 
-        /* Step number */
-        .step-num {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #14b8a6, #0d9488);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            font-weight: 700;
-            box-shadow: 0 8px 16px rgba(20, 184, 166, 0.25);
-        }
-
         /* Fade in animation */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .fade-up {
-            animation: fadeUp 0.6s ease-out forwards;
-            opacity: 0;
-            animation-play-state: paused;
-        }
-        .fade-up.visible { animation-play-state: running; }
 
         /* Pricing card highlight */
         .price-card-highlight {
@@ -1124,7 +1065,7 @@
                         <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </summary>
                     <p class="mt-4 text-slate-600 leading-relaxed text-sm dark:text-slate-300">
-                        メールアドレス、ユーザー ID、学習進捗、購入履歴のみを取得し、トラッキングは一切行いません。詳細は <a href="privacy.html" class="text-teal-600 underline hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300">プライバシーポリシー</a> をご確認ください。
+                        アカウント情報（メールアドレス・ユーザー ID）と学習データ、購入履歴を取得します。加えて、AI 機能を使ったときに限り、入力・発話した英文や発音練習の音声を AI サービスへ送信します（初回に同意を確認し、設定からいつでも撤回できます）。広告目的のトラッキングは一切行いません。詳細は <a href="privacy.html" class="text-teal-600 underline hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300">プライバシーポリシー</a> をご確認ください。
                     </p>
                 </details>
 
@@ -1193,7 +1134,7 @@
                 <div class="relative z-10">
                     <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">使える英語へ、最初の 1 歩を。</h2>
                     <p class="text-lg text-teal-50 mb-8 max-w-xl mx-auto leading-relaxed">
-                        7 日間の無料体験で全機能をお試しください。<br>契約不要なので安心してお試しいただけます。
+                        7 日間の無料体験で全機能をお試しください（AI英会話は1日3本まで）。<br>契約不要なので安心してお試しいただけます。
                     </p>
                     <a href="https://apps.apple.com/jp/app/id6757105670" target="_blank" rel="noopener" class="app-store-badge" aria-label="App Store でダウンロード">
                         <img
@@ -1294,17 +1235,6 @@
             });
             updateIcon();
         })();
-
-        // Fade-up on scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.fade-up:not(.visible)').forEach(el => observer.observe(el));
 
         // Contact form submission
         (() => {
