@@ -20,6 +20,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snapenglishapp.com/"/>
   </url>
   <url>
+    <loc>https://snapenglishapp.com/about.html</loc>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/about.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snapenglishapp.com/en/about.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snapenglishapp.com/about.html"/>
+  </url>
+  <url>
+    <loc>https://snapenglishapp.com/en/about.html</loc>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/about.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snapenglishapp.com/en/about.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snapenglishapp.com/about.html"/>
+  </url>
+  <url>
     <loc>https://snapenglishapp.com/privacy.html</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>monthly</changefreq>

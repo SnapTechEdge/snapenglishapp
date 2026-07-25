@@ -27,27 +27,58 @@
     <meta name="twitter:description" content="An all-in-one English app for AI conversation, composition, grammar, and vocabulary. Task-based AI roleplay, AI-graded instant composition, leveled vocabulary, drag-and-drop grammar, and spaced repetition (SRS).">
     <meta name="twitter:image" content="https://snapenglishapp.com/og-image.png">
 
-    <!-- JSON-LD: MobileApplication -->
+    <!-- JSON-LD: entity graph (Organization / WebSite / MobileApplication).
+         Stable @id per entity plus sameAs to the canonical App Store listing so that search
+         engines resolve this app to the right entity and do not merge it with similarly
+         named apps from other developers. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "MobileApplication",
-      "name": "SnapEnglish",
-      "operatingSystem": "iOS 18.0+, iPadOS 18.0+",
-      "applicationCategory": "EducationalApplication",
-      "description": "An all-in-one English app for AI conversation, composition, grammar, and vocabulary, with task-based AI roleplay, AI-graded instant composition, leveled vocabulary, drag-and-drop grammar, and spaced repetition (SRS).",
-      "url": "https://snapenglishapp.com/en/",
-      "installUrl": "https://apps.apple.com/app/id6757105670",
-      "downloadUrl": "https://apps.apple.com/app/id6757105670",
-      "offers": [
-        { "@type": "Offer", "name": "Monthly Plan", "price": "800", "priceCurrency": "JPY" },
-        { "@type": "Offer", "name": "Annual Plan", "price": "8000", "priceCurrency": "JPY" }
-      ],
-      "publisher": {
-        "@type": "Organization",
-        "name": "SnapTechEdge",
-        "url": "https://snaptechedge.com"
-      }
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://snapenglishapp.com/#publisher",
+          "name": "SnapTechEdge",
+          "url": "https://snaptechedge.com",
+          "sameAs": ["https://snaptechedge.com"]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://snapenglishapp.com/#website",
+          "name": "SnapEnglish",
+          "url": "https://snapenglishapp.com/",
+          "inLanguage": "en",
+          "publisher": { "@id": "https://snapenglishapp.com/#publisher" },
+          "about": { "@id": "https://snapenglishapp.com/#app" }
+        },
+        {
+          "@type": "MobileApplication",
+          "@id": "https://snapenglishapp.com/#app",
+          "name": "SnapEnglish",
+          "operatingSystem": "iOS 18.0+, iPadOS 18.0+",
+          "applicationCategory": "EducationalApplication",
+          "inLanguage": "ja",
+          "description": "An all-in-one English app for AI conversation, composition, grammar, and vocabulary, with task-based AI roleplay, AI-graded instant composition, leveled vocabulary, drag-and-drop grammar, and spaced repetition (SRS).",
+          "disambiguatingDescription": "SnapEnglish is an English learning app developed and published by SnapTechEdge. It covers AI conversation practice, instant composition with AI feedback, grammar, vocabulary, and spaced repetition. It does not include any photo or image recognition based learning.",
+          "url": "https://snapenglishapp.com/en/",
+          "sameAs": ["https://apps.apple.com/app/id6757105670"],
+          "installUrl": "https://apps.apple.com/app/id6757105670",
+          "downloadUrl": "https://apps.apple.com/app/id6757105670",
+          "featureList": [
+            "AI conversation practice (task-based, scene-specific roleplay)",
+            "Instant composition with AI feedback",
+            "Grammar practice by arranging words into sentences",
+            "Leveled vocabulary with example sentences",
+            "Spaced repetition (SRS) review scheduling"
+          ],
+          "offers": [
+            { "@type": "Offer", "name": "Monthly Plan", "price": "800", "priceCurrency": "JPY" },
+            { "@type": "Offer", "name": "Annual Plan", "price": "8000", "priceCurrency": "JPY" }
+          ],
+          "author": { "@id": "https://snapenglishapp.com/#publisher" },
+          "publisher": { "@id": "https://snapenglishapp.com/#publisher" }
+        }
+      ]
     }
     </script>
 
@@ -57,6 +88,14 @@
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is SnapEnglish?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SnapEnglish is an English learning app developed and published by SnapTechEdge. It covers AI conversation practice, instant composition with AI feedback, grammar, vocabulary and spaced repetition (SRS). You study by typing, speaking and arranging words."
+          }
+        },
         {
           "@type": "Question",
           "name": "Do I need to sign in to use the app?",
@@ -409,7 +448,7 @@
         <p class="hero-kicker">AI ENGLISH — SNAPENGLISH</p>
         <h1 id="hero-h" class="hero-h1">Could you handle that moment in English?</h1>
         <p class="hero-sub">Apologizing to a restaurant for a no-show. Raising a concern about a plan in a meeting.<br class="hidden sm:inline">
-            <b class="hero-strong">148</b> real-life situations — practice each one by talking with AI.</p>
+            <b class="hero-strong">200</b> real-life situations — practice each one by talking with AI.</p>
         <div class="hero-actions">
             <a href="https://apps.apple.com/app/id6757105670" target="_blank" rel="noopener" class="app-store-badge" aria-label="Download on the App Store">
                 <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?releaseDate=2026-05-14" alt="Download on the App Store">
@@ -481,7 +520,7 @@
         <!-- Stats / Trust bar -->
         <section class="grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-4 sm:gap-8 py-10 border-y border-slate-200 dark:border-slate-700">
             <div class="text-center">
-                <p class="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-rose-500 to-orange-500 bg-clip-text text-transparent mb-1">148</p>
+                <p class="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-rose-500 to-orange-500 bg-clip-text text-transparent mb-1">200</p>
                 <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300">AI conversation scenes</p>
             </div>
             <div class="text-center">
@@ -573,9 +612,9 @@
                         <li class="flex items-start gap-2"><svg class="w-5 h-5 text-rose-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Adapts to your level (CEFR A1–C2)</li>
                         <li class="flex items-start gap-2"><svg class="w-5 h-5 text-rose-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Script mode: follow a model, graded turn by turn</li>
                         <li class="flex items-start gap-2"><svg class="w-5 h-5 text-rose-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Free mode: talk freely, then a full review</li>
-                        <li class="flex items-start gap-2"><svg class="w-5 h-5 text-rose-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Voice or chat, with 148 scenes built in</li>
+                        <li class="flex items-start gap-2"><svg class="w-5 h-5 text-rose-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Voice or chat, with 200 scenes built in</li>
                     </ul>
-                    <p class="mt-4 text-xs text-slate-500 dark:text-slate-300 leading-relaxed">During the 7-day free trial, up to 3 conversations a day (script and free combined). Premium unlocks all 148 scenes, unlimited.</p>
+                    <p class="mt-4 text-xs text-slate-500 dark:text-slate-300 leading-relaxed">During the 7-day free trial, up to 3 conversations a day (script and free combined). Premium unlocks all 200 scenes, unlimited.</p>
                 </div>
                 <div class="order-1 md:order-2 flex justify-center">
                     <div class="grid grid-cols-2 gap-3 sm:gap-4 items-start w-full max-w-md">
@@ -995,6 +1034,16 @@
             <div class="max-w-3xl mx-auto space-y-3">
                 <details class="group rounded-2xl bg-white border border-slate-200 p-6 hover:border-teal-300 transition open:border-teal-300 dark:bg-slate-900 dark:border-slate-700">
                     <summary class="cursor-pointer font-semibold flex items-center justify-between list-none">
+                        <span>What is SnapEnglish?</span>
+                        <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </summary>
+                    <p class="mt-4 text-slate-600 leading-relaxed text-sm dark:text-slate-300">
+                        SnapEnglish is an English learning app developed and published by SnapTechEdge. It covers AI conversation practice, instant composition with AI feedback, grammar, vocabulary and spaced repetition (SRS). You study by typing, speaking and arranging words. See <a href="about.html" class="text-teal-600 underline hover:text-teal-700 dark:text-teal-400">About SnapEnglish</a> for details.
+                    </p>
+                </details>
+
+                <details class="group rounded-2xl bg-white border border-slate-200 p-6 hover:border-teal-300 transition open:border-teal-300 dark:bg-slate-900 dark:border-slate-700">
+                    <summary class="cursor-pointer font-semibold flex items-center justify-between list-none">
                         <span>Do I need to sign in to use the app?</span>
                         <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </summary>
@@ -1132,6 +1181,7 @@
                 <span class="text-slate-400 dark:text-slate-500">— © <span id="year">2026</span> SnapTechEdge</span>
             </div>
             <div class="flex flex-wrap items-center gap-x-6 gap-y-2 justify-center">
+                <a href="about.html" class="hover:text-teal-600 transition dark:hover:text-teal-400">About</a>
                 <a href="terms.html" class="hover:text-teal-600 transition dark:hover:text-teal-400">Terms</a>
                 <a href="privacy.html" class="hover:text-teal-600 transition dark:hover:text-teal-400">Privacy</a>
                 <a href="../tokushoho.html" hreflang="ja" lang="ja" class="hover:text-teal-600 transition dark:hover:text-teal-400">特商法表記 (JP)</a>

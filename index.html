@@ -26,27 +26,59 @@
     <meta name="twitter:description" content="AI英会話・英作文・英文法・単語を1つで学べる英語総合アプリ。タスク型のAI英会話に、AI添削つきの瞬間英作文、レベル別の単語学習と並べ替え英文法、反復学習(SRS)。「使える英語」を毎日積み上げる。">
     <meta name="twitter:image" content="https://snapenglishapp.com/og-image.png">
 
-    <!-- JSON-LD: MobileApplication -->
+    <!-- JSON-LD: エンティティグラフ（Organization / WebSite / MobileApplication）
+         @id で各エンティティに固定URIを与え、sameAs で App Store の正規リストへ結び付ける。
+         これは検索エンジンの実体解決（同名・類似名アプリとの取り違え防止）のための情報で、
+         個別の @type を単体で置くよりも「誰が作った何なのか」が一意に伝わる。 -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "MobileApplication",
-      "name": "SnapEnglish",
-      "operatingSystem": "iOS 18.0+, iPadOS 18.0+",
-      "applicationCategory": "EducationalApplication",
-      "description": "AI英会話・英作文・英文法・単語を1つで学べる英語総合アプリ。タスク型AI英会話・AI添削つき瞬間英作文・レベル別単語学習・並べ替え英文法・反復学習(SRS)。",
-      "url": "https://snapenglishapp.com/",
-      "installUrl": "https://apps.apple.com/jp/app/id6757105670",
-      "downloadUrl": "https://apps.apple.com/jp/app/id6757105670",
-      "offers": [
-        { "@type": "Offer", "name": "月額プラン", "price": "800", "priceCurrency": "JPY" },
-        { "@type": "Offer", "name": "年額プラン", "price": "8000", "priceCurrency": "JPY" }
-      ],
-      "publisher": {
-        "@type": "Organization",
-        "name": "SnapTechEdge",
-        "url": "https://snaptechedge.com"
-      }
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://snapenglishapp.com/#publisher",
+          "name": "SnapTechEdge",
+          "url": "https://snaptechedge.com",
+          "sameAs": ["https://snaptechedge.com"]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://snapenglishapp.com/#website",
+          "name": "SnapEnglish",
+          "url": "https://snapenglishapp.com/",
+          "inLanguage": "ja",
+          "publisher": { "@id": "https://snapenglishapp.com/#publisher" },
+          "about": { "@id": "https://snapenglishapp.com/#app" }
+        },
+        {
+          "@type": "MobileApplication",
+          "@id": "https://snapenglishapp.com/#app",
+          "name": "SnapEnglish",
+          "alternateName": "スナップイングリッシュ",
+          "operatingSystem": "iOS 18.0+, iPadOS 18.0+",
+          "applicationCategory": "EducationalApplication",
+          "inLanguage": "ja",
+          "description": "AI英会話・英作文・英文法・単語を1つで学べる英語総合アプリ。タスク型AI英会話・AI添削つき瞬間英作文・レベル別単語学習・並べ替え英文法・反復学習(SRS)。",
+          "disambiguatingDescription": "SnapEnglish は SnapTechEdge が開発・提供する英語学習アプリで、AI英会話・瞬間英作文・英文法・英単語・反復学習(SRS)を1つのアプリで扱います。写真や画像を読み取って学習する機能は搭載していません。",
+          "url": "https://snapenglishapp.com/",
+          "sameAs": ["https://apps.apple.com/jp/app/id6757105670"],
+          "installUrl": "https://apps.apple.com/jp/app/id6757105670",
+          "downloadUrl": "https://apps.apple.com/jp/app/id6757105670",
+          "featureList": [
+            "AI英会話（タスク型・シーン別の実践会話）",
+            "瞬間英作文（AI添削つき）",
+            "英文法（並べ替えで文構造を身につける）",
+            "英単語（レベル別・例文つき）",
+            "反復学習（SRS による復習スケジュール）"
+          ],
+          "offers": [
+            { "@type": "Offer", "name": "月額プラン", "price": "800", "priceCurrency": "JPY" },
+            { "@type": "Offer", "name": "年額プラン", "price": "8000", "priceCurrency": "JPY" }
+          ],
+          "author": { "@id": "https://snapenglishapp.com/#publisher" },
+          "publisher": { "@id": "https://snapenglishapp.com/#publisher" }
+        }
+      ]
     }
     </script>
 
@@ -56,6 +88,14 @@
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "SnapEnglish はどんなアプリですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SnapEnglish は SnapTechEdge が開発・提供する英語学習アプリです。AI英会話・瞬間英作文・英文法・英単語・反復学習(SRS)を1つのアプリで学べます。学習はテキスト入力・音声での発話・単語の並べ替えで進めます。"
+          }
+        },
         {
           "@type": "Question",
           "name": "サインインしないと使えませんか？",
@@ -438,7 +478,7 @@
         <p class="hero-kicker">AI ENGLISH — SNAPENGLISH</p>
         <h1 id="hero-h" class="hero-h1">その場面、英語で対応できますか。</h1>
         <p class="hero-sub">予約を無断でキャンセルしたことを謝る。会議で企画に意見を述べる。<br class="hidden sm:inline">
-            <b class="hero-strong">148</b>の“よくある場面”を集めて、AI と話して練習します。</p>
+            <b class="hero-strong">200</b>の“よくある場面”を集めて、AI と話して練習します。</p>
         <div class="hero-actions">
             <a href="https://apps.apple.com/jp/app/id6757105670" target="_blank" rel="noopener" class="app-store-badge" aria-label="App Store でダウンロード">
                 <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp?releaseDate=2026-05-14" alt="App Store でダウンロード">
@@ -510,7 +550,7 @@
         <!-- Stats / Trust bar -->
         <section class="grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-4 sm:gap-8 py-10 border-y border-slate-200 dark:border-slate-700">
             <div class="text-center">
-                <p class="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-rose-500 to-orange-500 bg-clip-text text-transparent mb-1">148</p>
+                <p class="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-rose-500 to-orange-500 bg-clip-text text-transparent mb-1">200</p>
                 <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300">AI英会話のシーン</p>
             </div>
             <div class="text-center">
@@ -602,9 +642,9 @@
                         <li class="flex items-start gap-2"><svg class="w-5 h-5 text-rose-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>初級〜上級にレベル調整（CEFR A1〜C2）</li>
                         <li class="flex items-start gap-2"><svg class="w-5 h-5 text-rose-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>台本モード：お手本に沿って1往復ずつ添削</li>
                         <li class="flex items-start gap-2"><svg class="w-5 h-5 text-rose-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>フリーモード：自由に会話して最後に総合レビュー</li>
-                        <li class="flex items-start gap-2"><svg class="w-5 h-5 text-rose-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>音声・チャットの両対応、148 シーンを収録</li>
+                        <li class="flex items-start gap-2"><svg class="w-5 h-5 text-rose-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>音声・チャットの両対応、200 シーンを収録</li>
                     </ul>
-                    <p class="mt-4 text-xs text-slate-500 dark:text-slate-300 leading-relaxed">7日間の無料トライアル中は1日3本まで<span class="nobreak">（台本・フリー共通）</span>。Premium なら全 148 シーンを無制限で。</p>
+                    <p class="mt-4 text-xs text-slate-500 dark:text-slate-300 leading-relaxed">7日間の無料トライアル中は1日3本まで<span class="nobreak">（台本・フリー共通）</span>。Premium なら全 200 シーンを無制限で。</p>
                 </div>
                 <div class="order-1 md:order-2 flex justify-center">
                     <div class="grid grid-cols-2 gap-3 sm:gap-4 items-start w-full max-w-md">
@@ -1024,6 +1064,16 @@
             <div class="max-w-3xl mx-auto space-y-3">
                 <details class="group rounded-2xl bg-white border border-slate-200 p-6 hover:border-teal-300 transition open:border-teal-300 dark:bg-slate-900 dark:border-slate-700">
                     <summary class="cursor-pointer font-semibold flex items-center justify-between list-none">
+                        <span>SnapEnglish はどんなアプリですか？</span>
+                        <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </summary>
+                    <p class="mt-4 text-slate-600 leading-relaxed text-sm dark:text-slate-300">
+                        SnapEnglish は SnapTechEdge が開発・提供する英語学習アプリです。AI英会話・瞬間英作文・英文法・英単語・反復学習(SRS)を1つのアプリで学べます。学習はテキスト入力・音声での発話・単語の並べ替えで進めます。詳しくは <a href="about.html" class="text-teal-600 underline hover:text-teal-700 dark:text-teal-400">SnapEnglish とは</a> をご覧ください。
+                    </p>
+                </details>
+
+                <details class="group rounded-2xl bg-white border border-slate-200 p-6 hover:border-teal-300 transition open:border-teal-300 dark:bg-slate-900 dark:border-slate-700">
+                    <summary class="cursor-pointer font-semibold flex items-center justify-between list-none">
                         <span>サインインしないと使えませんか？</span>
                         <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </summary>
@@ -1161,6 +1211,7 @@
                 <span class="text-slate-400 dark:text-slate-500">— © <span id="year">2026</span> SnapTechEdge</span>
             </div>
             <div class="flex flex-wrap items-center gap-x-6 gap-y-2 justify-center">
+                <a href="about.html" class="hover:text-teal-600 transition dark:hover:text-teal-400">SnapEnglish とは</a>
                 <a href="terms.html" class="hover:text-teal-600 transition dark:hover:text-teal-400">利用規約</a>
                 <a href="privacy.html" class="hover:text-teal-600 transition dark:hover:text-teal-400">プライバシー</a>
                 <a href="tokushoho.html" class="hover:text-teal-600 transition dark:hover:text-teal-400">特商法表記</a>
