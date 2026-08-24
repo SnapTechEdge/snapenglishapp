@@ -69,7 +69,11 @@
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
-              <span><strong>User ID</strong>: a unique identifier issued by Firebase Authentication. Used to associate your learning data with your account.</span>
+              <span><strong>User ID</strong>: a unique identifier issued by Firebase Authentication. Used to associate your learning data with your account, and to analyze how the App is used.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-teal-500 mt-1.5">•</span>
+              <span><strong>Approximate location</strong>: the country, region, and city inferred from your IP address, used for usage analytics.</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
@@ -77,7 +81,7 @@
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
-              <span><strong>Product activity (learning data)</strong>: answers, correctness, learning progress, review list, completion timestamps, etc. — data needed to provide the App and support continued learning.</span>
+              <span><strong>Product activity (learning data)</strong>: answers, correctness, learning progress, review list, completion timestamps, etc. — data needed to provide the App and support continued learning — as well as usage such as screens viewed and time spent.</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
@@ -85,7 +89,7 @@
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
-              <span><strong>Voice data</strong>: only when you use the pronunciation practice feature, your recorded audio is sent to <strong>Microsoft</strong>'s speech analysis service (consent obtained in-app before sending). It is not stored on our servers. Voice input for question answers is processed on-device and not sent externally. Voice input for AI conversation is transcribed by Apple's speech recognition service (which may include server-side processing) on iOS, and by OpenAI's speech recognition service on Android.</span>
+              <span><strong>Voice data</strong>: only when you use the pronunciation practice feature, your recorded audio is sent to <strong>Microsoft</strong>'s speech analysis service (consent obtained in-app before sending). It is not stored on our servers. Voice input for question answers and for AI conversation is transcribed by Apple's speech recognition service on iOS (this includes server-side processing), and on Android by the speech recognition service built into your device's operating system (provided by Google on most devices; this may include server-side processing). Only when no speech recognition service is available on an Android device, voice input for AI conversation is sent to OpenAI's speech recognition service for transcription.</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
@@ -120,13 +124,15 @@
           </h2>
           <p class="text-slate-600 mb-3 dark:text-slate-300">We use third-party services to deliver our features. The main services we currently use are listed below; they may change as we improve the product or change our infrastructure. Please also review each service's privacy policy.</p>
           <ul class="text-slate-600 space-y-1.5 ml-4 dark:text-slate-300">
-            <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>Google (Firebase)</strong>: authentication, database (Firestore), audio file delivery (Cloud Storage)</span></li>
+            <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>Google (Firebase)</strong>: authentication, database (Firestore), audio file delivery (Cloud Storage), usage analytics (Google Analytics)</span></li>
             <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>RevenueCat</strong>: subscription state management</span></li>
-            <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>Apple</strong>: speech recognition (on-device for question answers; Apple's speech recognition service for AI conversation voice input), Sign in with Apple</span></li>
+            <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>Apple</strong>: speech recognition on iOS (question answers and AI conversation voice input; includes server-side processing), Sign in with Apple</span></li>
+            <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>The speech recognition service built into your device's operating system (Android)</strong>: transcription of voice input for question answers and AI conversation. The provider differs by device (Google on most devices). Depending on the device and its settings, audio is sent to that provider's servers for recognition.</span></li>
             <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>Anthropic</strong>: AI feedback (composition/rearrangement), AI conversation responses and grading, pronunciation feedback generation. Receives the English text you enter or speak.</span></li>
             <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>Google</strong>: AI conversation response generation. Receives your conversation messages.</span></li>
             <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>Microsoft</strong>: pronunciation analysis (sending recorded audio), AI conversation speech synthesis</span></li>
-            <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>OpenAI</strong>: fallback speech synthesis for AI conversation, and speech recognition (in some environments)</span></li>
+            <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>OpenAI</strong>: fallback speech synthesis for AI conversation, and fallback speech recognition (when no speech recognition service is available on an Android device)</span></li>
+            <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>Studyplus (Studyplus Inc.)</strong>: study-record integration. Only if you enable the integration, the length of time you studied and the date and time are sent to Studyplus (your answers and the text you enter are not sent). You can unlink at any time from Settings.</span></li>
             <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>Cloudflare</strong>: hosting of this website and bot protection for the contact form</span></li>
             <li class="flex items-start gap-2"><span class="text-teal-500 mt-1.5">•</span><span><strong>Resend</strong>: sending email from the contact form (notification to us and the automatic acknowledgement to you)</span></li>
           </ul>
@@ -215,7 +221,7 @@
       </div>
 
       <div class="mt-10 pt-6 border-t border-slate-200 text-right text-sm text-slate-500 dark:border-slate-700">
-        Last updated: July 22, 2026
+        Last updated: August 23, 2026
       </div>
     </main>
 

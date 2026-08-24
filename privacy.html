@@ -72,7 +72,11 @@
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
-              <span><strong>ユーザー ID</strong>：認証基盤（Firebase Authentication）が発行する一意の識別子です。学習データとアカウントの紐付けに使用します。</span>
+              <span><strong>ユーザー ID</strong>：認証基盤（Firebase Authentication）が発行する一意の識別子です。学習データとアカウントの紐付けに使用します。あわせて、アプリの利用状況の分析にも使用します。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-teal-500 mt-1.5">•</span>
+              <span><strong>概算の所在地</strong>：IP アドレスから推定される国・地域・市区町村を、利用状況の分析に使用します。</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
@@ -80,7 +84,7 @@
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
-              <span><strong>プロダクト操作（学習データ）</strong>：問題への回答・正誤情報・学習進捗・復習リスト・完了日時など、本アプリの機能提供および学習継続に必要なデータを取得します。</span>
+              <span><strong>プロダクト操作（学習データ）</strong>：問題への回答・正誤情報・学習進捗・復習リスト・完了日時など、本アプリの機能提供および学習継続に必要なデータのほか、画面の閲覧や利用時間などの利用状況を取得します。</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
@@ -88,7 +92,7 @@
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
-              <span><strong>音声データ</strong>：発音練習機能利用時に限り、ユーザーの録音音声を <strong>Microsoft</strong> の音声解析サービスへ送信します（送信前にアプリ内で同意を取得）。当組織のサーバーには保存されません。問題の回答入力時の音声認識は端末上で処理され外部送信されません。AI 英会話の音声入力は、iOS では Apple の音声認識サービス（サーバーでの処理を含む場合があります）、Android 環境では OpenAI の音声認識サービスで文字起こしされます。</span>
+              <span><strong>音声データ</strong>：発音練習機能利用時に限り、ユーザーの録音音声を <strong>Microsoft</strong> の音声解析サービスへ送信します（送信前にアプリ内で同意を取得）。当組織のサーバーには保存されません。問題の回答入力および AI 英会話の音声入力は、iOS では Apple の音声認識サービス（サーバーでの処理を含みます）、Android では端末に搭載された OS 標準の音声認識サービス（多くの端末では Google が提供します。サーバーでの処理を含む場合があります）で文字起こしされます。Android の端末に音声認識サービスがない場合に限り、AI 英会話の音声入力を OpenAI の音声認識サービスへ送信して文字起こしします。</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
@@ -143,7 +147,7 @@
           <ul class="text-slate-600 space-y-1.5 ml-4 dark:text-slate-300">
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
-              <span><strong>Google（Firebase）</strong>：認証、データベース（Firestore）、音声ファイル配信（Cloud Storage）</span>
+              <span><strong>Google（Firebase）</strong>：認証、データベース（Firestore）、音声ファイル配信（Cloud Storage）、利用状況の分析（Google アナリティクス）</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
@@ -151,7 +155,11 @@
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
-              <span><strong>Apple</strong>：音声認識（回答入力は端末内処理、AI 英会話の音声入力は Apple の音声認識サービス）、Sign in with Apple</span>
+              <span><strong>Apple</strong>：iOS の音声認識（回答入力および AI 英会話の音声入力。サーバーでの処理を含みます）、Sign in with Apple</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-teal-500 mt-1.5">•</span>
+              <span><strong>端末の OS 標準の音声認識サービス（Android）</strong>：回答入力および AI 英会話の音声入力の文字起こし。提供者は端末により異なります（多くの端末では Google）。端末や設定によっては、認識のために音声が提供者のサーバーへ送信されます。</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
@@ -167,7 +175,11 @@
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
-              <span><strong>OpenAI</strong>：AI 英会話の音声合成の代替、および音声認識（一部環境）</span>
+              <span><strong>OpenAI</strong>：AI 英会話の音声合成の代替、および音声認識の代替（Android で端末の音声認識サービスが利用できない場合）</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-teal-500 mt-1.5">•</span>
+              <span><strong>Studyplus（スタディプラス株式会社）</strong>：学習記録の連携。ユーザーが連携を有効にした場合に限り、学習した時間と日時を Studyplus へ送信します（回答内容や入力した英文は送信しません）。連携は設定からいつでも解除できます。</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
@@ -272,7 +284,7 @@
       </div>
 
       <div class="mt-10 pt-6 border-t border-slate-200 text-right text-sm text-slate-500 dark:border-slate-700">
-        最終更新日：2026年7月22日
+        最終更新日：2026年8月23日
       </div>
     </main>
 
