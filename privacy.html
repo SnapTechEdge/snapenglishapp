@@ -92,15 +92,27 @@
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
+              <span><strong>作文の添削結果</strong>：あとから見返せるよう、入力した英文と添削結果をアカウントに保存します。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-teal-500 mt-1.5">•</span>
               <span><strong>音声データ</strong>：発音練習機能利用時に限り、ユーザーの録音音声を <strong>Microsoft</strong> の音声解析サービスへ送信します（送信前にアプリ内で同意を取得）。当組織のサーバーには保存されません。問題の回答入力および AI 英会話の音声入力は、iOS では Apple の音声認識サービス（サーバーでの処理を含みます）、Android では端末に搭載された OS 標準の音声認識サービス（多くの端末では Google が提供します。サーバーでの処理を含む場合があります）で文字起こしされます。Android の端末に音声認識サービスがない場合に限り、AI 英会話の音声入力を OpenAI の音声認識サービスへ送信して文字起こしします。</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
               <span><strong>お問い合わせ内容</strong>：本ウェブサイトの問い合わせフォームを送信された場合に取得する、お名前、メールアドレス、件名、本文。あわせて、不正利用の防止のため IP アドレス、User-Agent 等の技術情報を取得します。これらは問い合わせへの対応と自動受付メールの送信にのみ使用します。</span>
             </li>
+            <li class="flex items-start gap-2">
+              <span class="text-teal-500 mt-1.5">•</span>
+              <span><strong>端末の識別子（Android のみ）</strong>：無料体験の不正な繰り返しを防ぐために利用します。当組織は元の識別子を保存せず、アカウントと結び付けません。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-teal-500 mt-1.5">•</span>
+              <span><strong>クラッシュ・エラー情報</strong>：不具合の調査のため、機種、OS とアプリのバージョン、発生箇所などの技術情報を取得します。</span>
+            </li>
           </ul>
           <p class="text-slate-500 text-sm mt-3 ml-4">
-            ※ 当組織は、住所、電話番号、生年月日、IDFA 等の広告識別子を取得しません。トラッキングは行いません。氏名は、本ウェブサイトの問い合わせフォームを利用される場合に取得します。本アプリの利用にあたって氏名の登録は不要です。
+            ※ 当組織は、住所、電話番号、生年月日、IDFA 等の広告識別子を取得しません。広告を目的とした利用や、他社のアプリ・ウェブサイトを横断した追跡は行いません。氏名は、本ウェブサイトの問い合わせフォームを利用される場合に取得します。本アプリの利用にあたって氏名の登録は不要です。
           </p>
         </section>
 
@@ -147,7 +159,7 @@
           <ul class="text-slate-600 space-y-1.5 ml-4 dark:text-slate-300">
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
-              <span><strong>Google（Firebase）</strong>：認証、データベース（Firestore）、音声ファイル配信（Cloud Storage）、利用状況の分析（Google アナリティクス）</span>
+              <span><strong>Google（Firebase）</strong>：認証、データベース（Firestore）、音声ファイル配信（Cloud Storage）、利用状況の分析（Google アナリティクス）、クラッシュ情報の収集（Crashlytics）</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal-500 mt-1.5">•</span>
@@ -230,7 +242,7 @@
             <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-600 text-sm flex items-center justify-center font-bold dark:bg-teal-900/40 dark:text-teal-400">7</span>
             保有期間・ユーザーの権利・アカウント削除
           </h2>
-          <p class="text-slate-600 mb-3 dark:text-slate-300">アカウント情報および学習データは、アカウントが存続する間保持し、アカウントの削除にあわせて関連データを削除します。お問い合わせ内容は、対応および不正利用の防止に必要な期間保持します。AI 機能の提供のために送信した音声は、当組織のサーバーには保存しません。英文は、「会話の履歴」として保存するものを除き、当組織のサーバーには保存しません（送信先での取扱いは各社のポリシーによります）。「会話の履歴」はアカウントが存続する間保持し、ユーザーはアプリ内の「Library → 会話の履歴」からいつでも削除できます。また、法令により保存が必要な情報は、法令の定める期間保持します。</p>
+          <p class="text-slate-600 mb-3 dark:text-slate-300">アカウント情報および学習データは、アカウントが存続する間保持し、アカウントの削除にあわせて関連データを削除します。お問い合わせ内容は、対応および不正利用の防止に必要な期間保持します。AI 機能の提供のために送信した音声は、当組織のサーバーには保存しません。英文は、「会話の履歴」および「作文の添削結果」として保存するものを除き、当組織のサーバーには保存しません（送信先での取扱いは各社のポリシーによります）。これらはアカウントが存続する間保持し、「会話の履歴」はアプリ内の「Library → 会話の履歴」からいつでも削除できます。無料体験の不正利用を防ぐための記録は、その目的に必要な期間、アカウント削除後も保持します。また、法令により保存が必要な情報は、法令の定める期間保持します。</p>
           <p class="text-slate-600 mb-3 dark:text-slate-300">ユーザーは以下の権利を有します。</p>
           <ul class="text-slate-600 space-y-1.5 ml-4 dark:text-slate-300">
             <li class="flex items-start gap-2">
@@ -284,7 +296,7 @@
       </div>
 
       <div class="mt-10 pt-6 border-t border-slate-200 text-right text-sm text-slate-500 dark:border-slate-700">
-        最終更新日：2026年9月20日
+        最終更新日：2026年9月23日
       </div>
     </main>
 
