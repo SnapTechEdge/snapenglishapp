@@ -516,10 +516,10 @@
     .sd-form-note{ font-size:11.5px; line-height:1.9; color:#7C8590; }
     .sd-form-note a{ color:var(--sd-accent); }
     .sd-form-turnstile{ display:flex; justify-content:center; }
-    /* Turnstile のウィジェットは最小 300px で、こちらからは縮められない。
-       320px の端末では列の内寸 272px に収まらず、右端が切れていた。
-       data-size は触らず（認証そのものに関わるため）、描画だけ縮める。 */
-    @media (max-width:359px){ .sd-form-turnstile{ transform:scale(.9); transform-origin:left center; } }
+    /* Turnstile の既定サイズ（normal）は 300x65px。320px の画面では
+       列の内寸 272px に収まらず、右端が切れていた。認証のUIには触れず、
+       この行だけ列の余白から 14px ずつはみ出させて 300px を確保する。 */
+    @media (max-width:359px){ .sd-form-turnstile{ margin-inline:-14px; } }
     .sd-form-submit{ border:0; border-radius:999px; padding:13px 0; background:var(--sd-accent);
                 color:#fff; font-family:inherit; font-size:15px; font-weight:800; cursor:pointer;
                 transition:filter .15s ease; }
