@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://snapenglishapp.com/</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/"/>
@@ -12,7 +12,7 @@
   </url>
   <url>
     <loc>https://snapenglishapp.com/en/</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/"/>
@@ -21,7 +21,7 @@
   </url>
   <url>
     <loc>https://snapenglishapp.com/about</loc>
-    <lastmod>2026-07-25</lastmod>
+    <lastmod>2026-09-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/about"/>
@@ -30,7 +30,7 @@
   </url>
   <url>
     <loc>https://snapenglishapp.com/en/about</loc>
-    <lastmod>2026-07-25</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/about"/>
@@ -39,7 +39,7 @@
   </url>
   <url>
     <loc>https://snapenglishapp.com/privacy</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/privacy"/>
@@ -48,7 +48,7 @@
   </url>
   <url>
     <loc>https://snapenglishapp.com/en/privacy</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/privacy"/>
@@ -57,7 +57,7 @@
   </url>
   <url>
     <loc>https://snapenglishapp.com/terms</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/terms"/>
@@ -66,7 +66,7 @@
   </url>
   <url>
     <loc>https://snapenglishapp.com/en/terms</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/terms"/>
@@ -75,7 +75,7 @@
   </url>
   <url>
     <loc>https://snapenglishapp.com/tokushoho</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
