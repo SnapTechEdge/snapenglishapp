@@ -243,6 +243,12 @@
            丸ごと次行へ送る。日本語は任意の位置で改行できてしまうため明示が要る。 */
         .nobreak { white-space: nowrap; }
 
+        /* 見出しの改行は、文章の列が広いときの位置で入れてある。狭い画面で
+           その位置のまま折ると、1語だけ行に残ることがある（英語版の
+           「Every scene is set up for / you, / …」）。幅が足りないときは
+           この改行をやめ、自然に折らせる。 */
+        @media (max-width: 560px) { .sd-copy h2 br.wide { display: none; } }
+
 
     /* main の幅制約から全幅へ抜ける。50vw はスクロールバー幅を含むため、そのままだと
        バーのぶん(実測7px)だけ横スクロールが出る。body 側を overflow-x:clip で切る
@@ -511,6 +517,10 @@
     .sd-form-note{ font-size:11.5px; line-height:1.9; color:#7C8590; }
     .sd-form-note a{ color:var(--sd-accent); }
     .sd-form-turnstile{ display:flex; justify-content:center; }
+    /* Turnstile のウィジェットは最小 300px で、こちらからは縮められない。
+       320px の端末では列の内寸 272px に収まらず、右端が切れていた。
+       data-size は触らず（認証そのものに関わるため）、描画だけ縮める。 */
+    @media (max-width:359px){ .sd-form-turnstile{ transform:scale(.9); transform-origin:left center; } }
     .sd-form-submit{ border:0; border-radius:999px; padding:13px 0; background:var(--sd-accent);
                 color:#fff; font-family:inherit; font-size:15px; font-weight:800; cursor:pointer;
                 transition:filter .15s ease; }
@@ -1098,7 +1108,7 @@
                     <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play">
                 </a>
             </div>
-            <p class="sd-note">7 days free &nbsp;/&nbsp; iOS &amp; Android &nbsp;/&nbsp; no payment details required</p>
+            <p class="sd-note"><span class="nobreak">7 days free</span> &nbsp;/&nbsp; <span class="nobreak">iOS &amp; Android</span> &nbsp;/&nbsp; <span class="nobreak">no payment details required</span></p>
             <p class="sd-note">The app interface is in Japanese; the screens in the demos below are shown as they appear in the app.</p>
         </div>
 
@@ -1121,7 +1131,7 @@
         <div class="sd-panel">
             <div class="sd-copy">
                 <p class="sd-eyebrow">AI conversation</p>
-                <h2 id="demo-v-h">Every scene is set up for you,<br>so you never wonder what to say</h2>
+                <h2 id="demo-v-h">Every scene is set up for you, <br class="wide">so you never wonder what to say</h2>
                 <p class="sd-lead">Practise in everyday and business situations you actually run into. Choose Beginner (A1–A2), Intermediate (B1–B2) or Advanced (C1–C2).</p>
                 <p class="sd-lead">In Script mode, you move the conversation forward by putting the prompt into English.</p>
                 <p class="sd-lead">In Free mode, the conversation unfolds from whatever you choose to say.</p>

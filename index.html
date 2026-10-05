@@ -242,6 +242,12 @@
            丸ごと次行へ送る。日本語は任意の位置で改行できてしまうため明示が要る。 */
         .nobreak { white-space: nowrap; }
 
+        /* 見出しの改行は、文章の列が広いときの位置で入れてある。狭い画面で
+           その位置のまま折ると、1語だけ行に残ることがある（英語版の
+           「Every scene is set up for / you, / …」）。幅が足りないときは
+           この改行をやめ、自然に折らせる。 */
+        @media (max-width: 560px) { .sd-copy h2 br.wide { display: none; } }
+
 
     /* main の幅制約から全幅へ抜ける。50vw はスクロールバー幅を含むため、そのままだと
        バーのぶん(実測7px)だけ横スクロールが出る。body 側を overflow-x:clip で切る
@@ -510,6 +516,10 @@
     .sd-form-note{ font-size:11.5px; line-height:1.9; color:#7C8590; }
     .sd-form-note a{ color:var(--sd-accent); }
     .sd-form-turnstile{ display:flex; justify-content:center; }
+    /* Turnstile のウィジェットは最小 300px で、こちらからは縮められない。
+       320px の端末では列の内寸 272px に収まらず、右端が切れていた。
+       data-size は触らず（認証そのものに関わるため）、描画だけ縮める。 */
+    @media (max-width:359px){ .sd-form-turnstile{ transform:scale(.9); transform-origin:left center; } }
     .sd-form-submit{ border:0; border-radius:999px; padding:13px 0; background:var(--sd-accent);
                 color:#fff; font-family:inherit; font-size:15px; font-weight:800; cursor:pointer;
                 transition:filter .15s ease; }
@@ -1097,7 +1107,7 @@
                     <img src="https://play.google.com/intl/ja/badges/static/images/badges/ja_badge_web_generic.png" alt="Google Play で手に入れよう">
                 </a>
             </div>
-            <p class="sd-note">7 日間無料 ／ iOS・Android 対応 ／ 決済情報の登録は不要</p>
+            <p class="sd-note"><span class="nobreak">7 日間無料</span> ／ <span class="nobreak">iOS・Android 対応</span> ／ <span class="nobreak">決済情報の登録は不要</span></p>
         </div>
 
         <!-- ストア1枚目と同じ人物・同じ画風（Recraft V4.1 Pro・同じ STYLE/HANDS 指定）のまま、
@@ -1119,7 +1129,7 @@
         <div class="sd-panel">
             <div class="sd-copy">
                 <p class="sd-eyebrow">AI英会話</p>
-                <h2 id="demo-v-h">シチュエーションの設定があるから、<br>何を話すかで迷わない</h2>
+                <h2 id="demo-v-h">シチュエーションの設定があるから、<br class="wide">何を話すかで迷わない</h2>
                 <p class="sd-lead">日常・ビジネスのよくあるシチュエーションで英会話。初級（A1–A2）・中級（B1–B2）・上級（C1–C2）から選べます。</p>
                 <p class="sd-lead">台本モードは提示される日本語を英語にして会話を進めます。</p>
                 <p class="sd-lead">アドリブモードはあなたの返答によって会話が展開されます。</p>
