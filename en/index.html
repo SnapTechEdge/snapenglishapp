@@ -1033,6 +1033,25 @@
         .sd .pop,.sd .ring,.sd .spin,.sd .cur,.sd .msg,.sd .tick,
         .sd .bad .tx::after{ animation:none !important; }
     }
+
+    /* ---- ヒーローのモードカードの登場 ----
+       4枚が時間差で浮き上がり、数字が 0 から数え上がる。動かすのは下の <script>（sd-modes）。
+       JS が .sd-anim-ready を付けたときだけ初期の隠し状態に入るので、JS が無い・失敗した・
+       視差効果を減らす設定のときは、最初から完成形のまま。
+       数字は右寄せで最終値の桁ぶんの幅を取り、数え上げ中に単位が左右に揺れないようにする。 */
+    .sd-mode .sd-mode-n{ display:block; }
+    .sd-mode .sd-num{ display:inline-block; margin:0; text-align:right; }
+    .sd-mode .sd-sr{ position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden;
+                     clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+    .sd-modes.sd-anim-ready .sd-mode{ opacity:0; transform:translateY(14px); }
+    .sd-modes.sd-anim-go .sd-mode{ animation:sd-mode-in .6s cubic-bezier(.2,.7,.2,1) both; }
+    .sd-modes.sd-anim-go .sd-mode:nth-child(2){ animation-delay:.12s; }
+    .sd-modes.sd-anim-go .sd-mode:nth-child(3){ animation-delay:.24s; }
+    .sd-modes.sd-anim-go .sd-mode:nth-child(4){ animation-delay:.36s; }
+    @keyframes sd-mode-in{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:none; } }
+    @media (prefers-reduced-motion:reduce){
+        .sd-modes .sd-mode{ animation:none !important; opacity:1 !important; transform:none !important; }
+    }
     </style>
     <!-- アクセス解析: Cloudflare Web Analytics は Pages のダッシュボードから有効化する。
          以前ここに置いていた beacon.min.js の script は token が
@@ -1093,10 +1112,10 @@
             <p class="sd-sub">Conversation, composition, grammar and vocabulary — every angle covered. AI acts as your native English teacher, assessing and correcting what you write and say.</p>
             <p class="sd-sub">Today’s questions are queued up for you, so you can fit practice into spare moments. Even on a crowded train, the keyboard alone is enough to keep going.</p>
             <div class="sd-modes">
-                <div class="sd-mode m1"><b>AI conversation</b><span>200 scenes</span></div>
-                <div class="sd-mode m2"><b>Composition</b><span>5,000 questions</span></div>
-                <div class="sd-mode m3"><b>Grammar</b><span>4,279 questions</span></div>
-                <div class="sd-mode m4"><b>Vocabulary</b><span>7,533 words</span></div>
+                <div class="sd-mode m1"><b>AI conversation</b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="200">200</span> scenes</span><span class="sd-sr">200 scenes</span></div>
+                <div class="sd-mode m2"><b>Composition</b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="5000">5,000</span> questions</span><span class="sd-sr">5,000 questions</span></div>
+                <div class="sd-mode m3"><b>Grammar</b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="4279">4,279</span> questions</span><span class="sd-sr">4,279 questions</span></div>
+                <div class="sd-mode m4"><b>Vocabulary</b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="7533">7,533</span> words</span><span class="sd-sr">7,533 words</span></div>
             </div>
             <p class="sd-plus">+ <b>Spaced repetition (SRS)</b>&nbsp;&nbsp;Composition, grammar and vocabulary each come back before you forget them.</p>
             <p class="sd-plus">+ <b>Native audio</b>&nbsp;&nbsp;Every English sentence in the app can be played in a native voice.</p>
@@ -2508,5 +2527,71 @@
     })();
     </script>
 
+
+    <!-- ヒーローのモードカード: 4枚が画面に入ったら一度だけ、時間差で浮き上がって数字を数え上げる。
+         数え上げは各カードの animationstart に合わせて始める（CSS の時間差とずれないように）。
+         裏タブになった・視差効果を減らす設定になったときは、その場で最終値に揃えて終える。
+         IntersectionObserver が無い・例外が出たときは何もしない（HTML の完成形のまま）。 -->
+    <script>
+    (function(){
+      try{
+        var box = document.querySelector('.sd-hero .sd-modes');
+        if(!box || !('IntersectionObserver' in window) || !window.requestAnimationFrame) return;
+        var mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+        if((mq && mq.matches) || document.hidden) return;
+        var cards = [].slice.call(box.querySelectorAll('.sd-mode'));
+        var nums = cards.map(function(c){ return c.querySelector('.sd-num'); });
+        if(!cards.length || nums.indexOf(null) >= 0) return;
+        var fmt = function(n){ return n.toLocaleString('en-US'); };
+        var done = false;
+        nums.forEach(function(el){ el.style.minWidth = el.textContent.length + 'ch'; });
+
+        function finish(){
+          if(done) return;
+          done = true;
+          nums.forEach(function(el){ el.textContent = fmt(+el.getAttribute('data-to')); });
+          box.classList.remove('sd-anim-ready', 'sd-anim-go');
+        }
+        function count(el){
+          var to = +el.getAttribute('data-to'), t0 = null, DUR = 1100;
+          el.textContent = '0';
+          function tick(t){
+            if(done) return;
+            if(t0 === null) t0 = t;
+            var p = Math.min(1, (t - t0) / DUR), e = 1 - Math.pow(1 - p, 3);
+            el.textContent = fmt(Math.round(to * e));
+            if(p < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        }
+        cards.forEach(function(c, i){
+          c.addEventListener('animationstart', function(ev){
+            if(ev.animationName === 'sd-mode-in' && !done) count(nums[i]);
+          });
+        });
+        var left = cards.length;
+        cards.forEach(function(c){
+          c.addEventListener('animationend', function(ev){
+            if(ev.animationName !== 'sd-mode-in') return;
+            if(--left === 0) setTimeout(finish, 1200);   // 最後の数え上げが終わるのを待って片付ける
+          });
+        });
+
+        box.classList.add('sd-anim-ready');
+        var io = new IntersectionObserver(function(es){
+          if(es[es.length-1].isIntersecting){
+            io.disconnect();
+            box.classList.add('sd-anim-go');
+          }
+        }, { threshold:.4 });
+        io.observe(box);
+        document.addEventListener('visibilitychange', function(){ if(document.hidden){ io.disconnect(); finish(); } });
+        if(mq && mq.addEventListener) mq.addEventListener('change', function(){ if(mq.matches){ io.disconnect(); finish(); } });
+      }catch(e){
+        var b = document.querySelector('.sd-hero .sd-modes');
+        if(b) b.classList.remove('sd-anim-ready', 'sd-anim-go');
+      }
+    })();
+    </script>
 </body>
 </html>
