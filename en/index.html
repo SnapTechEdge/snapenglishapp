@@ -549,7 +549,7 @@
     /* ---- 狭い画面の画面写真 ----
        2枚を横に並べると1枚 140px（元画像の 23%）で、中の文字が読めなかった。
        700px 以下では横スクロールにして1枚を大きく出す。縦に積むより短く済む。
-       吸着は proximity。mandatory だと縦スクロールの途中で持っていかれる。
+       吸着は proximity。強制的に吸い付かせない。
        幅は器の 88% と 72vw と 320px のいちばん小さいもの。器より大きくしない。 */
     /* 広い画面では2枚並ぶので、送りのボタンは要らない。 */
     .sd-shots-nav{ display:none; }
@@ -1062,7 +1062,7 @@
        回答例で直すべき語が橙・残りが緑、さらに AI の解説と「もう一度」が出る。 */
     .sd-g{ --app-label:#8E8A85; --gram:#C8574C; --page:#F7F4EF;
            --tile:#C8574C; --tile-soft:#FADCD9; --tile-ok:#C7C7CC; --ng:#EF4444;
-           --ok-w:#297849; --miss-w:#FF8D28;
+           --ok-w:#2E8752; --miss-w:#FF8D28;
            --tip-bg:#FEF7EB; --tip-ic:#F59E0B; --exp-bg:#EFF5FE; --exp-ic:#3B82F6; }
     .sd-g .sd-phone{ background:var(--page); position:relative; }
     .sd-g .bar{ background:var(--page); padding:14px 18px 0; text-align:center; }
@@ -2157,8 +2157,10 @@
                     prev.disabled = box.scrollLeft <= 2;
                     next.disabled = box.scrollLeft >= max - 2;
                 };
-                prev.addEventListener('click', () => box.scrollBy({ left: -step(), behavior: 'smooth' }));
-                next.addEventListener('click', () => box.scrollBy({ left: step(), behavior: 'smooth' }));
+                const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+                const go = d => box.scrollBy({ left: d, behavior: calm.matches ? 'auto' : 'smooth' });
+                prev.addEventListener('click', () => go(-step()));
+                next.addEventListener('click', () => go(step()));
                 box.addEventListener('scroll', sync, { passive: true });
                 window.addEventListener('resize', sync);
                 sync();
