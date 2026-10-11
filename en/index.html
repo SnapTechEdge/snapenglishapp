@@ -302,7 +302,7 @@
     .sd-eyebrow{ display:flex; align-items:center; gap:13px; font-size:12px; font-weight:700;
                  letter-spacing:.14em; color:var(--sd-accent); }
     .sd-eyebrow::before{ content:""; width:34px; height:1px; background:currentColor; flex:none; }
-    .sd a:focus-visible,.sd button:focus-visible{ outline:2px solid var(--sd-accent);
+    .sd a:focus-visible,.sd button:focus-visible,.sd summary:focus-visible{ outline:2px solid var(--sd-accent);
                  outline-offset:3px; border-radius:8px; }
     .sd.sd-v{ --sd-accent:#A14D5D; }
     .sd.sd-w{ --sd-accent:#138A60; }
@@ -421,6 +421,26 @@
     .sd .sd-copy p.sd-lead + p.sd-lead{ margin-top:13px; }
     /* 端末と一時停止ボタンを縦に並べる。ボタンはデモの下（オーナー指示）。 */
     .sd-stage{ display:flex; flex-direction:column; align-items:center; gap:18px; }
+
+    /* ---- デモの説明の折りたたみ ----
+       狭い画面では、文章より先に動く端末を見せたい（オーナー指摘）。
+       HTML は狭い画面の見た目どおりの順（要約→端末→注記→残りの説明）で書き、
+       広い画面の2列は下の grid の配置で作る。order で入れ替えると
+       Tab の順と読み上げの順が見た目と食い違うため、そうしていない。
+       広い画面では畳まないので summary を隠し、open のまま置く。
+       JS が無い場合も open のままなので、中身が読めなくなることはない。 */
+    .sd-more{ display:block; }
+    .sd-more > summary{ display:none; }
+    /* 割る前は .sd-lead 同士が隣接していて 13px だった。広い画面では続きに見せたい。 */
+    .sd-more > .sd-copy > .sd-lead:first-child{ margin-top:13px; }
+    @media (min-width:1001px){
+        .sd-demo-root .sd-panel{ grid-template-rows:auto auto 1fr; align-items:start; }
+        .sd-demo-root .sd-panel > .sd-copy{ grid-column:1; grid-row:1; }
+        .sd-demo-root .sd-panel > .sd-more{ grid-column:1; grid-row:2; }
+        .sd-demo-root .sd-panel > .sd-demo-note{ grid-column:1; grid-row:3; }
+        .sd-demo-root .sd-panel > .sd-stage{ grid-column:2; grid-row:1 / -1; align-self:center; }
+    }
+
 
     /* ---- 端末 ----
        比率は実機に合わせる: iPhone 17 の論理解像度 402 x 874pt（= 2.174）。
@@ -1157,6 +1177,22 @@
         /* 枠は列いっぱいに広げる。中央寄せの grid の中で中身の幅に縮むと、端末の % 幅が
            中身次第になり、英会話の講評（幅を支えるキーボード等が消える）で端末が細くなった。 */
         .sd-stage{ width:100%; }
+        /* デモだけ、アイブロウ→見出し→要約→端末→注記→詳しく見る の順にする。
+           .sd-side は display:contents で畳んで、中身を直接 flex の項目にする。
+           ここを .sd-demo-root に限るのは、.sd-copy を英単語・反復学習・進捗でも
+           使っているため。 */
+        .sd-demo-root .sd-panel{ display:flex; flex-direction:column; align-items:center; }
+        .sd-demo-root .sd-panel > .sd-copy{ width:100%; }
+        .sd-demo-root .sd-panel > .sd-demo-note{ width:100%; max-width:34em; margin-inline:auto; }
+        .sd-demo-root .sd-panel > .sd-more{ width:100%; max-width:34em; margin-inline:auto; }
+        .sd-demo-root .sd-more > summary{ display:block; margin-top:20px; padding:11px 0;
+                 border-top:1px solid var(--sd-rule); color:var(--sd-accent);
+                 font-size:13px; font-weight:800; cursor:pointer; list-style:none; }
+        .sd-demo-root .sd-more > summary::-webkit-details-marker{ display:none; }
+        .sd-demo-root .sd-more > summary::after{ content:"＋"; float:right; font-weight:700; }
+        .sd-demo-root .sd-more[open] > summary::after{ content:"－"; }
+        .sd-demo-root .sd-more > .sd-copy > .sd-lead:first-child{ margin-top:4px; }
+
         /* 高さは .sd-phone の aspect-ratio から決まるので、ここでは指定しない。
            以前は vh で決め打ちしていて、狭い画面ほど実機と比率がずれていた。 */
     }
@@ -1283,19 +1319,10 @@
 <section class="sd sd-v sd-demo-root" id="features" data-demo="conversation" aria-labelledby="demo-v-h">
     <div class="sd-demo sd-wrap">
         <div class="sd-panel">
-            <div class="sd-copy">
-                <p class="sd-eyebrow">AI conversation</p>
-                <h2 id="demo-v-h">Every scene is set up for you, <br class="wide">so you never wonder what to say</h2>
-                <p class="sd-lead">Practise in everyday and business situations you actually run into. Choose Beginner (A1–A2), Intermediate (B1–B2) or Advanced (C1–C2).</p>
-                <p class="sd-lead">In Script mode, you move the conversation forward by putting the prompt into English.</p>
-                <p class="sd-lead">In Free mode, the conversation unfolds from whatever you choose to say.</p>
-                <p class="sd-lead">When the conversation ends, you get feedback on the whole exchange.</p>
-                <!-- デモで流しているのは台本モードの一部。アドリブモードも全5往復も
-                     出していないので、そこだけ小さく断っておく（オーナー指示）。 -->
-                <p class="sd-demo-note">This demo shows the first two exchanges of Script mode. The feedback that follows is what you get after completing all five.</p>
+            <div class="sd-copy"><p class="sd-eyebrow">AI conversation</p><h2 id="demo-v-h">Every scene is set up for you, <br class="wide">so you never wonder what to say</h2><p class="sd-lead">Practise in everyday and business situations you actually run into. Choose Beginner (A1–A2), Intermediate (B1–B2) or Advanced (C1–C2).</p>
             </div>
             <div class="sd-stage">
-            <div class="sd-phone" lang="en" role="img" aria-label="A self-playing demo of the AI conversation screen: two exchanges in Script mode, then feedback on the whole conversation. The text just above describes this demo. The app interface shown is in Japanese.">
+            <div class="sd-phone" lang="en" role="img" aria-label="A self-playing demo of the AI conversation screen: two exchanges in Script mode, then feedback on the whole conversation. The text in this section describes this demo. The app interface shown is in Japanese.">
                 <div class="bg"><img src="/demo/conv-scene.webp?v=20260924" alt="Illustration of a barista standing at a cafe counter" width="768" height="1664" loading="lazy" decoding="async"></div>
                 <div class="scene" lang="ja">
                     <div class="top">
@@ -1417,6 +1444,14 @@
             </div>
                 <button class="sd-btn" data-el="pause" type="button">Pause</button>
             </div>
+            <!-- デモで流しているのは台本モードの一部。アドリブモードも全5往復も
+                 出していないので、そこだけ小さく断っておく（オーナー指示）。 -->
+            <p class="sd-demo-note">This demo shows the first two exchanges of Script mode. The feedback that follows is what you get after completing all five.</p>
+            <details class="sd-more" open>
+                <summary>More about this mode</summary>
+                <div class="sd-copy"><p class="sd-lead">In Script mode, you move the conversation forward by putting the prompt into English.</p><p class="sd-lead">In Free mode, the conversation unfolds from whatever you choose to say.</p><p class="sd-lead">When the conversation ends, you get feedback on the whole exchange.</p>
+                </div>
+            </details>
         </div>
     </div>
 </section>
@@ -1424,18 +1459,10 @@
 <section class="sd sd-w sd-demo-root" data-demo="composition" aria-labelledby="demo-w-h">
     <div class="sd-demo sd-wrap">
         <div class="sd-panel">
-            <div class="sd-copy">
-                <p class="sd-eyebrow">Composition</p>
-                <h2 id="demo-w-h">Instant feedback on<br>the English you write.</h2>
-                <p class="sd-lead">Put the prompt into English and AI comes back with what to improve and other ways to say it.</p>
-                <p class="sd-lead">Practise in two modes: typing, or rearranging the words.</p>
-                <p class="sd-lead">You get one overall assessment. Anything corrected is underlined, so you can read it back beside the model answer.</p>
-                <p class="sd-lead">If something still doesn’t click, ask the AI coach without leaving the question.</p>
-                <p class="sd-lead">Read it aloud and each word gets an A, B or C for pronunciation, with a tip for the words worth fixing.</p>
-                <p class="sd-lead">Build the reflex of saying what you mean in English.</p>
+            <div class="sd-copy"><p class="sd-eyebrow">Composition</p><h2 id="demo-w-h">Instant feedback on<br>the English you write.</h2><p class="sd-lead">Put the prompt into English and AI comes back with what to improve and other ways to say it.</p>
             </div>
             <div class="sd-stage">
-            <div class="sd-phone" lang="en" role="img" aria-label="A self-playing demo of the composition feedback screen: put a Japanese prompt into English and get an assessment, the places to fix, other ways to say it, and pronunciation. The text just above describes this demo. The app interface shown is in Japanese.">
+            <div class="sd-phone" lang="en" role="img" aria-label="A self-playing demo of the composition feedback screen: put a Japanese prompt into English and get an assessment, the places to fix, other ways to say it, and pronunciation. The text in this section describes this demo. The app interface shown is in Japanese.">
                 <img src="/demo/result-header.webp" alt="" width="620" height="96" loading="lazy" decoding="async">
                 <div class="screen" lang="ja">
                     <div class="rollwrap">
@@ -1546,6 +1573,11 @@
             </div>
                 <button class="sd-btn" data-el="pause" type="button">Pause</button>
             </div>
+            <details class="sd-more" open>
+                <summary>More about this mode</summary>
+                <div class="sd-copy"><p class="sd-lead">Practise in two modes: typing, or rearranging the words.</p><p class="sd-lead">You get one overall assessment. Anything corrected is underlined, so you can read it back beside the model answer.</p><p class="sd-lead">If something still doesn’t click, ask the AI coach without leaving the question.</p><p class="sd-lead">Read it aloud and each word gets an A, B or C for pronunciation, with a tip for the words worth fixing.</p><p class="sd-lead">Build the reflex of saying what you mean in English.</p>
+                </div>
+            </details>
         </div>
 
     </div>
@@ -1557,14 +1589,10 @@
 <section class="sd sd-g sd-demo-root" data-demo="grammar" aria-labelledby="demo-g-h">
     <div class="sd-demo sd-wrap">
         <div class="sd-panel">
-            <div class="sd-copy">
-                <p class="sd-eyebrow">Grammar</p>
-                <h2 id="demo-g-h">Right or wrong,<br>you get the reason why.</h2>
-                <p class="sd-lead">Arrange the words to answer, and you get the verdict plus a model answer. Only the words you got wrong stay red, along with an explanation of why the sentence doesn’t work.</p>
-                <p class="sd-lead">The verdict, the model answer and the explanation are all exactly what the app returned.</p>
+            <div class="sd-copy"><p class="sd-eyebrow">Grammar</p><h2 id="demo-g-h">Right or wrong,<br>you get the reason why.</h2><p class="sd-lead">Arrange the words to answer, and you get the verdict plus a model answer. Only the words you got wrong stay red, along with an explanation of why the sentence doesn’t work.</p>
             </div>
             <div class="sd-stage">
-            <div class="sd-phone" lang="en" role="img" aria-label="A self-playing demo of the grammar word-order screen: arrange the words to answer and get the verdict, a model answer and an explanation. The text just above describes this demo. The app interface shown is in Japanese.">
+            <div class="sd-phone" lang="en" role="img" aria-label="A self-playing demo of the grammar word-order screen: arrange the words to answer and get the verdict, a model answer and an explanation. The text in this section describes this demo. The app interface shown is in Japanese.">
                 <div class="bar" lang="ja">
                     <div class="nav">
                         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
@@ -1642,6 +1670,11 @@
             </div>
                 <button class="sd-btn" data-el="pause" type="button">Pause</button>
             </div>
+            <details class="sd-more" open>
+                <summary>More about this mode</summary>
+                <div class="sd-copy"><p class="sd-lead">The verdict, the model answer and the explanation are all exactly what the app returned.</p>
+                </div>
+            </details>
         </div>
 
     </div>
@@ -1935,6 +1968,27 @@
             // md 以上にリサイズしたら自動クローズ (ハンバーガー自体が消えるので念のため)
             window.matchMedia('(min-width: 768px)').addEventListener('change', e => {
                 if (e.matches) setOpen(false);
+            });
+        })();
+
+        // デモの説明の折りたたみ。広い画面では畳まない（summary も隠してある）。
+        // 狭い画面に入ったときだけ閉じ、広い画面へ戻ったら開き直す。
+        // HTML 側は open にしてあるので、JS が動かない環境では開いたまま。
+        (() => {
+            const narrow = window.matchMedia('(max-width: 1000px)');
+            const more = document.querySelectorAll('.sd-demo-root .sd-more');
+            const sync = () => more.forEach(d => { d.open = !narrow.matches; });
+            sync();
+            narrow.addEventListener('change', sync);
+            // 印刷のときは畳んだ説明も出す。閉じた details は CSS では開けない。
+            let printed = null;
+            window.addEventListener('beforeprint', () => {
+                printed = [...more].map(d => d.open);
+                more.forEach(d => { d.open = true; });
+            });
+            window.addEventListener('afterprint', () => {
+                if (printed) more.forEach((d, i) => { d.open = printed[i]; });
+                printed = null;
             });
         })();
 

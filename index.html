@@ -301,7 +301,7 @@
     .sd-eyebrow{ display:flex; align-items:center; gap:13px; font-size:12px; font-weight:700;
                  letter-spacing:.14em; color:var(--sd-accent); }
     .sd-eyebrow::before{ content:""; width:34px; height:1px; background:currentColor; flex:none; }
-    .sd a:focus-visible,.sd button:focus-visible{ outline:2px solid var(--sd-accent);
+    .sd a:focus-visible,.sd button:focus-visible,.sd summary:focus-visible{ outline:2px solid var(--sd-accent);
                  outline-offset:3px; border-radius:8px; }
     .sd.sd-v{ --sd-accent:#A14D5D; }
     .sd.sd-w{ --sd-accent:#138A60; }
@@ -420,6 +420,26 @@
     .sd .sd-copy p.sd-lead + p.sd-lead{ margin-top:13px; }
     /* 端末と一時停止ボタンを縦に並べる。ボタンはデモの下（オーナー指示）。 */
     .sd-stage{ display:flex; flex-direction:column; align-items:center; gap:18px; }
+
+    /* ---- デモの説明の折りたたみ ----
+       狭い画面では、文章より先に動く端末を見せたい（オーナー指摘）。
+       HTML は狭い画面の見た目どおりの順（要約→端末→注記→残りの説明）で書き、
+       広い画面の2列は下の grid の配置で作る。order で入れ替えると
+       Tab の順と読み上げの順が見た目と食い違うため、そうしていない。
+       広い画面では畳まないので summary を隠し、open のまま置く。
+       JS が無い場合も open のままなので、中身が読めなくなることはない。 */
+    .sd-more{ display:block; }
+    .sd-more > summary{ display:none; }
+    /* 割る前は .sd-lead 同士が隣接していて 13px だった。広い画面では続きに見せたい。 */
+    .sd-more > .sd-copy > .sd-lead:first-child{ margin-top:13px; }
+    @media (min-width:1001px){
+        .sd-demo-root .sd-panel{ grid-template-rows:auto auto 1fr; align-items:start; }
+        .sd-demo-root .sd-panel > .sd-copy{ grid-column:1; grid-row:1; }
+        .sd-demo-root .sd-panel > .sd-more{ grid-column:1; grid-row:2; }
+        .sd-demo-root .sd-panel > .sd-demo-note{ grid-column:1; grid-row:3; }
+        .sd-demo-root .sd-panel > .sd-stage{ grid-column:2; grid-row:1 / -1; align-self:center; }
+    }
+
 
     /* ---- 端末 ----
        比率は実機に合わせる: iPhone 17 の論理解像度 402 x 874pt（= 2.174）。
@@ -1156,6 +1176,22 @@
         /* 枠は列いっぱいに広げる。中央寄せの grid の中で中身の幅に縮むと、端末の % 幅が
            中身次第になり、英会話の講評（幅を支えるキーボード等が消える）で端末が細くなった。 */
         .sd-stage{ width:100%; }
+        /* デモだけ、アイブロウ→見出し→要約→端末→注記→詳しく見る の順にする。
+           .sd-side は display:contents で畳んで、中身を直接 flex の項目にする。
+           ここを .sd-demo-root に限るのは、.sd-copy を英単語・反復学習・進捗でも
+           使っているため。 */
+        .sd-demo-root .sd-panel{ display:flex; flex-direction:column; align-items:center; }
+        .sd-demo-root .sd-panel > .sd-copy{ width:100%; }
+        .sd-demo-root .sd-panel > .sd-demo-note{ width:100%; max-width:34em; margin-inline:auto; }
+        .sd-demo-root .sd-panel > .sd-more{ width:100%; max-width:34em; margin-inline:auto; }
+        .sd-demo-root .sd-more > summary{ display:block; margin-top:20px; padding:11px 0;
+                 border-top:1px solid var(--sd-rule); color:var(--sd-accent);
+                 font-size:13px; font-weight:800; cursor:pointer; list-style:none; }
+        .sd-demo-root .sd-more > summary::-webkit-details-marker{ display:none; }
+        .sd-demo-root .sd-more > summary::after{ content:"＋"; float:right; font-weight:700; }
+        .sd-demo-root .sd-more[open] > summary::after{ content:"－"; }
+        .sd-demo-root .sd-more > .sd-copy > .sd-lead:first-child{ margin-top:4px; }
+
         /* 高さは .sd-phone の aspect-ratio から決まるので、ここでは指定しない。
            以前は vh で決め打ちしていて、狭い画面ほど実機と比率がずれていた。 */
     }
@@ -1281,19 +1317,10 @@
 <section class="sd sd-v sd-demo-root" id="features" data-demo="conversation" aria-labelledby="demo-v-h">
     <div class="sd-demo sd-wrap">
         <div class="sd-panel">
-            <div class="sd-copy">
-                <p class="sd-eyebrow">AI英会話</p>
-                <h2 id="demo-v-h">シチュエーションの設定があるから、<br class="wide">何を話すかで迷わない</h2>
-                <p class="sd-lead">日常・ビジネスのよくあるシチュエーションで英会話。初級（A1–A2）・中級（B1–B2）・上級（C1–C2）から選べます。</p>
-                <p class="sd-lead">台本モードは提示される日本語を英語にして会話を進めます。</p>
-                <p class="sd-lead">アドリブモードはあなたの返答によって会話が展開されます。</p>
-                <p class="sd-lead">会話が終わると全体のフィードバックが表示されます。</p>
-                <!-- デモで流しているのは台本モードの一部。アドリブモードも全5往復も
-                     出していないので、そこだけ小さく断っておく（オーナー指示）。 -->
-                <p class="sd-demo-note">※ このデモは台本モードの最初の2往復です。続けて出るフィードバックは、全5往復を終えたときのものです。</p>
+            <div class="sd-copy"><p class="sd-eyebrow">AI英会話</p><h2 id="demo-v-h">シチュエーションの設定があるから、<br class="wide">何を話すかで迷わない</h2><p class="sd-lead">日常・ビジネスのよくあるシチュエーションで英会話。初級（A1–A2）・中級（B1–B2）・上級（C1–C2）から選べます。</p>
             </div>
             <div class="sd-stage">
-            <div class="sd-phone" role="img" aria-label="AI英会話の画面が自動で進むデモです。台本モードで2往復したあと、会話ぜんぶのフィードバックが出ます。このデモの説明は直前のテキストにあります。">
+            <div class="sd-phone" role="img" aria-label="AI英会話の画面が自動で進むデモです。台本モードで2往復したあと、会話ぜんぶのフィードバックが出ます。このデモの説明は、同じ節のテキストにあります。">
                 <div class="bg"><img src="demo/conv-scene.webp?v=20260924" alt="カフェのカウンターに立つ店員のイラスト" width="768" height="1664" loading="lazy" decoding="async"></div>
                 <div class="scene">
                     <div class="top">
@@ -1415,6 +1442,14 @@
             </div>
                 <button class="sd-btn" data-el="pause" type="button">一時停止</button>
             </div>
+            <!-- デモで流しているのは台本モードの一部。アドリブモードも全5往復も
+                 出していないので、そこだけ小さく断っておく（オーナー指示）。 -->
+            <p class="sd-demo-note">※ このデモは台本モードの最初の2往復です。続けて出るフィードバックは、全5往復を終えたときのものです。</p>
+            <details class="sd-more" open>
+                <summary>詳しく見る</summary>
+                <div class="sd-copy"><p class="sd-lead">台本モードは提示される日本語を英語にして会話を進めます。</p><p class="sd-lead">アドリブモードはあなたの返答によって会話が展開されます。</p><p class="sd-lead">会話が終わると全体のフィードバックが表示されます。</p>
+                </div>
+            </details>
         </div>
     </div>
 </section>
@@ -1422,18 +1457,10 @@
 <section class="sd sd-w sd-demo-root" data-demo="composition" aria-labelledby="demo-w-h">
     <div class="sd-demo sd-wrap">
         <div class="sd-panel">
-            <div class="sd-copy">
-                <p class="sd-eyebrow">英作文</p>
-                <h2 id="demo-w-h">あなたの英語表現を<br>瞬間フィードバック。</h2>
-                <p class="sd-lead">問題文を英作すると、改善点や別の言い方などをAIがフィードバック。</p>
-                <p class="sd-lead">入力と並べ替えの2つのモードで練習できます。</p>
-                <p class="sd-lead">評価はひとつの総合判定。直された場所には下線が引かれ、回答例と並べて読み返せます。</p>
-                <p class="sd-lead">腑に落ちなければ、その問題を開いたまま AI コーチに聞けます。</p>
-                <p class="sd-lead">音読すれば、単語ごとの発音を A・B・C で評価し、直したい単語には言い方のコツが返ります。</p>
-                <p class="sd-lead">言いたいことを英語で言うための回路を構築！</p>
+            <div class="sd-copy"><p class="sd-eyebrow">英作文</p><h2 id="demo-w-h">あなたの英語表現を<br>瞬間フィードバック。</h2><p class="sd-lead">問題文を英作すると、改善点や別の言い方などをAIがフィードバック。</p>
             </div>
             <div class="sd-stage">
-            <div class="sd-phone" role="img" aria-label="英作文の添削画面が自動で進むデモです。日本語のお題を英語にすると、評価・直す場所・別の言い方・発音が返ります。このデモの説明は直前のテキストにあります。">
+            <div class="sd-phone" role="img" aria-label="英作文の添削画面が自動で進むデモです。日本語のお題を英語にすると、評価・直す場所・別の言い方・発音が返ります。このデモの説明は、同じ節のテキストにあります。">
                 <img src="demo/result-header.webp" alt="" width="620" height="96" loading="lazy" decoding="async">
                 <div class="screen">
                     <div class="rollwrap">
@@ -1544,6 +1571,11 @@
             </div>
                 <button class="sd-btn" data-el="pause" type="button">一時停止</button>
             </div>
+            <details class="sd-more" open>
+                <summary>詳しく見る</summary>
+                <div class="sd-copy"><p class="sd-lead">入力と並べ替えの2つのモードで練習できます。</p><p class="sd-lead">評価はひとつの総合判定。直された場所には下線が引かれ、回答例と並べて読み返せます。</p><p class="sd-lead">腑に落ちなければ、その問題を開いたまま AI コーチに聞けます。</p><p class="sd-lead">音読すれば、単語ごとの発音を A・B・C で評価し、直したい単語には言い方のコツが返ります。</p><p class="sd-lead">言いたいことを英語で言うための回路を構築！</p>
+                </div>
+            </details>
         </div>
 
     </div>
@@ -1555,14 +1587,10 @@
 <section class="sd sd-g sd-demo-root" data-demo="grammar" aria-labelledby="demo-g-h">
     <div class="sd-demo sd-wrap">
         <div class="sd-panel">
-            <div class="sd-copy">
-                <p class="sd-eyebrow">英文法</p>
-                <h2 id="demo-g-h">合っていても、<br>間違えても、理由が返る。</h2>
-                <p class="sd-lead">語を並べて答えると、判定と回答例が出ます。間違えた語だけが赤く残り、なぜ成立しないかまで返ります。</p>
-                <p class="sd-lead">判定も回答例も解説も、アプリが実際に返したものです。</p>
+            <div class="sd-copy"><p class="sd-eyebrow">英文法</p><h2 id="demo-g-h">合っていても、<br>間違えても、理由が返る。</h2><p class="sd-lead">語を並べて答えると、判定と回答例が出ます。間違えた語だけが赤く残り、なぜ成立しないかまで返ります。</p>
             </div>
             <div class="sd-stage">
-            <div class="sd-phone" role="img" aria-label="英文法の並べ替え画面が自動で進むデモです。語を並べて答えると、判定と回答例と解説が返ります。このデモの説明は直前のテキストにあります。">
+            <div class="sd-phone" role="img" aria-label="英文法の並べ替え画面が自動で進むデモです。語を並べて答えると、判定と回答例と解説が返ります。このデモの説明は、同じ節のテキストにあります。">
                 <div class="bar">
                     <div class="nav">
                         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
@@ -1640,6 +1668,11 @@
             </div>
                 <button class="sd-btn" data-el="pause" type="button">一時停止</button>
             </div>
+            <details class="sd-more" open>
+                <summary>詳しく見る</summary>
+                <div class="sd-copy"><p class="sd-lead">判定も回答例も解説も、アプリが実際に返したものです。</p>
+                </div>
+            </details>
         </div>
 
     </div>
@@ -1933,6 +1966,27 @@
             // md 以上にリサイズしたら自動クローズ (ハンバーガー自体が消えるので念のため)
             window.matchMedia('(min-width: 768px)').addEventListener('change', e => {
                 if (e.matches) setOpen(false);
+            });
+        })();
+
+        // デモの説明の折りたたみ。広い画面では畳まない（summary も隠してある）。
+        // 狭い画面に入ったときだけ閉じ、広い画面へ戻ったら開き直す。
+        // HTML 側は open にしてあるので、JS が動かない環境では開いたまま。
+        (() => {
+            const narrow = window.matchMedia('(max-width: 1000px)');
+            const more = document.querySelectorAll('.sd-demo-root .sd-more');
+            const sync = () => more.forEach(d => { d.open = !narrow.matches; });
+            sync();
+            narrow.addEventListener('change', sync);
+            // 印刷のときは畳んだ説明も出す。閉じた details は CSS では開けない。
+            let printed = null;
+            window.addEventListener('beforeprint', () => {
+                printed = [...more].map(d => d.open);
+                more.forEach(d => { d.open = true; });
+            });
+            window.addEventListener('afterprint', () => {
+                if (printed) more.forEach((d, i) => { d.open = printed[i]; });
+                printed = null;
             });
         })();
 
