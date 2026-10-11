@@ -287,12 +287,15 @@
        句読点が詰まったままになり、そこを指摘された。端末の中もアプリ本体
        （SwiftUI / Compose）が palt を掛けていないので、外す方が実物に近い。 */
     .sd h1,.sd h2,.sd h3,.sd p{ margin:0; word-break:auto-phrase; }
-    /* 左右はセーフエリアに退避する。通常値を先に書くのは、env() 未対応の
-       ブラウザが max() の宣言ごと捨てるため。body ではなくこの器に入れるのは、
-       全幅へ抜けるのに使っている 50vw をずらさないため。 */
-    .sd-wrap{ max-width:1180px; margin:0 auto; padding:0 24px;
-              padding-left:max(24px, env(safe-area-inset-left, 0px));
-              padding-right:max(24px, env(safe-area-inset-right, 0px)); }
+    /* 左右はセーフエリアに退避する。body ではなくこの器に入れるのは、
+       セクションの地色を画面の端まで届かせたままにするため。
+       max() を @supports で分けるのは、max() を持たないブラウザが
+       宣言ごと捨てて、素の padding にも戻らないことがあるため。 */
+    .sd-wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
+    @supports (padding: max(0px)){
+        .sd-wrap{ padding-left:max(24px, env(safe-area-inset-left, 0px));
+                  padding-right:max(24px, env(safe-area-inset-right, 0px)); }
+    }
     .sd-eyebrow{ display:flex; align-items:center; gap:13px; font-size:12px; font-weight:700;
                  letter-spacing:.14em; color:var(--sd-accent); }
     .sd-eyebrow::before{ content:""; width:34px; height:1px; background:currentColor; flex:none; }
