@@ -1143,9 +1143,14 @@
         .sd-still .sd-shots{ width:min(420px,100%); }
         /* 箇条書きだけは左揃えのまま（中央だと読みにくい）。 */
         .sd-still .sd-copy ul{ text-align:left; }
-        /* 中央寄せは文章の列だけ。.sd-panel に掛けると端末の中まで継承される。 */
+        /* ヒーローは注記のあとに詳しい説明が続くので、そこだけ離す。 */
         .sd-hero-col > .sd-note + .sd-sub{ margin-top:26px; }
-        .sd-copy{ max-width:34em; text-align:center; }
+        /* 本文は左揃え。中央揃えの長文は読みにくく、画面を縮めただけに見えていた
+           （オーナー指摘）。中央に残すのは見出しとアイブロウだけ。
+           列そのものは中央に置きたいので margin で寄せる。
+           .sd-panel に掛けると端末の中まで継承されるので、掛けるのは文章の列だけ。 */
+        .sd-copy{ max-width:34em; text-align:left; margin-inline:auto; }
+        .sd-copy h2{ text-align:center; }
         .sd-copy .sd-eyebrow{ justify-content:center; }
         .sd-phone{ width:min(402px,100%); zoom:.68; }
         /* 枠は列いっぱいに広げる。中央寄せの grid の中で中身の幅に縮むと、端末の % 幅が
