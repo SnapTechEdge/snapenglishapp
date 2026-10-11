@@ -1159,9 +1159,9 @@
         .sd-hero-in{ grid-template-columns:1fr; gap:34px; justify-items:start; }
         /* 挿絵は本文の背後に回す（オーナー指示）。絶対配置で通常の流れから
            外すので、ヒーロー自体が縦に縮み、続くセクションが上へ詰まる。
-           濃さは 0.05。本文（#5B646E）がこの絵のいちばん濃いところに
-           重なっても 4.5:1 を割らない上限がこのあたりで、ここを超えると
-           読めなくなる。操作も拾わせない。 */
+           濃さは 0.05。本文（#5B646E）に絵の黒い画素が重なる最悪のときでも
+           約 4.62:1 で、4.5:1 を満たす理論上の上限（約 0.062）に対して
+           余裕を取ってある。操作も拾わせない。 */
         .sd-hero{ position:relative; overflow:hidden; }
         .sd-hero-in{ position:relative; }
         .sd-hero-col{ position:relative; z-index:1; }
@@ -1319,7 +1319,7 @@
              場面を通勤電車に変えて描き起こしたもの。地色はサイトの --sd-ivory に合わせてあり、
              枠も影も付けない＝「画像を貼った」ようには見せず、そのまま地に溶かす。
              3D 版（hero-3d.webp）に差し替えたが、オーナー判断でこちらに戻した。 -->
-        <figure class="sd-hero-art">
+        <figure class="sd-hero-art" aria-hidden="true">
             <img src="/demo/hero-train.webp" alt=""
                  width="900" height="1399" decoding="async">
         </figure>
