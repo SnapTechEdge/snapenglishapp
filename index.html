@@ -1156,15 +1156,16 @@
         .sd-plans{ grid-template-columns:1fr; }
         .sd-form-row{ grid-template-columns:1fr; }
         .sd-hero-in{ grid-template-columns:1fr; gap:34px; justify-items:start; }
-        /* 挿絵は本文の背後に回す（オーナー指示）。絶対配置にして高さを
-           取らせないので、モードカードとストアバッジが上へ詰まる。
-           文章の下に敷くので、薄くして操作も拾わせない。 */
+        /* 挿絵は本文の背後に回す（オーナー指示）。絶対配置で通常の流れから
+           外すので、ヒーロー自体が縦に縮み、続くセクションが上へ詰まる。
+           濃さは 0.05。本文（#5B646E）がこの絵のいちばん濃いところに
+           重なっても 4.5:1 を割らない上限がこのあたりで、ここを超えると
+           読めなくなる。操作も拾わせない。 */
         .sd-hero{ position:relative; overflow:hidden; }
         .sd-hero-in{ position:relative; }
         .sd-hero-col{ position:relative; z-index:1; }
         .sd-hero-art{ position:absolute; right:-4%; bottom:0; z-index:0;
-                      width:min(300px,64vw); opacity:.14; pointer-events:none;
-                      justify-self:auto; }
+                      width:min(300px,64vw); opacity:.05; pointer-events:none; }
         /* スマートフォンでは挿絵を小さくする。縦 500px 近くを占めていて、
            その下のデモまでの距離をいちばん押し広げていた（オーナー指示）。 */
         @media (max-width:560px){ .sd-hero-art{ width:min(240px,66vw); } }
@@ -1317,7 +1318,7 @@
              枠も影も付けない＝「画像を貼った」ようには見せず、そのまま地に溶かす。
              3D 版（hero-3d.webp）に差し替えたが、オーナー判断でこちらに戻した。 -->
         <figure class="sd-hero-art">
-            <img src="demo/hero-train.webp" alt="通勤電車の座席で、片耳にワイヤレスイヤホンをして、両手で持ったスマートフォンに向かっている女性のイラスト"
+            <img src="demo/hero-train.webp" alt=""
                  width="900" height="1399" decoding="async">
         </figure>
     </div>
