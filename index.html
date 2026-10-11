@@ -2946,6 +2946,7 @@
         var io = new IntersectionObserver(function(es){
           if(es[es.length-1].isIntersecting){
             io.disconnect();
+            if(done) return;   // Tab で先にフォーカスが入って片付け済みなら、もう動かさない
             box.classList.add('sd-anim-go');
           }
         }, { threshold:.4 });
