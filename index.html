@@ -183,6 +183,8 @@
         /* OS がダークでも、フォーム部品やスクロールバーまで暗転させない。
            このサイトはライト一本で組んである。 */
         html { scroll-behavior: smooth; color-scheme: light; }
+        /* 動きを減らす設定では、アンカー移動も滑らせない。 */
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
         body {
             /* 地色はセクションと同じアイボリー。以前は白＋ティールの放射グラデーション
@@ -326,7 +328,16 @@
                gap:10px; max-width:560px; }
     .sd-mode{ border:1px solid var(--sd-rule); border-radius:12px; padding:11px 12px 12px;
               background:rgba(255,255,255,.5); }
-    .sd-mode b{ display:block; font-size:12.5px; font-weight:800; }
+    .sd-mode b{ display:flex; align-items:center; justify-content:space-between; gap:6px;
+                font-size:12.5px; font-weight:800; }
+    /* 押せることが分かるよう、名前の右に下向きの小さな矢印を常時置く。
+       同じページの下へ移動するので、外へ出る矢印にはしない。
+       span にすると .sd-mode span の指定に当たるので svg で入れる。 */
+    .sd-mode .sd-mode-go{ width:13px; height:13px; flex:none; opacity:.55; }
+    .sd-mode{ text-decoration:none; }
+    .sd-mode:hover{ border-color:currentColor; background:rgba(255,255,255,.85); }
+    /* 共通のフォーカス枠は角丸 8px なので、カードの 12px に揃える。 */
+    .sd .sd-mode:focus-visible{ border-radius:12px; }
     .sd-mode span{ display:block; margin-top:3px; font-size:11.5px; color:var(--sd-ink-2);
               font-variant-numeric:tabular-nums; }
     .sd-mode.m1{ color:#A14D5D } .sd-mode.m2{ color:#138A60 }
@@ -390,7 +401,8 @@
        動きを見れば何をするアプリか分かる、という作りに寄せる（オーナー指摘）。
        文章は左、端末は右。地から少し起こした面に載せて1本を1つのまとまりにする。 */
     /* アンカーで飛んだとき、固定ヘッダー（4rem＋罫線1px）の下に潜らせない（Codex 指摘）。 */
-    #features, #how, #pricing, #faq, #contact, #cta{ scroll-margin-top:calc(4rem + 1px); }
+    #features, #composition, #grammar, #vocabulary,
+    #how, #pricing, #faq, #contact, #cta{ scroll-margin-top:calc(4rem + 1px); }
     .sd-demo{ padding-block:clamp(26px,4vw,54px); }
     .sd-panel{ display:grid; grid-template-columns:minmax(0,1fr) auto;
                gap:clamp(26px,4vw,64px); align-items:center;
@@ -1330,10 +1342,10 @@
             <h1 id="hero-h">聞く。話す。書く。<br>全部、ひとつのアプリで。</h1>
             <p class="sd-lead">アウトプットしながらインプットする。</p>
             <div class="sd-modes">
-                <div class="sd-mode m1"><b>AI英会話</b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="200">200</span> シーン</span><span class="sd-sr">200 シーン</span></div>
-                <div class="sd-mode m2"><b>英作文</b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="5000">5,000</span> 問</span><span class="sd-sr">5,000 問</span></div>
-                <div class="sd-mode m3"><b>英文法</b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="4279">4,279</span> 問</span><span class="sd-sr">4,279 問</span></div>
-                <div class="sd-mode m4"><b>英単語</b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="7533">7,533</span> 語</span><span class="sd-sr">7,533 語</span></div>
+                <a class="sd-mode m1" href="#features"><b>AI英会話<svg class="sd-mode-go" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg></b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="200">200</span> シーン</span><span class="sd-sr">200 シーン</span></a>
+                <a class="sd-mode m2" href="#composition"><b>英作文<svg class="sd-mode-go" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg></b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="5000">5,000</span> 問</span><span class="sd-sr">5,000 問</span></a>
+                <a class="sd-mode m3" href="#grammar"><b>英文法<svg class="sd-mode-go" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg></b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="4279">4,279</span> 問</span><span class="sd-sr">4,279 問</span></a>
+                <a class="sd-mode m4" href="#vocabulary"><b>英単語<svg class="sd-mode-go" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg></b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="7533">7,533</span> 語</span><span class="sd-sr">7,533 語</span></a>
             </div>
             <div class="sd-badges">
                 <a class="app-store-badge" href="https://apps.apple.com/jp/app/id6757105670?pt=127982208&amp;ct=web&amp;mt=8" target="_blank" rel="noopener" aria-label="App Store でダウンロード">
@@ -1504,7 +1516,7 @@
     </div>
 </section>
 <!-- ============ デモ 2: 英作文 ============ -->
-<section class="sd sd-w sd-demo-root" data-demo="composition" aria-labelledby="demo-w-h">
+<section class="sd sd-w sd-demo-root" id="composition" data-demo="composition" aria-labelledby="demo-w-h">
     <div class="sd-demo sd-wrap">
         <div class="sd-panel">
             <div class="sd-copy"><p class="sd-eyebrow">英作文</p><h2 id="demo-w-h">あなたの英語表現を<br>瞬間フィードバック。</h2><p class="sd-lead">問題文を英作すると、改善点や別の言い方などをAIがフィードバック。</p>
@@ -1634,7 +1646,7 @@
 
 
 <!-- ============ デモ 3: 英文法 ============ -->
-<section class="sd sd-g sd-demo-root" data-demo="grammar" aria-labelledby="demo-g-h">
+<section class="sd sd-g sd-demo-root" id="grammar" data-demo="grammar" aria-labelledby="demo-g-h">
     <div class="sd-demo sd-wrap">
         <div class="sd-panel">
             <div class="sd-copy"><p class="sd-eyebrow">英文法</p><h2 id="demo-g-h">合っていても、<br>間違えても、理由が返る。</h2><p class="sd-lead">語を並べて答えると、判定と回答例が出ます。間違えた語だけが赤く残り、なぜ成立しないかまで返ります。</p>
@@ -1731,7 +1743,7 @@
 
 <!-- ============ 英単語・復習（4つめの学び方） ============ -->
 <!-- 英単語。もとは「英単語と復習」で1枚にまとめていたが、別の機能なので分けた（オーナー指示）。 -->
-<section class="sd sd-still" aria-labelledby="vocab-h">
+<section class="sd sd-still" id="vocabulary" aria-labelledby="vocab-h">
     <div class="sd-wrap">
         <div class="sd-still-panel">
             <div class="sd-copy">
@@ -2925,6 +2937,10 @@
             if(--left === 0) setTimeout(finish, 1200);   // 最後の数え上げが終わるのを待って片付ける
           });
         });
+
+        // カードはリンクになったので、登場前（opacity:0）でも Tab で届く。
+        // フォーカスが入ったら最後まで進めて、見えないまま選ばれないようにする。
+        box.addEventListener('focusin', finish);
 
         box.classList.add('sd-anim-ready');
         var io = new IntersectionObserver(function(es){
