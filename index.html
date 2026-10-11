@@ -443,19 +443,22 @@
         padding-right:max(16px, env(safe-area-inset-right, 0px));
         padding-bottom:max(10px, env(safe-area-inset-bottom, 0px));
         background:rgba(241,237,230,.92); backdrop-filter:saturate(140%) blur(10px);
-        border-top:1px solid var(--sd-rule);
-        opacity:0; transform:translateY(100%);
-        transition:opacity .18s ease, transform .18s ease;
+        border-top:1px solid #DED7CB;
+        /* inert が効かない環境でも Tab と読み上げから外れるよう、
+           visibility も併せて落とす。消えるときは退場が終わってから切る。 */
+        opacity:0; transform:translateY(100%); visibility:hidden;
+        transition:opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
     }
     @media (max-width:767px){ .sd-stickycta{ display:flex; } }
-    .sd-stickycta.is-on{ opacity:1; transform:none; }
+    .sd-stickycta.is-on{ opacity:1; transform:none; visibility:visible;
+        transition:opacity .18s ease, transform .18s ease, visibility 0s; }
     .sd-stickycta a{
         display:block; width:100%; max-width:420px; text-align:center;
         padding:13px 18px; border-radius:999px;
-        background:var(--sd-accent-dark, #0F6E4C); color:#fff;
+        background:#0F6E4C; color:#fff;
         font-size:15px; font-weight:800; text-decoration:none;
     }
-    .sd-stickycta a:focus-visible{ outline:2px solid var(--sd-ink); outline-offset:3px; }
+    .sd-stickycta a:focus-visible{ outline:2px solid #14191F; outline-offset:3px; }
     @media (prefers-reduced-motion: reduce){ .sd-stickycta{ transition:none; } }
     @media print{ .sd-stickycta{ display:none !important; } }
     .sd-more{ display:block; }
@@ -593,11 +596,11 @@
     .sd-form textarea{ resize:vertical; line-height:1.7; }
     .sd-form input::placeholder, .sd-form textarea::placeholder{ color:#B9B4AD; }
     .sd-form input:focus, .sd-form textarea:focus{ outline:none; border-color:var(--sd-accent); }
-    .sd-form-count{ display:block; margin-top:5px; font-size:11px; color:#9A948C;
+    .sd-form-count{ display:block; margin-top:5px; font-size:11px; color:var(--sd-ink-2);
                 font-variant-numeric:tabular-nums; }
     .sd-form-hp{ position:absolute; left:-9999px; opacity:0; pointer-events:none; }
     .sd-form-note{ font-size:11.5px; line-height:1.9; color:var(--sd-ink-2); }
-    .sd-form-note a{ color:var(--sd-accent); }
+    .sd-form-note a{ color:#0F6E4C; }
     .sd-form-turnstile{ display:flex; justify-content:center; }
     /* Turnstile の既定サイズ（normal）は 300x65px。320px の画面では
        列の内寸 272px に収まらず、右端が切れていた。認証のUIには触れず、
@@ -2051,27 +2054,28 @@
             if (!bar || !heroBadges || !endCta || !('IntersectionObserver' in window)) return;
 
             const narrow = window.matchMedia('(max-width: 767px)');
-            let heroSeen = false, heroOut = false, ctaOut = true, ready = 0;
+            let heroSeen = false, heroOut = false, ctaOut = true;
+            let heroReady = false, ctaReady = false, printing = false;
 
             const apply = () => {
                 const formActive = !!(form && document.activeElement && form.contains(document.activeElement));
                 const menuOpen = !!(menu && !menu.classList.contains('hidden'));
-                const on = narrow.matches && ready >= 2 && heroSeen && heroOut && ctaOut
+                const on = narrow.matches && heroReady && ctaReady && heroSeen && heroOut && ctaOut
                            && !formActive && !menuOpen;
                 bar.classList.toggle('is-on', on);
                 if (on) bar.removeAttribute('inert'); else bar.setAttribute('inert', '');
                 // 本文がバーに隠れないよう、出ている間だけ下に実測ぶんの余白を取る。
-                document.body.style.paddingBottom = on ? bar.offsetHeight + 'px' : '';
+                document.body.style.paddingBottom = (on && !printing) ? bar.offsetHeight + 'px' : '';
             };
 
             new IntersectionObserver(es => {
                 es.forEach(e => { if (e.isIntersecting) heroSeen = true; heroOut = !e.isIntersecting; });
-                ready = Math.min(2, ready + 1); apply();
+                heroReady = true; apply();
             }).observe(heroBadges);
 
             new IntersectionObserver(es => {
                 es.forEach(e => { ctaOut = !e.isIntersecting; });
-                ready = Math.min(2, ready + 1); apply();
+                ctaReady = true; apply();
             }).observe(endCta);
 
             narrow.addEventListener('change', apply);
@@ -2083,7 +2087,8 @@
             document.addEventListener('focus', apply, true);
             document.addEventListener('blur', () => setTimeout(apply, 0), true);
             if (menu) new MutationObserver(apply).observe(menu, { attributes: true, attributeFilter: ['class'] });
-            window.addEventListener('beforeprint', () => { document.body.style.paddingBottom = ''; });
+            window.addEventListener('beforeprint', () => { printing = true; apply(); });
+            window.addEventListener('afterprint', () => { printing = false; apply(); });
         })();
 
         // Contact form submission
