@@ -545,6 +545,30 @@
                    box-shadow:0 18px 40px -24px rgba(28,35,44,.55), 0 0 0 1px rgba(28,35,44,.07); }
     .sd-shots figcaption{ margin-top:7px; font-size:12.5px; color:var(--sd-ink-2); text-align:center; }
 
+    /* ---- 狭い画面の画面写真 ----
+       2枚を横に並べると1枚 140px（元画像の 23%）で、中の文字が読めなかった。
+       700px 以下では横スクロールにして1枚を大きく出す。縦に積むより短く済む。
+       吸着は proximity。mandatory だと縦スクロールの途中で持っていかれる。
+       幅は器の 88% と 72vw と 320px のいちばん小さいもの。器より大きくしない。 */
+    /* 広い画面では2枚並ぶので、送りのボタンは要らない。 */
+    .sd-shots-nav{ display:none; }
+    @media (max-width:700px){
+        .sd-still .sd-shots{ width:100%; min-width:0;
+            display:flex; gap:14px; overflow-x:auto; overscroll-behavior-x:contain;
+            scroll-snap-type:x proximity; scroll-padding:0 2px;
+            padding:4px 2px 10px; margin-inline:-2px; }
+        .sd-shots figure{ flex:0 0 min(88%, 72vw, 320px); scroll-snap-align:center; }
+        .sd-shots:focus-visible{ outline:2px solid var(--sd-accent); outline-offset:4px;
+            border-radius:12px; }
+        /* 前へ／次へ。24px を下回らない大きさにする。 */
+        .sd-shots-nav{ display:flex; justify-content:center; gap:10px; margin-top:4px; }
+        .sd-shots-nav button{ width:40px; height:40px; border-radius:999px;
+            border:1px solid var(--sd-rule); background:rgba(255,255,255,.6);
+            color:var(--sd-ink-2); display:grid; place-items:center; cursor:pointer; }
+        .sd-shots-nav button:disabled{ opacity:.35; cursor:default; }
+        .sd-shots-nav svg{ width:17px; height:17px; }
+    }
+
     /* ---- 料金 ----
        金額はグラデーションで塗らない。カードは面を張らず、細い枠と数字の大きさだけで見せる。 */
     .sd-price{ padding-block:clamp(52px,7vw,84px) clamp(56px,7vw,88px); }
@@ -1757,10 +1781,11 @@
                     <li>例文音声つき（AI音声）</li>
                 </ul>
             </div>
-            <div class="sd-shots">
+            <div class="sd-shots" tabindex="0" role="group" aria-label="画面写真">
                 <figure><img src="demo/vocab-problem.webp?v=20261011" alt="英単語学習の例文穴埋め問題。You may take ___ you like from the basket of fruit. の空欄に入る語を4つから選ぶ画面" width="603" height="1213" loading="lazy" decoding="async"><figcaption>問題</figcaption></figure>
                 <figure><img src="demo/vocab-answer.webp?v=20261011" alt="英単語学習の答えと解説。正解の whatever と、各選択肢の意味・発音記号・用法のヒントが並ぶ画面" width="603" height="1213" loading="lazy" decoding="async"><figcaption>答え・解説</figcaption></figure>
             </div>
+            <div class="sd-shots-nav"><button type="button" data-shots="prev" aria-label="前の画面写真"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" data-shots="next" aria-label="次の画面写真"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button></div>
         </div>
     </div>
 </section>
@@ -1800,10 +1825,11 @@
                     <li>気になる問題はブックマークして復習リストに追加</li>
                 </ul>
             </div>
-            <div class="sd-shots">
+            <div class="sd-shots" tabindex="0" role="group" aria-label="画面写真">
                 <figure><img src="demo/review-session.webp" alt="今日の復習問題を解いている画面" width="603" height="1213" loading="lazy" decoding="async"><figcaption>今日の復習</figcaption></figure>
                 <figure><img src="demo/review-list.webp" alt="復習リスト。学習中の単語と習得状況が並ぶ画面" width="603" height="1213" loading="lazy" decoding="async"><figcaption>復習リスト</figcaption></figure>
             </div>
+            <div class="sd-shots-nav"><button type="button" data-shots="prev" aria-label="前の画面写真"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" data-shots="next" aria-label="次の画面写真"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button></div>
         </div>
     </div>
 </section>
@@ -1822,10 +1848,11 @@
                     <li>モードごとの達成率と、レベル別の内訳</li>
                 </ul>
             </div>
-            <div class="sd-shots">
+            <div class="sd-shots" tabindex="0" role="group" aria-label="画面写真">
                 <figure><img src="demo/progress-overview.webp" alt="進捗画面。今週の学習量を曜日ごとに積み上げた棒グラフと、連続日数・完了数が並ぶ" width="603" height="1311" loading="lazy" decoding="async"><figcaption>今週の学習量</figcaption></figure>
                 <figure><img src="demo/progress-detail.webp" alt="進捗画面。モードごとの達成率とレベル別の内訳が並ぶ" width="603" height="1311" loading="lazy" decoding="async"><figcaption>モード別の進み</figcaption></figure>
             </div>
+            <div class="sd-shots-nav"><button type="button" data-shots="prev" aria-label="前の画面写真"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" data-shots="next" aria-label="次の画面写真"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button></div>
         </div>
     </div>
 </section>
@@ -2105,6 +2132,31 @@
             if (menu) new MutationObserver(apply).observe(menu, { attributes: true, attributeFilter: ['class'] });
             window.addEventListener('beforeprint', () => { printing = true; apply(); });
             window.addEventListener('afterprint', () => { printing = false; apply(); });
+        })();
+
+        // 画面写真の横スクロール。狭い画面だけ出る前へ／次へを動かし、
+        // 端まで来たらボタンを無効にする。スクロール自体はブラウザ任せ。
+        (() => {
+            document.querySelectorAll('.sd-shots-nav').forEach(nav => {
+                const box = nav.previousElementSibling;
+                if (!box || !box.classList.contains('sd-shots')) return;
+                const prev = nav.querySelector('[data-shots="prev"]');
+                const next = nav.querySelector('[data-shots="next"]');
+                const step = () => {
+                    const f = box.querySelector('figure');
+                    return f ? f.getBoundingClientRect().width + 14 : box.clientWidth;
+                };
+                const sync = () => {
+                    const max = box.scrollWidth - box.clientWidth;
+                    prev.disabled = box.scrollLeft <= 2;
+                    next.disabled = box.scrollLeft >= max - 2;
+                };
+                prev.addEventListener('click', () => box.scrollBy({ left: -step(), behavior: 'smooth' }));
+                next.addEventListener('click', () => box.scrollBy({ left: step(), behavior: 'smooth' }));
+                box.addEventListener('scroll', sync, { passive: true });
+                window.addEventListener('resize', sync);
+                sync();
+            });
         })();
 
         // Contact form submission

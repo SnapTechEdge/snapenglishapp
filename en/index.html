@@ -546,6 +546,30 @@
                    box-shadow:0 18px 40px -24px rgba(28,35,44,.55), 0 0 0 1px rgba(28,35,44,.07); }
     .sd-shots figcaption{ margin-top:7px; font-size:12.5px; color:var(--sd-ink-2); text-align:center; }
 
+    /* ---- 狭い画面の画面写真 ----
+       2枚を横に並べると1枚 140px（元画像の 23%）で、中の文字が読めなかった。
+       700px 以下では横スクロールにして1枚を大きく出す。縦に積むより短く済む。
+       吸着は proximity。mandatory だと縦スクロールの途中で持っていかれる。
+       幅は器の 88% と 72vw と 320px のいちばん小さいもの。器より大きくしない。 */
+    /* 広い画面では2枚並ぶので、送りのボタンは要らない。 */
+    .sd-shots-nav{ display:none; }
+    @media (max-width:700px){
+        .sd-still .sd-shots{ width:100%; min-width:0;
+            display:flex; gap:14px; overflow-x:auto; overscroll-behavior-x:contain;
+            scroll-snap-type:x proximity; scroll-padding:0 2px;
+            padding:4px 2px 10px; margin-inline:-2px; }
+        .sd-shots figure{ flex:0 0 min(88%, 72vw, 320px); scroll-snap-align:center; }
+        .sd-shots:focus-visible{ outline:2px solid var(--sd-accent); outline-offset:4px;
+            border-radius:12px; }
+        /* 前へ／次へ。24px を下回らない大きさにする。 */
+        .sd-shots-nav{ display:flex; justify-content:center; gap:10px; margin-top:4px; }
+        .sd-shots-nav button{ width:40px; height:40px; border-radius:999px;
+            border:1px solid var(--sd-rule); background:rgba(255,255,255,.6);
+            color:var(--sd-ink-2); display:grid; place-items:center; cursor:pointer; }
+        .sd-shots-nav button:disabled{ opacity:.35; cursor:default; }
+        .sd-shots-nav svg{ width:17px; height:17px; }
+    }
+
     /* ---- 料金 ----
        金額はグラデーションで塗らない。カードは面を張らず、細い枠と数字の大きさだけで見せる。 */
     .sd-price{ padding-block:clamp(52px,7vw,84px) clamp(56px,7vw,88px); }
@@ -1759,10 +1783,11 @@
                     <li>Audio for every example sentence (AI voice)</li>
                 </ul>
             </div>
-            <div class="sd-shots">
+            <div class="sd-shots" tabindex="0" role="group" aria-label="Screenshots">
                 <figure><img src="/demo/vocab-problem.webp?v=20261011" alt="Vocabulary gap-fill question: choosing the word that fills the blank in “You may take ___ you like from the basket of fruit.” from four options" width="603" height="1213" loading="lazy" decoding="async"><figcaption>Question</figcaption></figure>
                 <figure><img src="/demo/vocab-answer.webp?v=20261011" alt="Vocabulary answer screen showing the correct answer “whatever”, the meaning of each option, its pronunciation and a usage tip" width="603" height="1213" loading="lazy" decoding="async"><figcaption>Answer &amp; notes</figcaption></figure>
             </div>
+            <div class="sd-shots-nav"><button type="button" data-shots="prev" aria-label="Previous screenshot"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" data-shots="next" aria-label="Next screenshot"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button></div>
         </div>
     </div>
 </section>
@@ -1802,10 +1827,11 @@
                     <li>Bookmark any question to add it to your review list</li>
                 </ul>
             </div>
-            <div class="sd-shots">
+            <div class="sd-shots" tabindex="0" role="group" aria-label="Screenshots">
                 <figure><img src="/demo/review-session.webp" alt="Working through today’s review questions" width="603" height="1213" loading="lazy" decoding="async"><figcaption>Today’s review</figcaption></figure>
                 <figure><img src="/demo/review-list.webp" alt="Review list showing the words in progress and how well each is learned" width="603" height="1213" loading="lazy" decoding="async"><figcaption>Review list</figcaption></figure>
             </div>
+            <div class="sd-shots-nav"><button type="button" data-shots="prev" aria-label="Previous screenshot"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" data-shots="next" aria-label="Next screenshot"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button></div>
         </div>
     </div>
 </section>
@@ -1824,10 +1850,11 @@
                     <li>Completion rate per mode, broken down by level</li>
                 </ul>
             </div>
-            <div class="sd-shots">
+            <div class="sd-shots" tabindex="0" role="group" aria-label="Screenshots">
                 <figure><img src="/demo/progress-overview.webp" alt="Progress screen with a stacked bar chart of this week’s work by day, plus the current streak and total completed" width="603" height="1311" loading="lazy" decoding="async"><figcaption>This week</figcaption></figure>
                 <figure><img src="/demo/progress-detail.webp" alt="Progress screen showing completion by mode and a breakdown by level" width="603" height="1311" loading="lazy" decoding="async"><figcaption>By mode</figcaption></figure>
             </div>
+            <div class="sd-shots-nav"><button type="button" data-shots="prev" aria-label="Previous screenshot"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" data-shots="next" aria-label="Next screenshot"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button></div>
         </div>
     </div>
 </section>
@@ -2107,6 +2134,31 @@
             if (menu) new MutationObserver(apply).observe(menu, { attributes: true, attributeFilter: ['class'] });
             window.addEventListener('beforeprint', () => { printing = true; apply(); });
             window.addEventListener('afterprint', () => { printing = false; apply(); });
+        })();
+
+        // 画面写真の横スクロール。狭い画面だけ出る前へ／次へを動かし、
+        // 端まで来たらボタンを無効にする。スクロール自体はブラウザ任せ。
+        (() => {
+            document.querySelectorAll('.sd-shots-nav').forEach(nav => {
+                const box = nav.previousElementSibling;
+                if (!box || !box.classList.contains('sd-shots')) return;
+                const prev = nav.querySelector('[data-shots="prev"]');
+                const next = nav.querySelector('[data-shots="next"]');
+                const step = () => {
+                    const f = box.querySelector('figure');
+                    return f ? f.getBoundingClientRect().width + 14 : box.clientWidth;
+                };
+                const sync = () => {
+                    const max = box.scrollWidth - box.clientWidth;
+                    prev.disabled = box.scrollLeft <= 2;
+                    next.disabled = box.scrollLeft >= max - 2;
+                };
+                prev.addEventListener('click', () => box.scrollBy({ left: -step(), behavior: 'smooth' }));
+                next.addEventListener('click', () => box.scrollBy({ left: step(), behavior: 'smooth' }));
+                box.addEventListener('scroll', sync, { passive: true });
+                window.addEventListener('resize', sync);
+                sync();
+            });
         })();
 
         // Contact form submission
