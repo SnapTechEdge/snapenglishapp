@@ -338,9 +338,28 @@
        黒い角丸が Apple より小さく見える。実測済みの補正を使い回す。 */
     .sd-badges{ margin-top:34px; display:flex; flex-wrap:wrap; align-items:center; gap:12px; }
     .sd-hero .sd-plus{ margin-top:8px; font-size:12.5px; color:var(--sd-ink-2); }
-    .sd-hero .sd-modes + .sd-plus{ margin-top:11px; }
+    /* 「＋」の1本目だけ前と離す。DOM では詳しい説明（.sd-sub）の次に来る。 */
+    .sd-hero .sd-sub + .sd-plus{ margin-top:11px; }
     .sd-hero .sd-plus b{ color:var(--sd-ink); font-weight:800; }
     .sd-hero .sd-note, .sd-midcta .sd-note{ margin-top:18px; font-size:12.5px; color:#7C8590; }
+
+    /* ヒーローの左列。HTML はモバイルの順（見出し→モード→バッジ→注記→詳しい説明）で
+       書いてあり、折り返しより上に入手の導線まで入る。読み上げの順も同じ。
+       広い画面は下の order で元の見え方に戻す。 */
+    .sd-hero-col{ display:flex; flex-direction:column; width:100%; min-width:0; }
+    @media (min-width:1001px){
+        /* 指定し忘れた要素が先頭へ飛ばないよう、既定を最後に置いてから個別に並べる。 */
+        .sd-hero-col > *{ order:9; }
+        .sd-hero-col > .sd-kicker{ order:1; }
+        .sd-hero-col > h1{ order:2; }
+        .sd-hero-col > .sd-lead{ order:3; }
+        .sd-hero-col > .sd-sub{ order:4; }
+        .sd-hero-col > .sd-modes{ order:5; }
+        .sd-hero-col > .sd-plus{ order:6; }
+        .sd-hero-col > .sd-badges{ order:7; }
+        .sd-hero-col > .sd-note{ order:8; }
+    }
+
 
     /* ---- デモ3本のあとの中間導線 ---- */
     .sd-midcta{ padding-block:clamp(34px,4.5vw,56px); }
@@ -1126,6 +1145,7 @@
         /* 箇条書きだけは左揃えのまま（中央だと読みにくい）。 */
         .sd-still .sd-copy ul{ text-align:left; }
         /* 中央寄せは文章の列だけ。.sd-panel に掛けると端末の中まで継承される。 */
+        .sd-hero-col > .sd-note + .sd-sub{ margin-top:26px; }
         .sd-copy{ max-width:34em; text-align:center; }
         .sd-copy .sd-eyebrow{ justify-content:center; }
         .sd-phone{ width:min(402px,100%); zoom:.68; }
@@ -1216,20 +1236,15 @@
 <!-- ヒーロー -->
 <section class="sd sd-hero" aria-labelledby="hero-h">
     <div class="sd-wrap sd-hero-in">
-        <div>
-            <p class="sd-kicker">The all-in-one English app</p>
+        <div class="sd-hero-col">            <p class="sd-kicker">The all-in-one English app</p>
             <h1 id="hero-h">Listen. Speak. Write.<br>All in one app.</h1>
             <p class="sd-lead">Learn by producing, not just by reading.</p>
-            <p class="sd-sub">Conversation, composition, grammar and vocabulary — every angle covered. AI acts as your native English teacher, assessing and correcting what you write and say.</p>
-            <p class="sd-sub">Today’s questions are queued up for you, so you can fit practice into spare moments. Even on a crowded train, the keyboard alone is enough to keep going.</p>
             <div class="sd-modes">
                 <div class="sd-mode m1"><b>AI conversation</b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="200">200</span> scenes</span><span class="sd-sr">200 scenes</span></div>
                 <div class="sd-mode m2"><b>Composition</b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="5000">5,000</span> questions</span><span class="sd-sr">5,000 questions</span></div>
                 <div class="sd-mode m3"><b>Grammar</b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="4279">4,279</span> questions</span><span class="sd-sr">4,279 questions</span></div>
                 <div class="sd-mode m4"><b>Vocabulary</b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="7533">7,533</span> words</span><span class="sd-sr">7,533 words</span></div>
             </div>
-            <p class="sd-plus">+ <b>Spaced repetition (SRS)</b>&nbsp;&nbsp;Composition, grammar and vocabulary each come back before you forget them.</p>
-            <p class="sd-plus">+ <b>Native audio</b>&nbsp;&nbsp;Every English sentence in the app can be played in a native voice.</p>
             <div class="sd-badges">
                 <a class="app-store-badge" href="https://apps.apple.com/jp/app/id6757105670?pt=127982208&amp;ct=web&amp;mt=8" target="_blank" rel="noopener" aria-label="Download on the App Store">
                     <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?releaseDate=2026-05-14" alt="Download on the App Store">
@@ -1240,7 +1255,11 @@
             </div>
             <p class="sd-note"><span class="nobreak">7 days free</span> &nbsp;/&nbsp; <span class="nobreak">iOS &amp; Android</span> &nbsp;/&nbsp; <span class="nobreak">no payment details required</span></p>
             <p class="sd-note">The app interface is in Japanese; the screens in the demos below are shown as they appear in the app.</p>
-        </div>
+                    <p class="sd-sub">Conversation, composition, grammar and vocabulary — every angle covered. AI acts as your native English teacher, assessing and correcting what you write and say.</p>
+            <p class="sd-sub">Today’s questions are queued up for you, so you can fit practice into spare moments. Even on a crowded train, the keyboard alone is enough to keep going.</p>
+            <p class="sd-plus">+ <b>Spaced repetition (SRS)</b>&nbsp;&nbsp;Composition, grammar and vocabulary each come back before you forget them.</p>
+            <p class="sd-plus">+ <b>Native audio</b>&nbsp;&nbsp;Every English sentence in the app can be played in a native voice.</p>
+</div>
 
         <!-- ストア1枚目と同じ人物・同じ画風（Recraft V4.1 Pro・同じ STYLE/HANDS 指定）のまま、
              場面を通勤電車に変えて描き起こしたもの。地色はサイトの --sd-ivory に合わせてあり、
