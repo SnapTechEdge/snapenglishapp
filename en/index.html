@@ -429,6 +429,36 @@
        Tab の順と読み上げの順が見た目と食い違うため、そうしていない。
        広い画面では畳まないので summary を隠し、open のまま置く。
        JS が無い場合も open のままなので、中身が読めなくなることはない。 */
+
+    /* ---- 下に固定する CTA ----
+       狭い画面で、ヒーローのストアバッジが流れたあとに出す。
+       最後の CTA 節が見えているあいだは出さない（同じものが2つ並ぶため）。
+       768px 以上は出さない。JS が動かない場合も出ない（既定が非表示）。
+       高さぶんの余白は JS が本文の下に足す。実測値を使うので、文字を
+       大きくしても英語で折り返しても隠れない。 */
+    .sd-stickycta{
+        position:fixed; left:0; right:0; bottom:0; z-index:40;
+        display:none; justify-content:center;
+        padding:10px 16px;
+        padding-left:max(16px, env(safe-area-inset-left, 0px));
+        padding-right:max(16px, env(safe-area-inset-right, 0px));
+        padding-bottom:max(10px, env(safe-area-inset-bottom, 0px));
+        background:rgba(241,237,230,.92); backdrop-filter:saturate(140%) blur(10px);
+        border-top:1px solid var(--sd-rule);
+        opacity:0; transform:translateY(100%);
+        transition:opacity .18s ease, transform .18s ease;
+    }
+    @media (max-width:767px){ .sd-stickycta{ display:flex; } }
+    .sd-stickycta.is-on{ opacity:1; transform:none; }
+    .sd-stickycta a{
+        display:block; width:100%; max-width:420px; text-align:center;
+        padding:13px 18px; border-radius:999px;
+        background:var(--sd-accent-dark, #0F6E4C); color:#fff;
+        font-size:15px; font-weight:800; text-decoration:none;
+    }
+    .sd-stickycta a:focus-visible{ outline:2px solid var(--sd-ink); outline-offset:3px; }
+    @media (prefers-reduced-motion: reduce){ .sd-stickycta{ transition:none; } }
+    @media print{ .sd-stickycta{ display:none !important; } }
     .sd-more{ display:block; }
     .sd-more > summary{ display:none; }
     /* 割る前は .sd-lead 同士が隣接していて 13px だった。広い画面では続きに見せたい。 */
@@ -1936,6 +1966,12 @@
 
     </main>
 
+    <!-- 下に固定する CTA。本文の後ろ・フッターの前に置く。
+         既定は非表示＋inert で、Tab と読み上げから外れている。 -->
+    <div class="sd-stickycta" id="sticky-cta" inert>
+        <a href="#cta">Start free for 7 days</a>
+    </div>
+
     <!-- Footer -->
     <footer class="sd-footer border-t">
         <div class="max-w-6xl mx-auto safe-x pt-10 safe-pb-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-600">
@@ -2004,6 +2040,52 @@
                 if (printed) more.forEach((d, i) => { d.open = printed[i]; });
                 printed = null;
             });
+        })();
+
+        // 下に固定する CTA。767px 以下で、ヒーローのバッジが流れてから
+        // 最後の CTA 節が見えるまでのあいだだけ出す。
+        (() => {
+            const bar = document.getElementById('sticky-cta');
+            const heroBadges = document.querySelector('.sd-hero .sd-badges');
+            const endCta = document.getElementById('cta');
+            const form = document.getElementById('contact-form');
+            const menu = document.getElementById('mobile-menu');
+            if (!bar || !heroBadges || !endCta || !('IntersectionObserver' in window)) return;
+
+            const narrow = window.matchMedia('(max-width: 767px)');
+            let heroSeen = false, heroOut = false, ctaOut = true, ready = 0;
+
+            const apply = () => {
+                const formActive = !!(form && document.activeElement && form.contains(document.activeElement));
+                const menuOpen = !!(menu && !menu.classList.contains('hidden'));
+                const on = narrow.matches && ready >= 2 && heroSeen && heroOut && ctaOut
+                           && !formActive && !menuOpen;
+                bar.classList.toggle('is-on', on);
+                if (on) bar.removeAttribute('inert'); else bar.setAttribute('inert', '');
+                // 本文がバーに隠れないよう、出ている間だけ下に実測ぶんの余白を取る。
+                document.body.style.paddingBottom = on ? bar.offsetHeight + 'px' : '';
+            };
+
+            new IntersectionObserver(es => {
+                es.forEach(e => { if (e.isIntersecting) heroSeen = true; heroOut = !e.isIntersecting; });
+                ready = Math.min(2, ready + 1); apply();
+            }).observe(heroBadges);
+
+            new IntersectionObserver(es => {
+                es.forEach(e => { ctaOut = !e.isIntersecting; });
+                ready = Math.min(2, ready + 1); apply();
+            }).observe(endCta);
+
+            narrow.addEventListener('change', apply);
+            window.addEventListener('resize', apply);
+            document.addEventListener('focusin', apply);
+            document.addEventListener('focusout', () => setTimeout(apply, 0));
+            // focus/blur は伝播しないので捕捉段で拾う。環境によっては
+            // focusin が飛ばないことがあるため、両方を見る。
+            document.addEventListener('focus', apply, true);
+            document.addEventListener('blur', () => setTimeout(apply, 0), true);
+            if (menu) new MutationObserver(apply).observe(menu, { attributes: true, attributeFilter: ['class'] });
+            window.addEventListener('beforeprint', () => { document.body.style.paddingBottom = ''; });
         })();
 
         // Contact form submission
