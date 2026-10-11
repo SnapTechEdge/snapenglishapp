@@ -617,7 +617,7 @@
                 font-variant-numeric:tabular-nums; }
     .sd-form-hp{ position:absolute; left:-9999px; opacity:0; pointer-events:none; }
     .sd-form-note{ font-size:12.5px; line-height:1.9; color:var(--sd-ink-2); }
-    .sd-form-note a{ color:#0F6E4C; }
+    .sd-form-note a{ color:#0F6E4C; display:inline-block; padding-block:5px; }
     .sd-form-turnstile{ display:flex; justify-content:center; }
     /* Turnstile の既定サイズ（normal）は 300x65px。320px の画面では
        列の内寸 272px に収まらず、右端が切れていた。認証のUIには触れず、
@@ -1300,11 +1300,11 @@
                 <span aria-hidden="true"><span style="color: #297849">Snap</span><span class="text-slate-800">English</span></span>
             </a>
             <nav class="hidden md:flex items-center gap-5 lg:gap-8 text-sm text-slate-600">
-                <a href="#how" class="hover:text-emerald-700 transition">How it works</a>
-                <a href="#features" class="hover:text-emerald-700 transition">Features</a>
-                <a href="#pricing" class="hover:text-emerald-700 transition">Pricing</a>
-                <a href="#faq" class="hover:text-emerald-700 transition">FAQ</a>
-                <a href="#contact" class="hover:text-emerald-700 transition">Contact</a>
+                <a href="#how" class="py-1 hover:text-emerald-700 transition">How it works</a>
+                <a href="#features" class="py-1 hover:text-emerald-700 transition">Features</a>
+                <a href="#pricing" class="py-1 hover:text-emerald-700 transition">Pricing</a>
+                <a href="#faq" class="py-1 hover:text-emerald-700 transition">FAQ</a>
+                <a href="#contact" class="py-1 hover:text-emerald-700 transition">Contact</a>
             </nav>
             <div class="flex items-center gap-1.5">
                 <a href="#cta" class="px-2.5 py-1.5 rounded-full bg-accent2 text-white text-xs font-bold hover:bg-accent3 transition whitespace-nowrap">Start free</a>
@@ -1999,14 +1999,14 @@
                 <span class="font-semibold"><span style="color: #297849">Snap</span><span class="text-slate-800">English</span></span>
                 <span class="text-ink2">— © <span id="year">2026</span> SnapTechEdge</span>
             </div>
-            <div class="flex flex-wrap items-center gap-x-6 gap-y-2 justify-center">
-                <a href="/en/about" class="hover:text-emerald-700 transition">About</a>
-                <a href="/en/terms" class="hover:text-emerald-700 transition">Terms</a>
-                <a href="/en/privacy" class="hover:text-emerald-700 transition">Privacy</a>
-                <a href="/tokushoho" hreflang="ja" lang="ja" class="hover:text-emerald-700 transition">特定商取引法に基づく表記</a>
-                <a href="#contact" class="hover:text-emerald-700 transition">Contact</a>
-                <a href="/" hreflang="ja" lang="ja" class="hover:text-emerald-700 transition">日本語</a>
-                <a href="https://snaptechedge.com" class="hover:text-emerald-700 transition">Operated by SnapTechEdge</a>
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-1 justify-center">
+                <a href="/en/about" class="py-1 hover:text-emerald-700 transition">About</a>
+                <a href="/en/terms" class="py-1 hover:text-emerald-700 transition">Terms</a>
+                <a href="/en/privacy" class="py-1 hover:text-emerald-700 transition">Privacy</a>
+                <a href="/tokushoho" hreflang="ja" lang="ja" class="py-1 hover:text-emerald-700 transition">特定商取引法に基づく表記</a>
+                <a href="#contact" class="py-1 hover:text-emerald-700 transition">Contact</a>
+                <a href="/" hreflang="ja" lang="ja" class="py-1 hover:text-emerald-700 transition">日本語</a>
+                <a href="https://snaptechedge.com" class="py-1 hover:text-emerald-700 transition">Operated by SnapTechEdge</a>
             </div>
         </div>
     </footer>
