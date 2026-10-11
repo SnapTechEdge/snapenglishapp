@@ -459,7 +459,11 @@
         font-size:15px; font-weight:800; text-decoration:none;
     }
     .sd-stickycta a:focus-visible{ outline:2px solid #14191F; outline-offset:3px; }
-    @media (prefers-reduced-motion: reduce){ .sd-stickycta{ transition:none; } }
+    /* .is-on 側の transition のほうが詳細度が高いので、両方を名指しする。
+       片方だけだと、動きを減らす設定でも登場だけ動いてしまう。 */
+    @media (prefers-reduced-motion: reduce){
+        .sd-stickycta, .sd-stickycta.is-on{ transition:none; }
+    }
     @media print{ .sd-stickycta{ display:none !important; } }
     .sd-more{ display:block; }
     .sd-more > summary{ display:none; }
