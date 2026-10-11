@@ -937,7 +937,7 @@
            --tile:#C8574C; --tile-soft:#FADCD9; --tile-ok:#C7C7CC; --ng:#EF4444;
            --ok-w:#2E8752; --miss-w:#FF8D28;
            --tip-bg:#FEF7EB; --tip-ic:#F59E0B; --exp-bg:#EFF5FE; --exp-ic:#3B82F6; }
-    .sd-g .sd-phone{ background:var(--page); }
+    .sd-g .sd-phone{ background:var(--page); position:relative; }
     .sd-g .bar{ background:var(--page); padding:14px 18px 0; text-align:center; }
     .sd-g .bar .nav{ display:flex; align-items:center; justify-content:space-between; }
     .sd-g .bar .nav svg{ width:20px; height:20px; color:#B9B4AD; }
@@ -984,10 +984,11 @@
            text-align:center; transition:transform .12s ease, filter .12s ease; }
     .sd-g .go.press{ transform:scale(.97); filter:brightness(.92); }
 
-    .sd-g .judging{ display:flex; align-items:center; justify-content:center; gap:9px;
-           font-size:14px; color:#8E8A85; padding:18px 0; }
-    .sd-g .spin{ width:16px; height:16px; border-radius:50%; border:2px solid #E7DAD8;
-           border-top-color:var(--gram); animation:sdSpin .8s linear infinite; }
+    /* 判定待ち（違う並びのときだけ）。小さなカードに iOS の回る印と「AI判定中...」。 */
+    .sd-g [data-el="cJudge"]{ padding:16px; border-radius:12px; }
+    .sd-g .judging{ display:flex; align-items:center; justify-content:center; gap:8px;
+           font-size:14px; font-weight:600; color:#6E6A66; }
+    .sd-g .spin{ width:18px; height:18px; color:#8E8A85; animation:sdSpin .9s steps(8) infinite; }
     @keyframes sdSpin{ to{ transform:rotate(360deg) } }
 
     .sd-g .verdict{ display:flex; align-items:center; gap:8px; font-size:17px; font-weight:800; }
@@ -1012,6 +1013,24 @@
            text-align:center; padding:11px 0; font-size:13.5px; font-weight:700; }
     .sd-g .next{ margin:0 14px 14px; border-radius:999px; background:#B95147; color:#fff;
            text-align:center; padding:13px 0; font-size:15px; font-weight:800; }
+
+    /* 主語は答えるまでボタン（🔑 主語を見る）、採点が出たら「主語: I」（SubjectReveal.swift）。 */
+    .sd-g .subjbtn{ display:inline-flex; align-items:center; gap:6px; margin-top:8px; padding:7px 12px;
+           border-radius:999px; background:#fff; border:1px solid #E5E1DA; color:#6E6A66;
+           font-size:13px; font-weight:600; }
+    .sd-g .subjbtn svg{ width:11px; height:11px; }
+    .sd-g .lbl .gi{ display:inline-block; width:13px; height:13px; vertical-align:-2px; margin-left:5px; color:#A9A39B; }
+    .sd-g .verdict .bm{ width:18px; height:18px; margin-left:auto; color:rgba(169,163,155,.6); }
+    /* 正解のときは AI 判定を挟まず、全面に丸の ✓ が 0.8 秒だけ出る（CorrectAnswerOverlay.swift）。 */
+    .sd-g .okfx{ position:absolute; inset:0; z-index:5; display:grid; place-items:center; pointer-events:none;
+           background:rgba(247,244,239,.45); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+           opacity:0; transition:opacity .2s ease; }
+    .sd-g .okfx.on{ opacity:1; }
+    .sd-g .okfx i{ width:130px; height:130px; border-radius:50%; border:8px solid #FF6B6B; color:#FF6B6B;
+           display:grid; place-items:center; transform:scale(.4); font-style:normal;
+           transition:transform .35s cubic-bezier(.34,1.56,.64,1); }
+    .sd-g .okfx.on i{ transform:scale(1); }
+    .sd-g .okfx svg{ width:62px; height:62px; }
     .sd-g .hide{ display:none; }
     .sd-g .pop{ animation:sdPopG .45s cubic-bezier(.22,.7,.2,1) both; }
     @keyframes sdPopG{ from{ opacity:0; transform:translateY(12px) } to{ opacity:1; transform:none } }
@@ -1031,7 +1050,7 @@
     .sd-halt .bad .tx::after{ animation-play-state:paused !important; }
     .sd-halt .roll,.sd-halt .rollin,.sd-halt .login,.sd-halt .slot,.sd-halt .tile,.sd-halt .go,
     .sd-halt .dot,.sd-halt .send,.sd-halt .ib,.sd-halt .act,.sd-halt .kb,
-    .sd-halt .u::after{ transition:none !important; }
+    .sd-halt .u::after,.sd-halt .okfx,.sd-halt .okfx i{ transition:none !important; }
 
     /* ノート PC など低いウィンドウでは、端末が1画面に入らなくなるので段階的に縮める。
        刻みを細かくして、境目で大きく飛ばないようにする。 */
@@ -1067,6 +1086,8 @@
     html:not(.js) .sd-g .screen,.sd-g.sd-static .screen,.sd-g.still .screen{ height:auto; }
     html:not(.js) .sd-g .roll,.sd-g.sd-static .roll,.sd-g.still .roll{ overflow:visible; }
     html:not(.js) .sd-g [data-el="cRes"],.sd-g.sd-static [data-el="cRes"]{ display:block; }
+    html:not(.js) .sd-g [data-el="subj"],.sd-g.sd-static [data-el="subj"]{ display:block; }
+    html:not(.js) .sd-g .subjbtn,.sd-g.sd-static .subjbtn,html:not(.js) .sd-g .okfx,.sd-g.sd-static .okfx{ display:none; }
     html:not(.js) .sd-g [data-el="cJudge"],html:not(.js) .sd-g [data-el="go"],html:not(.js) .sd-g [data-el="pool"],
     .sd-g.sd-static [data-el="cJudge"],.sd-g.sd-static [data-el="go"],.sd-g.sd-static [data-el="pool"],
     .sd-g.still [data-el="cJudge"],.sd-g.still [data-el="go"],.sd-g.still [data-el="pool"]{ display:none; }
@@ -1105,7 +1126,7 @@
         .sd .act,.sd .kb,.sd .u::after{ transition:none !important; animation:none !important; }
         .sd .pop,.sd .ring,.sd .spin,.sd .cur,.sd .msg,.sd .tick,
         .sd .bad .tx::after{ animation:none !important; }
-        .sd .wait i,.sd .vd,.sd .verdict,.sd-v .bg img,.sd-v .field,.sd-v .next{ animation:none !important; transition:none !important; }
+        .sd .wait i,.sd .vd,.sd .verdict,.sd-v .bg img,.sd-v .field,.sd-v .next,.sd-g .okfx,.sd-g .okfx i{ animation:none !important; transition:none !important; }
     }
 
     /* ---- ヒーローのモードカードの登場 ----
@@ -1520,9 +1541,10 @@
                     <div class="roll" data-el="roll"><div class="rollin" data-el="rollin">
                         <div class="card">
                             <p class="qja">近所の人に、植木の水やりをしてもらいました。</p>
-                            <p class="subj">主語: <b>I</b></p>
+                            <p class="subjbtn hide" data-el="subjBtn"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M14.5 3a6.5 6.5 0 00-6.2 8.5L3 16.8V21h4.2l1.2-1.2v-1.8h1.8l1.2-1.2v-1.8h1.8l.9-.9A6.5 6.5 0 1014.5 3zm2.6 5.2a1.6 1.6 0 110-3.2 1.6 1.6 0 010 3.2z"/></svg>主語を見る</p>
+                            <p class="subj" data-el="subj">主語: <b>I</b></p>
                             <div class="hair"></div>
-                            <p class="lbl">あなたの回答</p>
+                            <p class="lbl">あなたの回答<svg class="gi" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.2"/></svg></p>
                             <div class="slots en" lang="en">
                                 <span class="slot f judged-ok" data-i="0">I</span><span class="slot f judged-ng" data-i="1">have</span>
                                 <span class="slot f judged-ok" data-i="2">my</span><span class="slot f judged-ok" data-i="3">neighbor</span>
@@ -1532,13 +1554,14 @@
                         </div>
 
                         <div class="card hide" data-el="cJudge">
-                            <div class="judging"><span class="spin"></span>AI 判定中…</div>
+                            <div class="judging"><svg class="spin" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><rect x="11" y="2" width="2" height="6" rx="1"/><rect x="11" y="2" width="2" height="6" rx="1" opacity=".9" transform="rotate(45 12 12)"/><rect x="11" y="2" width="2" height="6" rx="1" opacity=".8" transform="rotate(90 12 12)"/><rect x="11" y="2" width="2" height="6" rx="1" opacity=".7" transform="rotate(135 12 12)"/><rect x="11" y="2" width="2" height="6" rx="1" opacity=".6" transform="rotate(180 12 12)"/><rect x="11" y="2" width="2" height="6" rx="1" opacity=".5" transform="rotate(225 12 12)"/><rect x="11" y="2" width="2" height="6" rx="1" opacity=".4" transform="rotate(270 12 12)"/><rect x="11" y="2" width="2" height="6" rx="1" opacity=".3" transform="rotate(315 12 12)"/></svg>AI判定中...</div>
                         </div>
 
                         <div class="card hide" data-el="cRes">
                             <p class="verdict ng" data-el="verdict">
                                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16a2 2 0 012 2v9a2 2 0 01-2 2H9l-5 4V6a2 2 0 012-2z"/></svg>
                                 <span data-el="verdictText">不正解</span>
+                                <svg class="bm" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6.5 3.5h11v17l-5.5-4-5.5 4z"/></svg>
                             </p>
                             <div class="hair"></div>
                             <p class="lbl">回答例</p>
@@ -1574,6 +1597,7 @@
                     <span class="go hide" data-el="go">⊙ 回答する</span>
                     <span class="next hide" data-el="next">次へ</span>
                 </div>
+                <div class="okfx" data-el="okfx" aria-hidden="true"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.6 4.6L19 7.6"/></svg></i></div>
             </div>
                 <button class="sd-btn" data-el="pause" type="button">一時停止</button>
             </div>
@@ -2493,15 +2517,17 @@
         var go=$('go'), next=$('next'), cJudge=$('cJudge'), cRes=$('cRes'), pool=$('pool');
         var roll=$('roll'), rollin=$('rollin'), act=$('act'), actText=$('actText');
         var verdict=$('verdict'), verdictText=$('verdictText'), model=$('model'),
-            exp=$('exp'), again=$('again');
+            exp=$('exp'), again=$('again'),
+            subjBtn=$('subjBtn'), subj=$('subj'), okfx=$('okfx');
         if(slots.length<7||!tiles.length||!go||!next||!cJudge||!cRes||!pool||
-           !roll||!rollin||!act||!verdict||!model||!exp||!again) return null;
+           !roll||!rollin||!act||!verdict||!model||!exp||!again||!subjBtn||!subj||!okfx) return null;
 
         var CORRECT=['I','had','my','neighbor','water','my2','plants'];
         var WRONG  =['I','have','my','neighbor','water','my2','plants'];
         var LABEL={ I:'I', had:'had', have:'have', my:'my', my2:'my',
                     neighbor:'neighbor', water:'water', plants:'plants', her:'her' };
-        var MODEL_OK  = '<span class="g">I had my neighbor water my plants.</span>';
+        // 正解のときの回答例は黒の太字で、色分けしない（WordRearrangeView.swift）。
+        var MODEL_OK  = 'I had my neighbor water my plants.';
         var MODEL_NG  = '<span class="g">I</span> <span class="o">had</span> '
                       + '<span class="g">my neighbor water my plants.</span>';
         var run=0;
@@ -2510,7 +2536,17 @@
           run++;
           go.classList.remove('press');
           act.classList.remove('on');
+          okfx.classList.remove('on');
           tiles.forEach(function(t){ t.classList.remove('tap'); });
+        }
+        // 主語: 答えるまではボタン、採点が出たら「主語: I」。
+        function graded(on){
+          subjBtn.classList.toggle('hide', on);
+          subj.classList.toggle('hide', !on);
+        }
+        function setModel(ok){
+          model.className = ok ? 'model en plain' : 'model en';
+          model.innerHTML = ok ? MODEL_OK : MODEL_NG;
         }
         function reset(){
           stop();
@@ -2518,6 +2554,7 @@
           tiles.forEach(function(t){ t.className='tile'; });
           [go,next,cJudge,cRes,exp,again].forEach(function(e){ e.classList.add('hide'); e.classList.remove('pop'); });
           pool.classList.remove('hide');
+          graded(false);
           rollin.classList.add('now');
           rollin.style.transform='translateY(0)';
           void rollin.offsetWidth;
@@ -2540,12 +2577,15 @@
           reset();
           fillStatic(WRONG, true);
           verdict.className='verdict ng'; verdictText.textContent='不正解';
-          model.innerHTML=MODEL_NG;
+          setModel(false);
+          graded(true);
           exp.classList.remove('hide'); again.classList.remove('hide');
           cRes.classList.remove('hide'); pool.classList.add('hide');
         }
 
-        async function placeAndAnswer(my, order){
+        // 正解の並びなら AI 判定を挟まず、丸の ✓ を実時間 0.8 秒だけ出す（sleep は PACE 倍されるので割り戻す）。
+        // 違う並びなら「AI判定中...」。
+        async function placeAndAnswer(my, order, correct){
           for(var i=0;i<order.length;i++){
             var w=order[i];
             var t=tiles.filter(function(x){ return x.getAttribute('data-w')===w; })[0];
@@ -2560,6 +2600,12 @@
           go.classList.add('press');
           await sleep(170); if(my!==run) return false;
           go.classList.remove('press'); go.classList.add('hide'); pool.classList.add('hide');
+          if(correct){
+            okfx.classList.add('on');
+            await sleep(800/PACE); if(my!==run) return false;
+            okfx.classList.remove('on');
+            return true;
+          }
           show(cJudge);
           await sleep(1500); if(my!==run) return false;
           cJudge.classList.add('hide');
@@ -2572,10 +2618,11 @@
           await sleep(900); if(my!==run) return;
 
           /* --- 第1幕: 正しく並べる --- */
-          if(!(await placeAndAnswer(my, CORRECT))) return;
+          if(!(await placeAndAnswer(my, CORRECT, true))) return;
           slots.forEach(function(s){ s.className='slot f'; });     // 正解のときは色分けしない
           verdict.className='verdict ok'; verdictText.textContent='正解！';
-          model.innerHTML=MODEL_OK;
+          setModel(true);
+          graded(true);
           exp.classList.add('hide'); again.classList.add('hide');
           show(cRes); show(next);
           await sleep(3200); if(my!==run) return;
@@ -2590,10 +2637,11 @@
           act.classList.remove('on');
 
           /* --- 第2幕: had を have にする --- */
-          if(!(await placeAndAnswer(my, WRONG))) return;
+          if(!(await placeAndAnswer(my, WRONG, false))) return;
           slots.forEach(function(s,i){ s.className='slot f '+(WRONG[i]===CORRECT[i]?'judged-ok':'judged-ng'); });
           verdict.className='verdict ng'; verdictText.textContent='不正解';
-          model.innerHTML=MODEL_NG;
+          setModel(false);
+          graded(true);
           exp.classList.remove('hide'); again.classList.remove('hide');
           show(cRes); show(next);
           await sleep(2600); if(my!==run) return;
