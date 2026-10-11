@@ -566,106 +566,155 @@
     .sd-close .sd-badges{ justify-content:center; }
 
     /* ==================== AI英会話 ====================
-       実機（iPhone 17 / iOS 26.5 / 1.4.6）の台本モードを画素実測して作る。
-       上＝シーン画像の上に会話が下へ積み上がる。下＝お題と入力のパネル。
+       今のアプリ（1.4.10 の会話画面）を iPhone 17 Pro Max シミュレータで実測して作る（2026-10-11）。
+       絵は端末の全面に敷き、上に会話が下へ積み上がる。下はお題と入力のパネル。
        台本モードで主役になる日本語は「AI の発言の和訳」ではなく
-       「これを英語で言ってみよう」のお題（userJa）。 */
+       「これを英語で言ってみよう」のお題（userJa）。
+       寸法はシミュレータの画面（440pt 幅）を端末幅 402px に縮めた値（×0.914）。 */
     .sd-v{ --conv:#A14D5D; --conv-soft:#E6DAD6; --conv-panel:#EEEAE3; --conv-task:#E7DCD7;
-           --conv-send-off:#E7D3D7; --ok:#10B981; --check:#32C056; --model-card:#F4F1EB;
-           --next:#9E4B5B; }
-    .sd-v .sd-phone{ background:#000; }
-    .sd-v .scene{ position:relative; flex:1; min-height:0; overflow:hidden; }
-    .sd-v .scene > img{ position:absolute; inset:0; width:100%; height:100%;
-                object-fit:cover; object-position:center 22%; }
-    .sd-v .scene::before{ content:""; position:absolute; inset:0 0 auto; height:150px; z-index:1;
-                background:linear-gradient(rgba(0,0,0,.36),rgba(0,0,0,0)); pointer-events:none; }
-    .sd-v .top{ position:absolute; top:14px; left:16px; right:14px; z-index:3; display:flex;
-                align-items:flex-start; justify-content:space-between; gap:10px; }
-    .sd-v .ttl{ font-size:17px; font-weight:800; color:#fff; text-shadow:0 1px 6px rgba(0,0,0,.4); }
-    .sd-v .chips{ display:flex; gap:8px; flex:none; }
-    .sd-v .rnd{ width:34px; height:34px; border-radius:50%; background:rgba(255,255,255,.82);
-                display:grid; place-items:center; color:#3A3A3C; }
-    .sd-v .rnd svg{ width:17px; height:17px; }
-    .sd-v .dots{ position:absolute; top:58px; left:0; right:0; z-index:3;
-                display:flex; justify-content:center; gap:7px; }
-    .sd-v .dot{ width:22px; height:4px; border-radius:2px; background:rgba(255,255,255,.45);
+           --conv-send-off:#E7D3D7; --conv-mic:#F4EAEC; --ok:#1C7F4A; --model-card:#F4F1EB;
+           --me:rgba(242,233,235,.96); --talk:#34C759; }
+    .sd-v .sd-phone{ background:#000; position:relative; }
+    /* 背景の絵。アプリは全面に敷いて、上下が濃い黒のグラデーションを重ねる
+       （ライト: 0.55 → 0.30 → 0.55・ConversationView.swift）。相手が話している間は
+       1.12 倍に寄って少し明るくなる（.talk）。 */
+    .sd-v .bg{ position:absolute; inset:0; overflow:hidden; z-index:0; }
+    .sd-v .bg img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+                object-position:center top; transform-origin:50% 32%;
+                transition:transform .5s ease-in-out, filter .5s ease-in-out; }
+    .sd-v .bg::after{ content:""; position:absolute; inset:0;
+                background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.30),rgba(0,0,0,.55)); }
+    .sd-v.talk .bg img{ transform:scale(1.12); filter:brightness(1.1); }
+    .sd-v .scene{ position:relative; z-index:1; flex:1; min-height:0; }
+    .sd-v .top{ position:absolute; top:8px; left:0; right:0; height:34px; z-index:3;
+                display:grid; grid-template-columns:52px 1fr 52px; align-items:center; color:#fff; }
+    .sd-v .top svg{ width:20px; height:20px; justify-self:center; }
+    .sd-v .ttl{ text-align:center; font-size:13.5px; font-weight:700; color:#fff;
+                text-shadow:0 1px 6px rgba(0,0,0,.45); }
+    .sd-v .dots{ position:absolute; top:50px; left:50%; transform:translateX(-50%); z-index:3;
+                display:flex; gap:7px; padding:6px 10px; border-radius:999px; background:rgba(30,32,34,.82); }
+    .sd-v .dot{ width:22px; height:4px; border-radius:2px; background:#8A8D8D;
                 transition:background .35s ease; }
     .sd-v .dot.on{ background:#D997A4; }
 
-    /* 会話は下へ積み上がり、いっぱいになると上へ送られる */
-    .sd-v .log{ position:absolute; inset:74px 14px 12px; z-index:2; overflow:hidden; }
-    /* 自分の吹き出しの ✓ は右に 8px はみ出す。log が overflow:hidden なので、
-       右に余白を取っておかないとバッジが切れる（オーナー指摘）。 */
-    .sd-v .login{ position:absolute; left:0; right:0; bottom:0; display:grid; gap:9px;
-                padding-right:11px;
-                transition:transform .55s cubic-bezier(.22,.7,.2,1); }
-    .sd-v .msg{ max-width:82%; border-radius:16px; padding:11px 13px 10px;
+    /* 会話は下へ積み上がり、いっぱいになると上へ送られる。上端は薄くぼかして消す。 */
+    .sd-v .log{ position:absolute; inset:76px 0 11px; z-index:2; overflow:hidden;
+                -webkit-mask-image:linear-gradient(transparent 0, #000 14px);
+                mask-image:linear-gradient(transparent 0, #000 14px); }
+    .sd-v .login{ position:absolute; left:15px; right:15px; bottom:0; display:grid; gap:11px; }
+    .sd-v .msg{ width:93%; border-radius:9px; padding:12px 13px 10px;
                 animation:sdVIn .4s cubic-bezier(.22,.7,.2,1) both; }
     @keyframes sdVIn{ from{ opacity:0; transform:translateY(10px) } to{ opacity:1; transform:none } }
-    .sd-v .msg.ai{ justify-self:start; background:rgba(240,238,236,.94); backdrop-filter:blur(6px); }
-    .sd-v .msg.me{ justify-self:end; position:relative; background:rgba(161,77,93,.9); color:#fff; }
-    .sd-v .mt{ font-size:15px; font-weight:600; line-height:1.5; }
-    .sd-v .msg.ai .mt{ display:flex; gap:8px; align-items:flex-start; }
-    .sd-v .msg.ai .mt svg{ width:15px; height:15px; flex:none; color:var(--conv); margin-top:4px; }
-    .sd-v .mh{ font-size:11.5px; color:#8A8480; margin-top:3px; display:flex; align-items:center; gap:4px; }
-    .sd-v .mh svg{ width:12px; height:12px; }
-    .sd-v .tick{ position:absolute; top:-8px; right:-8px; width:26px; height:26px; border-radius:50%;
-                background:var(--check); display:grid; place-items:center; color:#fff;
-                animation:sdVTick .45s cubic-bezier(.3,1.5,.5,1) both; }
-    .sd-v .tick svg{ width:14px; height:14px; }
-    @keyframes sdVTick{ from{ transform:scale(.3); opacity:0 } to{ transform:scale(1); opacity:1 } }
-    .sd-v .speaking{ justify-self:center; display:inline-flex; align-items:center; gap:7px;
-                background:rgba(0,0,0,.55); color:#fff; border-radius:999px;
-                padding:6px 14px; font-size:12.5px; font-weight:700; }
-    .sd-v .speaking i{ width:7px; height:7px; border-radius:50%; background:#34C759; font-style:normal; }
+    .sd-v .msg.ai{ justify-self:start; background:rgba(212,208,205,.84); backdrop-filter:blur(8px);
+                -webkit-backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.55); }
+    .sd-v .msg.me{ justify-self:end; background:var(--me); border:1px solid rgba(255,255,255,.6); }
+    .sd-v .mt{ font-size:15.3px; line-height:1.45; color:#1F1F1F; min-height:1.45em; }
+    .sd-v .wait{ display:inline-flex; gap:4px; padding:7px 0 3px; }
+    .sd-v .wait i{ width:5px; height:5px; border-radius:50%; background:#8E8A85;
+                animation:sdVWait 1s ease-in-out infinite; }
+    .sd-v .wait i:nth-child(2){ animation-delay:.15s } .sd-v .wait i:nth-child(3){ animation-delay:.3s }
+    @keyframes sdVWait{ 0%,100%{ opacity:.35 } 50%{ opacity:1 } }
+    .sd-v .ic{ display:flex; align-items:center; gap:18px; margin-top:8px; color:#6E6A66; }
+    .sd-v .ic svg{ width:17px; height:17px; flex:none; }
+    .sd-v .ic .spk{ margin-left:auto; color:var(--conv); transition:color .2s ease; }
+    .sd-v .msg.ai.say .ic .spk{ color:var(--talk); }
+    /* 採点の結果は自分の吹き出しの右下に一言で出る（👍 表現できています ⌄）。 */
+    .sd-v .vd{ display:flex; justify-content:flex-end; align-items:center; gap:4px; margin-top:6px;
+                font-size:10.5px; font-weight:700; color:var(--ok);
+                animation:sdVIn .35s ease both; }
+    .sd-v .vd svg{ width:12px; height:12px; flex:none; }
+    .sd-v .vd .cv{ width:11px; height:11px; color:#6E6A66; }
 
-    /* パネル */
-    .sd-v .panel{ background:var(--conv-panel); padding:14px 14px 16px; min-height:194px; }
-    .sd-v .task{ background:var(--conv-task); border-radius:10px; padding:10px 12px; }
-    .sd-v .tlab{ display:flex; align-items:center; gap:6px; font-size:11px; }
-    .sd-v .tlab .bar{ width:3px; height:13px; border-radius:1.5px; background:var(--conv); flex:none; }
+    /* パネル。入力待ち（idle）→ キーボードで入力（typing）→ 分析中（judge）→ 結果（result）。
+       状態はパネルの data-st に書き、見せ分けは CSS で行う。 */
+    /* 下の余白はアプリのホームインジケーターの分。キーボードが出ている間はキーボードが受け持つ。 */
+    .sd-v .panel{ position:relative; z-index:1; background:var(--conv-panel); padding:11px 15px 38px; }
+    .sd-v .panel[data-st="typing"], .sd-v .panel[data-st="judge"]{ padding-bottom:12px; }
+    .sd-v .task{ background:var(--conv-task); border-radius:9px; padding:10px 11px 11px; }
+    .sd-v .tlab{ display:flex; align-items:center; gap:6px; font-size:10px; }
+    .sd-v .tlab .bar{ width:3px; height:12px; border-radius:1.5px; background:var(--conv); flex:none; }
     .sd-v .tlab b{ color:var(--conv); font-weight:700; }
     .sd-v .tlab span{ color:#8E8A85; }
     .sd-v .tlab .sep{ color:#B9B4AD; }
-    .sd-v .tja{ font-size:16px; font-weight:800; margin-top:6px; line-height:1.5; }
-    .sd-v .field{ margin-top:10px; display:flex; align-items:center; gap:10px; background:#fff;
-                border-radius:14px; padding:11px 8px 11px 14px; min-height:48px; }
-    .sd-v .ftext{ flex:1; font-size:15px; font-weight:600; min-height:1.4em; }
-    .sd-v .cur{ display:inline-block; width:2px; height:1.05em; background:var(--conv);
-                vertical-align:-.16em; animation:sdBlink 1s step-end infinite; }
-    .sd-v .send{ width:36px; height:36px; border-radius:50%; background:var(--conv-send-off);
+    .sd-v .tlab .see{ margin-left:auto; display:none; align-items:center; gap:4px; color:var(--conv); font-weight:600; }
+    .sd-v .tlab .see svg{ width:14px; height:14px; }
+    .sd-v .tja{ font-size:14px; font-weight:800; margin-top:5px; line-height:1.5; color:#1F1F1F; }
+    .sd-v .field{ margin-top:8px; display:flex; align-items:center; gap:8px; background:#fff;
+                border-radius:999px; padding:0 7px 0 14px; height:48px; transition:opacity .2s ease; }
+    .sd-v .fdn{ display:none; width:15px; height:15px; color:#8E8A85; flex:none; }
+    .sd-v .ftext{ flex:1; min-width:0; font-size:14.5px; white-space:nowrap; overflow:hidden; color:#1F1F1F; }
+    .sd-v .ph{ color:#B6B0AA; }
+    .sd-v .cur{ display:inline-block; width:2px; height:1.15em; background:var(--conv);
+                vertical-align:-.2em; margin-right:1px; animation:sdBlink 1s step-end infinite; }
+    .sd-v .mic{ display:none; width:29px; height:29px; border-radius:50%; background:var(--conv-mic);
+                color:var(--conv); place-items:center; flex:none; }
+    .sd-v .mic svg{ width:15px; height:15px; }
+    .sd-v .send{ width:33px; height:33px; border-radius:50%; background:var(--conv-send-off);
                 display:grid; place-items:center; color:#fff; flex:none;
                 transition:transform .12s ease, background .2s ease; }
-    .sd-v .send svg{ width:17px; height:17px; }
+    .sd-v .send svg{ width:16px; height:16px; }
     .sd-v .send.on{ background:var(--conv); }
-    .sd-v .send.press{ transform:scale(.88); }
-    .sd-v .row{ display:flex; gap:10px; margin-top:10px; }
-    .sd-v .ib{ flex:1; border-radius:12px; background:var(--conv-soft); color:var(--conv);
-                font-size:13.5px; font-weight:700; padding:11px 0;
-                display:inline-flex; align-items:center; justify-content:center; gap:6px;
-                transition:transform .12s ease, filter .12s ease; }
-    .sd-v .ib svg{ width:16px; height:16px; }
-    .sd-v .ib.press{ transform:scale(.96); filter:brightness(.95); }
+    .sd-v .press{ transform:scale(.9); }
+    .sd-v .field.press{ transform:scale(.98); }
+    .sd-v .judging{ display:none; flex:1; align-items:center; justify-content:center; gap:7px;
+                font-size:13px; color:#8E8A85; }
+    .sd-v .spin{ width:15px; height:15px; color:var(--conv); animation:sdSpin 1s steps(8) infinite; }
+    .sd-v .voice{ margin-top:10px; height:31px; border-radius:999px; background:var(--conv-soft);
+                color:var(--conv); font-size:11px; font-weight:700;
+                display:flex; align-items:center; justify-content:center; gap:5px; }
+    .sd-v .voice svg{ width:15px; height:15px; }
     .sd-v .hint{ display:flex; align-items:center; justify-content:center; gap:6px;
-                margin-top:10px; font-size:13px; font-weight:700; color:var(--conv); }
+                margin-top:11px; font-size:11px; color:var(--conv); }
     .sd-v .hint svg{ width:15px; height:15px; }
-
-    /* 採点中 → 結果 */
-    .sd-v .judging{ display:flex; flex-direction:column; align-items:center; justify-content:center;
-                gap:9px; min-height:166px; font-size:13px; color:#8E8A85; }
-    .sd-v .spin{ width:18px; height:18px; border-radius:50%; border:2px solid #E3D6D8;
-                border-top-color:var(--conv); animation:sdSpin .8s linear infinite; }
+    .sd-v .res{ display:none; }
     .sd-v .verdict{ display:inline-flex; align-items:center; gap:8px; background:var(--ok); color:#fff;
-                border-radius:999px; padding:9px 16px; font-size:15px; font-weight:800; }
-    .sd-v .verdict svg{ width:18px; height:18px; }
-    .sd-v .model{ margin-top:12px; background:var(--model-card); border-radius:12px; padding:12px 13px; }
+                border-radius:999px; padding:7px 15px 7px 13px; font-size:14.5px; font-weight:800;
+                animation:sdVIn .35s ease both; }
+    .sd-v .verdict svg{ width:17px; height:17px; }
+    .sd-v .model{ margin-top:11px; background:var(--model-card); border:1px solid #E7E2D9;
+                border-radius:11px; padding:10px 11px 11px; }
     .sd-v .mlab{ display:flex; align-items:center; justify-content:space-between;
-                font-size:11.5px; color:#8E8A85; font-weight:700; }
+                font-size:11px; color:#A9A39B; }
     .sd-v .mlab svg{ width:16px; height:16px; color:var(--conv); }
-    .sd-v .men{ font-size:15px; font-weight:800; margin-top:6px; line-height:1.45; }
-    .sd-v .mja{ font-size:13px; color:#9A948C; margin-top:5px; }
-    .sd-v .next{ margin-top:12px; border-radius:999px; background:var(--next); color:#fff;
-                text-align:center; padding:12px 0; font-size:15px; font-weight:800; }
+    .sd-v .men{ font-size:14px; font-weight:600; margin-top:5px; line-height:1.45; color:#1F1F1F; }
+    .sd-v .mja{ font-size:11.5px; color:#9A948C; margin-top:3px; }
+    .sd-v .next{ margin-top:10px; border-radius:999px; height:38px; color:#fff;
+                background:linear-gradient(90deg,#8C4351,#9E4D5B);
+                display:flex; align-items:center; justify-content:center; gap:6px;
+                font-size:14.5px; font-weight:800; transition:transform .12s ease; }
+    .sd-v .next svg{ width:15px; height:15px; }
+    /* 状態ごとの見せ分け */
+    .sd-v .panel[data-st="typing"] .see,
+    .sd-v .panel[data-st="judge"] .see{ display:inline-flex; }
+    .sd-v .panel[data-st="typing"] .fdn,
+    .sd-v .panel[data-st="judge"] .fdn{ display:block; }
+    .sd-v .panel[data-st="typing"] .mic,
+    .sd-v .panel[data-st="judge"] .mic{ display:grid; }
+    .sd-v .panel[data-st="typing"] .voice, .sd-v .panel[data-st="typing"] .hint,
+    .sd-v .panel[data-st="judge"] .voice, .sd-v .panel[data-st="judge"] .hint{ display:none; }
+    .sd-v .panel[data-st="judge"] .field > :not(.judging){ visibility:hidden; }
+    .sd-v .panel[data-st="judge"] .field{ background:#F6F3EE; }
+    .sd-v .panel[data-st="judge"] .judging{ display:flex; position:absolute; left:0; right:0; }
+    .sd-v .panel[data-st="judge"] .field{ position:relative; }
+    .sd-v .panel[data-st="result"] .inp,
+    .sd-v .panel[data-st="result"] .task{ display:none; }
+    .sd-v .panel[data-st="result"] .res{ display:block; }
+
+    /* キーボード（飾り）。アプリ内の英字キーボードと同じ並び。打っている文字だけ短く光らせる。
+       開閉は英作文デモと同じく margin-bottom を負にして下へ逃がす（transform だけだと場所が残る）。 */
+    .sd-v .kb{ position:relative; z-index:1; background:#EDEDED; padding:9px 3px 40px;
+                display:grid; gap:12px; transition:margin-bottom .3s ease; }
+    .sd-v .kb.now{ transition:none; }
+    .sd-v .kb.dim .k{ opacity:.5; }
+    .sd-v .kr{ display:flex; justify-content:center; gap:7px; }
+    .sd-v .k{ width:33px; height:43px; border-radius:5px; background:#fff; color:#111;
+                box-shadow:0 1px 0 rgba(0,0,0,.18); display:grid; place-items:center;
+                font-size:17px; transition:background .08s ease, opacity .2s ease; }
+    .sd-v .k.fn{ background:#D4D4D8; font-size:14px; }
+    .sd-v .k.w1{ width:47px; } .sd-v .k.w2{ width:91px; } .sd-v .k.sp{ width:200px; color:#B4B4B4; font-size:14px; }
+    .sd-v .k.c{ width:42px; background:#D4D4D8; }
+    .sd-v .k.hit{ background:#C9C9CE; }
+    .sd-v .k svg{ width:19px; height:19px; }
     .sd-v .hide{ display:none; }
     @keyframes sdBlink{ 50%{ opacity:0 } }
 
@@ -678,6 +727,7 @@
     .sd-v .fb{ flex:1; min-height:0; display:flex; flex-direction:column;
                background:var(--app-bg); }
     .sd-v .fb.hide{ display:none; }
+    .sd-v.fbon .bg,.sd-v.fbon .scene,.sd-v.fbon .panel,.sd-v.fbon .kb{ display:none; }
     .sd-v .fbbar{ flex:none; position:relative; padding:14px 16px 10px; text-align:center;
                font-size:17px; font-weight:800; color:var(--app-text); }
     .sd-v .fbx{ position:absolute; top:9px; right:14px; width:34px; height:34px; border-radius:50%;
@@ -693,12 +743,14 @@
     .sd-v .fbchips span{ background:#F2E2E5; color:#8E5563; border-radius:999px;
                padding:4px 11px; font-size:12px; font-weight:700; }
     .sd-v .fbcard{ background:var(--app-card); border-radius:16px; padding:14px 14px 15px; }
-    .sd-v .fbcard.mission{ background:#DDEDE7; border:1px solid #BEDACF; }
+    .sd-v .fbcard.mission{ background:#E0EAE5; border:1px solid #C9DDD4; }
     .sd-v .fbcard.nextstep{ background:#F7E7EA; }
-    .sd-v .fbmi{ display:flex; align-items:center; gap:11px; font-size:15.5px; font-weight:800;
-               color:#1B7A66; }
-    .sd-v .fbtick{ width:30px; height:30px; border-radius:50%; background:#12806A; flex:none;
-               display:grid; place-items:center; box-shadow:0 0 0 3px #CBE4DA; }
+    .sd-v .fbmi{ display:flex; align-items:center; gap:12px; }
+    .sd-v .fbmt b{ display:block; font-size:14.5px; font-weight:800; color:#0F766E; line-height:1.4; }
+    .sd-v .fbmt em{ display:block; margin-top:3px; font-style:normal; font-size:12px; font-weight:600; color:#3D8F84; }
+    /* 判定の丸。アプリは濃い緑の丸のまわりに、正答の割合を示す輪（全問正解なので一周）が付く。 */
+    .sd-v .fbtick{ width:30px; height:30px; border-radius:50%; background:#0F766E; flex:none;
+               display:grid; place-items:center; box-shadow:0 0 0 3px #E0EAE5, 0 0 0 5px #4E9C91; }
     .sd-v .fbtick svg{ width:16px; height:16px; }
     .sd-v .fbtx{ margin-top:10px; font-size:13.5px; line-height:1.65; color:var(--app-text); }
     .sd-v .fbcard.mission .fbtx{ color:#15342C; }
@@ -720,8 +772,12 @@
     .sd-v .fbtalk b{ font-size:13.5px; font-weight:700; color:var(--app-text); }
     .sd-v .fbkey{ padding:11px 0 0; display:grid; gap:3px; }
     .sd-v .fbkey b{ font-size:13.5px; font-weight:700; color:var(--app-text); }
-    .sd-v .fbkey b::before{ content:"\2713"; color:var(--conv); font-weight:800; margin-right:7px; }
-    .sd-v .fbkey span{ font-size:12px; line-height:1.6; color:#8E8A85; padding-left:19px; }
+    .sd-v .fbkey{ position:relative; padding-right:26px; }
+    .sd-v .fbkey b::before{ content:"\2713"; display:inline-grid; place-items:center; width:16px; height:16px;
+               border-radius:50%; background:var(--conv); color:#fff; font-size:10px; font-weight:800;
+               margin-right:8px; vertical-align:-2px; }
+    .sd-v .fbkey span{ font-size:12px; line-height:1.6; color:#8E8A85; padding-left:24px; }
+    .sd-v .fbkey .fbspk{ position:absolute; right:0; top:12px; width:17px; height:17px; color:var(--conv); }
     .sd-v .fbcard.nextstep .fbhead{ color:#A14D5D; border-bottom:0; padding-bottom:4px; }
     .sd-v .fbcard.nextstep .fbhead svg{ color:#C2707E; }
     .sd-v .fbcard.nextstep .fbtx{ margin-top:2px; color:#4A3B3E; }
@@ -850,15 +906,29 @@
     .sd-w .field{ margin-top:7px; background:#F1F1F0; border-radius:10px; padding:9px 11px;
            color:#A9A9A7; font-size:11.5px; display:flex; justify-content:space-between; align-items:center; }
     .sd-w .snd{ width:24px; height:24px; border-radius:50%; background:#E3E3E1; display:grid; place-items:center; }
-    .sd-w .words{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
-    .sd-w .w{ border-radius:7px; padding:4px 9px; font-size:13px; font-weight:600; }
-    .sd-w .w-hi{ background:#E6F6EE; color:#0E9F6E } .sd-w .w-mid{ background:#E8F0FE; color:#3B82F6 }
-    .sd-w .phon{ display:flex; gap:7px; margin-top:8px; }
-    .sd-w .pht{ width:44px; border-radius:8px; text-align:center; padding:6px 0 4px; border:1px solid; }
-    .sd-w .pht b{ display:block; font-size:15px; font-weight:700 } .sd-w .pht span{ font-size:10px }
-    .sd-w .pg{ background:#ECFAF3; border-color:#BFE9D4; color:#0E9F6E }
-    .sd-w .pa{ background:#FEF6E7; border-color:#F6DFB0; color:#D98B10 }
-    .sd-w .pr{ background:#FDEEEE; border-color:#F5C9C9; color:#E05A5A }
+    /* 発音分析（1.4.7〜）。点数は出さず、単語を A/B/C の色で分け、B・C の語だけ1行ずつ説明する。
+       色と大きさは PronunciationSection.swift（A 緑・B 橙・C 赤、地は同じ色の 10%）。
+       説明文のクラスは .pr-nt に分ける。.nt は改善点・別の言い方でも使っている（Codex 指摘）。 */
+    .sd-w .pr-hd{ display:flex; align-items:center; gap:6px; }
+    .sd-w .pr-hd .lbl{ flex:none; }
+    .sd-w .pr-i{ width:13px; height:13px; color:#A9A9A7; flex:none; }
+    .sd-w .pr-sub{ display:flex; align-items:center; gap:6px; margin-top:10px; }
+    .sd-w .pr-sub b{ font-size:12px; font-weight:800; color:var(--app-text); }
+    .sd-w .pr-leg{ margin-left:auto; display:flex; gap:7px; }
+    .sd-w .pr-leg span{ display:inline-flex; align-items:center; gap:3px; font-size:8.5px; color:#A9A9A7; }
+    .sd-w .gb{ display:inline-grid; place-items:center; border-radius:50%; color:#fff; flex:none; font-style:normal;
+               width:12px; height:12px; font-size:7px; font-weight:800; font-family:ui-rounded,system-ui,sans-serif; }
+    .sd-w .gb.a{ background:#1D9E75 } .sd-w .gb.b{ background:#EF9F27 } .sd-w .gb.c{ background:#E24B4A }
+    .sd-w .words{ display:flex; flex-wrap:wrap; gap:5px; margin-top:8px; }
+    .sd-w .w{ border-radius:5px; padding:3px 7px; font-size:12px; font-weight:600; }
+    .sd-w .w.a{ background:rgba(29,158,117,.1); color:#1D9E75 }
+    .sd-w .w.b{ background:rgba(239,159,39,.1); color:#EF9F27 }
+    .sd-w .pr-row{ display:flex; align-items:center; gap:7px; margin-top:10px; }
+    .sd-w .pr-row .gb{ width:19px; height:19px; font-size:11px; }
+    .sd-w .pr-row b{ font-size:14px; font-weight:800; color:var(--app-text); }
+    .sd-w .pr-row span{ font-size:9.5px; font-weight:600; }
+    .sd-w .pr-row span.b{ color:#EF9F27 }
+    .sd-w .pr-nt{ font-size:11px; color:var(--app-note); margin-top:5px; line-height:1.7; }
 
     /* ==================== 英文法 ====================
        実機（使役・知覚動詞 3/20）の画素実測。正解＝スロットはアクセント色のまま、
@@ -958,6 +1028,7 @@
        カーソルや判定中のスピナー、途中の transition が残るため。animation は none
        ではなく play-state:paused。none だと途中の取り消し線が初期状態へ飛んで消える。 */
     .sd-halt .cur,.sd-halt .spin,.sd-halt .pop,.sd-halt .ring,.sd-halt .msg,.sd-halt .tick,
+    .sd-halt .wait i,.sd-halt .vd,.sd-halt .verdict,
     .sd-halt .bad .tx::after{ animation-play-state:paused !important; }
     .sd-halt .roll,.sd-halt .rollin,.sd-halt .login,.sd-halt .slot,.sd-halt .tile,.sd-halt .go,
     .sd-halt .dot,.sd-halt .send,.sd-halt .ib,.sd-halt .act,.sd-halt .kb,
@@ -1002,8 +1073,8 @@
     .sd-g.still [data-el="cJudge"],.sd-g.still [data-el="go"],.sd-g.still [data-el="pool"]{ display:none; }
     /* 会話は窓の中で積み上がるので高さは外さない。静止時は
        「AI の英文 → お題（日本語） → 入力欄」が揃った状態を出す。 */
-    html:not(.js) .sd-v [data-el="judge"],html:not(.js) .sd-v [data-el="result"],
-    .sd-v.sd-static [data-el="judge"],.sd-v.sd-static [data-el="result"]{ display:none; }
+    /* 英会話の静止表示は「相手の英文＋お題＋入力欄」。キーボードと講評は出さない。 */
+    html:not(.js) .sd-v .kb,.sd-v.sd-static .kb,.sd-v.still .kb{ display:none; }
     /* 静止表示は会話の完成形を見せる画面。フィードバックは畳んでおく。 */
     html:not(.js) .sd-v .fb,.sd-v.sd-static .fb,.sd-v.still .fb{ display:none; }
     html:not(.js) .sd-v .act,.sd-g.sd-static .act,.sd-v.sd-static .act{ display:none; }
@@ -1023,6 +1094,9 @@
         .sd-copy{ max-width:34em; text-align:center; }
         .sd-copy .sd-eyebrow{ justify-content:center; }
         .sd-phone{ width:min(402px,100%); zoom:.68; }
+        /* 枠は列いっぱいに広げる。中央寄せの grid の中で中身の幅に縮むと、端末の % 幅が
+           中身次第になり、英会話の講評（幅を支えるキーボード等が消える）で端末が細くなった。 */
+        .sd-stage{ width:100%; }
         /* 高さは .sd-phone の aspect-ratio から決まるので、ここでは指定しない。
            以前は vh で決め打ちしていて、狭い画面ほど実機と比率がずれていた。 */
     }
@@ -1032,6 +1106,7 @@
         .sd .act,.sd .kb,.sd .u::after{ transition:none !important; animation:none !important; }
         .sd .pop,.sd .ring,.sd .spin,.sd .cur,.sd .msg,.sd .tick,
         .sd .bad .tx::after{ animation:none !important; }
+        .sd .wait i,.sd .vd,.sd .verdict,.sd-v .bg img,.sd-v .field,.sd-v .next{ animation:none !important; transition:none !important; }
     }
 
     /* ---- ヒーローのモードカードの登場 ----
@@ -1161,14 +1236,12 @@
             </div>
             <div class="sd-stage">
             <div class="sd-phone" lang="en" role="img" aria-label="A self-playing demo of the AI conversation screen: two exchanges in Script mode, then feedback on the whole conversation. The text just above describes this demo. The app interface shown is in Japanese.">
+                <div class="bg"><img src="/demo/conv-scene.webp?v=20260924" alt="Illustration of a barista standing at a cafe counter" width="768" height="1664" loading="lazy" decoding="async"></div>
                 <div class="scene" lang="ja">
-                    <img src="/demo/conv-scene.webp?v=20260924" alt="Illustration of a barista standing at a cafe counter" width="768" height="1664" loading="lazy" decoding="async">
                     <div class="top">
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4.5L7.5 12l7.5 7.5"/></svg>
                         <p class="ttl">カフェで注文する</p>
-                        <span class="chips">
-                            <span class="rnd"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M4 9h3l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 010 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></span>
-                            <span class="rnd"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
-                        </span>
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M3.5 9.2h3.6L12.2 5v14l-5.1-4.2H3.5z"/><path d="M15.6 9a4.2 4.2 0 010 6M18.4 6.6a7.6 7.6 0 010 10.8" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
                     </div>
                     <div class="dots" data-el="dots">
                         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
@@ -1178,46 +1251,50 @@
                          再生時は reset() が消してから積み直す。 -->
                     <div class="log"><div class="login" data-el="log">
                         <div class="msg ai" style="animation:none">
-                            <p class="mt"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M4 9h3l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 010 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg><span class="en" lang="en">Hi! What can I get for you?</span></p>
-                            <p class="mh"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg>タップで和訳</p>
+                            <p class="mt en" lang="en">Hi! What can I get for you?</p>
+                            <p class="ic"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3.5 12S6.8 6.5 12 6.5c1.7 0 3.2.6 4.4 1.4M20.5 12S17.2 17.5 12 17.5c-1.7 0-3.2-.6-4.4-1.4"/><path d="M9.6 14.4A3.2 3.2 0 0114.4 9.6"/><path d="M4 20L20 4"/></svg><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg><svg class="spk" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3.5 9.2h3.6L12.2 5v14l-5.1-4.2H3.5z"/><path d="M15.6 9a4.2 4.2 0 010 6M18.4 6.6a7.6 7.6 0 010 10.8"/></svg></p>
                         </div>
                     </div></div>
                 </div>
 
-                <div class="panel" lang="ja">
-                    <!-- 入力待ち -->
-                    <div data-el="input">
-                        <div class="task">
-                            <p class="tlab"><i class="bar"></i><b data-el="turnlab">あなたの番</b><span class="sep" data-el="sep">・</span><span>これを英語で言ってみよう</span></p>
-                            <p class="tja" data-el="task">ホットのカフェラテを一つお願いします。</p>
-                        </div>
-                        <div class="field">
-                            <span class="ftext en" data-el="ftext" lang="en"></span>
-                            <span class="send" data-el="send"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20l19-8L3 4l4 8-4 8z"/></svg></span>
-                        </div>
-                        <div class="row">
-                            <span class="ib" data-el="kb"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="6.5" width="19" height="11" rx="2"/><path d="M6 10h.01M9.5 10h.01M13 10h.01M16.5 10h.01M8 13.6h8"/></svg>キーボード</span>
-                            <span class="ib"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3a3 3 0 013 3v6a3 3 0 01-6 0V6a3 3 0 013-3z"/><path d="M19 11a7 7 0 01-14 0M12 18v3"/></svg>音声入力</span>
-                        </div>
-                        <p class="hint"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>回答例を見る</p>
+                <div class="panel" lang="ja" data-el="panel" data-st="idle">
+                    <div class="task">
+                        <p class="tlab"><i class="bar"></i><b data-el="turnlab">あなたの番</b><span class="sep" data-el="sep">・</span><span>これを英語で言ってみよう</span><span class="see"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 12S6 5.8 12 5.8 21.5 12 21.5 12 18 18.2 12 18.2 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.1"/></svg>回答例</span></p>
+                        <p class="tja" data-el="task">ホットのカフェラテを一つお願いします。</p>
                     </div>
-
-                    <!-- 分析中 -->
-                    <div class="judging hide" data-el="judge"><span class="spin"></span>分析中…</div>
-
+                    <!-- 入力（idle / typing / judge） -->
+                    <div class="inp">
+                        <div class="field" data-el="field">
+                            <svg class="fdn" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 6 6-6"/></svg>
+                            <span class="ftext en" data-el="ftext" lang="en"><span class="cur"></span><span class="ph" lang="ja">タップしてキーボードを表示</span></span>
+                            <span class="mic"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11.5a6 6 0 0012 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+                            <span class="send" data-el="send"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M21.2 3.3L2.9 10.6c-.8.3-.7 1.4.1 1.6l7 1.8 1.8 7c.2.8 1.3.9 1.6.1L20.7 2.8z"/></svg></span>
+                            <span class="judging"><svg class="spin" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="3.5" r="1.8"/><circle cx="18" cy="6" r="1.6" opacity=".9"/><circle cx="20.5" cy="12" r="1.5" opacity=".8"/><circle cx="18" cy="18" r="1.4" opacity=".7"/><circle cx="12" cy="20.5" r="1.3" opacity=".6"/><circle cx="6" cy="18" r="1.2" opacity=".5"/><circle cx="3.5" cy="12" r="1.1" opacity=".4"/><circle cx="6" cy="6" r="1" opacity=".3"/></svg>分析中…</span>
+                        </div>
+                        <p class="voice"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11.5a6 6 0 0012 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>音声入力</p>
+                        <p class="hint"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 12S6 5.8 12 5.8 21.5 12 21.5 12 18 18.2 12 18.2 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.1"/></svg>回答例を見る</p>
+                    </div>
                     <!-- 結果 -->
-                    <div class="hide" data-el="result">
-                        <p class="verdict"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="M8 12.3l2.7 2.7L16 9.6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>表現できています</p>
+                    <div class="res">
+                        <p class="verdict"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M2.5 10.5h3.6v10H2.5zM8 20.5V10.3l4.6-6.8c.4-.6 1.2-.8 1.8-.4.7.4 1 1.1.8 1.9l-1 4.5h5.3c1.4 0 2.4 1.3 2.1 2.6l-1.6 6.6c-.3 1.1-1.2 1.8-2.3 1.8z"/></svg>表現できています</p>
                         <div class="model">
-                            <p class="mlab">回答例<svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M4 9h3l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 010 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></p>
+                            <p class="mlab">回答例<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3.5 9.2h3.6L12.2 5v14l-5.1-4.2H3.5z"/><path d="M15.6 9a4.2 4.2 0 010 6M18.4 6.6a7.6 7.6 0 010 10.8"/></svg></p>
                             <p class="men en" data-el="men" lang="en">I'd like a hot latte, please.</p>
                             <p class="mja" data-el="mja">ホットのカフェラテを一つお願いします。</p>
                         </div>
-                        <p class="next">次へ →</p>
+                        <p class="next" data-el="next">次へ<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6.5l5.5 5.5-5.5 5.5"/></svg></p>
                     </div>
                 </div>
 
-                <!-- 会話後のフィードバック。2026-09-21 に実機シミュレータで
+                <!-- アプリ内の英字キーボード（飾り）。入力中と分析中だけ出す。 -->
+                <div class="kb" data-el="kb" aria-hidden="true">
+                    <div class="kr"><span class="k" data-k="q">Q</span><span class="k" data-k="w">W</span><span class="k" data-k="e">E</span><span class="k" data-k="r">R</span><span class="k" data-k="t">T</span><span class="k" data-k="y">Y</span><span class="k" data-k="u">U</span><span class="k" data-k="i">I</span><span class="k" data-k="o">O</span><span class="k" data-k="p">P</span></div>
+                    <div class="kr"><span class="k" data-k="a">A</span><span class="k" data-k="s">S</span><span class="k" data-k="d">D</span><span class="k" data-k="f">F</span><span class="k" data-k="g">G</span><span class="k" data-k="h">H</span><span class="k" data-k="j">J</span><span class="k" data-k="k">K</span><span class="k" data-k="l">L</span></div>
+                    <div class="kr"><span class="k fn w1" data-k="shift"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="#A14D5D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span><span class="k" data-k="z">Z</span><span class="k" data-k="x">X</span><span class="k" data-k="c">C</span><span class="k" data-k="v">V</span><span class="k" data-k="b">B</span><span class="k" data-k="n">N</span><span class="k" data-k="m">M</span><span class="k fn w1"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M8.5 5.5H20v13H8.5L3 12z"/><path d="M11.5 9.5l5 5M16.5 9.5l-5 5" stroke-linecap="round"/></svg></span></div>
+                    <div class="kr"><span class="k fn w2">123</span><span class="k sp" data-k=" ">space</span><span class="k c" data-k=",">,</span><span class="k c" data-k=".">.</span></div>
+                </div>
+
+                <!-- 会話後のフィードバック。2026-10-11 に実機シミュレータ（1.4.10 の会話画面）で
                      「カフェで注文する」を全5往復やり切って返ってきた実物。
                      文言は demo/_cafe_feedback_source.md に控えてある。 -->
                 <div class="fb hide" lang="ja" data-el="fb">
@@ -1228,15 +1305,14 @@
                             <p class="fbchips"><span>台本</span><span>中級</span></p>
 
                             <div class="fbcard mission" data-fb="1">
-                                <p class="fbmi"><span class="fbtick"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4 8-8"/></svg></span>ミッションを達成できています</p>
-                                <p class="fbtx">飲み物の種類・温度・サイズ・店内飲食・支払い方法をすべて自分から具体的に伝え、注文を完了できています。</p>
+                                <p class="fbmi"><span class="fbtick"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 12.5l4.2 4.2L18.5 8"/></svg></span><span class="fbmt"><b>全てのターンで正確に表現できています</b><em>正確に表現できたターン 5 / 5</em></span></p>
                             </div>
 
                             <div class="fbcard" data-fb="2">
                                 <p class="fbrowlab"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M4 5h11a2 2 0 012 2v6a2 2 0 01-2 2H8l-4 3z"/><path d="M18 9h2a2 2 0 012 2v5a2 2 0 01-2 2h-1l-3 2v-2"/></svg><b>伝わりやすさ</b></p>
-                                <p class="fbtx">各ステップに "please" を添えた丁寧なやり取りで、スムーズに会話を進められています。</p>
+                                <p class="fbtx">丁寧な言葉遣いで会話の流れに沿って的確に応答でき、スムーズなやり取りができています。</p>
                                 <p class="fbrowlab abc"><em>ABC</em><b>英語の自然さ</b></p>
-                                <p class="fbtx">全体的に自然で通じる英語で、注文に必要な表現を的確に使えています。</p>
+                                <p class="fbtx">全体的に自然で通じる英語が使えており、語法・構文ともに問題ありません。</p>
                             </div>
 
                             <div class="fbcard" data-fb="3">
@@ -1265,15 +1341,15 @@
 
                             <div class="fbcard" data-fb="4">
                                 <p class="fbhead"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"/></svg>覚えておきたい表現</p>
-                                <div class="fbkey"><b class="en" lang="en">I&#39;d like a hot latte, please.</b><span>注文を丁寧に伝える定番フレーズ。&quot;I want&quot; より柔らかく自然。</span></div>
-                                <div class="fbkey"><b class="en" lang="en">I&#39;ll have a medium, please.</b><span>サイズや品物を選ぶときに使える口語的な表現。</span></div>
-                                <div class="fbkey"><b class="en" lang="en">For here, please.</b><span>&quot;For here or to go?&quot; に対して店内飲食を伝える一言。</span></div>
-                                <div class="fbkey"><b class="en" lang="en">Can I pay by card?</b><span>カード払いを希望するときの自然な確認フレーズ。</span></div>
+                                <div class="fbkey"><b class="en" lang="en">I&#39;d like a hot latte, please.</b><span>注文を丁寧に伝える定番フレーズ。would like は want より丁寧な印象を与える。</span><svg class="fbspk" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3.5 9.2h3.6L12.2 5v14l-5.1-4.2H3.5z"/><path d="M15.6 9a4.2 4.2 0 010 6M18.4 6.6a7.6 7.6 0 010 10.8"/></svg></div>
+                                <div class="fbkey"><b class="en" lang="en">I&#39;ll have a medium, please.</b><span>サイズや追加の選択肢を答えるときに使える自然な言い回し。</span><svg class="fbspk" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3.5 9.2h3.6L12.2 5v14l-5.1-4.2H3.5z"/><path d="M15.6 9a4.2 4.2 0 010 6M18.4 6.6a7.6 7.6 0 010 10.8"/></svg></div>
+                                <div class="fbkey"><b class="en" lang="en">For here, please.</b><span>店内で飲む場合の定型表現。持ち帰りは &quot;To go, please.&quot; または &quot;To go.&quot; と言う。</span><svg class="fbspk" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3.5 9.2h3.6L12.2 5v14l-5.1-4.2H3.5z"/><path d="M15.6 9a4.2 4.2 0 010 6M18.4 6.6a7.6 7.6 0 010 10.8"/></svg></div>
+                                <div class="fbkey"><b class="en" lang="en">Can I pay by card?</b><span>カード払いを希望するときの自然な確認フレーズ。</span><svg class="fbspk" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3.5 9.2h3.6L12.2 5v14l-5.1-4.2H3.5z"/><path d="M15.6 9a4.2 4.2 0 010 6M18.4 6.6a7.6 7.6 0 010 10.8"/></svg></div>
                             </div>
 
                             <div class="fbcard nextstep" data-fb="5">
                                 <p class="fbhead"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a6 6 0 00-3 11.2V17h6v-2.8A6 6 0 0012 3z"/><path d="M10 19h4M10.5 21h3"/></svg>次の一歩</p>
-                                <p class="fbtx">次は &quot;Do you have oat milk?&quot; や &quot;Can I get extra shot?&quot; など、カスタマイズを英語で伝える練習に挑戦してみましょう。</p>
+                                <p class="fbtx">注文に一言コメントを添える練習として、&quot;I heard the latte here is great.&quot; のように軽い一言を加えると、より自然な会話の幅が広がります。</p>
                             </div>
                         </div>
                     </div>
@@ -1295,7 +1371,7 @@
                 <p class="sd-lead">Practise in two modes: typing, or rearranging the words.</p>
                 <p class="sd-lead">You get one overall assessment. Anything corrected is underlined, so you can read it back beside the model answer.</p>
                 <p class="sd-lead">If something still doesn’t click, ask the AI coach without leaving the question.</p>
-                <p class="sd-lead">Read it aloud and you also get pronunciation scores, word by word and sound by sound.</p>
+                <p class="sd-lead">Read it aloud and each word gets an A, B or C for pronunciation, with a tip for the words worth fixing.</p>
                 <p class="sd-lead">Build the reflex of saying what you mean in English.</p>
             </div>
             <div class="sd-stage">
@@ -1377,11 +1453,15 @@
                         </div>
 
                         <div class="card hide" data-el="cPron">
-                            <p class="lbl b"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 11v2M7 8v8M11 5v14M15 8v8M19 11v2"/></svg>発音分析</p>
+                            <!-- 今のアプリ（1.4.7〜）の発音分析。中身は ResultView+Sample.swift の q08 のサンプル
+                                 （実機で返った値）で、worked だけが B、ほかは A。 -->
+                            <div class="pr-hd"><p class="lbl b"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 11v2M7 8v8M11 5v14M15 8v8M19 11v2"/></svg>発音分析</p><svg class="pr-i" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.2"/></svg></div>
                             <div class="hair"></div>
-                            <div class="words en" lang="en"><span class="w w-hi">I</span><span class="w w-mid">worked</span><span class="w w-hi">overtime</span><span class="w w-hi">last</span><span class="w w-hi">night</span></div>
-                            <div class="phon en"><span class="pht pg"><b>w</b><span>96</span></span><span class="pht pa"><b>ɜː</b><span>61</span></span><span class="pht pg"><b>k</b><span>92</span></span><span class="pht pr"><b>t</b><span>48</span></span></div>
-                            <p class="nt">"worked": 語尾の「ked」は「クト」と母音を足さず、舌先で軽く止めるだけにしてみてください。</p>
+                            <div class="pr-sub"><b>単語ごとの評価</b><span class="pr-leg"><span><i class="gb a">A</i>問題なし</span><span><i class="gb b">B</i>少し改善</span><span><i class="gb c">C</i>伝わらない</span></span></div>
+                            <div class="words en" lang="en"><span class="w a">I</span><span class="w b">worked</span><span class="w a">overtime</span><span class="w a">last</span><span class="w a">night</span></div>
+                            <div class="hair"></div>
+                            <p class="pr-row"><i class="gb b">B</i><b class="en" lang="en">worked</b><span class="b">伝わるが、少し改善が必要</span></p>
+                            <p class="pr-nt">語尾の「ked」は「クト」と母音を足さず、舌先で軽く止めるだけにしてみてください。</p>
                         </div>
 
                     </div>
@@ -2009,18 +2089,19 @@
       /* ---------------- AI英会話 ----------------
          実機の1往復＝AI の英文が流れる → お題（日本語）→ キーボードで英文を打つ →
          送信 → 分析中 → 「表現できています」＋回答例 → 次へ。
-         送信した時点で自分の吹き出しが会話に積まれ、採点が通ると✓が付く。
+         送信した時点で自分の吹き出しが会話に積まれ、採点が通ると右下に「表現できています」が付く。
          「次へ」で次の AI 発言が積まれる。過去の吹き出しは消えない。 */
       function initConversation(root){
         var $ = function(n){ return root.querySelector('[data-el="'+n+'"]'); };
         var fb=$('fb'), fbroll=$('fbroll'),
             fbwin=root.querySelector('.fbwin'),
-            sceneEl=root.querySelector('.scene'), panelEl=root.querySelector('.panel');
+            sceneEl=root.querySelector('.scene'), panelEl=$('panel');
         var log=$('log'), task=$('task'), ftext=$('ftext'), send=$('send'), kb=$('kb'),
-            inputBox=$('input'), judge=$('judge'), result=$('result'),
+            field=$('field'), next=$('next'),
             men=$('men'), mja=$('mja'), turnlab=$('turnlab'), sep=$('sep');
         var dots = [].slice.call(root.querySelectorAll('.dot'));
-        if(!log||!task||!ftext||!send||!kb||!inputBox||!judge||!result) return null;
+        if(!fb||!fbroll||!fbwin||!sceneEl||!panelEl||!log||!task||!ftext||!send||!kb||!field||!next||
+           !men||!mja||!turnlab||!sep) return null;
 
         // conversation_scenes.json / proc_02「カフェで注文する」scriptLevels.intermediate（実データ）
         var SCRIPT=[
@@ -2029,28 +2110,47 @@
           {aiEn:"Sure. What size would you like?", aiJa:"サイズは？",
            userJa:"Mサイズにします。", userEn:"I'll have a medium, please."}
         ];
+        var PLACEHOLDER='<span class="cur"></span><span class="ph" lang="ja">タップしてキーボードを表示</span>';
+
+        // 文字 → キー。毎回探さないよう初期化で引き当て表を作る（英作文デモと同じ）。
+        var keyMap={};
+        [].forEach.call(kb.querySelectorAll('.k[data-k]'), function(k){ keyMap[k.dataset.k]=k; });
+        function hitKey(ch){
+          // 大文字は Shift も一緒に光らせる。Shift と文字キーは別の変数に持つ
+          //（同じ変数を使い回すと、Shift を消すタイマーが文字キーを指してしまう・Codex 指摘）。
+          var sh = (ch>='A' && ch<='Z') ? keyMap.shift : null;
+          if(sh){ sh.classList.add('hit'); setTimeout(function(){ sh.classList.remove('hit'); }, 110); }
+          var k=keyMap[ch.toLowerCase()];
+          if(!k) return;
+          k.classList.add('hit');
+          setTimeout(function(){ k.classList.remove('hit'); }, 130);
+        }
+        function clearHits(){
+          [].forEach.call(kb.querySelectorAll('.k.hit'), function(k){ k.classList.remove('hit'); });
+        }
+        // キーボードの開閉。閉じるときは margin-bottom を負にして下へ逃がす。
+        // instant=true は巻き戻し用（アニメーションさせない）。
+        function kbShow(on, instant){
+          if(instant) kb.classList.add('now');
+          kb.style.marginBottom = on ? '0px' : ('-' + kb.offsetHeight + 'px');
+          kb.classList.toggle('dim', false);
+          if(instant){ void kb.offsetHeight; kb.classList.remove('now'); }
+        }
 
         var run=0;
         // 中断からの復帰用。done=終わった往復数、until=この時刻までなら続きから。
         var done=0, until=0;
         var GRACE=20000;
-        function svgSpeaker(){
-          return '<svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">'
-               + '<path d="M4 9h3l5-4v14l-5-4H4z"/>'
-               + '<path d="M16.5 8.5a5 5 0 010 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>';
-        }
-        function svgGlobe(){
-          return '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">'
-               + '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg>';
-        }
-        function addAI(before){
+        var ICONS = root.querySelector('.msg.ai .ic') ? root.querySelector('.msg.ai .ic').innerHTML : '';
+        var THUMB = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M2.5 10.5h3.6v10H2.5zM8 20.5V10.3l4.6-6.8c.4-.6 1.2-.8 1.8-.4.7.4 1 1.1.8 1.9l-1 4.5h5.3c1.4 0 2.4 1.3 2.1 2.6l-1.6 6.6c-.3 1.1-1.2 1.8-2.3 1.8z"/></svg>';
+        var CHEV = '<svg class="cv" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 6 6-6"/></svg>';
+
+        function addAI(){
           var el=document.createElement('div');
           el.className='msg ai';
-          el.innerHTML='<p class="mt">'+svgSpeaker()+'<span class="en" lang="en"></span></p>'
-                      +'<p class="mh">'+svgGlobe()+'タップで和訳</p>';
-          // 「相手が発言中…」はアプリでは入力欄の直上に常にいる＝吹き出しより下。
-          // 喋っている間ずっと出るので、吹き出しはピルの**前**に入れる（オーナー指摘）。
-          if(before) log.insertBefore(el, before); else log.appendChild(el);
+          el.innerHTML='<p class="mt en" lang="en"><span class="wait"><i></i><i></i><i></i></span></p>'
+                      +'<p class="ic">'+ICONS+'</p>';
+          log.appendChild(el);
           return el;
         }
         function addMe(text){
@@ -2061,49 +2161,43 @@
           log.appendChild(el);
           return el;
         }
-        function addSpeaking(){
-          var el=document.createElement('div');
-          el.className='speaking'; el.innerHTML='<i></i>相手が発言中…';
-          log.appendChild(el);
-          return el;
+        // 採点が通ったら、自分の吹き出しの右下に「👍 表現できています ⌄」が出る。
+        function verdict(el){
+          var v=document.createElement('p');
+          v.className='vd';
+          v.innerHTML=THUMB+'表現できています'+CHEV;
+          el.appendChild(v);
         }
-        function tick(el){
-          var t=document.createElement('span');
-          t.className='tick';
-          t.innerHTML='<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
-          el.appendChild(t);
-        }
-        function phase(which){       // input / judge / result
-          inputBox.classList.toggle('hide', which!=='input');
-          judge.classList.toggle('hide', which!=='judge');
-          result.classList.toggle('hide', which!=='result');
+        function state(st){ panelEl.setAttribute('data-st', st); }
+        function talk(on, ai){
+          root.classList.toggle('talk', on);
+          if(ai) ai.classList.toggle('say', on);
         }
         function stop(){
           run++;
           fbFreeze();
-          // sleep の途中で止めると削除前に return するので、ピルが残る（Codex 指摘）。
-          [].forEach.call(log.querySelectorAll('.speaking'), function(el){ el.remove(); });
-          send.classList.remove('press'); kb.classList.remove('press');
-          var c=ftext.querySelector('.cur'); if(c) c.remove();
+          send.classList.remove('press'); next.classList.remove('press'); field.classList.remove('press');
+          clearHits();
           until = Date.now() + GRACE;      // すぐ戻ってきたら続きから
         }
         function reset(){
           stop();
           fbShow(false);
+          talk(false);
           log.innerHTML='';
-          ftext.innerHTML=''; send.classList.remove('on');
+          ftext.innerHTML=PLACEHOLDER; send.classList.remove('on');
           dots.forEach(function(d){ d.classList.remove('on'); });
           task.textContent=SCRIPT[0].userJa;
           turnlab.textContent='あなたの番'; sep.style.visibility='';
-          phase('input');
+          state('idle');
+          kbShow(false, true);
         }
         function still(){
           // 動きを減らす設定：AI の英文とお題と入力欄が揃った、いちばん説明的な状態で止める。
           reset();
           var t=SCRIPT[0];
           var ai=addAI(); ai.style.animation='none';
-          ai.querySelector('.mt span').textContent=t.aiEn;
-          ftext.textContent=t.userEn; send.classList.add('on');
+          ai.querySelector('.mt').textContent=t.aiEn;
         }
 
         // 会話を終えると出るフィードバック。文面は実機で全5往復やり切って
@@ -2116,7 +2210,6 @@
         // 一時停止しても transition は止まらない（animation-play-state は transition に効かない）。
         // 走っている送りを、いまの位置で止める（Codex 指摘）。
         function fbFreeze(){
-          if(!fbroll) return;
           var m = new DOMMatrix(getComputedStyle(fbroll).transform);
           fbroll.classList.add('now');
           fbroll.style.transform = 'translateY('+m.m42+'px)';
@@ -2128,10 +2221,10 @@
           void fbroll.offsetHeight;
           fbroll.classList.remove('now');
         }
+        // フィードバックの間は、会話の画面（絵・会話・パネル・キーボード）を全部隠す（Codex 指摘）。
         function fbShow(on){
           fb.classList.toggle('hide', !on);
-          sceneEl.classList.toggle('hide', on);
-          panelEl.classList.toggle('hide', on);
+          root.classList.toggle('fbon', on);
           if(!on) fbSnapTop();
         }
         async function feedback(my){
@@ -2151,24 +2244,28 @@
           await sleep(1400);
         }
 
+        // 1往復: 相手の吹き出し（…）→ 声に合わせて英文が出る（スピーカーが緑・絵が寄る）
+        // → 「あなたの番」→ 入力欄をタップしてキーボード → 打つ → 送信 → 自分の吹き出し・分析中
+        // → キーボードが閉じて「表現できています」＋回答例 → 次へ。
         async function play(){
           var my=++run;
           var from = (Date.now() < until && done > 0 && done < SCRIPT.length) ? done : 0;
           reset(); run=my;
           if(from===0){
             done=0;
-            await sleep(1200); if(my!==run) return;
+            await sleep(900); if(my!==run) return;
           }else{
             // 続きから: ここまでのやりとりを積み直してから再開する。
-            // reset() は先頭のお題を入れるので、ここで再開先のお題に差し替えておく。
-            // これをしないと、再開した直後だけ先頭のお題が 0.9 秒ほど出る（オーナー指摘）。
+            // reset() は先頭のお題を入れるので、ここで再開先のお題に差し替えておく
+            //（再開した直後だけ先頭のお題が出るのを防ぐ・オーナー指摘）。
             task.textContent = SCRIPT[from].userJa;
             turnlab.textContent=''; sep.style.visibility='hidden';
             for(var p=0;p<from;p++){
               var pt=SCRIPT[p];
               var pai=addAI(); pai.style.animation='none';
-              pai.querySelector('.mt span').textContent=pt.aiEn;
-              var pme=addMe(pt.userEn); pme.style.animation='none'; tick(pme);
+              pai.querySelector('.mt').textContent=pt.aiEn;
+              var pme=addMe(pt.userEn); pme.style.animation='none'; verdict(pme);
+              pme.querySelector('.vd').style.animation='none';
               dots[p].classList.add('on');
             }
             await sleep(500); if(my!==run) return;
@@ -2177,68 +2274,76 @@
           for(var i=from;i<SCRIPT.length;i++){
             var t=SCRIPT[i], k;
 
-            // AI の英文が流れる。喋っている間は「あなたの番」を出さない。
+            // 相手の番。喋っている間は「あなたの番」を出さない。お題は先に次のものへ替わる。
+            state('idle');
             turnlab.textContent=''; sep.style.visibility='hidden';
             task.textContent=t.userJa;
-            // アプリの statusBanner（ConversationView.swift:2383）は入力欄の直上に
-            // 常設で、phase==.aiSpeaking の間ずっと出る。つまり吹き出しの**下**にいて、
-            // 相手が喋り終わるまで消えない。ここも同じにする（オーナー指摘）。
-            var speaking=addSpeaking();
-            await sleep(500); if(my!==run) return;
-            var ai=addAI(speaking), aiSpan=ai.querySelector('.mt span');
+            var ai=addAI(), mt=ai.querySelector('.mt');
+            await sleep(700); if(my!==run) return;
+            talk(true, ai);
             for(k=1;k<=t.aiEn.length;k++){
               if(my!==run) return;
-              aiSpan.textContent=t.aiEn.slice(0,k);
+              mt.textContent=t.aiEn.slice(0,k);
               await sleep(34);
             }
-            await sleep(400); if(my!==run) return;
-            speaking.remove();
-            await sleep(200); if(my!==run) return;
+            await sleep(350); if(my!==run) return;
+            talk(false, ai);
             turnlab.textContent='あなたの番'; sep.style.visibility='';
-            await sleep(1100); if(my!==run) return;
+            await sleep(1000); if(my!==run) return;
 
-            // キーボードで打つ
-            kb.classList.add('press');
-            await sleep(150); if(my!==run) return;
-            kb.classList.remove('press');
+            // 入力欄をタップ → アプリ内のキーボードが上がる
+            field.classList.add('press');
+            await sleep(140); if(my!==run) return;
+            field.classList.remove('press');
+            ftext.innerHTML='<span class="cur"></span>';
+            state('typing');
+            kbShow(true);
+            await sleep(650); if(my!==run) return;
             for(k=1;k<=t.userEn.length;k++){
               if(my!==run) return;
-              ftext.innerHTML=t.userEn.slice(0,k)+'<span class="cur"></span>';
+              ftext.innerHTML='';
+              ftext.appendChild(document.createTextNode(t.userEn.slice(0,k)));
+              ftext.insertAdjacentHTML('beforeend','<span class="cur"></span>');
+              hitKey(t.userEn.charAt(k-1));
+              if(k===1) send.classList.add('on');
               await sleep(58);
             }
-            if(my!==run) return;
-            ftext.textContent=t.userEn; send.classList.add('on');
             await sleep(450); if(my!==run) return;
 
-            // 送信 → 自分の吹き出しが積まれる
+            // 送信 → 自分の吹き出しが積まれ、入力欄は「分析中…」
             send.classList.add('press');
             await sleep(160); if(my!==run) return;
             send.classList.remove('press');
             var me=addMe(t.userEn);
             ftext.innerHTML=''; send.classList.remove('on');
-            phase('judge');
+            state('judge'); kb.classList.add('dim');
             await sleep(1500); if(my!==run) return;
 
-            // 採点が通る → ✓ が付き、回答例が出る
-            tick(me);
+            // 採点が通る → キーボードが閉じ、吹き出しに判定、パネルに結果と回答例
+            kbShow(false);
+            verdict(me);
             dots[i].classList.add('on');
             men.textContent=t.userEn; mja.textContent=t.userJa;
-            phase('result');
+            state('result');
             done = i+1;
-            await sleep(2600); if(my!==run) return;
-            // 最後の往復のあとは入力欄に戻さない。戻すと、答え終わったお題
-            //（「Mサイズにします。」）が「あなたの番」のまま残る（オーナー指摘）。
-            // 講評へ移るまで、その往復の結果を出したままにする。
-            if(i < SCRIPT.length-1) phase('input');
+            await sleep(2800); if(my!==run) return;
+            // 最後の往復のあとは「次へ」を押さずに、その往復の結果を出したまま講評へ移る。
+            if(i < SCRIPT.length-1){
+              next.classList.add('press');
+              await sleep(160); if(my!==run) return;
+              next.classList.remove('press');
+              ftext.innerHTML=PLACEHOLDER;
+            }
           }
 
           done=0; until=0;                  // 最後まで行ったら次は先頭から
-          await sleep(2800); if(my!==run) return;
+          await sleep(2400); if(my!==run) return;
           await feedback(my); if(my!==run) return;
           await sleep(1200); if(my!==run) return;
           return play();
         }
         function discard(){ done=0; until=0; }   // ボタンから明示的に再生し直すとき
+        kbShow(false, true);
         return { play:play, stop:stop, still:still, discard:discard };
       }
 
