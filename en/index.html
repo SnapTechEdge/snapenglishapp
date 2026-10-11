@@ -1932,8 +1932,8 @@
             menu.querySelectorAll('a').forEach(a => {
                 a.addEventListener('click', () => setOpen(false));
             });
-            // sm 以上にリサイズしたら自動クローズ (ハンバーガー自体が消えるので念のため)
-            window.matchMedia('(min-width: 640px)').addEventListener('change', e => {
+            // md 以上にリサイズしたら自動クローズ (ハンバーガー自体が消えるので念のため)
+            window.matchMedia('(min-width: 768px)').addEventListener('change', e => {
                 if (e.matches) setOpen(false);
             });
         })();
