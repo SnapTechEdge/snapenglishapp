@@ -186,11 +186,15 @@
         html { scroll-behavior: smooth; color-scheme: light; }
 
         body {
-            background:
-                radial-gradient(ellipse at top right, rgba(20, 184, 166, 0.08), transparent 60%),
-                radial-gradient(ellipse at bottom left, rgba(16, 185, 129, 0.06), transparent 60%),
-                #ffffff;
+            /* 地色はセクションと同じアイボリー。以前は白＋ティールの放射グラデーション
+               だったが、アイボリーを塗っているのは .sd のセクションだけだったので、
+               iOS で引っ張ったとき（オーバースクロール）上下に白が出ていた。
+               theme-color と同じ色にして、画面の端まで同じ紙にする。 */
+            background: #F1EDE6;
+            /* iOS Safari の 100vh はツールバーが隠れたときの高さなので、
+               表示中は画面より高くなる。dvh は今の表示高さに追従する。 */
             min-height: 100vh;
+            min-height: 100dvh;
             /* モバイルでの予期せぬ横スクロールを防ぐ。clip は hidden と違い
                スクロールコンテキストを作らないため sticky header と干渉しない */
             overflow-x: clip;
