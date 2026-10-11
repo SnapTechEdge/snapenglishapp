@@ -289,8 +289,10 @@
     .sd h1,.sd h2,.sd h3,.sd p{ margin:0; word-break:auto-phrase; }
     /* 左右はセーフエリアに退避する。body ではなくこの器に入れるのは、
        セクションの地色を画面の端まで届かせたままにするため。
-       max() を @supports で分けるのは、max() を持たないブラウザが
-       宣言ごと捨てて、素の padding にも戻らないことがあるため。 */
+       max() を @supports で分けるのは、共有の .safe-x と形を揃えるため。
+       あちらは生成 CSS の最小化が「重複した宣言」として通常値を落とすので
+       分ける必要があった。この style は最小化を通らないので素の padding は
+       残るが、同じ事情の指定を2通りの書き方で持たない。 */
     .sd-wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
     @supports (padding: max(0px)){
         .sd-wrap{ padding-left:max(24px, env(safe-area-inset-left, 0px));
