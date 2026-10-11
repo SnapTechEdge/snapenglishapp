@@ -267,7 +267,7 @@
        端末の中はアプリのライト画面の実測色なので、サイトがダークでも常にライト。 */
     .sd{
         --sd-ivory:#F1EDE6; --sd-dark:#1C232C; --sd-ink:#14191F; --sd-ink-2:#5B646E;
-        --sd-rule:#DED7CB; --sd-accent:#138A60;
+        --sd-rule:#DED7CB; --sd-accent:#117954;
         --app-bg:#F6F3EE; --app-card:#FFF; --app-text:#0B0B0C; --app-hair:#ECE8E1;
         --p1:#3B82F6; --p8:#F59E0B;
         --on-conv:#D58E9B; --on-comp:#7FCBA6; --on-gram:#EC968A; --on-vocab:#8FB0E6;
@@ -306,8 +306,8 @@
     .sd a:focus-visible,.sd button:focus-visible,.sd summary:focus-visible{ outline:2px solid var(--sd-accent);
                  outline-offset:3px; border-radius:8px; }
     .sd.sd-v{ --sd-accent:#A14D5D; }
-    .sd.sd-w{ --sd-accent:#138A60; }
-    .sd.sd-g{ --sd-accent:#C8574C; }
+    .sd.sd-w{ --sd-accent:#117954; }
+    .sd.sd-g{ --sd-accent:#AE4C42; }
 
     /* ---- ヒーロー ---- */
     .sd-hero{ padding-block:clamp(24px,3vw,44px) clamp(36px,5vw,60px); }
@@ -340,8 +340,8 @@
     .sd .sd-mode:focus-visible{ border-radius:12px; }
     .sd-mode span{ display:block; margin-top:3px; font-size:11.5px; color:var(--sd-ink-2);
               font-variant-numeric:tabular-nums; }
-    .sd-mode.m1{ color:#A14D5D } .sd-mode.m2{ color:#138A60 }
-    .sd-mode.m3{ color:#C8574C } .sd-mode.m4{ color:#3E6FB0 }
+    .sd-mode.m1{ color:#A14D5D } .sd-mode.m2{ color:#117954 }
+    .sd-mode.m3{ color:#AE4C42 } .sd-mode.m4{ color:#3C6BA9 }
     .sd-mode span{ color:var(--sd-ink-2); }
     /* バッジの大きさは既存の .app-store-badge / .google-play-badge が持つ。
        Google の公式 PNG は上下 11.6% が透明余白なので、ここで height だけ揃えると
@@ -1037,7 +1037,7 @@
        回答例で直すべき語が橙・残りが緑、さらに AI の解説と「もう一度」が出る。 */
     .sd-g{ --app-label:#8E8A85; --gram:#C8574C; --page:#F7F4EF;
            --tile:#C8574C; --tile-soft:#FADCD9; --tile-ok:#C7C7CC; --ng:#EF4444;
-           --ok-w:#2E8752; --miss-w:#FF8D28;
+           --ok-w:#297849; --miss-w:#FF8D28;
            --tip-bg:#FEF7EB; --tip-ic:#F59E0B; --exp-bg:#EFF5FE; --exp-ic:#3B82F6; }
     .sd-g .sd-phone{ background:var(--page); position:relative; }
     .sd-g .bar{ background:var(--page); padding:14px 18px 0; text-align:center; }
@@ -1296,7 +1296,7 @@
         <div class="max-w-6xl mx-auto safe-x h-16 flex items-center justify-between">
             <a href="/" aria-label="SnapEnglish" class="flex items-center gap-2 text-base mini:text-lg font-bold">
                 <img src="icon-64.png" alt="" aria-hidden="true" class="w-8 h-8 rounded-lg shadow-sm">
-                <span aria-hidden="true"><span style="color: #2E8752">Snap</span><span class="text-slate-800">English</span></span>
+                <span aria-hidden="true"><span style="color: #297849">Snap</span><span class="text-slate-800">English</span></span>
             </a>
             <nav class="hidden md:flex items-center gap-5 lg:gap-8 text-sm text-slate-600">
                 <a href="#how" class="hover:text-emerald-700 transition">使い方</a>
@@ -1994,8 +1994,8 @@
         <div class="max-w-6xl mx-auto safe-x pt-10 safe-pb-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-600">
             <div class="flex items-center gap-2">
                 <img src="icon-64.png" alt="SnapEnglish" class="w-7 h-7 rounded-lg shadow-sm">
-                <span class="font-semibold"><span style="color: #2E8752">Snap</span><span class="text-slate-800">English</span></span>
-                <span class="text-slate-400">— © <span id="year">2026</span> SnapTechEdge</span>
+                <span class="font-semibold"><span style="color: #297849">Snap</span><span class="text-slate-800">English</span></span>
+                <span class="text-ink2">— © <span id="year">2026</span> SnapTechEdge</span>
             </div>
             <div class="flex flex-wrap items-center gap-x-6 gap-y-2 justify-center">
                 <a href="/about" class="hover:text-emerald-700 transition">SnapEnglish とは</a>
