@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ==================== セーフエリア ====================
+   viewport-fit=cover を入れると、ページはノッチやホームインジケーターの
+   下まで広がる。地色は端まで塗りたいので body には余白を入れず、
+   文字と操作部を持つ内側の器にだけ退避を入れる
+   （body に入れると、全幅へ抜けるのに使っている 50vw がずれる）。
+
+   通常値と max() を同じルールに並べて書くと、ビルドの最小化が
+   「重複した宣言」として前者を落としてしまう。@supports で分けると残る。
+   env() や max() を持たないブラウザは通常値のまま。
+
+   iOS Safari の通常のタブ表示では上 inset は 0 なので、粘着ヘッダーの
+   top はそのままにしてある。効くのは主に横向きの左右と、下端。 */
+.safe-x { padding-left: 1.5rem; padding-right: 1.5rem; }
+.safe-pb-6 { padding-bottom: 1.5rem; }
+.safe-pb-8 { padding-bottom: 2rem; }
+.safe-pb-10 { padding-bottom: 2.5rem; }
+
+@supports (padding: max(0px)) {
+    .safe-x {
+        padding-left: max(1.5rem, env(safe-area-inset-left, 0px));
+        padding-right: max(1.5rem, env(safe-area-inset-right, 0px));
+    }
+    .safe-pb-6 { padding-bottom: max(1.5rem, env(safe-area-inset-bottom, 0px)); }
+    .safe-pb-8 { padding-bottom: max(2rem, env(safe-area-inset-bottom, 0px)); }
+    .safe-pb-10 { padding-bottom: max(2.5rem, env(safe-area-inset-bottom, 0px)); }
+}

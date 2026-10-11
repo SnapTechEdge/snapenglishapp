@@ -2,7 +2,7 @@
 <html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>SnapEnglish | AI Conversation, Composition, Grammar &amp; Vocabulary — All-in-One English App</title>
     <meta name="description" content="SnapEnglish is an all-in-one English app for AI conversation, composition, grammar and vocabulary. Task-based AI conversation, instant Japanese-to-English composition with AI feedback, word-order grammar, level-based vocabulary, and spaced repetition (SRS). For iPhone, iPad and Android.">
     <meta property="og:title" content="SnapEnglish | AI Conversation, Composition, Grammar &amp; Vocabulary — All-in-One English App">
@@ -174,7 +174,7 @@
       document.documentElement.className =
         document.documentElement.className.replace(/\bno-js\b/, '') + ' js';
     </script>
-    <link rel="stylesheet" href="/tailwind.css?v=20261005">
+    <link rel="stylesheet" href="/tailwind.css?v=20261012">
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap');
@@ -288,7 +288,12 @@
        句読点が詰まったままになり、そこを指摘された。端末の中もアプリ本体
        （SwiftUI / Compose）が palt を掛けていないので、外す方が実物に近い。 */
     .sd h1,.sd h2,.sd h3,.sd p{ margin:0; word-break:auto-phrase; }
-    .sd-wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
+    /* 左右はセーフエリアに退避する。通常値を先に書くのは、env() 未対応の
+       ブラウザが max() の宣言ごと捨てるため。body ではなくこの器に入れるのは、
+       全幅へ抜けるのに使っている 50vw をずらさないため。 */
+    .sd-wrap{ max-width:1180px; margin:0 auto; padding:0 24px;
+              padding-left:max(24px, env(safe-area-inset-left, 0px));
+              padding-right:max(24px, env(safe-area-inset-right, 0px)); }
     .sd-eyebrow{ display:flex; align-items:center; gap:13px; font-size:12px; font-weight:700;
                  letter-spacing:.14em; color:var(--sd-accent); }
     .sd-eyebrow::before{ content:""; width:34px; height:1px; background:currentColor; flex:none; }
@@ -1162,7 +1167,7 @@
 
     <!-- Header (sticky) -->
     <header class="nav-blur sticky top-0 z-50 border-b border-slate-200/60">
-        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div class="max-w-6xl mx-auto safe-x h-16 flex items-center justify-between">
             <a href="/" class="flex items-center gap-2 text-lg font-bold">
                 <img src="/icon-64.png" alt="" aria-hidden="true" class="w-8 h-8 rounded-lg shadow-sm">
                 <span><span style="color: #2E8752">Snap</span><span class="text-slate-800">English</span></span>
@@ -1190,7 +1195,7 @@
         </div>
         <!-- Mobile menu drawer -->
         <div id="mobile-menu" class="hidden sm:hidden border-t border-slate-200 bg-white/95 backdrop-blur">
-            <nav class="flex flex-col px-6 py-3 text-sm text-slate-700">
+            <nav class="flex flex-col safe-x py-3 text-sm text-slate-700">
                 <a href="#how" class="py-2.5 hover:text-emerald-700 transition">How it works</a>
                 <a href="#features" class="py-2.5 hover:text-emerald-700 transition">Features</a>
                 <a href="#pricing" class="py-2.5 hover:text-emerald-700 transition">Pricing</a>
@@ -1857,7 +1862,7 @@
 
     <!-- Footer -->
     <footer class="sd-footer border-t">
-        <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-600">
+        <div class="max-w-6xl mx-auto safe-x pt-10 safe-pb-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-600">
             <div class="flex items-center gap-2">
                 <img src="/icon-64.png" alt="SnapEnglish" class="w-7 h-7 rounded-lg shadow-sm">
                 <span class="font-semibold"><span style="color: #2E8752">Snap</span><span class="text-slate-800">English</span></span>
