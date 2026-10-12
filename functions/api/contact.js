@@ -167,7 +167,6 @@ export async function onRequestPost(context) {
       subject: '【SnapEnglish】お問い合わせを受け付けました / We received your inquiry',
       text: [
         `${trimmed.name} 様`,
-        `Dear ${trimmed.name},`,
         '',
         'このたびは SnapEnglish へお問い合わせいただきありがとうございます。',
         '以下の内容で受け付けました。担当者より追ってご返信いたします。',
