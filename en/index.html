@@ -637,7 +637,7 @@
     .sd-form textarea{ resize:vertical; line-height:1.7; }
     .sd-form input::placeholder, .sd-form textarea::placeholder{ color:#B9B4AD; }
     .sd-form input:focus, .sd-form textarea:focus{ outline:none; border-color:var(--sd-accent); }
-    /* メールアドレスの欄で半角に直したときだけ出す。 */
+    /* メールアドレスの欄で、使えない文字を削除したときだけ出す。 */
     .sd-form-hint{ display:block; font-size:12px; color:#AE4C42; }
     .sd-form-hint:not(:empty){ margin-top:5px; }
     .sd-form-count{ display:block; margin-top:5px; font-size:12px; color:var(--sd-ink-2);
@@ -2198,7 +2198,7 @@
                 const { out, dropped } = fix(el.value);
                 if (out !== el.value) el.value = out;
                 // 中身の無いライブ領域を先に置いてあるので、
-                // ここで初めて文字が入ったときに読み上げられる。
+                // ここで文字を入れると変更が支援技術へ通知される。
                 if (hint) hint.textContent = dropped ? MSG : '';
             };
             el.addEventListener('compositionstart', () => { composing = true; });
