@@ -130,31 +130,41 @@ export async function onRequestPost(context) {
     // 2) ユーザー宛て自動返信
     //    純粋な no-reply: reply_to を設定せず、Reply された場合は noreply@ に届いて bounce する。
     //    本文に「support@ 宛に新規メールで」と明記済み。
+    //    日本語版 (index.html) と英語版 (en/index.html) が同じこのエンドポイントに送っており、
+    //    送信者がどちらの言語を読むかは分からないので、件名と本文は日英併記にする。
+    //    問い合わせ内容そのもの (件名・メッセージ) は 1 回だけ載せ、ラベルだけ併記する。
     const autoReply = sendMail(env.RESEND_API_KEY, {
       from: 'noreply@snapenglishapp.com',
       to: [trimmed.email],
-      subject: '【SnapEnglish】お問い合わせを受け付けました',
+      subject: '【SnapEnglish】お問い合わせを受け付けました / We received your inquiry',
       text: [
         `${trimmed.name} 様`,
+        `Dear ${trimmed.name},`,
         '',
         'このたびは SnapEnglish へお問い合わせいただきありがとうございます。',
         '以下の内容で受け付けました。担当者より追ってご返信いたします。',
-        '',
-        '────────────────────────',
-        `件名: ${trimmed.subject}`,
-        '',
-        'メッセージ:',
-        trimmed.message,
-        '────────────────────────',
-        '',
         'なお、内容によっては返信までお時間をいただく場合がございます。',
         'お急ぎの場合はその旨をお知らせください。',
         '',
-        '── SnapEnglish 運営チーム',
+        'Thank you for contacting SnapEnglish.',
+        'We have received your inquiry, shown below. A member of our team will get back to you.',
+        'Depending on the nature of your inquiry, our reply may take some time.',
+        'If your request is urgent, please let us know.',
+        '',
+        '────────────────────────',
+        `件名 / Subject: ${trimmed.subject}`,
+        '',
+        'メッセージ / Message:',
+        trimmed.message,
+        '────────────────────────',
+        '',
+        '── SnapEnglish 運営チーム / The SnapEnglish team',
         'https://snapenglishapp.com',
         '',
         '※ このメールは自動送信です。返信される場合は support@snapenglishapp.com 宛にお送りください。',
         '※ お心当たりがない場合はお手数ですがこのメールを破棄してください。',
+        '* This is an automated message. To reply, please send a new email to support@snapenglishapp.com.',
+        '* If you did not send this inquiry, please discard this email.',
       ].join('\n'),
     });
 
