@@ -26,19 +26,36 @@ export async function onRequestPost(context) {
       return jsonError(400, 'invalid_json', 'リクエストボディの形式が不正です');
     }
 
-    const { name = '', email = '', subject = '', message = '', website = '', cfTurnstileResponse = '' } = data;
+    // JSON として読めても、オブジェクト以外 (null・配列・数値・文字列) はフォームの形ではない。
+    // null はこの先の .trim() で例外になるので弾く必要がある。それ以外は従来 missing_field
+    // だったが、未入力ではなく形が違うので invalid_json に分ける。
+    if (!data || typeof data !== 'object' || Array.isArray(data)) {
+      return jsonError(400, 'invalid_json', 'リクエストボディの形式が不正です');
+    }
 
-    // ハニーポット (bot 対策): website フィールドが埋まっていたら spam 扱いで「成功」を返す
-    if (website.trim() !== '') {
+    // ハニーポット (bot 対策): website フィールドが埋まっていたら spam 扱いで「成功」を返す。
+    // フォームからは空文字列しか来ないので、null と未指定を除いて文字列以外が入っていたら
+    // 埋まっている扱いにする。文字列に変換して判定すると {"toString":null} のような値で
+    // 例外になるため、変換せず型で分ける。
+    const website = data.website;
+    const websiteFilled = typeof website === 'string'
+      ? website.trim() !== ''
+      : website !== undefined && website !== null;
+    if (websiteFilled) {
       return jsonOk();
     }
 
+    // フォームから来る値はすべて文字列。null や数値が入っているのはフォーム経由ではないので、
+    // .trim() で例外にして 500 を返すのではなく、未入力と同じ扱いにして必須チェックで弾く。
+    const asText = (v) => (typeof v === 'string' ? v : '');
+    const cfTurnstileResponse = asText(data.cfTurnstileResponse);
+
     // 必須チェック (subject も必須化)
     const trimmed = {
-      name: name.trim(),
-      email: email.trim(),
-      subject: subject.trim(),
-      message: message.trim(),
+      name: asText(data.name).trim(),
+      email: asText(data.email).trim(),
+      subject: asText(data.subject).trim(),
+      message: asText(data.message).trim(),
     };
     if (!trimmed.name || !trimmed.email || !trimmed.subject || !trimmed.message) {
       return jsonError(400, 'missing_field', '名前・メールアドレス・件名・メッセージは必須です');
