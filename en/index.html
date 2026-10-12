@@ -637,6 +637,9 @@
     .sd-form textarea{ resize:vertical; line-height:1.7; }
     .sd-form input::placeholder, .sd-form textarea::placeholder{ color:#B9B4AD; }
     .sd-form input:focus, .sd-form textarea:focus{ outline:none; border-color:var(--sd-accent); }
+    /* メールアドレスの欄で半角に直したときだけ出す。 */
+    .sd-form-hint{ display:block; margin-top:5px; font-size:12px; color:#AE4C42; }
+    .sd-form-hint.hide{ display:none; }
     .sd-form-count{ display:block; margin-top:5px; font-size:12px; color:var(--sd-ink-2);
                 font-variant-numeric:tabular-nums; }
     .sd-form-hp{ position:absolute; left:-9999px; opacity:0; pointer-events:none; }
@@ -1967,7 +1970,11 @@
                 </label>
                 <label>
                     <span class="sd-form-label">Email address <i>*</i></span>
-                    <input type="email" name="email" required maxlength="200" placeholder="you@example.com">
+                    <input type="email" name="email" required maxlength="200" placeholder="you@example.com"
+                           inputmode="email" autocomplete="email" autocapitalize="off"
+                           autocorrect="off" spellcheck="false"
+                           aria-describedby="email-hint">
+                    <span class="sd-form-hint hide" id="email-hint" role="status">Please enter your email address in half-width characters.</span>
                 </label>
             </div>
             <label>
@@ -2165,6 +2172,36 @@
                 window.addEventListener('resize', sync);
                 sync();
             });
+        })();
+
+        // メールアドレスは半角だけにする。経路を先に絞り（inputmode / autocorrect）、
+        // それでも入った全角 ASCII は幅を寄せ、アドレスに使えない文字は落とす。
+        // 落としたときだけ下に知らせる。黙って別の宛先に化けるのを避けるため。
+        // IME の変換中は触らない。確定したところで直す。
+        (() => {
+            const el = document.querySelector('#contact-form input[name="email"]');
+            const hint = document.getElementById('email-hint');
+            if (!el) return;
+            const OK = /[A-Za-z0-9.!#$%&'*+/=?^_`{|}~@-]/;
+            const fix = s => {
+                // 全角 ASCII → 半角、全角スペースは落とす
+                let t = s.replace(/[\uFF01-\uFF5E]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0))
+                         .replace(/\u3000/g, '');
+                let dropped = false, out = '';
+                for (const ch of t) { if (OK.test(ch)) out += ch; else dropped = true; }
+                return { out, dropped };
+            };
+            let composing = false;
+            const run = () => {
+                if (composing) return;
+                const { out, dropped } = fix(el.value);
+                if (out !== el.value) el.value = out;
+                if (hint) hint.classList.toggle('hide', !dropped);
+            };
+            el.addEventListener('compositionstart', () => { composing = true; });
+            el.addEventListener('compositionend', () => { composing = false; run(); });
+            el.addEventListener('input', e => { if (!e.isComposing) run(); });
+            el.addEventListener('blur', run);
         })();
 
         // Contact form submission
