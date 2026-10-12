@@ -1302,15 +1302,21 @@
            見出し・アイブロウ・帯そのものの中央寄せはそのまま。
            料金の細字とフォームの注記は元から左揃えなので触らない。 */
         .sd-price-lead, .sd-contact-lead, .sd-close-note{ text-align:left; }
-        .sd-phone{ width:min(402px,100%); zoom:.68; }
+        /* 端末はもっと小さく（オーナー指摘「デモ画面の縦が大きすぎる」）。
+           375px 幅で 273x594 だと、見出しと要約を足すと 1 画面に収まらない。
+           .58 で 233x507。実機の比はそのままなので、切って縮めてはいない。 */
+        .sd-phone{ width:min(402px,100%); zoom:.58; }
+        /* タブレットは画面の縦に余裕があるので、もう少し大きく見せる。 */
+        @media (min-width:701px){ .sd-phone{ zoom:.66; } }
         /* 枠は列いっぱいに広げる。中央寄せの grid の中で中身の幅に縮むと、端末の % 幅が
            中身次第になり、英会話の講評（幅を支えるキーボード等が消える）で端末が細くなった。 */
-        .sd-stage{ width:100%; }
+        .sd-stage{ width:100%; gap:12px; }
         /* デモだけ、アイブロウ→見出し→要約→端末→注記→詳しく見る の順にする。
            .sd-side は display:contents で畳んで、中身を直接 flex の項目にする。
            ここを .sd-demo-root に限るのは、.sd-copy を英単語・反復学習・進捗でも
            使っているため。 */
-        .sd-demo-root .sd-panel{ display:flex; flex-direction:column; align-items:center; }
+        .sd-demo-root .sd-panel{ display:flex; flex-direction:column; align-items:center;
+                      gap:clamp(20px,3.4vw,30px); padding-block:clamp(20px,3.4vw,32px); }
         .sd-demo-root .sd-panel > .sd-copy{ width:100%; }
         .sd-demo-root .sd-panel > .sd-demo-note{ width:100%; max-width:34em; margin-inline:auto; }
         .sd-demo-root .sd-panel > .sd-more{ width:100%; max-width:34em; margin-inline:auto; }
