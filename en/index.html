@@ -657,6 +657,23 @@
     .sd-form-submit:disabled{ opacity:.5; cursor:not-allowed; }
     /* 送信結果。JS が .hide / .ok / .ng を付け替える。 */
     .sd-form-msg{ font-size:13px; font-weight:700; text-align:center; }
+    /* 送信後の完了表示。13px の 1 行だけだと、入力欄が空に戻ったこともあって
+       送れたのか分からない。フォームと入れ替えて出す。
+       .sd-form は display:grid なので、hidden を効かせるには明示が要る。 */
+    .sd-form[hidden], .sd-form-done[hidden]{ display:none !important; }
+    .sd-form-done{ margin-top:34px; max-width:40em; padding:28px 22px; text-align:center;
+                background:#fff; border:1px solid var(--sd-rule); border-radius:14px; }
+    .sd-form-done .sd-done-mark{ display:block; margin:0 auto 12px; color:var(--sd-accent); }
+    .sd-form-done h3{ margin:0; font-size:18px; font-weight:800; }
+    .sd-form-done h3:focus{ outline:none; }
+    .sd-form-done h3:focus-visible{ outline:2px solid var(--sd-accent); outline-offset:4px; border-radius:4px; }
+    .sd-form-done p{ margin:10px auto 0; max-width:28em; font-size:14px; line-height:1.9;
+                color:var(--sd-ink-2); }
+    .sd-done-again{ margin-top:20px; padding:12px 20px; background:transparent;
+                border:1px solid var(--sd-rule); border-radius:999px; font-family:inherit;
+                font-size:14px; font-weight:700; color:var(--sd-ink); cursor:pointer;
+                transition:background .15s ease; }
+    .sd-done-again:hover{ background:var(--sd-ivory); }
     .sd-form-msg.hide{ display:none; }
     .sd-form-msg.ok{ color:var(--sd-accent); }
     .sd-form-msg.ng{ color:#C0392B; }
@@ -686,7 +703,7 @@
     /* 幅を絞ってある列を中央へ */
     /* p は .sd p{margin:0} で margin を潰してあるので、詳細度を合わせて上書きする。 */
     .sd p.sd-price-lead, .sd-plans, .sd p.sd-price-fine, .sd-price-why, .sd-price-why p,
-    .sd-faq-list, .sd p.sd-contact-lead, .sd-form,
+    .sd-faq-list, .sd p.sd-contact-lead, .sd-form, .sd-form-done,
     .sd p.sd-close-note{ margin-inline:auto; }
     /* 中身は左に戻す */
     .sd-plan, .sd-faq-item summary, .sd-faq-a, .sd-form label, .sd-form-note,
@@ -2001,6 +2018,14 @@
 
             <div id="form-result" role="status" aria-live="polite" class="sd-form-msg hide"></div>
         </form>
+
+        <!-- 送信後はフォームと入れ替えてこれを出す。 -->
+        <div id="form-done" class="sd-form-done" hidden>
+            <svg class="sd-done-mark" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m8.3 12.4 2.5 2.5 4.9-5.3"></path></svg>
+            <h3 id="form-done-h" tabindex="-1" aria-describedby="form-done-note">Your message has been sent</h3>
+            <p id="form-done-note">If the acknowledgement email doesn’t arrive, please check your spam folder.</p>
+            <button type="button" id="form-done-again" class="sd-done-again">Send another message</button>
+        </div>
     </div>
 </section>
 
@@ -2226,6 +2251,9 @@
             const messageInput = form.querySelector('[name="message"]');
             const subjectCount = document.getElementById('subject-count');
             const messageCount = document.getElementById('message-count');
+            const done = document.getElementById('form-done');
+            const doneHeading = document.getElementById('form-done-h');
+            const doneAgain = document.getElementById('form-done-again');
 
             // 文字数カウント
             subjectInput.addEventListener('input', () => {
@@ -2310,8 +2338,16 @@
                         form.reset();
                         subjectCount.textContent = '0';
                         messageCount.textContent = '0';
-                        result.textContent = '✓ Your message has been sent. If the acknowledgement email doesn\u2019t arrive, please check your spam folder.';
-                        result.className = 'sd-form-msg ok';
+                        result.textContent = '';
+                        result.className = 'sd-form-msg hide';
+                        // 完了はフォームと入れ替えたパネルで伝える。見出しに移動して
+                        // 読み上げにも乗せる (パネルに live region は付けない。
+                        // フォーカス移動と二重に読まれるため)。スクロールの滑らかさは
+                        // html の scroll-behavior に任せる (reduce 時は auto になる)。
+                        form.hidden = true;
+                        done.hidden = false;
+                        doneHeading.focus({ preventScroll: true });
+                        done.scrollIntoView({ block: 'center' });
                     } else {
                         // API は message を日本語で返すので、英語版では code から引く。
                         // 知らない code や code 無しのときも json.message に落とさず、
@@ -2350,6 +2386,14 @@
                         try { window.turnstile.reset('#turnstile-widget'); } catch (_) {}
                     }
                 }
+            });
+
+            // もう一度送る場合は読み込み直す。Turnstile の token は使い切りで、
+            // ウィジェットを display:none にしたあとに確実に作り直せる保証がないため、
+            // 取り回しで粘らずに素直に読み込み直す。
+            doneAgain.addEventListener('click', () => {
+                if (location.hash !== '#contact') location.hash = '#contact';
+                location.reload();
             });
         })();
     </script>
