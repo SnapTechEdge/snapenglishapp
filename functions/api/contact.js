@@ -136,7 +136,7 @@ export async function onRequestPost(context) {
     //    運営はこの通知から「Reply」してユーザーに返信するため from は support@ にする。
     //    reply_to はユーザーのメールアドレスを設定済みなので、Reply ボタンで直接ユーザーに届く。
     const adminMail = sendMail(env.RESEND_API_KEY, {
-      from: 'support@snapenglishapp.com',
+      from: 'SnapEnglish <support@snapenglishapp.com>',
       to: ['support@snapenglishapp.com'],
       reply_to: trimmed.email,
       subject: `[お問い合わせ] ${trimmed.subject} - ${trimmed.name}`,
@@ -162,7 +162,7 @@ export async function onRequestPost(context) {
     //    送信者がどちらの言語を読むかは分からないので、件名と本文は日英併記にする。
     //    問い合わせ内容そのもの (件名・メッセージ) は 1 回だけ載せ、ラベルだけ併記する。
     const autoReply = sendMail(env.RESEND_API_KEY, {
-      from: 'noreply@snapenglishapp.com',
+      from: 'SnapEnglish <noreply@snapenglishapp.com>',
       to: [trimmed.email],
       subject: '【SnapEnglish】お問い合わせを受け付けました / We received your inquiry',
       text: [
@@ -193,6 +193,7 @@ export async function onRequestPost(context) {
         '* This is an automated message. To reply, please send a new email to support@snapenglishapp.com.',
         '* If you did not send this inquiry, please discard this email.',
       ].join('\n'),
+      html: autoReplyHtml(trimmed),
     });
 
     // 運営宛ては必須、ユーザー宛ては失敗してもスキップ
@@ -217,6 +218,70 @@ export async function onRequestPost(context) {
     console.error('Unhandled error:', error);
     return jsonError(500, 'internal_error', 'サーバー内部エラー');
   }
+}
+
+// 自動返信の HTML パート (text と両方渡すと Resend が multipart/alternative で送る)
+// 文面は text 版と同じ。画像・外部 CSS・計測用の画像は入れない。
+function autoReplyHtml(trimmed) {
+  // 入力は要素の中身としてだけ入れる (属性値や URL には入れない)。
+  const esc = (v) => v.replace(/[&<>"']/g, (c) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  }[c]));
+  // 改行はエスケープしてから <br> にする。white-space の効き方はメールソフトで
+  // まちまちなので、そちらには頼らない。
+  const escLines = (v) => esc(v).replace(/\r\n|\r|\n/g, '<br>');
+
+  const text = 'margin:0 0 16px;';
+  const label = 'margin:0 0 4px;font-size:13px;color:#5B646E;';
+  // 長い連続文字で横に伸びないようにする (ユーザーが貼った URL など)。名前・件名・本文の
+  // 3 か所すべてに効かせる。旧 Outlook はここを解釈できないので、下の mso 用の指定で補う。
+  const brk = 'word-break:break-word;overflow-wrap:anywhere;';
+  const wrap = `margin:0 0 16px;${brk}`;
+  const rule = '<hr style="border:0;border-top:1px solid #DED7CB;margin:20px 0;">';
+
+  return [
+    '<!doctype html>',
+    '<html lang="ja"><head><meta charset="utf-8">',
+    '<meta name="viewport" content="width=device-width,initial-scale=1">',
+    // 明るい配色だけを用意しているので、ダークモードでの自動反転には任せない。
+    '<meta name="color-scheme" content="light">',
+    // 旧 Outlook は語の途中で折れないので、ユーザーの入力を入れる 3 か所だけ
+    // break-all にする。Outlook 以外はこの中を読まない。
+    '<!--[if mso]><style>.brk{word-break:break-all;}</style><![endif]-->',
+    '</head>',
+    '<body style="margin:0;padding:24px;background:#F1EDE6;color:#14191F;' +
+      "font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Noto Sans JP',Arial,sans-serif;line-height:1.7;\">",
+    // 外枠はテーブル。古い Outlook でも幅と余白が崩れないため。
+    '<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">',
+    '<tr><td align="center">',
+    '<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="max-width:600px;width:100%;border-collapse:collapse;background:#FFFFFF;border:1px solid #DED7CB;border-radius:12px;">',
+    '<tr><td style="padding:24px;">',
+    `<p class="brk" style="${wrap}">${esc(trimmed.name)} 様</p>`,
+    `<p style="${text}">このたびは SnapEnglish へお問い合わせいただきありがとうございます。<br>`,
+    '以下の内容で受け付けました。担当者より追ってご返信いたします。<br>',
+    'なお、内容によっては返信までお時間をいただく場合がございます。<br>',
+    'お急ぎの場合はその旨をお知らせください。</p>',
+    `<p style="${text}">Thank you for contacting SnapEnglish.<br>`,
+    'We have received your inquiry, shown below. A member of our team will get back to you.<br>',
+    'Depending on the nature of your inquiry, our reply may take some time.<br>',
+    'If your request is urgent, please let us know.</p>',
+    rule,
+    `<p style="${label}">件名 / Subject</p>`,
+    `<p class="brk" style="${wrap}">${esc(trimmed.subject)}</p>`,
+    `<p style="${label}">メッセージ / Message</p>`,
+    `<p class="brk" style="margin:0;${brk}">${escLines(trimmed.message)}</p>`,
+    rule,
+    `<p style="${text}">── SnapEnglish 運営チーム / The SnapEnglish team<br>`,
+    '<a href="https://snapenglishapp.com" style="color:#117954;">snapenglishapp.com</a></p>',
+    '<p style="margin:0;font-size:12px;color:#5B646E;">',
+    '※ このメールは自動送信です。返信される場合は support@snapenglishapp.com 宛にお送りください。<br>',
+    '※ お心当たりがない場合はお手数ですがこのメールを破棄してください。<br>',
+    '* This is an automated message. To reply, please send a new email to support@snapenglishapp.com.<br>',
+    '* If you did not send this inquiry, please discard this email.</p>',
+    '</td></tr></table>',
+    '</td></tr></table>',
+    '</body></html>',
+  ].join('\n');
 }
 
 // Resend API ラッパー
