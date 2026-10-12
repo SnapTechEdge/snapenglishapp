@@ -2282,7 +2282,11 @@
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(data),
                     });
-                    const json = await res.json().catch(() => ({}));
+                    // null や配列が返ることもあるので、素直なオブジェクトに寄せてから見る。
+                    // そうしないと json.ok / json.code の参照で例外になり、
+                    // 原因と合わない「ネットワークエラー」になってしまう。
+                    const raw = await res.json().catch(() => null);
+                    const json = (raw && typeof raw === 'object' && !Array.isArray(raw)) ? raw : {};
 
                     if (res.ok && json.ok) {
                         form.reset();
