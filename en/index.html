@@ -1993,7 +1993,7 @@
 
             <p class="sd-form-note">Please read our <a href="/en/privacy">Privacy Policy</a> before sending. Your email address is used only to reply to you and to send the automatic acknowledgement.</p>
 
-            <div id="turnstile-widget" class="cf-turnstile sd-form-turnstile" data-sitekey="0x4AAAAAADIgK7Q0xDZ3ndlm" data-theme="light"></div>
+            <div id="turnstile-widget" class="cf-turnstile sd-form-turnstile" data-sitekey="0x4AAAAAADIgK7Q0xDZ3ndlm" data-theme="light" data-language="en"></div>
 
             <button type="submit" id="submit-btn" class="sd-form-submit">
                 <span id="submit-label">Send</span>
@@ -2271,7 +2271,7 @@
 
                 // Turnstile 未完了チェック (画面に出る前に submit 押下した場合の早期エラー)
                 if (!data.cfTurnstileResponse) {
-                    result.textContent = '⚠ The bot check hasn\u2019t finished yet. Please wait a moment and try again.';
+                    result.textContent = '⚠ The verification check hasn\u2019t finished yet. Please wait a moment and try again.';
                     result.className = 'sd-form-msg ng';
                     submitBtn.disabled = false;
                     submitLabel.textContent = 'Send';
@@ -2293,12 +2293,26 @@
                         result.textContent = '✓ Your message has been sent. If the acknowledgement email doesn\u2019t arrive, please check your spam folder.';
                         result.className = 'sd-form-msg ok';
                     } else {
-                        // API のエラー文面は日本語なので、今回そろえた2つだけ英語にする。
+                        // API は message を日本語で返すので、英語版では code から引く。
+                        // 知らない code や code 無しのときも json.message に落とさず、
+                        // 汎用の英文を出す（日本語が出る経路を残さない）。
+                        const GENERIC = 'We couldn\u2019t send your message. Please try again in a little while.';
                         const EN = {
-                            invalid_email: 'Please enter a valid email address.',
+                            invalid_json: 'Something went wrong with your request. Please reload the page and try again.',
+                            missing_field: 'Please fill in your name, email address, subject and message.',
+                            name_too_long: 'Your name must be 100 characters or fewer.',
                             email_too_long: 'Your email address must be 200 characters or fewer.',
+                            invalid_email: 'Please enter a valid email address.',
+                            subject_too_long: 'The subject must be 100 characters or fewer.',
+                            message_too_long: 'Your message must be 5,000 characters or fewer.',
+                            server_misconfigured: 'We couldn\u2019t send your message because of a server configuration error. Please email support@snapenglishapp.com.',
+                            turnstile_missing: 'The verification check hasn\u2019t finished. Please reload the page and try again.',
+                            turnstile_failed: 'The verification check failed. Please reload the page and try again.',
+                            turnstile_error: 'Something went wrong with the verification check. Please try again in a little while.',
+                            mail_send_failed: GENERIC,
+                            internal_error: 'A server error occurred. Please try again in a little while.',
                         };
-                        const msg = EN[json.code] || json.message || 'We couldn\u2019t send your message. Please try again in a little while.';
+                        const msg = EN[json.code] || GENERIC;
                         result.textContent = '⚠ ' + msg;
                         result.className = 'sd-form-msg ng';
                     }
