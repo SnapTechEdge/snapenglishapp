@@ -1968,7 +1968,7 @@
                 </label>
                 <label>
                     <span class="sd-form-label">メールアドレス <i>*</i></span>
-                    <input type="email" name="email" required maxlength="200" placeholder="you@example.com"
+                    <input type="text" name="email" required maxlength="200" placeholder="you@example.com"
                            inputmode="email" autocomplete="email" autocapitalize="off"
                            autocorrect="off" spellcheck="false"
                            aria-describedby="email-hint">
@@ -2194,7 +2194,15 @@
             const run = () => {
                 if (composing) return;
                 const { out, dropped } = fix(el.value);
-                if (out !== el.value) el.value = out;
+                if (out !== el.value) {
+                    // 直すと文字数が変わるので、カーソルより前を同じ関数に
+                    // 通した長さを新しい位置にする。type="text" なので
+                    // 選択範囲の API が使える（email 型だと使えない）。
+                    const at = el.selectionStart;
+                    const head = at == null ? null : fix(el.value.slice(0, at)).out.length;
+                    el.value = out;
+                    if (head != null) { try { el.setSelectionRange(head, head); } catch (e) {} }
+                }
                 // 中身の無いライブ領域を先に置いてあるので、
                 // ここで文字を入れると変更が支援技術へ通知される。
                 if (hint) hint.textContent = dropped ? MSG : '';
