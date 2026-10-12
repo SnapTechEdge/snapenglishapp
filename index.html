@@ -2250,6 +2250,23 @@
                     cfTurnstileResponse: (fd.get('cf-turnstile-response') || '').toString(),
                 };
 
+                // メールアドレスは送る前に見る。type="text" にして
+                // ブラウザ標準の検証が無いため。判定はサーバと同じ。
+                const emailNg = !data.email ? 'メールアドレスを入力してください。'
+                    : data.email.length > 200 ? 'メールアドレスが長すぎます（200 文字まで）。'
+                    : !/^[A-Za-z0-9.!#$%&'*+\/=?^_`{|}~@-]+$/.test(data.email) ? 'メールアドレスの形式が正しくありません。'
+                    : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email) ? 'メールアドレスの形式が正しくありません。'
+                    : '';
+                if (emailNg) {
+                    result.textContent = '⚠ ' + emailNg;
+                    result.className = 'sd-form-msg ng';
+                    submitBtn.disabled = false;
+                    submitLabel.textContent = '送信する';
+                    const f = form.querySelector('input[name="email"]');
+                    if (f) f.focus();
+                    return;
+                }
+
                 // Turnstile 未完了チェック (画面に出る前に submit 押下した場合の早期エラー)
                 if (!data.cfTurnstileResponse) {
                     result.textContent = '⚠ ボット対策の検証が完了していません。少しお待ちのうえ再度お試しください。';

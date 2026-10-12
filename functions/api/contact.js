@@ -51,6 +51,12 @@ export async function onRequestPost(context) {
     if (trimmed.email.length > FIELD_LIMITS.email) {
       return jsonError(400, 'email_too_long', `メールアドレスが長すぎます (${FIELD_LIMITS.email} 文字まで)`);
     }
+    // 半角の、メールアドレスに使える文字だけ。ブラウザを経ずに叩けるので
+    // クライアントと同じ集合をこちらでも見る。ここでは落とさずに弾く
+    // （削除すると別の宛先に化けるため）。
+    if (!/^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~@-]+$/.test(trimmed.email)) {
+      return jsonError(400, 'invalid_email', 'メールアドレスは半角で入力してください');
+    }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed.email)) {
       return jsonError(400, 'invalid_email', 'メールアドレスの形式が正しくありません');
     }

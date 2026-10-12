@@ -2252,6 +2252,23 @@
                     cfTurnstileResponse: (fd.get('cf-turnstile-response') || '').toString(),
                 };
 
+                // メールアドレスは送る前に見る。type="text" にして
+                // ブラウザ標準の検証が無いため。判定はサーバと同じ。
+                const emailNg = !data.email ? 'Please enter your email address.'
+                    : data.email.length > 200 ? 'Your email address must be 200 characters or fewer.'
+                    : !/^[A-Za-z0-9.!#$%&'*+\/=?^_`{|}~@-]+$/.test(data.email) ? 'Please enter a valid email address.'
+                    : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email) ? 'Please enter a valid email address.'
+                    : '';
+                if (emailNg) {
+                    result.textContent = '⚠ ' + emailNg;
+                    result.className = 'sd-form-msg ng';
+                    submitBtn.disabled = false;
+                    submitLabel.textContent = 'Send';
+                    const f = form.querySelector('input[name="email"]');
+                    if (f) f.focus();
+                    return;
+                }
+
                 // Turnstile 未完了チェック (画面に出る前に submit 押下した場合の早期エラー)
                 if (!data.cfTurnstileResponse) {
                     result.textContent = '⚠ The bot check hasn\u2019t finished yet. Please wait a moment and try again.';
@@ -2276,7 +2293,12 @@
                         result.textContent = '✓ Your message has been sent. If the acknowledgement email doesn\u2019t arrive, please check your spam folder.';
                         result.className = 'sd-form-msg ok';
                     } else {
-                        const msg = json.message || 'We couldn\u2019t send your message. Please try again in a little while.';
+                        // API のエラー文面は日本語なので、今回そろえた2つだけ英語にする。
+                        const EN = {
+                            invalid_email: 'Please enter a valid email address.',
+                            email_too_long: 'Your email address must be 200 characters or fewer.',
+                        };
+                        const msg = EN[json.code] || json.message || 'We couldn\u2019t send your message. Please try again in a little while.';
                         result.textContent = '⚠ ' + msg;
                         result.className = 'sd-form-msg ng';
                     }
