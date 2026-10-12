@@ -27,7 +27,7 @@ export async function onRequestPost(context) {
     }
 
     // JSON として読めても、オブジェクト以外 (null・配列・数値・文字列) はフォームの形ではない。
-    // null はこの先の .trim() で例外になるので弾く必要がある。それ以外は従来 missing_field
+    // null はこの先のプロパティ参照で例外になるので弾く必要がある。それ以外は従来 missing_field
     // だったが、未入力ではなく形が違うので invalid_json に分ける。
     if (!data || typeof data !== 'object' || Array.isArray(data)) {
       return jsonError(400, 'invalid_json', 'リクエストボディの形式が不正です');
