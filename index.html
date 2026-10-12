@@ -637,8 +637,8 @@
     .sd-form input::placeholder, .sd-form textarea::placeholder{ color:#B9B4AD; }
     .sd-form input:focus, .sd-form textarea:focus{ outline:none; border-color:var(--sd-accent); }
     /* メールアドレスの欄で半角に直したときだけ出す。 */
-    .sd-form-hint{ display:block; margin-top:5px; font-size:12px; color:#AE4C42; }
-    .sd-form-hint.hide{ display:none; }
+    .sd-form-hint{ display:block; font-size:12px; color:#AE4C42; }
+    .sd-form-hint:not(:empty){ margin-top:5px; }
     .sd-form-count{ display:block; margin-top:5px; font-size:12px; color:var(--sd-ink-2);
                 font-variant-numeric:tabular-nums; }
     .sd-form-hp{ position:absolute; left:-9999px; opacity:0; pointer-events:none; }
@@ -1972,7 +1972,7 @@
                            inputmode="email" autocomplete="email" autocapitalize="off"
                            autocorrect="off" spellcheck="false"
                            aria-describedby="email-hint">
-                    <span class="sd-form-hint hide" id="email-hint" role="status">メールアドレスは半角で入力してください。</span>
+                    <span class="sd-form-hint" id="email-hint" role="status"></span>
                 </label>
             </div>
             <label>
@@ -2181,10 +2181,11 @@
             const hint = document.getElementById('email-hint');
             if (!el) return;
             const OK = /[A-Za-z0-9.!#$%&'*+/=?^_`{|}~@-]/;
+            const MSG = '使用できない文字を削除しました。メールアドレスを確認してください。';
             const fix = s => {
-                // 全角 ASCII → 半角、全角スペースは落とす
-                let t = s.replace(/[\uFF01-\uFF5E]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0))
-                         .replace(/\u3000/g, '');
+                // 全角 ASCII は半角に直すだけ（情報は落ちないので知らせない）。
+                // それ以外で許可集合に無いものは落とし、落としたことを知らせる。
+                const t = s.replace(/[\uFF01-\uFF5E]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0));
                 let dropped = false, out = '';
                 for (const ch of t) { if (OK.test(ch)) out += ch; else dropped = true; }
                 return { out, dropped };
@@ -2194,7 +2195,9 @@
                 if (composing) return;
                 const { out, dropped } = fix(el.value);
                 if (out !== el.value) el.value = out;
-                if (hint) hint.classList.toggle('hide', !dropped);
+                // 中身の無いライブ領域を先に置いてあるので、
+                // ここで初めて文字が入ったときに読み上げられる。
+                if (hint) hint.textContent = dropped ? MSG : '';
             };
             el.addEventListener('compositionstart', () => { composing = true; });
             el.addEventListener('compositionend', () => { composing = false; run(); });
