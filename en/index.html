@@ -2284,9 +2284,9 @@
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(data),
                     });
-                    // null や配列が返ることもあるので、素直なオブジェクトに寄せてから見る。
-                    // そうしないと json.ok / json.code の参照で例外になり、
-                    // 原因と合わない「ネットワークエラー」になってしまう。
+                    // null が返るとプロパティの参照で例外になり、原因と合わない
+                    // 「ネットワークエラー」になってしまう。配列や数値は例外には
+                    // ならないが、扱いをそろえるためまとめて {} に寄せる。
                     const raw = await res.json().catch(() => null);
                     const json = (raw && typeof raw === 'object' && !Array.isArray(raw)) ? raw : {};
 
