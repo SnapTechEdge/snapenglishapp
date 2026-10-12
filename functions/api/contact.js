@@ -84,6 +84,17 @@ export async function onRequestPost(context) {
       return jsonError(400, 'message_too_long', `メッセージが長すぎます (${FIELD_LIMITS.message} 文字まで)`);
     }
 
+    // 名前と件名はメールの件名ヘッダー (`[お問い合わせ] 件名 - 名前`) に入るので、改行などの
+    // 制御文字を通さない。ヘッダーを足される余地を残さないため。見るのは trim 後の値で、
+    // 端の改行や空白は trim で落ちたあと、中に残っているものを弾く (黙って削って送らない)。
+    // 1 行の入力欄は改行を落とすが、貼り付けでは U+2028 などが残り得るので画面からも来る。
+    // 本文 (message) は改行が正しい入力なので対象にしない。
+    // C0 と DEL に、行区切りとして扱われる U+0085・U+2028・U+2029 を足した集合。
+    const CONTROL_CHARS = /[\u0000-\u001F\u007F\u0085\u2028\u2029]/;
+    if (CONTROL_CHARS.test(trimmed.name) || CONTROL_CHARS.test(trimmed.subject)) {
+      return jsonError(400, 'invalid_characters', 'お名前と件名に改行などの使えない文字が含まれています');
+    }
+
     // 環境変数チェック
     if (!env.RESEND_API_KEY) {
       console.error('RESEND_API_KEY is not configured');

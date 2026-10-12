@@ -2269,6 +2269,22 @@
                     return;
                 }
 
+                // 名前と件名はメールの件名ヘッダーに入るので、改行などの制御文字は送る前に弾く。
+                // 1 行の入力欄は改行を落とすが、貼り付けでは U+2028 などが残り得る。判定はサーバと同じ。
+                const CONTROL_CHARS = /[\u0000-\u001F\u007F\u0085\u2028\u2029]/;
+                const ctrlField = CONTROL_CHARS.test(data.name) ? 'name'
+                    : CONTROL_CHARS.test(data.subject) ? 'subject'
+                    : '';
+                if (ctrlField) {
+                    result.textContent = '⚠ Your name and subject can\u2019t contain line breaks or other control characters.';
+                    result.className = 'sd-form-msg ng';
+                    submitBtn.disabled = false;
+                    submitLabel.textContent = 'Send';
+                    const f = form.querySelector('[name="' + ctrlField + '"]');
+                    if (f) f.focus();
+                    return;
+                }
+
                 // Turnstile 未完了チェック (画面に出る前に submit 押下した場合の早期エラー)
                 if (!data.cfTurnstileResponse) {
                     result.textContent = '⚠ The verification check hasn\u2019t finished yet. Please wait a moment and try again.';
@@ -2308,6 +2324,7 @@
                             email_too_long: 'Your email address must be 200 characters or fewer.',
                             invalid_email: 'Please enter a valid email address.',
                             subject_too_long: 'The subject must be 100 characters or fewer.',
+                            invalid_characters: 'Your name and subject can\u2019t contain line breaks or other control characters.',
                             message_too_long: 'Your message must be 5,000 characters or fewer.',
                             server_misconfigured: 'We couldn\u2019t send your message because of a server configuration error. Please email support@snapenglishapp.com.',
                             turnstile_missing: 'The verification check hasn\u2019t finished. Please reload the page and try again.',
