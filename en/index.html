@@ -1250,39 +1250,32 @@
         .sd-plans{ grid-template-columns:1fr; }
         .sd-form-row{ grid-template-columns:1fr; }
         .sd-hero-in{ grid-template-columns:1fr; gap:34px; justify-items:start; }
-        /* 挿絵は見出しの上に帯で出す（オーナー指示）。以前は 0.05 の透かしを
+        /* 挿絵は見出しの上に出す（オーナー指示）。以前は 0.05 の透かしを
            本文の背後に敷いていたが、画像としては読めず、文字の裏に重なって
            本文が濁って見えていた。
-           絵の地色はサイトと同じ --sd-ivory なので、左右と下をぼかせば枠なしで
-           そのまま地に溶ける。横は .sd-wrap の内側余白を打ち消して端まで出す。
-           切り出し位置は、顔・イヤホン・両手のスマホが帯に入るよう実測で決めた。
+           絵の地色はサイトと同じ --sd-ivory なので、四辺をぼかせば枠なしで
+           そのまま地に溶ける。
            DOM では col のあとに置いたままなので order で前に出す。装飾の図
            （aria-hidden）で中にフォーカスできるものが無く、読み上げの順序には
-           関わらないため。帯のぶん縦に伸びる（375px 幅で 239px＝帯 195 + 行間 34 + 下の余白 10）。 */
+           関わらないため。 */
         .sd-hero{ position:relative; overflow:hidden; }
         .sd-hero-in{ position:relative; }
         .sd-hero-col{ position:relative; z-index:1; }
-        /* 700px より広いところ（主にタブレット）は、帯にすると縦の取り分が
-           絵の高さに対して小さくなりすぎて手もとのスマホが切れる。ここは
-           絵をまるごと、幅を抑えて中央に置く。ぼかしは desktop 側の指定のまま。 */
+        /* 絵はまるごと、幅を抑えて中央に置く。ぼかしは desktop 側の指定のまま。 */
         .sd-hero-art{ order:-1; width:min(300px,38vw); margin:0 auto 6px;
                       justify-self:center; pointer-events:none; }
         /* 横向きなど縦の短い画面では、どの大きさで出しても 1 画面目が絵で
            埋まって見出しが入らない。装飾なので、そこでは出さない。 */
         @media (max-height:480px){ .sd-hero-art{ display:none; } }
+        /* 携帯幅も、絵は切らずに人物をまるごと出す。以前は横いっぱいの帯に
+           切り出していたが、頭の上が切れ、下は上着の途中から地に溶けて、
+           絵が途中で消えたように見えていた（オーナー指摘）。
+           人物の上下にある何もない地だけを削って（上 150px・下 99px 相当）、
+           四辺のぼかしは desktop 側の指定のまま。 */
         @media (max-width:700px){
-            .sd-hero-art{ grid-column:1/-1; width:calc(100% + 48px);
-                      margin:0 -24px 10px; justify-self:stretch; }
-            .sd-hero-art img{ height:clamp(160px,52vw,230px); object-fit:cover;
-                      object-position:50% 37%;
-                      -webkit-mask-image:
-                         linear-gradient(to right, transparent 0, #000 10%, #000 90%, transparent 100%),
-                         linear-gradient(to bottom, #000 0, #000 80%, transparent 100%);
-                      -webkit-mask-composite:source-in;
-                      mask-image:
-                         linear-gradient(to right, transparent 0, #000 10%, #000 90%, transparent 100%),
-                         linear-gradient(to bottom, #000 0, #000 80%, transparent 100%);
-                      mask-composite:intersect; }
+            .sd-hero-art{ width:min(210px,56vw); margin:0 auto 4px; }
+            .sd-hero-art img{ aspect-ratio:900/1150; object-fit:cover;
+                      object-position:50% 60%; }
         }
         .sd-modes{ grid-template-columns:repeat(2,minmax(0,1fr)); max-width:none; }
         .sd-panel, .sd-still-panel{ padding:clamp(26px,5vw,40px) clamp(18px,4vw,28px); }
