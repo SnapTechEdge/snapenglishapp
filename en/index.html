@@ -551,7 +551,7 @@
        2枚を横に並べると1枚 140px（元画像の 23%）で、中の文字が読めなかった。
        700px 以下では横スクロールにして1枚を大きく出す。縦に積むより短く済む。
        吸着は proximity。強制的に吸い付かせない。
-       幅は器の 88% と 72vw と 320px のいちばん小さいもの。器より大きくしない。 */
+       幅は端末に合わせる（下の media で指定）。器より大きくしない。 */
     /* 広い画面では2枚並ぶので、送りのボタンは要らない。 */
     .sd-shots-nav{ display:none; }
     @media (max-width:700px){
@@ -559,7 +559,11 @@
             display:flex; gap:14px; overflow-x:auto; overscroll-behavior-x:contain;
             scroll-snap-type:x proximity; scroll-padding:0 2px;
             padding:4px 2px 10px; margin-inline:-2px; }
-        .sd-shots figure{ flex:0 0 min(88%, 72vw, 320px); scroll-snap-align:center; }
+        /* 端末の見かけの幅（402px × 縮尺）に合わせる。デモの 3 つと英単語以降で
+           大きさが違って見えていたため（オーナー指摘）。器の 88% を上限に残すのは、
+           次の 1 枚が端から覗いて「横に送れる」と分かるようにするため。 */
+        .sd-shots figure{ flex:0 0 min(88%, calc(402px * var(--sd-phone-zoom,.58)));
+            scroll-snap-align:center; }
         .sd-shots:focus-visible{ outline:2px solid var(--sd-accent); outline-offset:4px;
             border-radius:12px; }
         /* 前へ／次へ。24px を下回らない大きさにする。 */
@@ -1299,10 +1303,13 @@
         .sd-price-lead, .sd-contact-lead, .sd-close-note{ text-align:left; }
         /* 端末はもっと小さく（オーナー指摘「デモ画面の縦が大きすぎる」）。
            375px 幅で 273x594 だと、見出しと要約を足すと 1 画面に収まらない。
-           .58 で 233x507。実機の比はそのままなので、切って縮めてはいない。 */
-        .sd-phone{ width:min(402px,100%); zoom:.58; }
+           .58 で 233x507。実機の比はそのままなので、切って縮めてはいない。
+           縮尺は変数にしてある。スクショの横幅（.sd-shots figure）が同じ値から
+           決まるので、ここを変えると端末とスクショが一緒に動く。 */
+        .sd{ --sd-phone-zoom:.58; }
+        .sd-phone{ width:min(402px,100%); zoom:var(--sd-phone-zoom,.58); }
         /* タブレットは画面の縦に余裕があるので、もう少し大きく見せる。 */
-        @media (min-width:701px){ .sd-phone{ zoom:.66; } }
+        @media (min-width:701px){ .sd{ --sd-phone-zoom:.66; } }
         /* 枠は列いっぱいに広げる。中央寄せの grid の中で中身の幅に縮むと、端末の % 幅が
            中身次第になり、英会話の講評（幅を支えるキーボード等が消える）で端末が細くなった。 */
         .sd-stage{ width:100%; gap:12px; }
