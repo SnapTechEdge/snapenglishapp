@@ -268,8 +268,11 @@
        名もデモごとに分ける（クラス名の付け替えだけでは隔離できないため）。
        端末の中はアプリのライト画面の実測色なので、サイトがダークでも常にライト。 */
     .sd{
-        /* 端末の縮尺。スクショの横幅もこの値から決まるので、2 つがずれない。 */
+        /* 端末の縮尺。スクショの横幅も縁の太さもこの値から決まるので、ずれない。 */
         --sd-phone-zoom:.74;
+        /* 端末の縁（外側の明るいフチまで）の見かけの太さ。端末は zoom で全体が
+           縮むので、写真側は同じ倍率を掛けて合わせる。 */
+        --sd-bezel:calc(11.5px * var(--sd-phone-zoom,.74));
         --sd-ivory:#F1EDE6; --sd-dark:#1C232C; --sd-ink:#14191F; --sd-ink-2:#5B646E;
         --sd-rule:#DED7CB; --sd-accent:#117954;
         --app-bg:#F6F3EE; --app-card:#FFF; --app-text:#0B0B0C; --app-hair:#ECE8E1;
@@ -538,17 +541,24 @@
     /* 器の幅は端末に合わせる（402px × 縮尺）。+4px は下の padding の分。
        2 枚を並べると 1 枚が端末の 3 分の 2 の大きさになり、英単語から先だけ
        小さく見えていた（オーナー指摘）。1 枚ずつ出して送る形にする。 */
-    .sd-still .sd-shots{ width:calc(402px * var(--sd-phone-zoom,.74) + 4px); }
+    .sd-still .sd-shots{ width:calc(402px * var(--sd-phone-zoom,.74)
+                         + 2 * (var(--sd-bezel) + 4px)); }
     /* 見出しとリードはデモのパネルと同じ .sd-copy 側の指定に任せる。
        ここに .sd-still h2 を残すと、同じ器なのに 42px と 34px で揃わなかった。 */
     /* 箇条書き。デモの .sd-copy にも同じ要素があるので、この2枚に限る。 */
     .sd-still .sd-copy ul{ margin:18px 0 0; padding:0; list-style:none; display:grid; gap:7px; }
     .sd-still .sd-copy li{ display:flex; gap:8px; font-size:13.5px; color:var(--sd-ink-2); }
     .sd-still .sd-copy li::before{ content:"—"; color:var(--sd-accent); flex:none; }
-    .sd-shots{ margin-top:20px; display:flex; gap:14px;
+    /* 縁は画像の外側に描くので、器が切らないように縁のぶん余白を取る。
+       間隔も縁の 2 枚分を足して、見かけの隙間を 14px に保つ。 */
+    .sd-shots{ margin-top:20px; display:flex;
+                   gap:calc(14px + 2 * var(--sd-bezel));
                    overflow-x:auto; overscroll-behavior-x:contain;
-                   scroll-snap-type:x proximity; scroll-padding:0 2px;
-                   padding:4px 2px 10px; margin-inline:-2px;
+                   scroll-snap-type:x proximity;
+                   scroll-padding:0 calc(var(--sd-bezel) + 4px);
+                   padding:calc(var(--sd-bezel) + 4px) calc(var(--sd-bezel) + 4px)
+                           calc(var(--sd-bezel) + 12px);
+                   margin-inline:calc(-1 * (var(--sd-bezel) + 4px));
                    /* 環境によっては横スクロールバーが居座って器の中を 15px 食う。
                       送りのボタンと次の 1 枚の覗きで用は足りるので隠す。 */
                    scrollbar-width:none; }
@@ -556,9 +566,18 @@
     .sd-shots figure{ margin:0; min-width:0; flex:0 0 100%; scroll-snap-align:center; }
     .sd-shots:focus-visible{ outline:2px solid var(--sd-accent); outline-offset:4px;
                    border-radius:12px; }
-    .sd-shots img{ display:block; width:100%; height:auto; border-radius:14px;
-                   box-shadow:0 18px 40px -24px rgba(28,35,44,.55), 0 0 0 1px rgba(28,35,44,.07); }
-    .sd-shots figcaption{ margin-top:7px; font-size:12.5px; color:var(--sd-ink-2); text-align:center; }
+    /* 端末（.sd-phone）と同じ縁。あちらは zoom で全体が縮むので、こちらは
+       長さに同じ倍率を掛けて見かけを合わせる。内側から黒いベゼル → 側面の
+       明るいフチ → 落ち影。 */
+    .sd-shots img{ display:block; width:100%; height:auto;
+                   border-radius:calc(34px * var(--sd-phone-zoom,.74));
+                   box-shadow:
+                     0 0 0 calc(10px * var(--sd-phone-zoom,.74)) #17181B,
+                     0 0 0 var(--sd-bezel) #45474D,
+                     0 calc(2px * var(--sd-phone-zoom,.74)) calc(4px * var(--sd-phone-zoom,.74)) calc(12px * var(--sd-phone-zoom,.74)) rgba(17,19,24,.16),
+                     0 calc(30px * var(--sd-phone-zoom,.74)) calc(60px * var(--sd-phone-zoom,.74)) calc(-22px * var(--sd-phone-zoom,.74)) rgba(17,19,24,.45); }
+    .sd-shots figcaption{ margin-top:calc(7px + var(--sd-bezel)); font-size:12.5px;
+                   color:var(--sd-ink-2); text-align:center; }
 
     /* ---- 狭い画面の画面写真 ----
        2枚を横に並べると1枚 140px（元画像の 23%）で、中の文字が読めなかった。
@@ -583,14 +602,19 @@
         /* 狭い画面は器を目いっぱいに広げ、1 枚の幅だけ端末に合わせる。
            器の 88% を上限に残すのは、次の 1 枚が端から覗いて
            「横に送れる」と分かるようにするため。 */
-        .sd-still .sd-shots{ width:100%; min-width:0; }
+        /* 器は負の margin のぶんまで広げる。こうすると 88% の上限が
+           列いっぱいを基準になり、狭い端末でも写真が小さくなりすぎない
+           （320px で 189 → 208・Codex 指摘）。 */
+        .sd-still .sd-shots{ width:calc(100% + 2 * (var(--sd-bezel) + 4px)); min-width:0; }
         .sd-shots figure{ flex:0 0 min(88%, calc(402px * var(--sd-phone-zoom,.58))); }
     }
     /* 印刷では送れないので、2 枚とも並べてボタンは消す。狭い画面の指定より
        あとに置く（先に置くと、幅の指定に上書きされて横に並ばない）。 */
     @media print{
-        .sd-shots{ overflow:visible; flex-wrap:wrap; }
-        .sd-shots figure{ flex:0 0 auto; width:48%; }
+        .sd-shots{ overflow:visible; flex-wrap:nowrap;
+                   gap:calc(16px + 2 * var(--sd-bezel)); }
+        .sd-shots figure{ flex:0 0 auto;
+                   width:calc((100% - 16px - 4 * var(--sd-bezel)) / 2); }
         .sd-still .sd-shots{ width:auto; }
         .sd-shots-nav{ display:none !important; }
     }
