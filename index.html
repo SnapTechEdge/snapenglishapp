@@ -267,6 +267,8 @@
        名もデモごとに分ける（クラス名の付け替えだけでは隔離できないため）。
        端末の中はアプリのライト画面の実測色なので、サイトがダークでも常にライト。 */
     .sd{
+        /* 端末の縮尺。スクショの横幅もこの値から決まるので、2 つがずれない。 */
+        --sd-phone-zoom:.74;
         --sd-ivory:#F1EDE6; --sd-dark:#1C232C; --sd-ink:#14191F; --sd-ink-2:#5B646E;
         --sd-rule:#DED7CB; --sd-accent:#117954;
         --app-bg:#F6F3EE; --app-card:#FFF; --app-text:#0B0B0C; --app-hair:#ECE8E1;
@@ -501,7 +503,7 @@
        zoom で全体を縮める。**幅を縮めるのではなく zoom** なのは、幅を変えると
        中のアプリ UI の折り返しが実機と変わってしまうため。倍率は下の
        高さベースのメディアクエリでさらに下げる。 */
-    .sd-phone{ width:402px; aspect-ratio:402/874; zoom:.74;
+    .sd-phone{ width:402px; aspect-ratio:402/874; zoom:var(--sd-phone-zoom,.74);
                display:flex; flex-direction:column;
                flex:none; border-radius:34px; overflow:hidden;
                background:var(--app-bg);
@@ -532,16 +534,27 @@
                padding:clamp(26px,3.2vw,44px) clamp(24px,3.6vw,56px);
                box-shadow:0 1px 2px rgba(28,35,44,.04),
                           0 18px 44px -32px rgba(28,35,44,.32); }
-    /* 画像は固有幅 603px が2枚。放っておくと右の列が広くなりすぎる（Codex 指摘）。 */
-    .sd-still .sd-shots{ width:min(420px,40vw); }
+    /* 器の幅は端末に合わせる（402px × 縮尺）。+4px は下の padding の分。
+       2 枚を並べると 1 枚が端末の 3 分の 2 の大きさになり、英単語から先だけ
+       小さく見えていた（オーナー指摘）。1 枚ずつ出して送る形にする。 */
+    .sd-still .sd-shots{ width:calc(402px * var(--sd-phone-zoom,.74) + 4px); }
     /* 見出しとリードはデモのパネルと同じ .sd-copy 側の指定に任せる。
        ここに .sd-still h2 を残すと、同じ器なのに 42px と 34px で揃わなかった。 */
     /* 箇条書き。デモの .sd-copy にも同じ要素があるので、この2枚に限る。 */
     .sd-still .sd-copy ul{ margin:18px 0 0; padding:0; list-style:none; display:grid; gap:7px; }
     .sd-still .sd-copy li{ display:flex; gap:8px; font-size:13.5px; color:var(--sd-ink-2); }
     .sd-still .sd-copy li::before{ content:"—"; color:var(--sd-accent); flex:none; }
-    .sd-shots{ margin-top:20px; display:flex; gap:12px; }
-    .sd-shots figure{ margin:0; flex:1; min-width:0; }
+    .sd-shots{ margin-top:20px; display:flex; gap:14px;
+                   overflow-x:auto; overscroll-behavior-x:contain;
+                   scroll-snap-type:x proximity; scroll-padding:0 2px;
+                   padding:4px 2px 10px; margin-inline:-2px;
+                   /* 環境によっては横スクロールバーが居座って器の中を 15px 食う。
+                      送りのボタンと次の 1 枚の覗きで用は足りるので隠す。 */
+                   scrollbar-width:none; }
+    .sd-shots::-webkit-scrollbar{ display:none; }
+    .sd-shots figure{ margin:0; min-width:0; flex:0 0 100%; scroll-snap-align:center; }
+    .sd-shots:focus-visible{ outline:2px solid var(--sd-accent); outline-offset:4px;
+                   border-radius:12px; }
     .sd-shots img{ display:block; width:100%; height:auto; border-radius:14px;
                    box-shadow:0 18px 40px -24px rgba(28,35,44,.55), 0 0 0 1px rgba(28,35,44,.07); }
     .sd-shots figcaption{ margin-top:7px; font-size:12.5px; color:var(--sd-ink-2); text-align:center; }
@@ -551,27 +564,34 @@
        700px 以下では横スクロールにして1枚を大きく出す。縦に積むより短く済む。
        吸着は proximity。強制的に吸い付かせない。
        幅は端末に合わせる（下の media で指定）。器より大きくしない。 */
-    /* 広い画面では2枚並ぶので、送りのボタンは要らない。 */
-    .sd-shots-nav{ display:none; }
+    /* 前へ／次へ。24px を下回らない大きさにする。2 列の器では右の列に置く
+       （置かないと 2 行目の左に落ちる）。 */
+    .sd-shots-nav{ display:flex; justify-content:center; gap:10px; margin-top:4px; }
+    /* 送りは写真と同じ列に置く。-2/-1 は「最後の列」なので、2 列なら右、
+       1 列ならその 1 列に入る。幅で切り替えると境目（1000〜1001px）が
+       抜けて、2 列のまま左へ落ちることがある（Codex 指摘）。
+       数字で 2 列目を指定すると、1 列のときに暗黙の 2 列目ができて
+       写真の器がそこへ落ちる（実測で 90px まで潰れた）。 */
+    .sd-still-panel > .sd-shots-nav{ grid-column:-2 / -1; }
+    .sd-shots-nav button{ width:40px; height:40px; border-radius:999px;
+        border:1px solid var(--sd-rule); background:rgba(255,255,255,.6);
+        color:var(--sd-ink-2); display:grid; place-items:center; cursor:pointer; }
+    .sd-shots-nav button:disabled{ opacity:.35; cursor:default; }
+    .sd-shots-nav svg{ width:17px; height:17px; }
     @media (max-width:700px){
-        .sd-still .sd-shots{ width:100%; min-width:0;
-            display:flex; gap:14px; overflow-x:auto; overscroll-behavior-x:contain;
-            scroll-snap-type:x proximity; scroll-padding:0 2px;
-            padding:4px 2px 10px; margin-inline:-2px; }
-        /* 端末の見かけの幅（402px × 縮尺）に合わせる。デモの 3 つと英単語以降で
-           大きさが違って見えていたため（オーナー指摘）。器の 88% を上限に残すのは、
-           次の 1 枚が端から覗いて「横に送れる」と分かるようにするため。 */
-        .sd-shots figure{ flex:0 0 min(88%, calc(402px * var(--sd-phone-zoom,.58)));
-            scroll-snap-align:center; }
-        .sd-shots:focus-visible{ outline:2px solid var(--sd-accent); outline-offset:4px;
-            border-radius:12px; }
-        /* 前へ／次へ。24px を下回らない大きさにする。 */
-        .sd-shots-nav{ display:flex; justify-content:center; gap:10px; margin-top:4px; }
-        .sd-shots-nav button{ width:40px; height:40px; border-radius:999px;
-            border:1px solid var(--sd-rule); background:rgba(255,255,255,.6);
-            color:var(--sd-ink-2); display:grid; place-items:center; cursor:pointer; }
-        .sd-shots-nav button:disabled{ opacity:.35; cursor:default; }
-        .sd-shots-nav svg{ width:17px; height:17px; }
+        /* 狭い画面は器を目いっぱいに広げ、1 枚の幅だけ端末に合わせる。
+           器の 88% を上限に残すのは、次の 1 枚が端から覗いて
+           「横に送れる」と分かるようにするため。 */
+        .sd-still .sd-shots{ width:100%; min-width:0; }
+        .sd-shots figure{ flex:0 0 min(88%, calc(402px * var(--sd-phone-zoom,.58))); }
+    }
+    /* 印刷では送れないので、2 枚とも並べてボタンは消す。狭い画面の指定より
+       あとに置く（先に置くと、幅の指定に上書きされて横に並ばない）。 */
+    @media print{
+        .sd-shots{ overflow:visible; flex-wrap:wrap; }
+        .sd-shots figure{ flex:0 0 auto; width:48%; }
+        .sd-still .sd-shots{ width:auto; }
+        .sd-shots-nav{ display:none !important; }
     }
 
     /* ---- 料金 ----
@@ -1209,10 +1229,10 @@
        守る条件は「端末そのものが画面に収まること」。段階は、端末の実寸
        874px × 倍率が、画面の高さからヘッダー(4rem + 罫線1px = 65px)を引いた分に収まるように取る。
        淡い地のパネルは端末より縦に大きいので、そちらは収まらないことがある。 */
-    @media (min-width:1001px) and (max-height:880px){ .sd-phone{ zoom:.70; } }
-    @media (min-width:1001px) and (max-height:820px){ .sd-phone{ zoom:.65; } }
-    @media (min-width:1001px) and (max-height:740px){ .sd-phone{ zoom:.58; } }
-    @media (min-width:1001px) and (max-height:660px){ .sd-phone{ zoom:.52; } }
+    @media (min-width:1001px) and (max-height:880px){ .sd{ --sd-phone-zoom:.70; } }
+    @media (min-width:1001px) and (max-height:820px){ .sd{ --sd-phone-zoom:.65; } }
+    @media (min-width:1001px) and (max-height:740px){ .sd{ --sd-phone-zoom:.58; } }
+    @media (min-width:1001px) and (max-height:660px){ .sd{ --sd-phone-zoom:.52; } }
 
     /* ---- 静止表示 ----------------------------------------------------------
        JS が無いとき (html:not(.js))、デモの初期化に失敗したとき (.sd-static)、
@@ -1284,7 +1304,6 @@
         .sd-modes{ grid-template-columns:repeat(2,minmax(0,1fr)); max-width:none; }
         .sd-panel, .sd-still-panel{ padding:clamp(26px,5vw,40px) clamp(18px,4vw,28px); }
         .sd-panel, .sd-still-panel{ grid-template-columns:1fr; gap:30px; justify-items:center; }
-        .sd-still .sd-shots{ width:min(420px,100%); }
         /* 箇条書きだけは左揃えのまま（中央だと読みにくい）。 */
         .sd-still .sd-copy ul{ text-align:left; }
         /* ヒーローは注記のあとに詳しい説明が続くので、そこだけ離す。 */
@@ -2208,7 +2227,9 @@
                 const next = nav.querySelector('[data-shots="next"]');
                 const step = () => {
                     const f = box.querySelector('figure');
-                    return f ? f.getBoundingClientRect().width + 14 : box.clientWidth;
+                    // 間隔は幅で変わることがあるので、決め打ちせず実際の値を読む。
+                    const gap = parseFloat(getComputedStyle(box).columnGap) || 0;
+                    return f ? f.getBoundingClientRect().width + gap : box.clientWidth;
                 };
                 const sync = () => {
                     const max = box.scrollWidth - box.clientWidth;
