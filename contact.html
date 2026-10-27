@@ -1517,7 +1517,11 @@ html:not(.js) .sd-w .cbar, .sd-w.sd-static .cbar, .sd-w.still .cbar{ display:gri
 .pp-contact-in{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.3fr); gap:clamp(32px,5vw,80px); align-items:start; text-align:left; }
 .pp-contact-head .sd-eyebrow{ justify-content:flex-start !important; }
 .pp-contact-page .pp-contact-head h1{ text-align:left; margin-inline:0 !important; }
-.pp-contact-head .sd-contact-lead, .pp-contact-body .sd-form, .pp-contact-body .sd-form-done{ margin-inline:0 !important; max-width:none !important; text-align:left; }
+.pp-contact-head .sd-contact-lead, .pp-contact-body .sd-form{ margin-inline:0 !important; max-width:none !important; text-align:left; }
+/* 送信後の完了表示は中央にそろえる（10-27 本人「中央揃えがいい」）。左寄せの指定が完了表示にも当たり、見出しとボタンが左・説明だけ中ほどにずれていた */
+.pp-contact-body .sd-form-done{ margin-inline:0 !important; max-width:none !important; text-align:center !important; }
+.pp-contact-body .sd-form-done h3, .pp-contact-body .sd-form-done p{ text-align:center !important; margin-left:auto !important; margin-right:auto !important; }
+.pp-contact-body .sd-form-done .sd-done-again{ display:inline-block; }
 @media (max-width:1000px){ .pp-contact-in{ grid-template-columns:1fr; gap:28px; } }
 .pp-contact-page h1{ font-size:clamp(24px,2.6vw,34px); font-weight:700; letter-spacing:-.02em; line-height:1.36; text-align:center; margin-top:14px; }
 .pp-contact-page{ padding-block:clamp(48px,6vw,96px) !important; }
