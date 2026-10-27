@@ -2,6 +2,8 @@
 <html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8">
+    <script>if(location.hash==='#contact'){location.replace('/en/contact');}</script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>SnapEnglish | AI Conversation, Composition, Grammar &amp; Vocabulary — All-in-One English App</title>
     <meta name="description" content="SnapEnglish is an all-in-one English app for AI conversation, composition, grammar and vocabulary. Task-based AI conversation, instant Japanese-to-English composition with AI feedback, word-order grammar, level-based vocabulary, and spaced repetition (SRS). For iPhone, iPad and Android.">
@@ -111,7 +113,7 @@
           "name": "Will I be charged automatically when the trial ends?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. Nothing is charged during the 7-day trial. After the trial, you choose whether to subscribe, and only if you want to keep using the premium features. Once subscribed, you can cancel at any time from your store settings — Subscriptions in your Apple ID account settings, or Subscriptions in Google Play."
+            "text": "No. The free trial starts without any payment details, so nothing is charged automatically when it ends. To keep using the app after the 7 days, choose a plan and subscribe yourself. Once subscribed, you can cancel at any time from your store settings — Subscriptions in your Apple ID account settings, or Subscriptions in Google Play."
           }
         },
         {
@@ -1088,9 +1090,8 @@
     .sd-w .play svg{ width:15px; height:15px; } .sd-w .rep svg{ width:17px; height:17px; }
     .sd-w .c1{ color:var(--p1) } .sd-w .c8{ color:var(--p8) } .sd-w .rep{ color:#9AA0A6 }
     .sd-w .men{ font-size:15px; font-weight:700; color:var(--model); margin-top:6px; }
-    .sd-w .imp + .imp{ margin-top:11px; }
-    .sd-w .imp-t{ font-size:12.5px; font-weight:800; }
-    .sd-w .imp-t i{ font-style:normal; color:var(--app-label); margin-right:4px; }
+    /* アプリの改善ポイントは見出しも番号もなく、項目の間に細い線だけを引く（2026-10-25〜）。 */
+    .sd-w .imp + .imp{ margin-top:11px; padding-top:11px; border-top:1px solid var(--app-hair); }
     .sd-w .ln{ display:flex; align-items:center; gap:6px; font-size:13px; margin-top:4px; }
     .sd-w .ln svg{ width:13px; height:13px; flex:none; }
     .sd-w .bad{ color:var(--app-strike); } .sd-w .bad svg{ color:var(--wrong); }
@@ -1109,7 +1110,7 @@
     .sd-w .snd{ width:24px; height:24px; border-radius:50%; background:#E3E3E1; display:grid; place-items:center; }
     /* 発音分析（1.4.7〜）。点数は出さず、単語を A/B/C の色で分け、B・C の語だけ1行ずつ説明する。
        色と大きさは PronunciationSection.swift（A 緑・B 橙・C 赤、地は同じ色の 10%）。
-       説明文のクラスは .pr-nt に分ける。.nt は改善点・別の言い方でも使っている（Codex 指摘）。 */
+       説明文のクラスは .pr-nt に分ける。.nt は改善ポイント・他の表現でも使っている（Codex 指摘）。 */
     .sd-w .pr-hd{ display:flex; align-items:center; gap:6px; }
     .sd-w .pr-hd .lbl{ flex:none; }
     .sd-w .pr-i{ width:13px; height:13px; color:#A9A9A7; flex:none; }
@@ -1146,7 +1147,7 @@
     .sd-g .bar .t{ font-size:17px; font-weight:800; }
     .sd-g .bar .n{ font-size:13px; color:#9A948C; }
     .sd-g .prog{ height:3px; background:#E7E2D9; margin-top:11px; border-radius:2px; overflow:hidden; }
-    .sd-g .prog i{ display:block; width:15%; height:100%; background:var(--gram); }
+    .sd-g .prog i{ display:block; width:90%; height:100%; background:var(--gram); }
     .sd-g .screen{ position:relative; flex:1; min-height:0; overflow:hidden; background:var(--page);
            display:flex; flex-direction:column; }
     .sd-g .roll{ flex:1; overflow:hidden; }
@@ -1197,7 +1198,7 @@
     .sd-g .verdict svg{ width:20px; height:20px; }
     .sd-g .verdict.ok{ color:var(--gram); }
     .sd-g .verdict.ng{ color:#FF383C; }
-    .sd-g .model{ font-size:19px; font-weight:800; margin-top:10px;
+    .sd-g .model{ font-size:17px; font-weight:700; margin-top:10px;
            font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; }
     .sd-g .model .g{ color:var(--ok-w); } .sd-g .model .o{ color:var(--miss-w); }
     .sd-g .model.plain{ color:#0B0B0C; }
@@ -1414,6 +1415,466 @@
          以前ここに置いていた beacon.min.js の script は token が
          REPLACE_WITH_... のプレースホルダのままで、日本語版だけに入っており、
          計測されないまま外部リクエストだけ発生していたため撤去した。 -->
+
+<style id="proto-polish">
+/* ==== 試作: 洗練（2026-10-26）。参考 kumakikai.top＝白地・うすいグレーの面・短い文・左右交互・News ==== */
+:root{ --pp-bg:#FFFFFF; --pp-panel:#F5F5F3; --pp-ink:#16191D; --pp-ink2:#4A515A; --pp-ink3:#5F666F; --pp-rule:#E6E6E3; --pp-link:#1F6B4A; }
+body, .sd{ background:var(--pp-bg) !important; }
+header.nav-blur{ background:rgba(255,255,255,.9) !important; }
+/* 冒頭 */
+.sd-hero{ padding-block:clamp(40px,6vw,96px) clamp(48px,6vw,88px); }
+.sd-hero .sd-kicker{ font-size:12px; letter-spacing:.08em; color:var(--pp-ink3); font-weight:600; }
+.sd-hero h1{ margin-top:18px; font-size:clamp(26px,3vw,42px); line-height:1.2; letter-spacing:-.02em; }
+.sd-hero .pp-desc{ margin-top:22px; max-width:30em; font-size:16px; line-height:1.9; color:var(--pp-ink2); }
+.pp-stats{ margin-top:34px; display:flex; flex-wrap:wrap; gap:0; max-width:560px; }
+.pp-stat{ flex:1 1 0; min-width:110px; padding:0 18px; border-left:1px solid var(--pp-rule); text-decoration:none; color:var(--pp-ink); }
+.pp-stat:first-child{ padding-left:0; border-left:0; }
+.pp-stat b{ display:block; white-space:nowrap; font-size:26px; font-weight:700; letter-spacing:-.02em; font-variant-numeric:tabular-nums; line-height:1.15; }
+.pp-stat b small{ font-size:13px; font-weight:600; margin-left:2px; color:var(--pp-ink2); }
+.pp-stat .pp-lab{ display:inline-block; margin-top:6px; font-size:13px; color:var(--pp-ink2); border-bottom:1px solid currentColor; padding-bottom:1px; }
+.pp-stat:hover .pp-lab{ color:var(--pp-link); }
+/* 数え上げ（本人 10-26「以前のようにカウントアップ」）は既存の .sd-modes / .sd-mode / .sd-num の JS をそのまま使う。
+   .sd-mode の箱の見た目（枠・地・角丸・名前の行の横並び）だけ打ち消す。 */
+.sd-hero .pp-stats .pp-stat.sd-mode{ border:0; border-left:1px solid var(--pp-rule); border-radius:0; background:none; padding:0 18px; color:var(--pp-ink); }
+.sd-hero .pp-stats .pp-stat.sd-mode:first-child{ padding-left:0; border-left:0; }
+.sd-hero .pp-stats .pp-stat.sd-mode:hover{ background:none; border-color:var(--pp-rule); }
+.sd-hero .pp-stats .pp-stat.sd-mode b{ display:block; font-size:26px; }
+.sd-hero .pp-stats .pp-stat.sd-mode .pp-lab{ display:inline-block; margin-top:6px; font-size:13px; color:var(--pp-ink2); border-bottom:1px solid currentColor; padding-bottom:1px; }
+.sd-hero .pp-stats .pp-stat.sd-mode:hover .pp-lab{ color:var(--pp-link); }
+.sd-hero .pp-stats .pp-stat.sd-mode .sd-num{ display:inline-block; margin:0; font-size:inherit; color:inherit; text-align:right; }
+.sd-hero .sd-badges{ margin-top:48px; }
+.sd-hero .sd-note{ margin-top:14px; font-size:12.5px; color:var(--pp-ink3); }
+.sd-hero-col > .pp-desc{ order:3 !important; } .sd-hero-col > .pp-stats{ order:4 !important; }
+.sd-hero-col > .sd-badges{ order:6 !important; } .sd-hero-col > .sd-note{ order:7 !important; }
+@media (min-width:1001px){ .sd-hero h1{ white-space:nowrap; } }
+.sd-panel{ background:var(--pp-panel) !important; box-shadow:none !important; border-radius:28px !important; }
+/* 各カードの高さを抑える（本人 10-26「少し小さく」）: 端末を 0.74→0.64 倍、面の上下の余白を詰める */
+/* 既存の画面の高さ別の段（.74/.70/.65/.58/.52）より大きくならないよう、段ごとに置き換える（Codex 指摘） */
+@media (min-width:1001px){
+  .sd{ --sd-phone-zoom:.64; }
+  .sd-demo, .sd-still{ padding-block:clamp(16px,2.4vw,32px); }
+  .sd-panel, .sd-still-panel{ padding-block:clamp(24px,2.6vw,40px); }
+}
+@media (min-width:1001px) and (max-height:880px){ .sd{ --sd-phone-zoom:.61; } }
+@media (min-width:1001px) and (max-height:820px){ .sd{ --sd-phone-zoom:.58; } }
+@media (min-width:1001px) and (max-height:740px){ .sd{ --sd-phone-zoom:.55; } }
+@media (min-width:1001px) and (max-height:660px){ .sd{ --sd-phone-zoom:.52; } }
+.sd-hero .pp-stats.sd-modes.sd-anim-ready .sd-mode{ opacity:0; transform:none; }
+.sd-hero .pp-stats.sd-modes.sd-anim-go .sd-mode{ animation:sd-mode-in .5s ease-out both; }
+.sd-hero .pp-stats.sd-modes.sd-anim-go .sd-mode:nth-child(2){ animation-delay:.06s; }
+.sd-hero .pp-stats.sd-modes.sd-anim-go .sd-mode:nth-child(3){ animation-delay:.12s; }
+.sd-hero .pp-stats.sd-modes.sd-anim-go .sd-mode:nth-child(4){ animation-delay:.18s; }
+/* 名前は JS が animationstart で見ているので sd-mode-in のまま、中身だけ「ふわっと出す」に置き換える */
+@keyframes sd-mode-in{ from{ opacity:0; } to{ opacity:1; } }
+/* 英作文: 面はうすいグレー・影なし。端末を左、文を右（左右交互） */
+#composition .sd-panel{ background:var(--pp-panel); box-shadow:none; border-radius:28px;
+   grid-template-columns:auto minmax(0,1fr) !important; grid-template-rows:auto !important; align-items:center !important; }
+@media (min-width:1001px){ #composition .sd-panel{ padding:clamp(24px,2.6vw,40px) clamp(28px,5vw,80px) !important; } }
+#composition .sd-panel > .sd-stage{ grid-column:1 !important; grid-row:1 !important; }
+#composition .sd-panel > .sd-copy{ grid-column:2 !important; grid-row:1 !important; align-self:center; }
+#composition .sd-copy{ max-width:30em; }
+#composition .sd-copy .sd-eyebrow{ font-size:14px; letter-spacing:.06em; }
+#composition .sd-copy .sd-eyebrow::before{ width:28px; height:2px; }
+#composition .sd-copy h2{ margin-top:14px; font-size:clamp(26px,2.8vw,36px); line-height:1.3; }
+#composition .sd-copy p.sd-lead{ margin-top:18px; font-size:16px; line-height:1.9; color:var(--pp-ink2); }
+.pp-points{ margin:30px 0 0; padding:0; list-style:none; display:grid; gap:16px; }
+.pp-points li{ display:grid; grid-template-columns:22px 1fr; column-gap:12px; }
+.pp-points li::before{ content:""; width:8px; height:8px; margin-top:8px; border-radius:50%; background:var(--sd-accent); justify-self:center; }
+.pp-points b{ display:block; font-size:15px; font-weight:700; color:var(--pp-ink); }
+.pp-points span{ grid-column:2; display:block; margin-top:2px; font-size:14px; line-height:1.75; color:var(--pp-ink2); }
+.pp-cta{ margin-top:30px; display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:700; color:var(--pp-link); text-decoration:none; }
+/* News */
+.pp-news{ padding-block:clamp(56px,7vw,96px); }
+.pp-news-head{ display:flex; align-items:baseline; justify-content:space-between; }
+.pp-news-head h2{ font-size:24px; font-weight:700; letter-spacing:-.01em; }
+.pp-news ul{ margin:22px 0 0; padding:0; list-style:none; border-top:1px solid var(--pp-rule); }
+.pp-news li{ display:grid; grid-template-columns:120px 110px 1fr; gap:16px; align-items:baseline; padding:20px 4px; border-bottom:1px solid var(--pp-rule); }
+.pp-news time{ font-size:13.5px; color:var(--pp-ink3); font-variant-numeric:tabular-nums; }
+.pp-news .tag{ justify-self:start; font-size:11.5px; font-weight:700; color:var(--pp-link); border:1px solid #CFE0D6; border-radius:999px; padding:2px 10px; }
+.pp-news p{ margin:0; font-size:15px; font-weight:600; color:var(--pp-ink); line-height:1.6; }
+.pp-news p small{ display:block; font-weight:400; font-size:13.5px; color:var(--pp-ink2); margin-top:2px; }
+@media (max-width:1000px){
+  #composition .sd-panel{ grid-template-columns:1fr !important; }
+  #composition .sd-panel > .sd-copy{ grid-column:1 !important; grid-row:1 !important; }
+  #composition .sd-panel > .sd-stage{ grid-row:2 !important; }
+  .pp-news li{ grid-template-columns:1fr; gap:6px; }
+}
+@media (max-width:600px){
+  .pp-stats{ display:grid; grid-template-columns:1fr 1fr; row-gap:18px; }
+  .sd-hero .pp-stats .pp-stat.sd-mode{ min-width:0; padding:0 0 0 14px; border-left:1px solid var(--pp-rule); }
+  .sd-hero .pp-stats .pp-stat.sd-mode:nth-child(odd){ padding-left:0; border-left:0; }
+}
+</style>
+
+<style id="proto-fb-v2">
+/* 進捗の点（2026-10-25 のアプリに合わせる・ConversationView.storyProgressBar: 24×6・間8・未完は白20%・地は黒45%） */
+.sd-v .dots{ gap:8px; background:rgba(0,0,0,.45); }
+.sd-v .dot{ width:24px; height:6px; border-radius:3px; background:rgba(255,255,255,.20); }
+.sd-v .dot.on{ background:#D997A4; }
+/* 相手の吹き出しは白86%の単色面（すりガラスはやめた・アプリ c410eb60） */
+.sd-v .msg.ai{ background:rgba(255,255,255,.86); backdrop-filter:none; -webkit-backdrop-filter:none; border:1px solid rgba(255,255,255,.6); }
+/* 上端: アプリはステータスバー（約53pt）の下からタイトルが始まる。時刻などは描かないが、その分だけ空ける */
+.sd-v .top{ top:61px; }
+.sd-v .dots{ top:103px; }
+.sd-v .log{ top:129px; }
+/* キーボードの文字はアプリ（AppFont.medium(20)・Pro Max）を 402 幅に縮めた大きさ */
+.sd-v .k{ font-size:18px; font-weight:500; }
+/* タイトル行とお題の札（アプリと並べて合わせた・2026-10-26） */
+.sd-v .top svg{ width:24px; height:24px; stroke-width:2.4; }
+.sd-v .ttl{ font-size:14.5px; }
+.sd-v .task{ padding:8px 11px 9px; }
+.sd-v .tja{ margin-top:3px; }
+/* 吹き出しのアイコンはアプリの SF Symbols に合わせて太く大きく */
+.sd-v .ic svg{ width:20px; height:20px; stroke-width:2.1; }
+.sd-v .ic{ color:#5F5B57; }
+.sd-v .tlab span{ color:#7E7974; font-weight:500; }
+/* ==== 会話デモの講評 v2（2026-10-26・今のアプリの形）==== */
+.sd-v .fbtiles{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.sd-v .fbtiles p{ margin:0; border-radius:12px; padding:10px 4px 9px; text-align:center; font-size:10.5px; font-weight:700; }
+.sd-v .fbtiles b{ display:block; font-size:24px; font-weight:800; line-height:1.1; }
+.sd-v .fbtiles b small{ font-size:11px; font-weight:600; margin-left:2px; }
+.sd-v .fbtiles .ok{ background:#DDE9E4; color:#2E7D6E; }
+.sd-v .fbtiles .part{ background:#F7EAD9; color:#C06A12; }
+.sd-v .fbtiles .ng{ background:#F6E1E3; color:#C2334A; }
+.sd-v .fbhead.v2{ color:#2B4C7E; border-bottom:1px solid var(--app-hair); padding-bottom:10px; }
+.sd-v .fbhead.v2 svg{ color:#2B4C7E; }
+.sd-v .fbimp{ margin:10px 0 0; padding:0 0 0 14px; list-style:disc; display:grid; gap:7px; }
+.sd-v .fbimp li{ font-size:12.5px; line-height:1.6; color:var(--app-text); }
+.sd-v .fbimp li::marker{ color:#B7B2AC; }
+.sd-v .fbturn{ padding:12px 0; border-bottom:1px solid var(--app-hair); display:grid; gap:5px; }
+.sd-v .fbturn:last-child, .sd-v [data-fb] > .fbturn{ }
+.sd-v .fbcard > .fbturn:last-child{ border-bottom:0; padding-bottom:0; }
+.sd-v .fbno{ display:flex; align-items:center; justify-content:space-between; font-size:11px; color:#A9A39C; }
+.sd-v .fbv{ font-style:normal; font-size:11px; font-weight:700; border:1.5px solid currentColor; border-radius:999px; padding:2px 9px; }
+.sd-v .fbv.ok{ color:#2E7D6E; } .sd-v .fbv.part{ color:#C06A12; } .sd-v .fbv.ng{ color:#C2334A; }
+.sd-v .fbline{ display:grid; grid-template-columns:44px 1fr auto; gap:8px; align-items:start; }
+.sd-v .fbline span{ font-size:11px; font-weight:700; color:#8E8A85; padding-top:2px; }
+.sd-v .fbline em{ font-style:normal; font-size:12.5px; color:#9A948C; }
+.sd-v .fbline b{ font-size:12.5px; font-weight:700; color:var(--app-text); }
+.sd-v .fbline.fbmodel span, .sd-v .fbline.fbmodel i{ color:var(--conv); }
+.sd-v .fbline i{ font-style:normal; font-size:12.5px; font-weight:600; }
+.sd-v .fbspk{ width:15px; height:15px; color:var(--conv); flex:none; }
+.sd-v .fbnote{ margin-top:4px; display:grid; grid-template-columns:16px 1fr; gap:6px; background:#F2F0EE; border-radius:10px; padding:9px 10px; }
+.sd-v .fbnote > svg{ width:14px; height:14px; color:#A9A39C; margin-top:2px; }
+.sd-v .fbnote p{ margin:0; font-size:11.5px; line-height:1.6; color:var(--app-text); }
+.sd-v .fbalt{ margin-top:8px; }
+.sd-v .fbalt-en{ display:grid; grid-template-columns:14px 1fr auto; gap:5px; align-items:center; }
+.sd-v .fbalt-en > svg:first-child{ width:13px; height:13px; color:var(--conv); }
+.sd-v .fbalt-en b{ font-size:12px; font-weight:600; color:var(--conv); }
+.sd-v .fbalt-ja{ margin-top:2px !important; padding-left:19px; font-size:10.5px !important; color:#8E8A85 !important; }
+
+</style>
+<style id="proto-comp-v2">
+/* ==== 英作文デモを今の結果画面に（2026-10-26） ==== */
+.sd-w .probq{ margin-top:6px; font-size:15px; font-weight:700; color:var(--app-text); }
+.sd-w .men{ font-weight:500 !important; color:#0F766E !important; }
+.sd-w .alt{ color:#3B82F6 !important; font-weight:700 !important; }
+.sd-w [data-el=cAlt] .nt{ color:var(--app-text) !important; }
+.sd-w .lbl .chev{ margin-left:auto; width:15px; height:15px; color:#8E8A85; }
+.sd-w .cbar{ flex:none; display:grid; grid-template-columns:1fr 1.05fr; gap:10px; padding:10px 14px 26px; background:#F7F4EF; }
+.sd-w .cbar.hide{ display:none; }
+.sd-w .cbar span{ display:flex; align-items:center; justify-content:center; gap:6px; height:42px; border-radius:999px; font-size:13.5px; font-weight:700; }
+.sd-w .cbar svg{ width:15px; height:15px; }
+.sd-w .cbar .again{ background:#fff; color:#2A2A2A; box-shadow:0 1px 2px rgba(0,0,0,.06); }
+html:not(.js) .sd-w [data-el=cQuestion], .sd-w.sd-static [data-el=cQuestion], .sd-w.still [data-el=cQuestion]{ display:none !important; }
+html:not(.js) .sd-w .cbar, .sd-w.sd-static .cbar, .sd-w.still .cbar{ display:grid !important; }
+.sd-w .cbar .nextq{ background:linear-gradient(90deg,#FF7069,#FF8A57); color:#fff; }
+
+/* 入力画面（今のアプリ・EnglishKeyboardView）: 回答を見る＝白地に緑の枠、マイク＝緑の丸、AI添削＝コーラル、キーボード＝薄い灰色・最下段は 123 / space / , / . */
+.sd-w .qrow .pill{ display:inline-flex; align-items:center; gap:4px; padding:5px 11px; font-weight:600; color:#8E8A85; }
+.sd-w .qrow .pill svg{ margin:0; width:12px; height:12px; }
+.sd-w .kb{ background:#EDEDED !important; }
+.sd-w .kbtn{ height:40px !important; border-radius:999px !important; }
+.sd-w .kbtn.see{ background:#fff !important; color:#2E8752 !important; box-shadow:inset 0 0 0 1.5px rgba(46,135,82,.5); }
+.sd-w .kbmic{ background:#2E8752 !important; box-shadow:0 0 0 4px rgba(46,135,82,.15), 0 2px 6px rgba(46,135,82,.3); }
+.sd-w .kbtn.go{ background:#E2E2E2 !important; color:#B0B0B0 !important; }
+.sd-w .kbtn.go.on{ background:linear-gradient(90deg,#FF6F69,#FF8C56) !important; color:#fff !important; }
+.sd-w .kbk{ height:40px !important; }
+.sd-w .kbk.fn{ background:#D1D1D1 !important; color:#000 !important; }
+.sd-w .kbk.fn.shift{ background:#D1D1D1 !important; color:#2E8752 !important; }
+.sd-w .kbrow.r4{ grid-template-columns:1.25fr 2.75fr .55fr .55fr !important; }
+.sd-w .kbk.c4{ background:#D1D1D1; }
+.sd-w .kbk.c4.hit{ background:#B8B8BC; }
+</style>
+
+<style id="proto-structure">
+/* ==== 試作: 並び替え（2026-10-26） ==== */
+/* 4つの学び方: すべて同じ面・左右交互（会話=端末右／作文=左／文法=右／単語=左） */
+.sd-still, .sd-still.sd-srs{ --panel:var(--pp-panel); }
+.sd-still-panel{ background:var(--pp-panel) !important; box-shadow:none !important; border-radius:28px !important; }
+.sd-panel > .sd-copy, .sd-still-panel > .sd-copy{ align-self:center; }
+.sd-copy .sd-eyebrow{ font-size:14px !important; letter-spacing:.06em !important; }
+.sd-copy .sd-eyebrow::before{ width:28px !important; height:2px !important; }
+.sd-copy h2{ font-size:clamp(24px,2.6vw,34px) !important; line-height:1.3 !important; }
+.sd .sd-copy p.sd-lead{ margin-top:16px; font-size:16px; line-height:1.85; color:var(--pp-ink2); }
+@media (min-width:1001px){
+  #features .sd-panel, #grammar .sd-panel{ grid-template-columns:minmax(0,1fr) auto !important; grid-template-rows:auto !important; align-items:center !important; }
+  #features .sd-panel > .sd-copy, #grammar .sd-panel > .sd-copy{ grid-column:1 !important; grid-row:1 !important; }
+  #features .sd-panel > .sd-stage, #grammar .sd-panel > .sd-stage{ grid-column:2 !important; grid-row:1 !important; }
+  #features .sd-panel, #grammar .sd-panel, #vocabulary .sd-still-panel{ padding:clamp(24px,2.6vw,40px) clamp(28px,5vw,80px) !important; }
+  #vocabulary .sd-still-panel{ grid-template-columns:auto minmax(0,1fr) !important; grid-template-rows:auto auto !important; column-gap:clamp(26px,4vw,64px); }
+  #vocabulary .sd-still-panel > .sd-copy{ grid-column:2 !important; grid-row:1 / span 2 !important; }
+  #vocabulary .sd-still-panel > .sd-shots{ grid-column:1 !important; grid-row:1 !important; }
+  /* 送りの点はキャプションの下、写真の器の下余白に重ねる（矢印の段を足すとカードが他より高くなる。10-27 本人） */
+  #vocabulary .sd-still-panel{ grid-template-rows:auto !important; }
+  /* 英単語は説明が長いので、英会話と同じ幅（36em）に。29em だと「…させま／す。」と語尾だけ折れた（10-27） */
+  #vocabulary .sd-copy, #composition .sd-copy{ max-width:36em !important; }
+  /* 2枚目の写真の端が文字の手前 30px まで覗いて詰まって見えた（10-27 本人「画像と文字 少しひっつきすぎ」）。間を広げる */
+  /* 英作文も同じ間に（10-27 本人「英作文も同じ位置にしたら？」）。どちらも端末は左なので、文字の左端がそろう */
+  #vocabulary .sd-still-panel, #composition .sd-panel{ column-gap:clamp(56px,7vw,112px) !important; }
+  #vocabulary .sd-still-panel > .sd-copy{ grid-row:1 !important; }
+  #vocabulary .sd-still-panel > .sd-shots-nav{ grid-column:1 !important; grid-row:1 !important; align-self:end; justify-self:center;
+     margin:0 !important; position:relative; z-index:1; }
+}
+/* 英単語の節は箇条書きに古い指定（—・横並び）が当たるので打ち消す */
+.sd-still .sd-copy ul.pp-points{ margin:30px 0 0; gap:16px; }
+.sd-still .sd-copy .pp-points li{ display:grid; gap:0; font-size:inherit; color:inherit; }
+.sd-still .sd-copy .pp-points li::before{ content:""; color:inherit; }
+/* カードの左右を広げる（本人 10-26「少し伸ばす」）: カードの器だけ 1180→1240（1320 は広げすぎ）*/
+/* 左端を上から下まで1本にそろえる（本人 10-26「ページ上部からインデントを合わせる」）:
+   ヘッダー・冒頭・カードの外枠・各節の見出し・News・運営・フッターの左端を同じ線に。
+   器はすべて 内容 1192px＋左右 24px。カードの中の文字はカードの余白ぶん内側。 */
+:root{ --pp-max:1192px; }
+.sd-wrap{ max-width:calc(var(--pp-max) + 48px) !important; }
+header .max-w-6xl, footer .max-w-6xl{ max-width:calc(var(--pp-max) + 48px) !important; padding-left:24px !important; padding-right:24px !important; }
+/* 横向きの切り欠きを避ける（.sd-wrap と同じ max()・Codex 指摘） */
+@supports (padding: max(0px)){
+  header .max-w-6xl, footer .max-w-6xl{ padding-left:max(24px, env(safe-area-inset-left, 0px)) !important; padding-right:max(24px, env(safe-area-inset-right, 0px)) !important; }
+}
+/* 1列の節（料金・FAQ・最後の申し込み欄）も中央寄せをやめて同じ左端から */
+.sd-price > .sd-wrap, .sd-faq > .sd-wrap, .sd-close > .sd-wrap{ text-align:left !important; }
+.sd-price .sd-eyebrow, .sd-faq .sd-eyebrow, .sd-close .sd-eyebrow{ justify-content:flex-start !important; }
+.sd p.sd-price-lead, .sd-plans, .sd p.sd-price-fine, .sd-faq-list, .sd p.sd-close-note{ margin-inline:0 !important; }
+.sd-faq-list{ max-width:none !important; }
+.sd-close .sd-badges{ justify-content:flex-start !important; }
+.sd-close .sd-wrap{ border-top:0 !important; padding-top:0 !important; }
+/* 公開前の機能の添え書き */
+.pp-points b .pp-soon{ margin-left:8px; font-size:12px; font-weight:600; color:var(--pp-ink3); }
+/* 説明文の改行は広い画面だけ。狭い画面は句の切れ目で自然に折る */
+/* 1文1行。広い画面は折らず、狭い画面は文の中だけで折る */
+.sd-copy .pp-line{ display:block; } .sd-copy .pp-line + br.pc{ display:none; }
+/* 狭い幅で「…身につけま／す。」のように語尾1〜2文字だけが次の行に落ちるのを防ぐ（10-27 本人「説明も壊れています」） */
+.sd-copy .sd-lead, .sd-copy .pp-points span{ text-wrap:pretty; word-break:auto-phrase; }
+@media (min-width:561px){ .sd-copy .pp-line{ white-space:nowrap; } }
+@media (max-width:560px){ .sd-copy br.pc{ display:none; } }
+/* 箇条書き: 丸をやめて左端をそろえ、余白と罫線でまとまりを作る（Codex 案①・2026-10-26） */
+.pp-points{ gap:16px !important; }
+.pp-points li{ grid-template-columns:1fr !important; column-gap:0 !important; }
+.pp-points li::before{ display:none !important; }
+.pp-points span{ grid-column:1 !important; margin-top:4px !important; }
+.pp-points li.pp-sep{ margin-top:2px; padding-top:18px; border-top:1px solid #DEDED9; }
+@media (max-width:560px){ .pp-points li.pp-sep{ margin-top:0; padding-top:20px; } }
+.pp-points li.pp-sub b{ font-size:14px; }
+.pp-points li.pp-sub + li.pp-sub{ margin-top:-4px; }
+.pp-points b .pp-soon{ font-size:12px; font-weight:500; color:var(--pp-ink3); }
+/* モードと特徴を見分ける（本人 10-26「同じトーン？」）: 群ごとに小さな見出し、特徴は1行に詰めて控えめに */
+.pp-points li.pp-cap{ display:block !important; font-size:12px; font-weight:700; letter-spacing:.06em; color:var(--sd-accent); margin-bottom:-6px; }
+.pp-points li.pp-cap.pp-sep{ margin-top:2px; padding-top:18px; }
+.pp-points li.pp-sub{ display:block !important; }
+.pp-points li.pp-sub b{ display:inline; font-size:14px; font-weight:600; }
+.pp-points li.pp-sub span{ display:inline; margin:0 !important; font-size:14px; }
+.pp-points li.pp-sub + li.pp-sub{ margin-top:-6px; }
+@media (max-width:560px){ .pp-points li.pp-sub b, .pp-points li.pp-sub span{ display:block; } .pp-points li.pp-sub span{ margin:4px 0 0 !important; } }
+/* 小見出しの横線をアプリのモードアイコン（塗り・iOS modeIcon_*）に。文字も大きく（本人 10-26） */
+#features .sd-copy .sd-eyebrow::before{ width:24px !important; height:24px !important; background:currentColor; -webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M11%2C11%20L20%2C11%20C21.381%2C11%2022.5%2C12.119%2022.5%2C13.5%20L22.5%2C18%20C22.5%2C19.381%2021.381%2C20.5%2020%2C20.5%20L20%2C23.5%20L16.5%2C20.5%20L11%2C20.5%20C9.619%2C20.5%208.5%2C19.381%208.5%2C18%20L8.5%2C13.5%20C8.5%2C12.119%209.619%2C11%2011%2C11%20Z%20M4%2C1.5%20L13%2C1.5%20C14.381%2C1.5%2015.5%2C2.619%2015.5%2C4%20L15.5%2C8.5%20C15.5%2C8.817%2015.441%2C9.121%2015.333%2C9.4%20L11%2C9.4%20Q8.408%2C9.4%207.454%2C11.039%20L4%2C14%20L4%2C11%20C2.619%2C11%201.5%2C9.881%201.5%2C8.5%20L1.5%2C4%20C1.5%2C2.619%202.619%2C1.5%204%2C1.5%20Z%22/%3E%3C/svg%3E") center/contain no-repeat; mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M11%2C11%20L20%2C11%20C21.381%2C11%2022.5%2C12.119%2022.5%2C13.5%20L22.5%2C18%20C22.5%2C19.381%2021.381%2C20.5%2020%2C20.5%20L20%2C23.5%20L16.5%2C20.5%20L11%2C20.5%20C9.619%2C20.5%208.5%2C19.381%208.5%2C18%20L8.5%2C13.5%20C8.5%2C12.119%209.619%2C11%2011%2C11%20Z%20M4%2C1.5%20L13%2C1.5%20C14.381%2C1.5%2015.5%2C2.619%2015.5%2C4%20L15.5%2C8.5%20C15.5%2C8.817%2015.441%2C9.121%2015.333%2C9.4%20L11%2C9.4%20Q8.408%2C9.4%207.454%2C11.039%20L4%2C14%20L4%2C11%20C2.619%2C11%201.5%2C9.881%201.5%2C8.5%20L1.5%2C4%20C1.5%2C2.619%202.619%2C1.5%204%2C1.5%20Z%22/%3E%3C/svg%3E") center/contain no-repeat; }
+#composition .sd-copy .sd-eyebrow::before{ width:24px !important; height:24px !important; background:currentColor; -webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%2C23%20L4.5%2C12.5%20L12%2C1%20L19.5%2C12.5%20Z%20M11.2%2C21.5%20Q11.2%2C21.831%2011.434%2C22.066%20Q11.669%2C22.3%2012%2C22.3%20Q12.331%2C22.3%2012.566%2C22.066%20Q12.8%2C21.831%2012.8%2C21.5%20L12.8%2C13.5%20Q12.8%2C13.471%2012.798%2C13.443%20C13.562%2C13.129%2014.1%2C12.377%2014.1%2C11.5%20C14.1%2C10.34%2013.16%2C9.4%2012%2C9.4%20C10.84%2C9.4%209.9%2C10.34%209.9%2C11.5%20C9.9%2C12.377%2010.438%2C13.129%2011.202%2C13.443%20Q11.2%2C13.471%2011.2%2C13.5%20Z%22/%3E%3C/svg%3E") center/contain no-repeat; mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%2C23%20L4.5%2C12.5%20L12%2C1%20L19.5%2C12.5%20Z%20M11.2%2C21.5%20Q11.2%2C21.831%2011.434%2C22.066%20Q11.669%2C22.3%2012%2C22.3%20Q12.331%2C22.3%2012.566%2C22.066%20Q12.8%2C21.831%2012.8%2C21.5%20L12.8%2C13.5%20Q12.8%2C13.471%2012.798%2C13.443%20C13.562%2C13.129%2014.1%2C12.377%2014.1%2C11.5%20C14.1%2C10.34%2013.16%2C9.4%2012%2C9.4%20C10.84%2C9.4%209.9%2C10.34%209.9%2C11.5%20C9.9%2C12.377%2010.438%2C13.129%2011.202%2C13.443%20Q11.2%2C13.471%2011.2%2C13.5%20Z%22/%3E%3C/svg%3E") center/contain no-repeat; }
+#grammar .sd-copy .sd-eyebrow::before{ width:24px !important; height:24px !important; background:currentColor; -webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M1.5%2C7%20C1.5%2C5.895%202.395%2C5%203.5%2C5%20L11.3%2C5%20L11.3%2C9.775%20C11.771%2C9.414%2012.361%2C9.2%2013%2C9.2%20C14.546%2C9.2%2015.8%2C10.454%2015.8%2C12%20C15.8%2C13.546%2014.546%2C14.8%2013%2C14.8%20C12.361%2C14.8%2011.771%2C14.586%2011.3%2C14.225%20L11.3%2C19%20L3.5%2C19%20C2.395%2C19%201.5%2C18.105%201.5%2C17%20Z%20M12.8%2C5%20L20.5%2C5%20C21.605%2C5%2022.5%2C5.895%2022.5%2C7%20L22.5%2C17%20C22.5%2C18.105%2021.605%2C19%2020.5%2C19%20L12.8%2C19%20L12.8%2C15.995%20C12.866%2C15.998%2012.933%2C16%2013%2C16%20C15.209%2C16%2017%2C14.209%2017%2C12%20C17%2C9.791%2015.209%2C8%2013%2C8%20C12.933%2C8%2012.866%2C8.002%2012.8%2C8.005%20Z%22/%3E%3C/svg%3E") center/contain no-repeat; mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M1.5%2C7%20C1.5%2C5.895%202.395%2C5%203.5%2C5%20L11.3%2C5%20L11.3%2C9.775%20C11.771%2C9.414%2012.361%2C9.2%2013%2C9.2%20C14.546%2C9.2%2015.8%2C10.454%2015.8%2C12%20C15.8%2C13.546%2014.546%2C14.8%2013%2C14.8%20C12.361%2C14.8%2011.771%2C14.586%2011.3%2C14.225%20L11.3%2C19%20L3.5%2C19%20C2.395%2C19%201.5%2C18.105%201.5%2C17%20Z%20M12.8%2C5%20L20.5%2C5%20C21.605%2C5%2022.5%2C5.895%2022.5%2C7%20L22.5%2C17%20C22.5%2C18.105%2021.605%2C19%2020.5%2C19%20L12.8%2C19%20L12.8%2C15.995%20C12.866%2C15.998%2012.933%2C16%2013%2C16%20C15.209%2C16%2017%2C14.209%2017%2C12%20C17%2C9.791%2015.209%2C8%2013%2C8%20C12.933%2C8%2012.866%2C8.002%2012.8%2C8.005%20Z%22/%3E%3C/svg%3E") center/contain no-repeat; }
+#vocabulary .sd-copy .sd-eyebrow::before{ width:24px !important; height:24px !important; background:currentColor; -webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%2C7%20L17.5%2C7%20C18.881%2C7%2020%2C8.119%2020%2C9.5%20L20%2C19.5%20C20%2C20.881%2018.881%2C22%2017.5%2C22%20L4%2C22%20C2.619%2C22%201.5%2C20.881%201.5%2C19.5%20L1.5%2C9.5%20C1.5%2C8.119%202.619%2C7%204%2C7%20Z%20M9.5%2C1.5%20L20%2C1.5%20C21.381%2C1.5%2022.5%2C2.619%2022.5%2C4%20L22.5%2C13%20C22.5%2C13.772%2022.15%2C14.462%2021.6%2C14.921%20L21.6%2C9.5%20Q21.6%2C5.4%2017.5%2C5.4%20L7%2C5.4%20L7%2C4%20C7%2C2.619%208.119%2C1.5%209.5%2C1.5%20Z%20M8.5%2C15.8%20Q8.086%2C15.8%207.793%2C16.093%20Q7.5%2C16.386%207.5%2C16.8%20Q7.5%2C17.214%207.793%2C17.507%20Q8.086%2C17.8%208.5%2C17.8%20L15.5%2C17.8%20Q15.914%2C17.8%2016.207%2C17.507%20Q16.5%2C17.214%2016.5%2C16.8%20Q16.5%2C16.386%2016.207%2C16.093%20Q15.914%2C15.8%2015.5%2C15.8%20Z%20M7%2C10.142%20C6.707%2C9.81%206.278%2C9.6%205.8%2C9.6%20C4.916%2C9.6%204.2%2C10.316%204.2%2C11.2%20C4.2%2C12.084%204.916%2C12.8%205.8%2C12.8%20C6.278%2C12.8%206.707%2C12.59%207%2C12.258%20L7%2C10.142%20Z%22/%3E%3C/svg%3E") center/contain no-repeat; mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%2C7%20L17.5%2C7%20C18.881%2C7%2020%2C8.119%2020%2C9.5%20L20%2C19.5%20C20%2C20.881%2018.881%2C22%2017.5%2C22%20L4%2C22%20C2.619%2C22%201.5%2C20.881%201.5%2C19.5%20L1.5%2C9.5%20C1.5%2C8.119%202.619%2C7%204%2C7%20Z%20M9.5%2C1.5%20L20%2C1.5%20C21.381%2C1.5%2022.5%2C2.619%2022.5%2C4%20L22.5%2C13%20C22.5%2C13.772%2022.15%2C14.462%2021.6%2C14.921%20L21.6%2C9.5%20Q21.6%2C5.4%2017.5%2C5.4%20L7%2C5.4%20L7%2C4%20C7%2C2.619%208.119%2C1.5%209.5%2C1.5%20Z%20M8.5%2C15.8%20Q8.086%2C15.8%207.793%2C16.093%20Q7.5%2C16.386%207.5%2C16.8%20Q7.5%2C17.214%207.793%2C17.507%20Q8.086%2C17.8%208.5%2C17.8%20L15.5%2C17.8%20Q15.914%2C17.8%2016.207%2C17.507%20Q16.5%2C17.214%2016.5%2C16.8%20Q16.5%2C16.386%2016.207%2C16.093%20Q15.914%2C15.8%2015.5%2C15.8%20Z%20M7%2C10.142%20C6.707%2C9.81%206.278%2C9.6%205.8%2C9.6%20C4.916%2C9.6%204.2%2C10.316%204.2%2C11.2%20C4.2%2C12.084%204.916%2C12.8%205.8%2C12.8%20C6.278%2C12.8%206.707%2C12.59%207%2C12.258%20L7%2C10.142%20Z%22/%3E%3C/svg%3E") center/contain no-repeat; }
+#features .sd-copy .sd-eyebrow, #composition .sd-copy .sd-eyebrow, #grammar .sd-copy .sd-eyebrow, #vocabulary .sd-copy .sd-eyebrow{ font-size:19px !important; gap:10px !important; letter-spacing:.02em !important; }
+#features .sd-copy h2, #composition .sd-copy h2, #grammar .sd-copy h2, #vocabulary .sd-copy h2{ margin-top:6px !important; }
+/* 共通の小見出し・見出し */
+.pp-kicker{ font-size:13px; font-weight:700; letter-spacing:.08em; color:var(--pp-link); }
+.pp-h2{ margin-top:10px !important; font-size:clamp(24px,2.6vw,34px); font-weight:700; letter-spacing:-.02em; line-height:1.3; color:var(--pp-ink); }
+/* 続ける仕組み */
+.pp-keep{ padding-block:clamp(48px,6vw,88px); }
+.pp-keep-grid{ margin-top:32px; display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.pp-keep-card{ display:grid; grid-template-columns:150px minmax(0,1fr); gap:24px; align-items:start; background:var(--pp-panel); border-radius:24px; padding:28px; }
+.pp-keep-card figure{ margin:0; }
+.pp-keep-card img{ display:block; width:100%; height:auto; border-radius:18px; box-shadow:0 0 0 5px #17181B, 0 12px 28px -16px rgba(17,19,24,.5); }
+.pp-keep-card h3{ font-size:19px; font-weight:700; color:var(--pp-ink); }
+.pp-keep-card p{ margin-top:10px !important; font-size:15px; line-height:1.85; color:var(--pp-ink2); }
+/* 料金・FAQ の見出しを左右の節とそろえる */
+.sd-price .sd-eyebrow, .sd-faq .sd-eyebrow, .sd-close .sd-eyebrow{ font-size:13px; letter-spacing:.08em; }
+/* 運営について */
+.pp-about{ padding-block:clamp(48px,6vw,88px); border-top:1px solid var(--pp-rule); }
+.pp-about-in{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.6fr); gap:32px; }
+.pp-about p:not(.pp-kicker){ margin-top:14px !important; max-width:34em; font-size:15px; line-height:1.9; color:var(--pp-ink2); }
+/* フッター・最後の申し込み欄も白に */
+.sd-footer{ background:var(--pp-bg) !important; }
+.sd-close{ border-top:1px solid var(--pp-rule); }
+@media (max-width:1000px){
+  .pp-keep-grid{ grid-template-columns:1fr; }
+  .pp-about-in{ grid-template-columns:1fr; gap:6px; }
+}
+@media (max-width:560px){
+  .pp-keep-card{ grid-template-columns:92px minmax(0,1fr); gap:16px; padding:20px; }
+  .pp-keep-card img{ border-radius:12px; box-shadow:0 0 0 4px #17181B, 0 10px 22px -14px rgba(17,19,24,.5); }
+  .pp-keep-card p{ font-size:14px; line-height:1.75; }
+}
+
+/* 画面写真の点（矢印の代わり）。押せる範囲は 24x16、見える点は 8px。今の1枚は横長の点にする。 */
+.sd-shots-nav.pp-dots{ gap:2px !important; margin-top:6px; }
+.pp-dots button{ width:24px; height:16px; padding:0; border:0; border-radius:0; background:none;
+  display:grid; place-items:center; cursor:pointer; }
+.pp-dots button::after{ content:""; display:block; width:8px; height:8px; border-radius:999px; background:#CBC7C0;
+  transition:width .3s ease, background-color .3s ease; }
+.pp-dots button[aria-current="true"]::after{ width:20px; background:var(--sd-accent); }
+.pp-dots button:focus-visible{ outline:2px solid var(--sd-accent); outline-offset:2px; border-radius:6px; }
+@media (prefers-reduced-motion: reduce){ .pp-dots button::after{ transition:none; } }
+/* JS が無いと点は動かないので出さない（写真は横スクロールで見られる） */
+html:not(.js) .pp-dots{ display:none !important; }
+/* 1 列のときは器の行間（30px）がそのまま空くので、キャプションに寄せる */
+@media (max-width:1000px){ .sd-still-panel > .sd-shots-nav.pp-dots{ margin-top:-22px !important; } }
+
+.pp-ast{ font-size:.7em; vertical-align:super; margin-left:1px; font-weight:600; }
+.pp-keep-card p.pp-srs-what{ margin-top:10px !important; font-size:13.5px; line-height:1.8; color:var(--pp-ink3); }   /* SRS の説明（10-27 本人「SRS およびその説明も追記」） */
+/* 反復学習の図を動かす（10-27 本人「矢印はアニメーション化しない？」）。画面に入ると、段が1つずつ伸び、
+   続けて緑の矢印、最後に赤の戻り矢印。JS が無い・動きを減らす設定では、最初から完成形を見せる。 */
+@media (prefers-reduced-motion: no-preference){
+  .js .pp-srs-fig .st{ transform-box:fill-box; transform-origin:50% 100%; transform:scaleY(0); opacity:0; }
+  .js .pp-srs-fig .ar, .js .pp-srs-fig .bk{ opacity:0; transform:translateY(6px); }
+  .pp-srs-fig.run .st{ animation:srsUp .5s cubic-bezier(.2,.7,.2,1) forwards; animation-delay:calc(var(--i) * .32s); }
+  .pp-srs-fig.run .ar{ animation:srsIn .4s ease-out forwards; animation-delay:calc(var(--i) * .32s + .38s); }
+  .pp-srs-fig.run .bk{ animation:srsIn .5s ease-out forwards; animation-delay:2.4s; }
+}
+@keyframes srsUp{ to{ transform:scaleY(1); opacity:1; } }
+@media print{ .pp-srs-fig .st, .pp-srs-fig .ar, .pp-srs-fig .bk{ animation:none !important; opacity:1 !important; transform:none !important; } }   /* 印刷では完成形（Codex 指摘） */
+@keyframes srsIn{ to{ transform:none; opacity:1; } }
+/* 復習と記録（10-27 作り直し）: 反復学習は横長のカードに図、学習進捗は画面写真 */
+.pp-split{ padding-block:0 !important; }
+.pp-split-in{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:48px; align-items:start;
+  border-top:1px solid var(--pp-rule); border-bottom:1px solid var(--pp-rule); padding-block:clamp(32px,3.6vw,52px); }   /* 10-27 本人「縦をコンパクトに」 */
+.pp-split + .pp-split .pp-split-in{ border-top:0; }
+.pp-split .pp-h2{ margin-top:0 !important; font-size:clamp(26px,3vw,40px); line-height:1.45; }
+.pp-keep-card.pp-srs{ grid-template-columns:1fr; gap:20px; }
+.pp-srs figure{ margin:0; }
+.pp-srs-fig{ display:block; width:100%; height:auto; font-family:inherit; }
+/* カードの一言（参考文案の「正誤に応じて…」「1週間の学習を…」）。見出しのすぐ下に、本文より少し強く */
+.pp-keep-card p.pp-sub{ margin-top:8px !important; font-size:16px; font-weight:600; line-height:1.6; color:var(--pp-ink); }
+.pp-keep-card p.pp-sub + p{ margin-top:6px !important; }
+.pp-srs-legend{ display:flex; flex-wrap:wrap; gap:6px 20px; margin-top:6px; font-size:13px; color:var(--pp-ink2); }
+.pp-srs-legend span{ display:inline-flex; align-items:center; gap:8px; }
+.pp-srs-legend span::before{ content:""; width:22px; height:0; border-top:2px solid #117954; }
+.pp-srs-legend .ng::before{ border-top:2px dashed #C8574C; }
+/* 学習進捗は文字の右に画面写真（縦に積むと背が高くなりすぎた・10-27 本人「縦をコンパクトに」） */
+.pp-keep-card.pp-prog{ grid-template-columns:minmax(0,1fr) 210px; gap:24px; align-items:start; }   /* 文字は反復学習と同じく上から */
+.pp-prog figure{ width:210px; }
+/* 2つのカードの縦をそろえる（10-27 本人「縦の大きさは揃える」）。画面写真 210px で反復学習の図と同じ高さになる。幅が変わっても崩れないよう最低の高さも同じに */
+@media (min-width:1001px){ .pp-split .pp-keep-card{ min-height:490px; } }
+@media (max-width:1000px){ .pp-split-in{ grid-template-columns:1fr; gap:24px; } }
+@media (max-width:560px){ .pp-keep-card.pp-srs, .pp-keep-card.pp-prog{ gap:14px; } .pp-keep-card.pp-prog{ grid-template-columns:minmax(0,1fr) 100px; } .pp-prog figure{ width:100px; } }
+
+.pp-cta-c .sd-wrap{ text-align:center; }
+.sd.pp-cta-c h2, .sd.pp-cta-c p.sd-close-note{ margin-inline:auto !important; text-align:center !important; }   /* 料金側の「.sd p.sd-close-note{margin-inline:0}」より強く */
+.pp-cta-c .sd-badges{ justify-content:center !important; }
+.sd-faq-item summary, .sd-faq-a{ text-wrap:pretty; word-break:auto-phrase; }   /* 「…されます／か？」のような折れ方を防ぐ */
+.pp-split-head h2.pp-faq-h{ margin:0 !important; }
+.pp-plan-note{ margin-top:10px; font-size:14px; line-height:1.7; color:var(--pp-ink2); }
+.pp-plan-common{ margin-top:22px; padding:22px 24px; border-radius:18px; background:var(--pp-panel); }
+.pp-plan-common > p{ font-size:15px; font-weight:700; color:var(--pp-ink); }
+.pp-plan-common .sd-plan-list{ margin-top:12px !important; display:grid; grid-template-columns:1fr 1fr; gap:8px 20px; }
+@media (max-width:560px){ .pp-plan-common .sd-plan-list{ grid-template-columns:1fr; } }
+.pp-split-head .sd-price-lead{ max-width:30em !important; margin-inline:0 !important; text-wrap:pretty; word-break:auto-phrase; }
+.pp-split-head h2 + .sd-price-lead{ margin-top:22px !important; }
+.pp-split-body .sd-price-lead, .pp-split-body .sd-price-fine{ text-wrap:pretty; word-break:auto-phrase; }
+/* 料金・よくある質問: 左に小見出しと見出し、右に中身 */
+.pp-split-head .sd-eyebrow{ margin:0 0 10px !important; }
+.pp-split-head h2{ margin-top:0 !important; font-size:clamp(26px,3vw,40px) !important; line-height:1.45 !important; }
+.pp-split-body > :first-child{ margin-top:0 !important; }
+@media (min-width:1001px){ .pp-split-body .sd-plans{ grid-template-columns:1fr 1fr !important; max-width:none !important; } }
+.pp-split-body .sd-faq-list, .pp-split-body .sd-price-lead, .pp-split-body .sd-price-fine{ max-width:none !important; margin-inline:0 !important; }
+
+/* 最初の画面の最新お知らせ（1行・小さく） */
+/* 左列は flex 縦並びで order を振ってある（広い画面）。帯は先頭に置き、幅は中身なり */
+.sd-hero-col > .pp-hero-news{ order:0 !important; align-self:flex-start; }
+@media (min-width:1001px){ .sd-hero-col > .pp-hero-news{ margin-top:-24px; margin-bottom:46px; } }   /* 帯だけ少し上へ（10-27 本人）。下の見出しの位置は変えない。スマホはイラストに近づくので動かさない */
+.pp-hero-news{ display:inline-flex; align-items:center; gap:10px; max-width:100%; margin-bottom:22px;
+  padding:6px 14px 6px 6px; border:1px solid var(--pp-rule); border-radius:999px; background:#fff;
+  font-size:13px; line-height:1.4; color:var(--pp-ink2); text-decoration:none; }
+.pp-hero-news:hover{ border-color:var(--pp-link); }
+.pp-hero-news .lab{ flex:none; padding:3px 10px; border-radius:999px; background:var(--pp-link); color:#fff; font-size:11.5px; font-weight:700; letter-spacing:.04em; }
+.pp-hero-news time{ flex:none; color:var(--pp-ink3); font-variant-numeric:tabular-nums; }
+.pp-hero-news .t{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--pp-ink); }
+.pp-hero-news .ar{ flex:none; color:var(--pp-link); }
+@media (max-width:560px){ .pp-hero-news{ font-size:12px; gap:8px; margin-bottom:16px; } }
+
+/* 説明の中の nobreak は行の中に置く（.pp-points li span{display:block} が入れ子の span にも当たり、3行に割れていた） */
+.pp-points li span .nobreak{ display:inline !important; margin:0 !important; white-space:nowrap; }
+/* 英会話の注記を足した分だけ、説明の中の余白を詰めて 4 枚のカードの高さ（1440 幅で 694px）を保つ */
+@media (min-width:1001px){
+  #features .sd-copy .pp-points{ margin-top:18px !important; gap:12px !important; }
+  #features .sd-copy .pp-demo-note{ margin-top:10px !important; }
+}
+.pp-demo-note{ margin-top:14px !important; font-size:12px; line-height:1.6; color:var(--pp-ink3); }
+/* JS が動かないとき: スマホのメニューは開いた状態で出し、開閉ボタンは隠す（Codex 指摘） */
+@media (max-width:767px){ html.no-js #mobile-menu{ display:block !important; } html.no-js #mobile-menu-btn{ display:none !important; } }
+/* News・About も左右の器に。区切り線はすべて本文の幅（端から端の線をやめる） */
+.pp-news.pp-split .pp-split-body ul{ margin-top:0; }
+.pp-about.pp-split{ border-top:0 !important; }
+.pp-about .pp-split-body > p:first-child{ margin-top:0 !important; }
+.sd-close{ border-top:0 !important; }
+/* スマホ: 「フィードバック」「キーボードでも話せる」の見出しと説明の間の全角空白が1行になっていた */
+@media (max-width:560px){ .pp-points li.pp-sub{ font-size:0; } .pp-points li.pp-sub b, .pp-points li.pp-sub span{ font-size:14px; } }
+/* 見出し・締めの文も言葉の区切りで折る（「身に／つける」「1日／3本」を防ぐ） */
+.sd h2, .sd-close-note, .pp-about p, .sd-faq-a{ word-break:auto-phrase; text-wrap:pretty; }
+/* ページ内リンクの行き先が上のメニュー（64px）の裏に入らないように */
+#features, #composition, #grammar, #vocabulary, #keep, #progress, #news, #about{ scroll-margin-top:calc(4rem + 1px); }
+
+/* iPhone の枠（10-27） */
+.sd-phone{ border-radius:55px !important;
+  box-shadow: 0 0 0 8px #0B0B0D, 0 0 0 9.5px #8E9094, 0 0 0 11px #2B2C30,
+              0 2px 4px 12px rgba(17,19,24,.14), 0 30px 60px -22px rgba(17,19,24,.45) !important; }
+.pp-sb{ position:relative; z-index:6; flex:none; height:54px; display:grid; grid-template-columns:138px 1fr 138px;
+  align-items:center; color:#000; pointer-events:none; }
+.pp-sb .tm{ text-align:center; padding-top:4px; font:600 17px/1 -apple-system, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; letter-spacing:-.2px; }
+.pp-sb .di{ position:absolute; left:50%; top:11px; width:125px; height:37px; margin-left:-62.5px; border-radius:20px; background:#000; }
+.pp-sb .ic{ grid-column:3; display:flex; justify-content:center; align-items:center; gap:6px; padding-top:4px; }
+.pp-sb svg{ fill:currentColor; height:12px; width:auto; }
+.pp-sb svg:last-child{ height:13px; }
+.sd-v .pp-sb{ position:absolute; top:0; left:0; right:0; color:#fff; }
+.sd-v .pp-sb svg{ fill:#fff !important; opacity:1 !important; }
+/* 英単語の写真はステータスバーと Dynamic Island まで入れた（縦に 87pt 長くなる）。カードの高さを保つため幅を 402→375 に。
+   画面表示だけに当てる（印刷の2枚並びを壊さない・Codex 指摘）。広い画面は写真の間を空け、次の写真の縁が右端に覗かないように */
+@media screen{
+  .sd-still .sd-shots{ width:calc(375px * var(--sd-phone-zoom,.74) + 2 * (var(--sd-bezel) + var(--sd-shot-pad))) !important; }
+  @media (min-width:701px){ .sd-still .sd-shots{ gap:calc(60px + 2 * var(--sd-bezel)) !important; } }
+  @media (max-width:700px){ .sd-still .sd-shots{ width:calc(100% + 2 * (var(--sd-bezel) + var(--sd-shot-pad))) !important; }
+    .sd-shots figure{ flex:0 0 min(88%, calc(375px * var(--sd-phone-zoom,.58))) !important; } }
+}
+/* フィードバック画面（地が明るい）ではステータスバーを流れの中に置いて黒字に（Dynamic Island が見出しに重ならない・Codex 指摘） */
+.sd-v.fbon .pp-sb{ position:relative; color:#000; background:var(--app-bg); }
+.sd-v.fbon .pp-sb svg{ fill:#000 !important; }
+/* 学習進捗の写真も同じ角と縁に（写真の幅 210px＝402pt の 0.522 倍） */
+#progress .pp-prog img{ border-radius:29px !important;
+  box-shadow: 0 0 0 4.2px #0B0B0D, 0 0 0 5px #8E9094, 0 0 0 5.8px #2B2C30, 0 14px 30px -14px rgba(17,19,24,.45) !important; }
+@media (max-width:560px){ #progress .pp-prog img{ border-radius:14px !important;   /* 幅 100px＝402pt の 0.249 倍 */
+  box-shadow: 0 0 0 2px #0B0B0D, 0 0 0 2.5px #8E9094, 0 0 0 3px #2B2C30, 0 8px 18px -10px rgba(17,19,24,.45) !important; } }
+/* 英単語の写真も同じ角と縁に */
+.sd-shots img{ border-radius:calc(55px * var(--sd-phone-zoom,.74)) !important;
+  box-shadow: 0 0 0 calc(8px * var(--sd-phone-zoom,.74)) #0B0B0D, 0 0 0 calc(9.5px * var(--sd-phone-zoom,.74)) #8E9094,
+              0 0 0 calc(11px * var(--sd-phone-zoom,.74)) #2B2C30,
+              0 calc(30px * var(--sd-phone-zoom,.74)) calc(60px * var(--sd-phone-zoom,.74)) calc(-22px * var(--sd-phone-zoom,.74)) rgba(17,19,24,.45) !important; }
+</style>
+
+
+<style id="proto-en">
+/* 英語版: 英文は語の切れ目で折れるので、和文向けの指定を戻す。 */
+html[lang="en"] .sd h2, html[lang="en"] .sd-copy .sd-lead, html[lang="en"] .pp-points span{ word-break:normal; }
+html[lang="en"] .sd-copy .pp-line{ white-space:normal !important; }
+html[lang="en"] .sd-hero .pp-ja-note{ margin-top:6px; font-size:12px; color:var(--pp-ink3); }
+html[lang="en"] .pp-srs-fig text{ font-size:15px; }
+html[lang="en"] .sd-hero .pp-desc{ max-width:36em; }
+/* 数字の単位（questions など）が長く、隣の列に食い込んだ。列を中身なりの幅にする */
+html[lang="en"] .pp-stats{ max-width:none; }
+html[lang="en"] .pp-stat{ flex:0 0 auto; min-width:0; padding:0 22px; }
+html[lang="en"] .pp-stat b small{ font-size:12px; }
+/* 英文は行が長く、英会話のカードが他より高くなった。説明の中の間を詰めて 4 枚の高さ（1440 幅で 694）を保つ */
+@media (min-width:1001px){
+  html[lang="en"] #features .sd-copy .sd-lead{ margin-top:12px !important; }
+  html[lang="en"] #features .sd-copy .pp-points{ gap:9px !important; margin-top:14px !important; }
+  html[lang="en"] .pp-split .pp-keep-card{ min-height:518px; }
+}
+</style>
 </head>
 <body class="text-slate-900 antialiased">
 
@@ -1425,17 +1886,17 @@
                 <span aria-hidden="true"><span style="color: #297849">Snap</span><span class="text-slate-800">English</span></span>
             </a>
             <nav class="hidden md:flex items-center gap-5 lg:gap-8 text-sm text-slate-600">
-                <a href="#how" class="py-1 hover:text-emerald-700 transition">How it works</a>
                 <a href="#features" class="py-1 hover:text-emerald-700 transition">Features</a>
                 <a href="#pricing" class="py-1 hover:text-emerald-700 transition">Pricing</a>
                 <a href="#faq" class="py-1 hover:text-emerald-700 transition">FAQ</a>
-                <a href="#contact" class="py-1 hover:text-emerald-700 transition">Contact</a>
+                <a href="#news" class="py-1 hover:text-emerald-700 transition">News</a>
+                <a href="/en/contact" class="py-1 hover:text-emerald-700 transition">Contact</a>
             </nav>
             <div class="flex items-center gap-1.5">
                 <a href="#cta" class="px-2.5 py-1.5 rounded-full bg-accent2 text-white text-xs font-bold hover:bg-accent3 transition whitespace-nowrap">Start free</a>
-                <a href="/" hreflang="ja"
+                <a href="/" hreflang="ja" lang="ja"
                     class="hidden md:inline-block px-2.5 py-1 rounded-md text-xs font-semibold text-slate-600 hover:text-emerald-700 hover:bg-slate-100 transition"
-                    title="Japanese version">JP</a>
+                    title="日本語版">JP</a>
                 <button id="mobile-menu-btn" type="button"
                     aria-label="Open menu"
                     aria-expanded="false"
@@ -1449,12 +1910,12 @@
         <!-- Mobile menu drawer -->
         <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white/95 backdrop-blur">
             <nav class="flex flex-col safe-x py-3 text-sm text-slate-700">
-                <a href="#how" class="py-2.5 hover:text-emerald-700 transition">How it works</a>
                 <a href="#features" class="py-2.5 hover:text-emerald-700 transition">Features</a>
                 <a href="#pricing" class="py-2.5 hover:text-emerald-700 transition">Pricing</a>
                 <a href="#faq" class="py-2.5 hover:text-emerald-700 transition">FAQ</a>
-                <a href="#contact" class="py-2.5 hover:text-emerald-700 transition">Contact</a>
-                <a href="/" hreflang="ja" class="py-2.5 mt-1 border-t border-slate-200 hover:text-emerald-700 transition">Japanese</a>
+                <a href="#news" class="py-2.5 hover:text-emerald-700 transition">News</a>
+                <a href="/en/contact" class="py-2.5 hover:text-emerald-700 transition">Contact</a>
+                <a href="/" hreflang="ja" lang="ja" class="py-2.5 mt-1 border-t border-slate-200 hover:text-emerald-700 transition">日本語</a>
             </nav>
         </div>
     </header>
@@ -1464,14 +1925,16 @@
 <!-- ヒーロー -->
 <section class="sd sd-hero" aria-labelledby="hero-h">
     <div class="sd-wrap sd-hero-in">
-        <div class="sd-hero-col">            <p class="sd-kicker">The all-in-one English app</p>
-            <h1 id="hero-h">Listen. Speak. Write.<br>All in one app.</h1>
-            <p class="sd-lead">Learn by producing, not just by reading.</p>
-            <div class="sd-modes">
-                <a class="sd-mode m1" href="#features"><b>AI conversation<svg class="sd-mode-go" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg></b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="200">200</span> scenes</span><span class="sd-sr">200 scenes</span></a>
-                <a class="sd-mode m2" href="#composition"><b>Composition<svg class="sd-mode-go" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg></b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="5000">5,000</span> questions</span><span class="sd-sr">5,000 questions</span></a>
-                <a class="sd-mode m3" href="#grammar"><b>Grammar<svg class="sd-mode-go" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg></b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="4279">4,279</span> questions</span><span class="sd-sr">4,279 questions</span></a>
-                <a class="sd-mode m4" href="#vocabulary"><b>Vocabulary<svg class="sd-mode-go" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg></b><span class="sd-mode-n" aria-hidden="true"><span class="sd-num" data-to="7533">7,533</span> words</span><span class="sd-sr">7,533 words</span></a>
+        <div class="sd-hero-col">
+            <a class="pp-hero-news" href="#news"><span class="lab">News</span><time datetime="2026-10-18">2026.10.18</time><span class="t">Version 1.4.11 released</span><span class="ar" aria-hidden="true">→</span></a>
+            <p class="sd-kicker">SnapEnglish / iPhone &amp; Android</p>
+            <h1 id="hero-h">Speak. Listen. Write.<br>All in one app.</h1>
+            <p class="pp-desc">Learn English by using it, not by memorising it first.<br>Let AI help you learn more efficiently.<br>For every learner — students and working adults, beginners to advanced.</p>
+            <div class="pp-stats sd-modes">
+                <a class="pp-stat sd-mode" href="#features"><b aria-hidden="true"><span class="sd-num" data-to="200">200</span><small>scenes</small></b><span class="pp-lab">AI conversation</span><span class="sd-sr">200 scenes</span></a>
+                <a class="pp-stat sd-mode" href="#composition"><b aria-hidden="true"><span class="sd-num" data-to="5000">5,000</span><small>questions</small></b><span class="pp-lab">Composition</span><span class="sd-sr">5,000 questions</span></a>
+                <a class="pp-stat sd-mode" href="#grammar"><b aria-hidden="true"><span class="sd-num" data-to="4279">4,279</span><small>questions</small></b><span class="pp-lab">Grammar</span><span class="sd-sr">4,279 questions</span></a>
+                <a class="pp-stat sd-mode" href="#vocabulary"><b aria-hidden="true"><span class="sd-num" data-to="7392">7,392</span><small>words</small></b><span class="pp-lab">Vocabulary</span><span class="sd-sr">7,392 words</span></a>
             </div>
             <div class="sd-badges">
                 <a class="app-store-badge" href="https://apps.apple.com/jp/app/id6757105670?pt=127982208&amp;ct=web&amp;mt=8" target="_blank" rel="noopener" aria-label="Download on the App Store">
@@ -1481,20 +1944,16 @@
                     <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play">
                 </a>
             </div>
-            <p class="sd-note"><span class="nobreak">7 days free</span> &nbsp;/&nbsp; <span class="nobreak">iOS &amp; Android</span> &nbsp;/&nbsp; <span class="nobreak">no payment details required</span></p>
-            <p class="sd-note">The app interface is in Japanese; the screens in the demos below are shown as they appear in the app.</p>
-                    <p class="sd-sub">Conversation, composition, grammar and vocabulary — every angle covered. AI acts as your native English teacher, assessing and correcting what you write and say.</p>
-            <p class="sd-sub">Today’s questions are queued up for you, so you can fit practice into spare moments. Even on a crowded train, the keyboard alone is enough to keep going.</p>
-            <p class="sd-plus">+ <b>Spaced repetition (SRS)</b>&nbsp;&nbsp;Composition, grammar and vocabulary each come back before you forget them.</p>
-            <p class="sd-plus">+ <b>Native audio</b>&nbsp;&nbsp;Every English sentence in the app can be played in a native voice.</p>
-</div>
+            <p class="sd-note">7 days free / iOS &amp; Android / no payment details required</p>
+            <p class="sd-note pp-ja-note">The app is in Japanese. The demos below show the screens exactly as they appear in the app.</p>
+        </div>
 
         <!-- ストア1枚目と同じ人物・同じ画風（Recraft V4.1 Pro・同じ STYLE/HANDS 指定）のまま、
              場面を通勤電車に変えて描き起こしたもの。地色はサイトの --sd-ivory に合わせてあり、
              枠も影も付けない＝「画像を貼った」ようには見せず、そのまま地に溶かす。
              3D 版（hero-3d.webp）に差し替えたが、オーナー判断でこちらに戻した。 -->
         <figure class="sd-hero-art" aria-hidden="true">
-            <img src="/demo/hero-train.webp" alt=""
+            <img src="/demo/hero-train-white.webp" alt=""
                  width="900" height="1399" decoding="async">
         </figure>
     </div>
@@ -1502,16 +1961,27 @@
 
 <div id="how">
 
-<!-- ============ デモ 1: AI英会話 ============ -->
+<!-- ============ デモ1: AI英会話 ============ -->
 <section class="sd sd-v sd-demo-root" id="features" data-demo="conversation" aria-labelledby="demo-v-h">
     <div class="sd-demo sd-wrap">
         <div class="sd-panel">
-            <div class="sd-copy"><p class="sd-eyebrow">AI conversation</p><h2 id="demo-v-h">Every scene is set up for you, <br class="wide">so you never wonder what to say</h2><p class="sd-lead">Practise in everyday and business situations you actually run into. Choose Beginner (A1–A2), Intermediate (B1–B2) or Advanced (C1–C2).</p>
+            <div class="sd-copy"><p class="sd-eyebrow">AI conversation</p><h2 id="demo-v-h">Say what you mean,<br>in English.</h2><p class="sd-lead"><span class="pp-line">200 scenes, from airports and hotels to the office.</span><br class="pc"><span class="pp-line">AI plays the shop assistant or colleague and talks with you in the scene.</span><br class="pc"><span class="pp-line">Free talk is coming in the next update.</span></p>
+                <ul class="pp-points">
+                    <li class="pp-cap">Three conversation modes</li>
+                    <li><b>Script mode</b><span>Put each Japanese prompt into English to move the conversation on.</span></li>
+                    <li><b>Ad-lib mode</b><span>The conversation goes wherever your replies take it.</span></li>
+                    <li><b>Free talk<small class="pp-soon">Coming in the next update</small></b><span>No set scene — talk about anything for up to 5 minutes, with your choice of 8 partners.</span></li>
+                    <li class="pp-cap pp-sep">In every mode</li>
+                    <li class="pp-sub"><b>Feedback</b>　<span>After the conversation, see what to fix and more natural ways to say it.</span></li>
+                    <li class="pp-sub"><b>Type instead of speaking</b>　<span>Keep going even on a train where you can’t talk out loud.</span></li>
+                </ul>
+                <p class="pp-demo-note">* The demo shows only the first two exchanges. The feedback covers the whole five-exchange conversation.</p>
             </div>
             <div class="sd-stage">
-            <div class="sd-phone" lang="en" role="img" aria-label="A self-playing demo of the AI conversation screen: two exchanges in Script mode, then feedback on the whole conversation. The text in this section describes this demo. The app interface shown is in Japanese.">
-                <div class="bg"><img src="/demo/conv-scene.webp?v=20260924" alt="Illustration of a barista standing at a cafe counter" width="768" height="1664" loading="lazy" decoding="async"></div>
-                <div class="scene" lang="ja">
+            <div class="sd-phone" role="img" aria-label="An auto-playing demo of the AI conversation screen (in Japanese, as in the app). After two exchanges in Script mode, feedback on the whole conversation appears. The text in this section describes the demo.">
+                <div class="pp-sb" aria-hidden="true"><span class="tm">9:41</span><i class="di"></i><span class="ic"><svg viewBox="0 0 19 12"><rect x="0" y="7.5" width="3.2" height="4.5" rx=".8"/><rect x="5" y="5" width="3.2" height="7" rx=".8"/><rect x="10" y="2.5" width="3.2" height="9.5" rx=".8"/><rect x="15" y="0" width="3.2" height="12" rx=".8"/></svg><svg viewBox="0 0 17 12"><path d="M8.5 2.6c2.4 0 4.6.9 6.3 2.5l1.2-1.2A10.6 10.6 0 008.5 1 10.6 10.6 0 001 3.9l1.2 1.2A9 9 0 018.5 2.6zm0 3.3c1.5 0 2.9.6 4 1.6l1.2-1.2a7.3 7.3 0 00-10.4 0l1.2 1.2c1.1-1 2.5-1.6 4-1.6zm0 3.3c.6 0 1.2.2 1.6.6L8.5 11.4 6.9 9.8c.4-.4 1-.6 1.6-.6z"/></svg><svg viewBox="0 0 28 13"><rect x=".5" y=".5" width="24" height="12" rx="3.6" fill="none" stroke="currentColor" opacity=".4"/><rect x="2.5" y="2.5" width="20" height="8" rx="2"/><path d="M26 4.5v4a2 2 0 000-4z" opacity=".45"/></svg></span></div>
+                <div class="bg"><img src="/demo/conv-scene.webp?v=20260924" alt="Illustration of a barista standing at a café counter" width="768" height="1664" loading="lazy" decoding="async"></div>
+                <div class="scene">
                     <div class="top">
                         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4.5L7.5 12l7.5 7.5"/></svg>
                         <p class="ttl">カフェで注文する</p>
@@ -1526,12 +1996,12 @@
                     <div class="log"><div class="login" data-el="log">
                         <div class="msg ai" style="animation:none">
                             <p class="mt en" lang="en">Hi! What can I get for you?</p>
-                            <p class="ic"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3.5 12S6.8 6.5 12 6.5c1.7 0 3.2.6 4.4 1.4M20.5 12S17.2 17.5 12 17.5c-1.7 0-3.2-.6-4.4-1.4"/><path d="M9.6 14.4A3.2 3.2 0 0114.4 9.6"/><path d="M4 20L20 4"/></svg><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg><svg class="spk" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3.5 9.2h3.6L12.2 5v14l-5.1-4.2H3.5z"/><path d="M15.6 9a4.2 4.2 0 010 6M18.4 6.6a7.6 7.6 0 010 10.8"/></svg></p>
+                            <p class="ic"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2.8 12S6.2 6.2 12 6.2 21.2 12 21.2 12 17.8 17.8 12 17.8 2.8 12 2.8 12z"/><circle cx="12" cy="12" r="3"/><path d="M4.5 4.5l15 15"/></svg><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg><svg class="spk" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3.5 9.2h3.6L12.2 5v14l-5.1-4.2H3.5z"/><path d="M15.6 9a4.2 4.2 0 010 6M18.4 6.6a7.6 7.6 0 010 10.8"/></svg></p>
                         </div>
                     </div></div>
                 </div>
 
-                <div class="panel" lang="ja" data-el="panel" data-st="idle">
+                <div class="panel" data-el="panel" data-st="idle">
                     <div class="task">
                         <p class="tlab"><i class="bar"></i><b data-el="turnlab">あなたの番</b><span class="sep" data-el="sep">・</span><span>これを英語で言ってみよう</span><span class="see"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 12S6 5.8 12 5.8 21.5 12 21.5 12 18 18.2 12 18.2 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.1"/></svg>回答例</span></p>
                         <p class="tja" data-el="task">ホットのカフェラテを一つお願いします。</p>
@@ -1568,62 +2038,64 @@
                     <div class="kr"><span class="k fn w2">123</span><span class="k sp" data-k=" ">space</span><span class="k c" data-k=",">,</span><span class="k c" data-k=".">.</span></div>
                 </div>
 
-                <!-- 会話後のフィードバック。2026-10-11 に実機シミュレータ（1.4.10 の会話画面）で
+                <!-- 会話後のフィードバック。2026-10-11に実機シミュレータ（1.4.10の会話画面）で
                      「カフェで注文する」を全5往復やり切って返ってきた実物。
                      文言は demo/_cafe_feedback_source.md に控えてある。 -->
-                <div class="fb hide" lang="ja" data-el="fb">
+                <div class="fb hide" data-el="fb">
                     <div class="fbbar"><span>フィードバック</span><i class="fbx">&#10005;</i></div>
                     <div class="fbwin">
                         <div class="fbroll" data-el="fbroll">
-                            <p class="fbttl"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M4 5h11a2 2 0 012 2v6a2 2 0 01-2 2H8l-4 3z"/><path d="M18 9h2a2 2 0 012 2v5a2 2 0 01-2 2h-1l-3 2v-2"/></svg>カフェで注文する</p>
+                            <!-- 2026-10-26に iOS シミュレーター（main 6c7de231）で「カフェで注文する」を全5往復やり切って返ってきた実物（講評 v2）。
+                                 文言は demo/_cafe_feedback_source_2026-10-26.md に控えてある。No.3・No.4はわざと崩した英文で入力した。
+                                 「次の一歩」は誤った例（For to go, please.）を含んでいたので載せない。 -->
+                            <p class="fbttl"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H9l-4 3v-3a2 2 0 0 1-2-2z"/><path d="M19 8h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2v3l-4-3h-5a2 2 0 0 1-2-2v-1h5a4 4 0 0 0 4-4z" opacity=".75"/></svg>カフェで注文する</p>
                             <p class="fbchips"><span>台本</span><span>中級</span></p>
-
-                            <div class="fbcard mission" data-fb="1">
-                                <p class="fbmi"><span class="fbtick"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 12.5l4.2 4.2L18.5 8"/></svg></span><span class="fbmt"><b>全てのターンで正確に表現できています</b><em>正確に表現できたターン 5 / 5</em></span></p>
+                            <div class="fbtiles" data-fb="1">
+                                <p class="ok"><b>3<small>ターン</small></b>表現できています</p>
+                                <p class="part"><b>1<small>ターン</small></b>一部修正が必要です</p>
+                                <p class="ng"><b>1<small>ターン</small></b>見直しが必要です</p>
                             </div>
-
                             <div class="fbcard" data-fb="2">
-                                <p class="fbrowlab"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M4 5h11a2 2 0 012 2v6a2 2 0 01-2 2H8l-4 3z"/><path d="M18 9h2a2 2 0 012 2v5a2 2 0 01-2 2h-1l-3 2v-2"/></svg><b>伝わりやすさ</b></p>
-                                <p class="fbtx">丁寧な言葉遣いで会話の流れに沿って的確に応答でき、スムーズなやり取りができています。</p>
-                                <p class="fbrowlab abc"><em>ABC</em><b>英語の自然さ</b></p>
-                                <p class="fbtx">全体的に自然で通じる英語が使えており、語法・構文ともに問題ありません。</p>
+                                <p class="fbhead v2"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h3M10 6h10M4 12h16M4 18h16"/></svg>全体的な印象</p>
+                                <ul class="fbimp"><li>注文の基本表現「I&#39;d like 〜, please.」を正しく使えており、ドリンクとサイズの注文は自然に伝えられています。</li><li>店員の質問に対して、サイズや会話の流れに合った返答ができています。</li><li>店員の質問「For here or to go?」のような選択肢には、「For here, please.」のように自分の希望を直接答える練習をしましょう。</li><li>「by card」のように、支払い方法を表す前置詞を忘れないよう意識しましょう。</li></ul>
                             </div>
-
                             <div class="fbcard" data-fb="3">
-                                <p class="fbhead"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M4 5h16a1 1 0 011 1v10a1 1 0 01-1 1H9l-5 4z"/></svg>会話内容</p>
-                                <div class="fbtalk">
-                                    <p><span>相手</span><em class="en" lang="en">Hi! What can I get for you?</em></p>
-                                    <p><span>あなた</span><b class="en" lang="en">I&#39;d like a hot latte, please.</b></p>
+                                <p class="fbhead v2"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg>レビュー内容</p>
+                                <div class="fbturn" data-fb="t1">
+                                    <p class="fbno"><span>No.1</span><em class="fbv ok">表現できています</em></p>
+                                    <p class="fbline"><span>相手</span><em class="en" lang="en">Hi! What can I get for you?</em></p>
+                                    <p class="fbline"><span>あなた</span><b class="en" lang="en">I&#39;d like a hot latte, please.</b></p>
+                                    <p class="fbline fbmodel"><span>回答例</span><i class="en" lang="en">I&#39;d like a hot latte, please.</i><svg class="fbspk" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a8.5 8.5 0 0 1 0 12"/></svg></p>
+                                    <div class="fbnote"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg><div><p>「I&#39;d like a hot latte, please.」で、ホットのカフェラテを丁寧に注文できています。</p></div></div>
                                 </div>
-                                <div class="fbtalk">
-                                    <p><span>相手</span><em class="en" lang="en">Sure. What size would you like?</em></p>
-                                    <p><span>あなた</span><b class="en" lang="en">I&#39;ll have a medium, please.</b></p>
+                                <div class="fbturn" data-fb="t2">
+                                    <p class="fbno"><span>No.2</span><em class="fbv ok">表現できています</em></p>
+                                    <p class="fbline"><span>相手</span><em class="en" lang="en">Sure. What size would you like?</em></p>
+                                    <p class="fbline"><span>あなた</span><b class="en" lang="en">I&#39;ll have a medium, please.</b></p>
+                                    <p class="fbline fbmodel"><span>回答例</span><i class="en" lang="en">I&#39;ll have a medium, please.</i><svg class="fbspk" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a8.5 8.5 0 0 1 0 12"/></svg></p>
+                                    <div class="fbnote"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg><div><p>「I&#39;ll have a medium, please.」で、Mサイズを自然に伝えられています。</p></div></div>
                                 </div>
-                                <div class="fbtalk">
-                                    <p><span>相手</span><em class="en" lang="en">For here or to go?</em></p>
-                                    <p><span>あなた</span><b class="en" lang="en">For here, please.</b></p>
+                                <div class="fbturn" data-fb="t3">
+                                    <p class="fbno"><span>No.3</span><em class="fbv ng">見直しが必要です</em></p>
+                                    <p class="fbline"><span>相手</span><em class="en" lang="en">For here or to go?</em></p>
+                                    <p class="fbline"><span>あなた</span><b class="en" lang="en">I eat here.</b></p>
+                                    <p class="fbline fbmodel"><span>回答例</span><i class="en" lang="en">For here, please.</i><svg class="fbspk" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a8.5 8.5 0 0 1 0 12"/></svg></p>
+                                    <div class="fbnote"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg><div><p>「I eat here.」は事実を述べるだけで、店内で飲食したいという注文の意思が伝わらず、店員の質問への返答にもなっていません。</p><div class="fbalt"><p class="fbalt-en en" lang="en"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v8h11"/><path d="m13 8 4 4-4 4"/></svg><b>I&#39;ll have it for here, please.</b><svg class="fbspk" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a8.5 8.5 0 0 1 0 12"/></svg></p><p class="fbalt-ja">店内でお願いします。「I&#39;ll have 〜」を使い、注文の意思をより明確にした言い方です。</p></div></div></div>
                                 </div>
-                                <div class="fbtalk">
-                                    <p><span>相手</span><em class="en" lang="en">That&#39;ll be four fifty. How would you like to pay?</em></p>
-                                    <p><span>あなた</span><b class="en" lang="en">Can I pay by card?</b></p>
+                                <div class="fbturn" data-fb="t4">
+                                    <p class="fbno"><span>No.4</span><em class="fbv part">一部修正が必要です</em></p>
+                                    <p class="fbline"><span>相手</span><em class="en" lang="en">That&#39;ll be four fifty. How would you like to pay?</em></p>
+                                    <p class="fbline"><span>あなた</span><b class="en" lang="en">Can I pay card?</b></p>
+                                    <p class="fbline fbmodel"><span>回答例</span><i class="en" lang="en">Can I pay by card?</i><svg class="fbspk" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a8.5 8.5 0 0 1 0 12"/></svg></p>
+                                    <div class="fbnote"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg><div><p>「Can I pay card?」は「by」が抜けているため、「カードで払う」という意味が伝わりにくくなっています。</p><div class="fbalt"><p class="fbalt-en en" lang="en"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v8h11"/><path d="m13 8 4 4-4 4"/></svg><b>Can I pay with a card?</b><svg class="fbspk" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a8.5 8.5 0 0 1 0 12"/></svg></p><p class="fbalt-ja">カードで払えますか？「pay with 〜」で「〜を使って払う」と言う形で、道具や手段を示すときに使えます。</p></div></div></div>
                                 </div>
-                                <div class="fbtalk">
-                                    <p><span>相手</span><em class="en" lang="en">Thank you! It&#39;ll be ready shortly.</em></p>
-                                    <p><span>あなた</span><b class="en" lang="en">Thanks. I&#39;ll wait.</b></p>
+                                <div class="fbturn" data-fb="t5">
+                                    <p class="fbno"><span>No.5</span><em class="fbv ok">表現できています</em></p>
+                                    <p class="fbline"><span>相手</span><em class="en" lang="en">Thank you! It&#39;ll be ready shortly.</em></p>
+                                    <p class="fbline"><span>あなた</span><b class="en" lang="en">Thanks. I&#39;ll wait.</b></p>
+                                    <p class="fbline fbmodel"><span>回答例</span><i class="en" lang="en">Thanks. I&#39;ll wait.</i><svg class="fbspk" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a8.5 8.5 0 0 1 0 12"/></svg></p>
+                                    <div class="fbnote"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg><div><p>「Thanks. I&#39;ll wait.」で、お礼と待つ意思を簡潔かつ自然に伝えられています。</p></div></div>
                                 </div>
-                            </div>
-
-                            <div class="fbcard" data-fb="4">
-                                <p class="fbhead"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"/></svg>覚えておきたい表現</p>
-                                <div class="fbkey"><b class="en" lang="en">I&#39;d like a hot latte, please.</b><span>注文を丁寧に伝える定番フレーズ。would like は want より丁寧な印象を与える。</span><svg class="fbspk" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3.5 9.2h3.6L12.2 5v14l-5.1-4.2H3.5z"/><path d="M15.6 9a4.2 4.2 0 010 6M18.4 6.6a7.6 7.6 0 010 10.8"/></svg></div>
-                                <div class="fbkey"><b class="en" lang="en">I&#39;ll have a medium, please.</b><span>サイズや追加の選択肢を答えるときに使える自然な言い回し。</span><svg class="fbspk" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3.5 9.2h3.6L12.2 5v14l-5.1-4.2H3.5z"/><path d="M15.6 9a4.2 4.2 0 010 6M18.4 6.6a7.6 7.6 0 010 10.8"/></svg></div>
-                                <div class="fbkey"><b class="en" lang="en">For here, please.</b><span>店内で飲む場合の定型表現。持ち帰りは &quot;To go, please.&quot; または &quot;To go.&quot; と言う。</span><svg class="fbspk" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3.5 9.2h3.6L12.2 5v14l-5.1-4.2H3.5z"/><path d="M15.6 9a4.2 4.2 0 010 6M18.4 6.6a7.6 7.6 0 010 10.8"/></svg></div>
-                                <div class="fbkey"><b class="en" lang="en">Can I pay by card?</b><span>カード払いを希望するときの自然な確認フレーズ。</span><svg class="fbspk" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3.5 9.2h3.6L12.2 5v14l-5.1-4.2H3.5z"/><path d="M15.6 9a4.2 4.2 0 010 6M18.4 6.6a7.6 7.6 0 010 10.8"/></svg></div>
-                            </div>
-
-                            <div class="fbcard nextstep" data-fb="5">
-                                <p class="fbhead"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a6 6 0 00-3 11.2V17h6v-2.8A6 6 0 0012 3z"/><path d="M10 19h4M10.5 21h3"/></svg>次の一歩</p>
-                                <p class="fbtx">注文に一言コメントを添える練習として、&quot;I heard the latte here is great.&quot; のように軽い一言を加えると、より自然な会話の幅が広がります。</p>
                             </div>
                         </div>
                     </div>
@@ -1633,35 +2105,37 @@
             </div>
             <!-- デモで流しているのは台本モードの一部。アドリブモードも全5往復も
                  出していないので、そこだけ小さく断っておく（オーナー指示）。 -->
-            <p class="sd-demo-note">This demo shows the first two exchanges of Script mode. The feedback that follows is what you get after completing all five.</p>
-            <details class="sd-more" open>
-                <summary>More about this mode</summary>
-                <div class="sd-copy"><p class="sd-lead">In Script mode, you move the conversation forward by putting the prompt into English.</p><p class="sd-lead">In Free mode, the conversation unfolds from whatever you choose to say.</p><p class="sd-lead">When the conversation ends, you get feedback on the whole exchange.</p>
-                </div>
-            </details>
         </div>
     </div>
 </section>
-<!-- ============ デモ 2: 英作文 ============ -->
+<!-- ============ デモ2: 英作文 ============ -->
 <section class="sd sd-w sd-demo-root" id="composition" data-demo="composition" aria-labelledby="demo-w-h">
     <div class="sd-demo sd-wrap">
         <div class="sd-panel">
-            <div class="sd-copy"><p class="sd-eyebrow">Composition</p><h2 id="demo-w-h">Instant feedback on<br>the English you write.</h2><p class="sd-lead">Put the prompt into English and AI comes back with what to improve and other ways to say it.</p>
+            <div class="sd-copy"><p class="sd-eyebrow">Composition</p><h2 id="demo-w-h">Your own AI coach<br>for writing English.</h2><p class="sd-lead">Put the Japanese into English, and AI rates it on the spot and shows you what to improve.</p>
+                <ul class="pp-points">
+                    <li><b>Overall rating</b><span>Your answer is rated A, B or C.</span></li>
+                    <li><b>Smart corrections</b><span>Before and after, side by side, with the reason for each change.</span></li>
+                    <li><b>Other ways to say it</b><span>Learn natural phrasings and how similar expressions differ in nuance.</span></li>
+                    <li><b>Ask the AI coach</b><span>Anything unclear? Ask the AI coach right from that screen.</span></li>
+                    <li><b>Pronunciation scoring</b><span>Read the model answer aloud and each word is rated A, B or C.</span></li>
+                </ul>
             </div>
             <div class="sd-stage">
-            <div class="sd-phone" lang="en" role="img" aria-label="A self-playing demo of the composition feedback screen: put a Japanese prompt into English and get an assessment, the places to fix, other ways to say it, and pronunciation. The text in this section describes this demo. The app interface shown is in Japanese.">
-                <img src="/demo/result-header.webp" alt="" width="620" height="96" loading="lazy" decoding="async">
-                <div class="screen" lang="ja">
+            <div class="sd-phone" role="img" aria-label="An auto-playing demo of the composition feedback screen (in Japanese, as in the app). Put the Japanese prompt into English and you get a rating, what to fix, other expressions and pronunciation. The text in this section describes the demo.">
+                <div class="pp-sb" aria-hidden="true"><span class="tm">9:41</span><i class="di"></i><span class="ic"><svg viewBox="0 0 19 12"><rect x="0" y="7.5" width="3.2" height="4.5" rx=".8"/><rect x="5" y="5" width="3.2" height="7" rx=".8"/><rect x="10" y="2.5" width="3.2" height="9.5" rx=".8"/><rect x="15" y="0" width="3.2" height="12" rx=".8"/></svg><svg viewBox="0 0 17 12"><path d="M8.5 2.6c2.4 0 4.6.9 6.3 2.5l1.2-1.2A10.6 10.6 0 008.5 1 10.6 10.6 0 001 3.9l1.2 1.2A9 9 0 018.5 2.6zm0 3.3c1.5 0 2.9.6 4 1.6l1.2-1.2a7.3 7.3 0 00-10.4 0l1.2 1.2c1.1-1 2.5-1.6 4-1.6zm0 3.3c.6 0 1.2.2 1.6.6L8.5 11.4 6.9 9.8c.4-.4 1-.6 1.6-.6z"/></svg><svg viewBox="0 0 28 13"><rect x=".5" y=".5" width="24" height="12" rx="3.6" fill="none" stroke="currentColor" opacity=".4"/><rect x="2.5" y="2.5" width="20" height="8" rx="2"/><path d="M26 4.5v4a2 2 0 000-4z" opacity=".45"/></svg></span></div>
+                <img src="/demo/result-header-1027.webp" alt="" width="620" height="96" loading="lazy" decoding="async">
+                <div class="screen">
                     <div class="rollwrap">
                     <div class="roll" data-el="roll">
 
-                        <div class="card">
-                            <div class="qhead"><span class="lv">初級</span><span class="qicons"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.2 12.3l2.6 2.6 5-5.2"/></svg><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 4.5h11v15l-5.5-4-5.5 4z"/></svg></span></div>
-                            <p class="q">昨夜は残業でした</p>
+                        <div class="card" data-el="cQuestion">
+                            <div class="qhead"><span class="lv">中級</span><span class="qicons"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.2 12.3l2.6 2.6 5-5.2"/></svg><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 4.5h11v15l-5.5-4-5.5 4z"/></svg></span></div>
+                            <p class="q">最初の会議の15分前には着くようにしています。</p>
                             <div class="qrow"><span class="pill"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M14.5 3a6.5 6.5 0 00-6.2 8.5L3 16.8V21h4.2l1.2-1.2v-1.8h1.8l1.2-1.2v-1.8h1.8l.9-.9A6.5 6.5 0 1014.5 3zm2.6 5.2a1.6 1.6 0 110-3.2 1.6 1.6 0 010 3.2z"/></svg>主語を見る</span><span class="pill"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5a6.2 6.2 0 00-3.6 11.3c.6.4 1 1.1 1 1.9v.3h5.2v-.3c0-.8.4-1.5 1-1.9A6.2 6.2 0 0012 2.5z"/><rect x="9.4" y="17.6" width="5.2" height="1.7" rx=".85"/><rect x="10.2" y="20.1" width="3.6" height="1.6" rx=".8"/></svg>ヒントを見る</span></div>
                             <div class="hair qdiv"></div>
                             <p class="alab">あなたの回答</p>
-                            <div class="inbox en" data-el="inbox" lang="en">I did overwork yesterday night.</div>
+                            <div class="inbox en" data-el="inbox" lang="en">I try to arrive 15 minutes before of the first meeting.</div>
                         </div>
 
                         <div class="card hide" data-el="cLoad">
@@ -1680,9 +2154,14 @@
                             </div>
                         </div>
 
+                        <div class="card hide" data-el="cProb">
+                            <p class="lbl"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h9"/></svg>問題文</p>
+                            <p class="probq">最初の会議の15分前には着くようにしています。</p>
+                        </div>
+
                         <div class="card hide" data-el="cAns">
                             <p class="lbl"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>あなたの回答</p>
-                            <p class="ans en" data-el="ansLine" lang="en">I <span class="u">did overwork</span> <span class="u">yesterday night</span>.</p>
+                            <p class="ans en" data-el="ansLine" lang="en">I try to arrive 15 minutes <span class="u">before of the</span> first meeting.</p>
                             <div class="hair"></div>
                             <div class="mrow">
                                 <p class="lbl"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 2.6l2.3 1.7 2.8-.3 1 2.7 2.4 1.5-.9 2.7.9 2.7-2.4 1.5-1 2.7-2.8-.3L12 19.6l-2.3-1.7-2.8.3-1-2.7L3.5 14l.9-2.7-.9-2.7 2.4-1.5 1-2.7 2.8.3z"/><path d="M9.2 11.8l1.9 1.9 3.7-4"/></svg>回答例</p>
@@ -1692,50 +2171,44 @@
                                     <span class="play rep"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9.5A6.5 6.5 0 0 1 11.5 3H16"/><path d="M14 1.2L16.4 3 14 4.8"/><path d="M19 14.5A6.5 6.5 0 0 1 12.5 21H8"/><path d="M10 19.2L7.6 21 10 22.8"/><text x="12" y="15.2" text-anchor="middle" font-size="8.5" font-weight="700" fill="currentColor" stroke="none">5</text></svg></span>
                                 </span>
                             </div>
-                            <p class="men en" lang="en">I worked overtime last night.</p>
+                            <p class="men en" lang="en">I try to arrive 15 minutes before my first meeting.</p>
                         </div>
 
                         <div class="card hide" data-el="cImp">
-                            <p class="lbl b"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7.4v5.4"/><circle cx="12" cy="16.4" r="1" fill="currentColor"/></svg>改善点</p>
+                            <p class="lbl b"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7.4v5.4"/><circle cx="12" cy="16.4" r="1" fill="currentColor"/></svg>改善ポイント</p>
                             <div class="hair"></div>
                             <div class="imp hide" data-el="imp1">
-                                <p class="imp-t"><i>1.</i>単語の選択</p>
-                                <p class="ln en bad"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg><span class="tx">did overwork</span></p>
-                                <p class="ln en good"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.2l2.6 2.6 4.6-5"/></svg>worked overtime</p>
-                                <p class="nt">overwork は「過度に働く」という意味で、「残業をする」という意味の overtime とは異なります。</p>
-                            </div>
-                            <div class="imp hide" data-el="imp2">
-                                <p class="imp-t"><i>2.</i>表現の自然さ</p>
-                                <p class="ln en bad"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg><span class="tx">yesterday night</span></p>
-                                <p class="ln en good"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.2l2.6 2.6 4.6-5"/></svg>last night</p>
-                                <p class="nt">「昨夜」は last night が自然な表現で、yesterday night は不自然です。</p>
+                                <p class="ln en bad"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg><span class="tx">of the</span></p>
+                                <p class="ln en good"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.2l2.6 2.6 4.6-5"/></svg>my</p>
+                                <p class="nt">「before of」は文法的に誤りです。「before」の後には直接名詞が続くため、「of」は不要です。また、「the first meeting」より「my first meeting」の方が、話者の個人的な会議という文脈に合致します。</p>
                             </div>
                         </div>
 
                         <div class="card hide" data-el="cAlt">
-                            <p class="lbl b"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M20 12.5c0 3.6-3.6 6.5-8 6.5-1 0-2-.2-2.9-.5L4 20l1.3-3.4C4.5 15.4 4 14 4 12.5 4 8.9 7.6 6 12 6s8 2.9 8 6.5z"/></svg>別の言い方</p>
+                            <p class="lbl b"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M20 12.5c0 3.6-3.6 6.5-8 6.5-1 0-2-.2-2.9-.5L4 20l1.3-3.4C4.5 15.4 4 14 4 12.5 4 8.9 7.6 6 12 6s8 2.9 8 6.5z"/></svg>他の表現</p>
                             <div class="hair"></div>
-                            <p class="alt en" lang="en">I had to work overtime last night.</p>
-                            <p class="nt">had to を付けると「残業せざるを得なかった」という含みが出ます。事実だけを述べるなら worked overtime です。</p>
+                            <p class="alt en" lang="en">I make sure to arrive 15 minutes before my first meeting.</p>
+                            <p class="nt">「make sure to」を使うことで、より意図的に時間を確保しているニュアンスが強調されます。</p>
+                            <p class="alt en" lang="en">I always arrive 15 minutes early for my first meeting.</p>
+                            <p class="nt">「arrive early」という表現で、より自然で日常的な言い方になります。</p>
                         </div>
 
                         <div class="card hide" data-el="cCoach">
-                            <p class="lbl b"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M3 9.5C3 6.9 5.5 5 9 5h4c3.5 0 6 1.9 6 4.5S16.5 14 13 14h-2l-3.4 2.6.4-2.8C4.9 13.1 3 11.5 3 9.5z"/></svg>AIコーチに質問する</p>
+                            <p class="lbl b"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M3 9.5C3 6.9 5.5 5 9 5h4c3.5 0 6 1.9 6 4.5S16.5 14 13 14h-2l-3.4 2.6.4-2.8C4.9 13.1 3 11.5 3 9.5z"/></svg>AIコーチに質問する<svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg></p>
                             <div class="hair"></div>
-                            <div class="chips"><span class="chip">改善ポイントを詳しく！</span><span class="chip">他の言い方は？</span><span class="chip">もっと丁寧に言うには？</span></div>
+                            <div class="chips"><span class="chip">改善ポイントを詳しく！</span><span class="chip">他の言い方はある？</span><span class="chip">もっと丁寧に言うには？</span></div>
                             <div class="field"><span>この問題について聞いてみましょう</span><span class="snd"><svg aria-hidden="true" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span></div>
                         </div>
 
                         <div class="card hide" data-el="cPron">
-                            <!-- 今のアプリ（1.4.7〜）の発音分析。中身は ResultView+Sample.swift の q08 のサンプル
+                            <!-- 今のアプリ（1.4.7〜）の発音分析。中身は ResultView+Sample.swift の q08のサンプル
                                  （実機で返った値）で、worked だけが B、ほかは A。 -->
                             <div class="pr-hd"><p class="lbl b"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 11v2M7 8v8M11 5v14M15 8v8M19 11v2"/></svg>発音分析</p><svg class="pr-i" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.2"/></svg></div>
                             <div class="hair"></div>
                             <div class="pr-sub"><b>単語ごとの評価</b><span class="pr-leg"><span><i class="gb a">A</i>問題なし</span><span><i class="gb b">B</i>少し改善</span><span><i class="gb c">C</i>伝わらない</span></span></div>
-                            <div class="words en" lang="en"><span class="w a">I</span><span class="w b">worked</span><span class="w a">overtime</span><span class="w a">last</span><span class="w a">night</span></div>
+                            <div class="words en" lang="en"><span class="w a">I</span><span class="w a">try</span><span class="w a">to</span><span class="w a">arrive</span><span class="w a">15</span><span class="w a">minutes</span><span class="w a">before</span><span class="w a">my</span><span class="w a">first</span><span class="w a">meeting</span></div>
                             <div class="hair"></div>
-                            <p class="pr-row"><i class="gb b">B</i><b class="en" lang="en">worked</b><span class="b">伝わるが、少し改善が必要</span></p>
-                            <p class="pr-nt">語尾の「ked」は「クト」と母音を足さず、舌先で軽く止めるだけにしてみてください。</p>
+                            <p class="pr-nt">すべての単語が伝わる発音です</p>
                         </div>
 
                     </div>
@@ -1743,28 +2216,25 @@
 
                     <!-- 実機（screenshots/practice-input.webp）と同じ並び。操作行はカードの中ではなく
                          キーボードの上。キーは飾りで、打っている文字だけ短く光らせる。 -->
+                    <div class="cbar hide" data-el="cBar" aria-hidden="true"><span class="again"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 2.3-5.6"/><path d="M4 4v4h4"/></svg>もう一度</span><span class="nextq">次の問題へ<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
                     <div class="kb" data-el="kb" aria-hidden="true">
                         <div class="kbacts">
                             <span class="kbtn see"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M2.5 12S6 5.8 12 5.8 21.5 12 21.5 12 18 18.2 12 18.2 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.1"/></svg>回答を見る</span>
                             <span class="kbmic"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 12a6 6 0 0012 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
-                            <span class="kbtn go" data-el="go">✨ AI添削</span>
+                            <span class="kbtn go" data-el="go"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 3l1.6 4.4L16 9l-4.4 1.6L10 15l-1.6-4.4L4 9l4.4-1.6zM18 13l.9 2.1L21 16l-2.1.9L18 19l-.9-2.1L15 16l2.1-.9zM18 2l.7 1.6L20.3 4.3l-1.6.7L18 6.6l-.7-1.6L15.7 4.3l1.6-.7z"/></svg>AI添削</span>
                         </div>
                         <div class="kbrows">
                             <div class="kbrow r1"><span class="kbk" data-k="q">Q</span><span class="kbk" data-k="w">W</span><span class="kbk" data-k="e">E</span><span class="kbk" data-k="r">R</span><span class="kbk" data-k="t">T</span><span class="kbk" data-k="y">Y</span><span class="kbk" data-k="u">U</span><span class="kbk" data-k="i">I</span><span class="kbk" data-k="o">O</span><span class="kbk" data-k="p">P</span></div>
                             <div class="kbrow r2"><span class="kbk" data-k="a">A</span><span class="kbk" data-k="s">S</span><span class="kbk" data-k="d">D</span><span class="kbk" data-k="f">F</span><span class="kbk" data-k="g">G</span><span class="kbk" data-k="h">H</span><span class="kbk" data-k="j">J</span><span class="kbk" data-k="k">K</span><span class="kbk" data-k="l">L</span></div>
                             <div class="kbrow r3"><span class="kbk fn shift">↑</span><span class="kbk" data-k="z">Z</span><span class="kbk" data-k="x">X</span><span class="kbk" data-k="c">C</span><span class="kbk" data-k="v">V</span><span class="kbk" data-k="b">B</span><span class="kbk" data-k="n">N</span><span class="kbk" data-k="m">M</span><span class="kbk fn del">⌫</span></div>
-                            <div class="kbrow r4"><span class="kbk fn num">123</span><span class="kbk" data-k=",">,</span><span class="kbk" data-k="’">’</span><span class="kbk wide" data-k=" ">space</span><span class="kbk" data-k=".">.</span><span class="kbk" data-k="?">?</span><span class="kbk" data-k="!">!</span></div>
+                            <div class="kbrow r4"><span class="kbk fn num">123</span><span class="kbk wide" data-k=" ">space</span><span class="kbk c4" data-k=",">,</span><span class="kbk c4" data-k=".">.</span></div>
                         </div>
                     </div>
                 </div>
             </div>
                 <button class="sd-btn" data-el="pause" type="button">Pause</button>
             </div>
-            <details class="sd-more" open>
-                <summary>More about this mode</summary>
-                <div class="sd-copy"><p class="sd-lead">Practise in two modes: typing, or rearranging the words.</p><p class="sd-lead">You get one overall assessment. Anything corrected is underlined, so you can read it back beside the model answer.</p><p class="sd-lead">If something still doesn’t click, ask the AI coach without leaving the question.</p><p class="sd-lead">Read it aloud and each word gets an A, B or C for pronunciation, with a tip for the words worth fixing.</p><p class="sd-lead">Build the reflex of saying what you mean in English.</p>
-                </div>
-            </details>
+            
         </div>
 
     </div>
@@ -1772,40 +2242,43 @@
 </section>
 
 
-<!-- ============ デモ 3: 英文法 ============ -->
+<!-- ============ デモ3: 英文法 ============ -->
 <section class="sd sd-g sd-demo-root" id="grammar" data-demo="grammar" aria-labelledby="demo-g-h">
     <div class="sd-demo sd-wrap">
         <div class="sd-panel">
-            <div class="sd-copy"><p class="sd-eyebrow">Grammar</p><h2 id="demo-g-h">Right or wrong,<br>you get the reason why.</h2><p class="sd-lead">Arrange the words to answer, and you get the verdict plus a model answer. Only the words you got wrong stay red, along with an explanation of why the sentence doesn’t work.</p>
+            <div class="sd-copy"><p class="sd-eyebrow">Grammar</p><h2 id="demo-g-h">Arrange the words.<br>Master the patterns of English.</h2><p class="sd-lead">Put the words in order to answer, and you get the verdict and a model answer.</p>
+                <ul class="pp-points">
+                    <li><b>Build the word order yourself</b><span>Rearranging words teaches you the patterns you speak with.</span></li>
+                    <li><b>Rule explanations</b><span>When you get it wrong, a short explanation of the grammar rule.</span></li>
+                    <li><b>Judged by AI</b><span>Even if your answer differs from the model answer, AI decides whether it works.</span></li>
+                    <li><b>4,279 questions</b><span>Beginner to advanced, with everyday and business sentences.</span></li>
+                </ul>
             </div>
             <div class="sd-stage">
-            <div class="sd-phone" lang="en" role="img" aria-label="A self-playing demo of the grammar word-order screen: arrange the words to answer and get the verdict, a model answer and an explanation. The text in this section describes this demo. The app interface shown is in Japanese.">
-                <div class="bar" lang="ja">
+            <div class="sd-phone" role="img" aria-label="An auto-playing demo of the grammar word-order screen (in Japanese, as in the app). Arrange the words to answer and you get the verdict, a model answer and an explanation. The text in this section describes the demo.">
+                <div class="pp-sb" aria-hidden="true"><span class="tm">9:41</span><i class="di"></i><span class="ic"><svg viewBox="0 0 19 12"><rect x="0" y="7.5" width="3.2" height="4.5" rx=".8"/><rect x="5" y="5" width="3.2" height="7" rx=".8"/><rect x="10" y="2.5" width="3.2" height="9.5" rx=".8"/><rect x="15" y="0" width="3.2" height="12" rx=".8"/></svg><svg viewBox="0 0 17 12"><path d="M8.5 2.6c2.4 0 4.6.9 6.3 2.5l1.2-1.2A10.6 10.6 0 008.5 1 10.6 10.6 0 001 3.9l1.2 1.2A9 9 0 018.5 2.6zm0 3.3c1.5 0 2.9.6 4 1.6l1.2-1.2a7.3 7.3 0 00-10.4 0l1.2 1.2c1.1-1 2.5-1.6 4-1.6zm0 3.3c.6 0 1.2.2 1.6.6L8.5 11.4 6.9 9.8c.4-.4 1-.6 1.6-.6z"/></svg><svg viewBox="0 0 28 13"><rect x=".5" y=".5" width="24" height="12" rx="3.6" fill="none" stroke="currentColor" opacity=".4"/><rect x="2.5" y="2.5" width="20" height="8" rx="2"/><path d="M26 4.5v4a2 2 0 000-4z" opacity=".45"/></svg></span></div>
+                <div class="bar">
                     <div class="nav">
                         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
                         <div>
-                            <p class="t">使役・知覚動詞</p>
-                            <p class="n">3 / 20</p>
+                            <p class="t">間接疑問文</p>
+                            <p class="n">18 / 20</p>
                         </div>
                         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
                     </div>
                     <div class="prog"><i></i></div>
                 </div>
 
-                <div class="screen" lang="ja">
+                <div class="screen">
                     <div class="act" data-el="act"><p data-el="actText">もし間違えたら</p></div>
                     <div class="roll" data-el="roll"><div class="rollin" data-el="rollin">
                         <div class="card">
-                            <p class="qja">近所の人に、植木の水やりをしてもらいました。</p>
+                            <p class="qja">報告書の締め切りがいつか教えてもらえますか？</p>
                             <p class="subjbtn hide" data-el="subjBtn"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M14.5 3a6.5 6.5 0 00-6.2 8.5L3 16.8V21h4.2l1.2-1.2v-1.8h1.8l1.2-1.2v-1.8h1.8l.9-.9A6.5 6.5 0 1014.5 3zm2.6 5.2a1.6 1.6 0 110-3.2 1.6 1.6 0 010 3.2z"/></svg>主語を見る</p>
-                            <p class="subj" data-el="subj">主語: <b>I</b></p>
+                            <p class="subj" data-el="subj">主語: <b>You</b></p>
                             <div class="hair"></div>
                             <p class="lbl">あなたの回答<svg class="gi" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.2"/></svg></p>
-                            <div class="slots en" lang="en">
-                                <span class="slot f judged-ok" data-i="0">I</span><span class="slot f judged-ng" data-i="1">have</span>
-                                <span class="slot f judged-ok" data-i="2">my</span><span class="slot f judged-ok" data-i="3">neighbor</span>
-                                <span class="slot f judged-ok" data-i="4">water</span><span class="slot f judged-ok" data-i="5">my</span>
-                                <span class="slot f judged-ok" data-i="6">plants</span><span class="dot">.</span>
+                            <div class="slots en" lang="en"><span class="slot f judged-ok" data-i="0">Can</span><span class="slot f judged-ok" data-i="1">you</span><span class="slot f judged-ok" data-i="2">tell</span><span class="slot f judged-ok" data-i="3">me</span><span class="slot f judged-ok" data-i="4">when</span><span class="slot f judged-ng" data-i="5">is</span><span class="slot f judged-ng" data-i="6">the</span><span class="slot f judged-ng" data-i="7">report</span><span class="slot f judged-ok" data-i="8">due</span><span class="dot">?</span>
                             </div>
                         </div>
 
@@ -1821,7 +2294,7 @@
                             </p>
                             <div class="hair"></div>
                             <p class="lbl">回答例</p>
-                            <p class="model en" data-el="model" lang="en"><span class="g">I</span> <span class="o">had</span> <span class="g">my neighbor water my plants.</span></p>
+                            <p class="model en" data-el="model" lang="en"><span class="g">Can you tell me when</span> <span class="o">the report is</span> <span class="g">due?</span></p>
                             <div class="plays">
                                 <span class="play c1"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="M10 8.2l6 3.8-6 3.8z" fill="#fff"/></svg>1.0x</span>
                                 <span class="play c8"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="M10 8.2l6 3.8-6 3.8z" fill="#fff"/></svg>0.8x</span>
@@ -1829,11 +2302,11 @@
                             </div>
                             <div class="note tip">
                                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2zM9.5 20h5a1 1 0 010 2h-5a1 1 0 010-2z"/></svg>
-                                <span>使役「have + O + 動詞原形」O に〜してもらう</span>
+                                <span>「tell me + when + 主語 + 動詞」いつ〜か教えて／due「期限の」</span>
                             </div>
                             <div class="note exp" data-el="exp">
                                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16a2 2 0 012 2v9a2 2 0 01-2 2H9l-5 4V6a2 2 0 012-2z"/></svg>
-                                <span>あなたの回答は現在形 have を使っているため、「(今も継続的に) 水やりをしてもらっている」という現在の習慣的行為を表します。一方、問題文は「過去に一度水やりをしてもらった」という完了した過去の出来事を表しているため、過去形 had を使う必要があります。</span>
+                                <span>間接疑問文では疑問詞の後に通常の肯定文の語順を使う必要があります。あなたの回答では「is the report」と疑問文の語順になっており、正しくは「the report is」と肯定文の語順にすべきです。</span>
                             </div>
                             <p class="again" data-el="again">↺ もう一度</p>
                         </div>
@@ -1841,14 +2314,8 @@
                     </div>
 
                     <div class="pool" data-el="pool">
-                        <div class="pool-h"><span>単語をタップして並べよう</span><span>✂ 2 語は不要</span></div>
-                        <div class="tiles en" lang="en">
-                            <span class="tile" data-w="her">her</span><span class="tile" data-w="neighbor">neighbor</span>
-                            <span class="tile" data-w="plants">plants</span><span class="tile" data-w="I">I</span>
-                            <span class="tile" data-w="my">my</span><span class="tile" data-w="my2">my</span>
-                            <span class="tile" data-w="had">had</span><span class="tile" data-w="water">water</span>
-                            <span class="tile" data-w="have">have</span>
-                        </div>
+                        <div class="pool-h"><span>単語をタップして並べよう</span><span>✂ 2語は不要</span></div>
+                        <div class="tiles en" lang="en"><span class="tile" data-w="is">is</span><span class="tile" data-w="report">report</span><span class="tile" data-w="Should">Should</span><span class="tile" data-w="the">the</span><span class="tile" data-w="tells">tells</span><span class="tile" data-w="me">me</span><span class="tile" data-w="tell">tell</span><span class="tile" data-w="Can">Can</span><span class="tile" data-w="when">when</span><span class="tile" data-w="due">due</span><span class="tile" data-w="you">you</span></div>
                     </div>
                     <span class="go hide" data-el="go">⊙ 回答する</span>
                     <span class="next hide" data-el="next">次へ</span>
@@ -1857,11 +2324,6 @@
             </div>
                 <button class="sd-btn" data-el="pause" type="button">Pause</button>
             </div>
-            <details class="sd-more" open>
-                <summary>More about this mode</summary>
-                <div class="sd-copy"><p class="sd-lead">The verdict, the model answer and the explanation are all exactly what the app returned.</p>
-                </div>
-            </details>
         </div>
 
     </div>
@@ -1875,139 +2337,104 @@
         <div class="sd-still-panel">
             <div class="sd-copy">
                 <p class="sd-eyebrow">Vocabulary</p>
-                <h2 id="vocab-h">Not just the meaning —<br>how it’s actually used.</h2>
-                <p class="sd-lead">Fill the gap in a real example sentence, so you learn the word together with how it is used.</p>
-                <p class="sd-lead">7,533 words, organised by level.</p>
-                <ul>
-                    <li>Beginner to very advanced (CEFR A2–C2)</li>
-                    <li>Phonetic transcription and usage notes</li>
-                    <li>Audio for every example sentence (AI voice)</li>
+                <h2 id="vocab-h">Learn the meaning from a picture,<br>the usage from a sentence.</h2>
+                <p class="sd-lead">English runs on vocabulary. Gap-fill example sentences build the base for speaking, listening and writing.</p>
+                <ul class="pp-points">
+                    <li><b>An illustration for every word</b><span>All 7,392 words come with an illustration, so the picture helps them stick.</span></li>
+                    <li><b>Pronunciation, usage and audio</b><span>Phonetic transcription and collocation tips, and every example sentence has native audio.</span></li>
+                    <li><b>7,392 words</b><span>Beginner to very advanced (CEFR A2–C2, Vocabulary Version 2).</span></li>
                 </ul>
             </div>
             <div class="sd-shots" tabindex="0" role="group" aria-label="Screenshots">
-                <figure><img src="/demo/vocab-problem.webp?v=20261011" alt="Vocabulary gap-fill question: choosing the word that fills the blank in “You may take ___ you like from the basket of fruit.” from four options" width="603" height="1213" loading="lazy" decoding="async"><figcaption>Question</figcaption></figure>
-                <figure><img src="/demo/vocab-answer.webp?v=20261011" alt="Vocabulary answer screen showing the correct answer “whatever”, the meaning of each option, its pronunciation and a usage tip" width="603" height="1213" loading="lazy" decoding="async"><figcaption>Answer &amp; notes</figcaption></figure>
+                <figure><img src="/demo/vocab-problem-sb.webp?v=20261027" alt="Vocabulary gap-fill question: choosing the word that fills the blank in “Your two years of work experience are ___ to a college degree for this position, so you can apply.” from four options" width="603" height="1300" loading="lazy" decoding="async"><figcaption>Question</figcaption></figure>
+                <figure><img src="/demo/vocab-answer-sb.webp?v=20261027" alt="Vocabulary answer screen for the correct answer “equivalent”: its pronunciation, meaning, a usage tip and an illustration of the meaning (a scale balancing a graduation cap and a work briefcase)" width="603" height="1300" loading="lazy" decoding="async"><figcaption>Answer &amp; notes</figcaption></figure>
             </div>
-            <div class="sd-shots-nav"><button type="button" data-shots="prev" aria-label="Previous screenshot"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" data-shots="next" aria-label="Next screenshot"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button></div>
+            <div class="sd-shots-nav pp-dots"><button type="button" data-dot="0" aria-label="Show screenshot 1 (question)" aria-current="true"></button><button type="button" data-dot="1" aria-label="Show screenshot 2 (answer and notes)" aria-current="false"></button></div>
         </div>
     </div>
 </section>
 
 </div><!-- /#how -->
 
-<!-- デモ3本を見終えた直後の導線。ストアバッジはヒーローと最下部にしか無く、
-     その間が 500 行以上空いていた。地も器も足さず、細い罫線と余白だけで区切る。 -->
-<section class="sd sd-midcta" aria-label="Download the app">
-    <div class="sd-wrap">
-        <p class="sd-midcta-lead">Start with 7 days free.</p>
-        <div class="sd-badges">
-            <a class="app-store-badge" href="https://apps.apple.com/jp/app/id6757105670?pt=127982208&amp;ct=web&amp;mt=8" target="_blank" rel="noopener" aria-label="Download on the App Store">
-                <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?releaseDate=2026-05-14" alt="Download on the App Store">
-            </a>
-            <a class="app-store-badge google-play-badge" href="https://play.google.com/store/apps/details?id=com.snaptechedge.snapenglish&amp;referrer=utm_source%3Dsnapenglishapp.com%26utm_medium%3Dweb%26utm_campaign%3Dweb_middle" target="_blank" rel="noopener" aria-label="Get it on Google Play">
-                <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play">
-            </a>
-        </div>
-        <p class="sd-note">No credit card required &nbsp;/&nbsp; no automatic charge when the trial ends</p>
+<!-- 定着の仕組み：反復学習と学習進捗を別の節に。左に見出し・右にカード（10-27本人「左半分に表題、右半分にカード・SRS と進捗は分ける」） -->
+<section class="sd pp-keep pp-split" id="keep" aria-labelledby="keep-h">
+  <div class="sd-wrap"><div class="pp-split-in">
+    <h2 id="keep-h" class="pp-h2">Just as you start to forget,<br>it comes back.</h2>
+    <div class="pp-keep-card pp-srs">
+      <div>
+        <h3>Spaced repetition (SRS<span class="pp-ast" aria-hidden="true">*</span>)</h3>
+        <p class="pp-sub">When a question comes back depends on how you did.</p>
+        <p>Questions you have answered come back just as you are starting to forget them, fixing composition, grammar and vocabulary in long-term memory.</p>
+        <p class="pp-srs-what"><span aria-hidden="true">* </span>SRS: Spaced Repetition System</p>
+      </div>
+      <figure><svg class="pp-srs-fig" viewBox="0 0 660 286" role="img" aria-labelledby="srs-fig-t"><title id="srs-fig-t">Review intervals. A question first comes back the next day. Each time your first answer at review is right, the gap grows to 3, 7, 21 and 60 days, and getting it right after 60 days means it is mastered. A wrong answer moves it back one interval.</title><defs><marker id="srs-ok" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L8 5L1 9" fill="none" stroke="#117954" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="srs-ng" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L8 5L1 9" fill="none" stroke="#C8574C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><line x1="8" y1="236" x2="652" y2="236" stroke="#D9D6D0" stroke-width="2"/><g class="st" style="--i:0"><rect x="24" y="190" width="92" height="46" rx="12" fill="#E3EFE8"/><text x="70.0" y="218" text-anchor="middle" font-size="17" font-weight="700" fill="#123A2B">Next day</text></g><g class="st" style="--i:1"><rect x="128" y="158" width="92" height="78" rx="12" fill="#C6E0D2"/><text x="174.0" y="186" text-anchor="middle" font-size="17" font-weight="700" fill="#123A2B">3 days</text></g><g class="st" style="--i:2"><rect x="232" y="126" width="92" height="110" rx="12" fill="#A2CBB6"/><text x="278.0" y="154" text-anchor="middle" font-size="17" font-weight="700" fill="#123A2B">7 days</text></g><g class="st" style="--i:3"><rect x="336" y="94" width="92" height="142" rx="12" fill="#7DB89A"/><text x="382.0" y="122" text-anchor="middle" font-size="17" font-weight="700" fill="#0E2E22">21 days</text></g><g class="st" style="--i:4"><rect x="440" y="62" width="92" height="174" rx="12" fill="#2E7D5B"/><text x="486.0" y="90" text-anchor="middle" font-size="17" font-weight="700" fill="#FFFFFF">60 days</text></g><g class="st" style="--i:5"><rect x="544" y="30" width="92" height="206" rx="12" fill="#117954"/><circle cx="590.0" cy="60" r="13" fill="#fff"/><path d="M584.0 60l4 4 8-9" fill="none" stroke="#117954" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><text x="590.0" y="96" text-anchor="middle" font-size="17" font-weight="700" fill="#FFFFFF">Mastered</text></g><path class="ar" style="--i:0" d="M78.0 180 Q122.0 132 164.0 146" fill="none" stroke="#117954" stroke-width="2" marker-end="url(#srs-ok)"/><path class="ar" style="--i:1" d="M182.0 148 Q226.0 100 268.0 114" fill="none" stroke="#117954" stroke-width="2" marker-end="url(#srs-ok)"/><path class="ar" style="--i:2" d="M286.0 116 Q330.0 68 372.0 82" fill="none" stroke="#117954" stroke-width="2" marker-end="url(#srs-ok)"/><path class="ar" style="--i:3" d="M390.0 84 Q434.0 36 476.0 50" fill="none" stroke="#117954" stroke-width="2" marker-end="url(#srs-ok)"/><path class="ar" style="--i:4" d="M494.0 52 Q538.0 4 580.0 18" fill="none" stroke="#117954" stroke-width="2" marker-end="url(#srs-ok)"/><path class="bk" d="M382.0 244 Q330.0 282 280.0 246" fill="none" stroke="#C8574C" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#srs-ng)"/></svg>
+        <figcaption class="pp-srs-legend"><span class="ok">Right on the first try at review: on to the next interval</span><span class="ng">Wrong: back one interval</span></figcaption>
+      </figure>
     </div>
+  </div></div>
+</section>
+<section class="sd pp-keep pp-split" id="progress" aria-labelledby="prog-h">
+  <div class="sd-wrap"><div class="pp-split-in">
+    <h2 id="prog-h" class="pp-h2">See your daily work<br>add up.</h2>
+    <div class="pp-keep-card pp-prog">
+      <div>
+        <h3>Progress</h3>
+        <p class="pp-sub">Your week at a glance, as a graph.</p>
+        <p>See the week’s study stacked by mode. Your streak and the total questions you have answered show the work you have put in.</p>
+      </div>
+      <figure><img src="/demo/progress-2026-10-sb.webp" alt="Progress screen: a bar chart of the week’s study stacked by day, with the streak, total completed and today’s study time" width="603" height="1233" loading="lazy" decoding="async"></figure>
+    </div>
+  </div></div>
 </section>
 
 
-<!-- 反復学習（SRS）。 -->
-<section class="sd sd-still sd-srs" aria-labelledby="srs-h">
-    <div class="sd-wrap">
-        <div class="sd-still-panel">
-            <div class="sd-copy">
-                <p class="sd-eyebrow">Spaced repetition (SRS)</p>
-                <h2 id="srs-h">Make what you got right<br>harder to forget.</h2>
-                <p class="sd-lead">Questions you have answered come back at widening intervals — the next day first, then further apart or closer together depending on how you do.</p>
-                <ul>
-                    <li>The gap before a question returns adapts to how you did (1 day → 3 → 7 → 21 → 60)</li>
-                    <li>Separate review for composition, grammar and vocabulary</li>
-                    <li>A “today’s review” queue keeps it a daily habit</li>
-                    <li>Bookmark any question to add it to your review list</li>
-                </ul>
-            </div>
-            <div class="sd-shots" tabindex="0" role="group" aria-label="Screenshots">
-                <figure><img src="/demo/review-session.webp" alt="Working through today’s review questions" width="603" height="1213" loading="lazy" decoding="async"><figcaption>Today’s review</figcaption></figure>
-                <figure><img src="/demo/review-list.webp" alt="Review list showing the words in progress and how well each is learned" width="603" height="1213" loading="lazy" decoding="async"><figcaption>Review list</figcaption></figure>
-            </div>
-            <div class="sd-shots-nav"><button type="button" data-shots="prev" aria-label="Previous screenshot"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" data-shots="next" aria-label="Next screenshot"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button></div>
-        </div>
-    </div>
-</section>
 
-<!-- 進捗。4機能でも反復学習でもないので、SRS と同じ地色で並べる。 -->
-<section class="sd sd-still sd-srs" aria-labelledby="prog-h">
-    <div class="sd-wrap">
-        <div class="sd-still-panel">
-            <div class="sd-copy">
-                <p class="sd-eyebrow">Progress</p>
-                <h2 id="prog-h">See exactly<br>how much you’ve done.</h2>
-                <p class="sd-lead">See how many questions you got through this week, stacked by mode.</p>
-                <ul>
-                    <li>This week’s work, by day and by mode</li>
-                    <li>Your current streak and the total questions completed</li>
-                    <li>Completion rate per mode, broken down by level</li>
-                </ul>
-            </div>
-            <div class="sd-shots" tabindex="0" role="group" aria-label="Screenshots">
-                <figure><img src="/demo/progress-overview.webp" alt="Progress screen with a stacked bar chart of this week’s work by day, plus the current streak and total completed" width="603" height="1311" loading="lazy" decoding="async"><figcaption>This week</figcaption></figure>
-                <figure><img src="/demo/progress-detail.webp" alt="Progress screen showing completion by mode and a breakdown by level" width="603" height="1311" loading="lazy" decoding="async"><figcaption>By mode</figcaption></figure>
-            </div>
-            <div class="sd-shots-nav"><button type="button" data-shots="prev" aria-label="Previous screenshot"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" data-shots="next" aria-label="Next screenshot"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button></div>
-        </div>
-    </div>
-</section>
+
+
+
+
+
+
+
+
 
 <!-- 料金。グラデーションの価格表示・お得ピル・影付きカードをやめ、他のセクションと同じ作りに。
      金額・条件・注記の内容は変えていない。 -->
-<section class="sd sd-price" id="pricing" aria-labelledby="price-h">
-    <div class="sd-wrap">
-        <p class="sd-eyebrow">Pricing</p>
+<section class="sd pp-split sd-price" id="pricing" aria-labelledby="price-h">
+    <div class="sd-wrap"><div class="pp-split-in"><div class="pp-split-head">
         <h2 id="price-h">7 days free.<br>Then two plans.</h2>
-        <p class="sd-price-lead">No commitment during the free trial. Only if you like it do you pick Monthly or Yearly.</p>
-        <p class="sd-price-lead">During the trial, AI conversation is limited to three a day. Paid plans have no limit.</p>
+        <p class="sd-price-lead">No commitment during the free trial. Only if you like it do you choose Monthly or Yearly.</p>
+        <p class="sd-price-lead">During the trial, AI conversation is limited to three a day. Paid plans have no limit.</p></div><div class="pp-split-body">
 
         <div class="sd-plans">
             <div class="sd-plan">
                 <p class="sd-plan-name">Monthly</p>
                 <p class="sd-plan-price"><b>¥800</b><span>/ month, tax included</span></p>
-                <ul class="sd-plan-list">
-                    <li>Every feature included</li>
-                    <li>Unlimited AI conversation</li>
-                    <li>AI corrections and pronunciation feedback</li>
-                    <li>Syncs across your devices</li>
-                    <li>Cancel any time</li>
-                </ul>
             </div>
             <div class="sd-plan rec">
                 <p class="sd-plan-name">Yearly<span class="sd-plan-tag">Save 17%</span></p>
-                <p class="sd-plan-price"><b>¥8,000</b><span>/ year, tax included (about ¥667 a month)</span></p>
-                <ul class="sd-plan-list">
-                    <li>Everything in Monthly, including unlimited AI conversation</li>
-                    <li>Paying yearly saves you about two months</li>
-                    <li>Best if you plan to keep going</li>
-                    <li>Cancel any time</li>
-                </ul>
+                <p class="sd-plan-price"><b>¥8,000</b><span>/ year, tax included</span></p>
+                <p class="pp-plan-note">About ¥667 a month.<br>Saves you about two months compared with Monthly.</p>
             </div>
+        </div>
+        <div class="pp-plan-common">
+            <p>Both plans include exactly the same features.</p>
+            <ul class="sd-plan-list">
+                <li>Every feature included</li>
+                <li>Unlimited AI conversation</li>
+                <li>AI corrections and pronunciation feedback</li>
+                <li>Cancel any time</li>
+            </ul>
         </div>
 
         <p class="sd-price-fine">Payment is charged to your store account (Apple ID or Google account) and renews automatically unless you cancel. You can manage or cancel your subscription at any time in your Apple ID account settings, or under Subscriptions in Google Play.</p>
-
-        <div class="sd-price-why">
-            <h3>Learning English shouldn’t be expensive.</h3>
-            <p>In the English learning market, subscriptions of several thousand yen a month are treated as normal. SnapEnglish started from a simple question: do those apps really offer enough value for the price? We build from the learner’s side — no splitting features across separate apps, everything in one.</p>
-            <p>Our aim is something you can keep up as a small daily habit, so we keep the price as low as we can.</p>
-        </div>
-    </div>
+    </div></div></div>
 </section>
 
 <!-- よくある質問 -->
-<section class="sd sd-faq" id="faq" aria-labelledby="faq-h">
-    <div class="sd-wrap">
-        <p class="sd-eyebrow">FAQ</p>
-        <h2 id="faq-h">What people ask<br>before starting.</h2>
+<section class="sd pp-split sd-faq" id="faq" aria-labelledby="faq-h">
+    <div class="sd-wrap"><div class="pp-split-in"><div class="pp-split-head">
+        <h2 id="faq-h" class="pp-faq-h">FAQ</h2></div><div class="pp-split-body">
         <div class="sd-faq-list">
             <details class="sd-faq-item">
                 <summary>What is SnapEnglish?<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg></summary>
@@ -2019,7 +2446,7 @@
             </details>
             <details class="sd-faq-item">
                 <summary>Will I be charged automatically when the trial ends?<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg></summary>
-                <div class="sd-faq-a">No. Nothing is charged during the 7-day trial. After the trial, you choose whether to subscribe, and only if you want to keep using the premium features. Once subscribed, you can cancel at any time from your store settings — Subscriptions in your Apple ID account settings, or Subscriptions in Google Play.</div>
+                <div class="sd-faq-a">No. The free trial starts without any payment details, so nothing is charged automatically when it ends. To keep using the app after the 7 days, choose a plan and subscribe yourself. Once subscribed, you can cancel at any time from your store settings — Subscriptions in your Apple ID account settings, or Subscriptions in Google Play.</div>
             </details>
             <details class="sd-faq-item">
                 <summary>Can I keep using the app for free after the trial?<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg></summary>
@@ -2046,72 +2473,33 @@
                 <div class="sd-faq-a">We collect your account details <span class="nobreak">(email address and user ID)</span>, your learning data and your purchase history. In addition, only when you use the AI features, the English you type or speak and your pronunciation-practice audio are sent to AI services (we ask for your consent the first time, and you can withdraw it at any time in Settings). When you use voice input, your audio may also be sent to a speech recognition service for transcription. We do not do any advertising tracking. For details, see our <a href="/en/privacy">Privacy Policy</a>.</div>
             </details>
         </div>
-    </div>
+    </div></div></div>
 </section>
 
-<!-- お問い合わせ -->
-<section class="sd sd-contact" id="contact" aria-labelledby="contact-h">
-    <div class="sd-wrap">
-        <p class="sd-eyebrow">Contact</p>
-        <h2 id="contact-h">Questions, bug reports<br>and feature requests.</h2>
-        <p class="sd-contact-lead">Get in touch any time.</p>
 
-        <form id="contact-form" class="sd-form" novalidate>
-            <div class="sd-form-row">
-                <label>
-                    <span class="sd-form-label">Name (or nickname) <i>*</i></span>
-                    <input type="text" name="name" required maxlength="100" placeholder="Your name">
-                </label>
-                <label>
-                    <span class="sd-form-label">Email address <i>*</i></span>
-                    <input type="text" name="email" required maxlength="200" placeholder="you@example.com"
-                           inputmode="email" autocomplete="email" autocapitalize="off"
-                           autocorrect="off" spellcheck="false"
-                           aria-describedby="email-hint">
-                    <span class="sd-form-hint" id="email-hint" role="status"></span>
-                </label>
-            </div>
-            <label>
-                <span class="sd-form-label">Subject <i>*</i></span>
-                <input type="text" name="subject" required maxlength="100" placeholder="e.g. A question about features after purchase">
-                <span class="sd-form-count"><span id="subject-count">0</span> / 100</span>
-            </label>
-            <label>
-                <span class="sd-form-label">Message <i>*</i></span>
-                <textarea name="message" required maxlength="5000" rows="6" placeholder="Tell us what you’d like to ask"></textarea>
-                <span class="sd-form-count"><span id="message-count">0</span> / 5000</span>
-            </label>
 
-            <!-- ハニーポット (bot 対策、ユーザーには見えない) -->
-            <input type="text" name="website" tabindex="-1" autocomplete="off" class="sd-form-hp" aria-hidden="true">
+<!-- 試作: News -->
+<section class="sd pp-split pp-news" id="news" aria-labelledby="news-h">
+  <div class="sd-wrap"><div class="pp-split-in"><div class="pp-split-head"><h2 id="news-h" class="pp-h2">News</h2></div><div class="pp-split-body"><ul>
+      <li><time datetime="2026-10-18">2026.10.18</time><span class="tag">Update</span><p>Version 1.4.11 released<small>A redesigned home screen. In the new vocabulary set (Version 2), every word now has an illustration.</small></p></li>
+      <li><time datetime="2026-10-10">2026.10.10</time><span class="tag">Update</span><p>Version 1.4.10 released<small>A redesigned conversation screen. The other speaker’s lines now appear in time with the audio.</small></p></li>
+      <li><time datetime="2026-09-29">2026.09.29</time><span class="tag">Content</span><p>Composition now has 5,000 questions<small>Expanded to 88 everyday and business topics.</small></p></li>
+    </ul></div></div></div>
+</section>
 
-            <p class="sd-form-note">Please read our <a href="/en/privacy">Privacy Policy</a> before sending. Your email address is used only to reply to you and to send the automatic acknowledgement.</p>
-
-            <div id="turnstile-widget" class="cf-turnstile sd-form-turnstile" data-sitekey="0x4AAAAAADIgK7Q0xDZ3ndlm" data-theme="light" data-language="en"></div>
-
-            <button type="submit" id="submit-btn" class="sd-form-submit">
-                <span id="submit-label">Send</span>
-            </button>
-
-            <div id="form-result" role="status" aria-live="polite" class="sd-form-msg hide"></div>
-        </form>
-
-        <!-- 送信後はフォームと入れ替えてこれを出す。 -->
-        <div id="form-done" class="sd-form-done" hidden>
-            <svg class="sd-done-mark" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m8.3 12.4 2.5 2.5 4.9-5.3"></path></svg>
-            <h3 id="form-done-h" tabindex="-1" aria-describedby="form-done-note">Your message has been sent</h3>
-            <p id="form-done-note">If the acknowledgement email doesn’t arrive, please check your spam folder.</p>
-            <button type="button" id="form-done-again" class="sd-done-again">Send another message</button>
-        </div>
-    </div>
+<!-- 運営について -->
+<section class="sd pp-split pp-about" id="about" aria-labelledby="about-h">
+  <div class="sd-wrap"><div class="pp-split-in"><div class="pp-split-head"><h2 id="about-h" class="pp-h2">Learn English by using it.</h2></div><div class="pp-split-body">
+      <p>SnapEnglish is planned, built and run by SnapTechEdge. What matters most in becoming able to use English is how often you actually use it. With that in mind, we brought conversation, composition, grammar and vocabulary together in one app.</p>
+      <a class="pp-cta" href="https://snaptechedge.com" target="_blank" rel="noopener">About SnapTechEdge <span aria-hidden="true">→</span></a>
+    </div></div></div>
 </section>
 
 <!-- 最後の一押し。グラデーションのカードとぼかし円はやめ、ヒーローと同じ地で静かに閉じる。 -->
-<section class="sd sd-close" id="cta" aria-labelledby="cta-h">
+<section class="sd pp-cta-c sd-close" id="cta" aria-labelledby="cta-h">
     <div class="sd-wrap">
-        <p class="sd-eyebrow">Get started</p>
-        <h2 id="cta-h">Try it free for 7 days.</h2>
-        <p class="sd-close-note">All features are free for 7 days (AI conversation is limited to three a day). No commitment.</p>
+        <h2 id="cta-h">Start with a free<br>7-day trial.</h2>
+        <p class="sd-close-note">Every feature is free for 7 days (AI conversation is limited to three a day). No commitment.</p>
         <div class="sd-badges">
             <a class="app-store-badge" href="https://apps.apple.com/jp/app/id6757105670?pt=127982208&amp;ct=web&amp;mt=8" target="_blank" rel="noopener" aria-label="Download on the App Store">
                 <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?releaseDate=2026-05-14" alt="Download on the App Store">
@@ -2144,7 +2532,7 @@
                 <a href="/en/terms" class="py-1 hover:text-emerald-700 transition">Terms</a>
                 <a href="/en/privacy" class="py-1 hover:text-emerald-700 transition">Privacy</a>
                 <a href="/tokushoho" hreflang="ja" lang="ja" class="py-1 hover:text-emerald-700 transition">特定商取引法に基づく表記</a>
-                <a href="#contact" class="py-1 hover:text-emerald-700 transition">Contact</a>
+                <a href="/en/contact" class="py-1 hover:text-emerald-700 transition">Contact</a>
                 <a href="/" hreflang="ja" class="py-1 hover:text-emerald-700 transition">Japanese</a>
                 <a href="https://snaptechedge.com" class="py-1 hover:text-emerald-700 transition">Operated by SnapTechEdge</a>
             </div>
@@ -2249,31 +2637,63 @@
             window.addEventListener('afterprint', () => { printing = false; apply(); });
         })();
 
-        // 画面写真の横スクロール。狭い画面だけ出る前へ／次へを動かし、
-        // 端まで来たらボタンを無効にする。スクロール自体はブラウザ任せ。
+        // 画面写真の送り。点で今の1枚を示し、点を押すとその1枚へ。5 秒ごとに次へ送り、
+        // 最後の次は最初へ戻る。点を押したあとは自動で送らない。マウスを載せている間・キーボードで中にいる間・画面外・
+        // タブが裏のときは止める（読んでいる途中で動かさない）。動きを減らす設定では自動で送らない。
         (() => {
             document.querySelectorAll('.sd-shots-nav').forEach(nav => {
                 const box = nav.previousElementSibling;
                 if (!box || !box.classList.contains('sd-shots')) return;
-                const prev = nav.querySelector('[data-shots="prev"]');
-                const next = nav.querySelector('[data-shots="next"]');
-                const step = () => {
-                    const f = box.querySelector('figure');
-                    // 間隔は幅で変わることがあるので、決め打ちせず実際の値を読む。
-                    const gap = parseFloat(getComputedStyle(box).columnGap) || 0;
-                    return f ? f.getBoundingClientRect().width + gap : box.clientWidth;
+                const figs = [...box.querySelectorAll('figure')];
+                const dots = [...nav.querySelectorAll('[data-dot]')];
+                if (figs.length < 2 || dots.length !== figs.length) return;
+                const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+                // 器の中央に一番近い1枚を「今の1枚」とする。
+                const cur = () => {
+                    const b = box.getBoundingClientRect(), mid = b.left + b.width / 2;
+                    let best = 0, d = Infinity;
+                    figs.forEach((f, i) => {
+                        const r = f.getBoundingClientRect(), x = Math.abs(r.left + r.width / 2 - mid);
+                        if (x < d) { d = x; best = i; }
+                    });
+                    return best;
+                };
+                const show = i => {
+                    const b = box.getBoundingClientRect(), r = figs[i].getBoundingClientRect();
+                    box.scrollTo({ left: box.scrollLeft + (r.left + r.width / 2) - (b.left + b.width / 2),
+                                   behavior: calm.matches ? 'auto' : 'smooth' });
                 };
                 const sync = () => {
-                    const max = box.scrollWidth - box.clientWidth;
-                    prev.disabled = box.scrollLeft <= 2;
-                    next.disabled = box.scrollLeft >= max - 2;
+                    const c = cur();
+                    dots.forEach((d, i) => d.setAttribute('aria-current', i === c ? 'true' : 'false'));
                 };
-                const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
-                const go = d => box.scrollBy({ left: d, behavior: calm.matches ? 'auto' : 'smooth' });
-                prev.addEventListener('click', () => go(-step()));
-                next.addEventListener('click', () => go(step()));
+                let timer = 0, hover = false, focus = false, touching = false, seen = false;
+                const stop = () => { clearInterval(timer); timer = 0; };
+                const start = () => {
+                    stop();
+                    if (held || calm.matches || hover || focus || touching || !seen || document.hidden) return;
+                    timer = setInterval(() => show((cur() + 1) % figs.length), 5000);
+                };
+                // 点を押したら、そこからは自動で送らない（見たい1枚を自分で選んだので、勝手に動かさない）。
+                let held = false;
+                dots.forEach((d, i) => d.addEventListener('click', () => { held = true; stop(); show(i); }));
+                [box, nav].forEach(el => {
+                    el.addEventListener('mouseenter', () => { hover = true; stop(); });
+                    el.addEventListener('mouseleave', () => { hover = false; start(); });
+                    el.addEventListener('focusin', () => { focus = true; stop(); });
+                    el.addEventListener('focusout', () => { focus = false; start(); });
+                });
+                // 指が触れている間は止め、離してから 5 秒数え直す。
+                box.addEventListener('touchstart', () => { touching = true; stop(); }, { passive: true });
+                ['touchend', 'touchcancel'].forEach(t => box.addEventListener(t, () => { touching = false; start(); }, { passive: true }));
                 box.addEventListener('scroll', sync, { passive: true });
                 window.addEventListener('resize', sync);
+                document.addEventListener('visibilitychange', start);
+                calm.addEventListener?.('change', start);
+                if ('IntersectionObserver' in window) {
+                    new IntersectionObserver(es => { seen = es[0].isIntersecting; start(); },
+                                             { threshold: 0.5 }).observe(box);
+                } else { seen = true; start(); }
                 sync();
             });
         })();
@@ -2428,29 +2848,7 @@
                         doneHeading.focus({ preventScroll: true });
                         done.scrollIntoView({ block: 'center' });
                     } else {
-                        // API は message を日本語で返すので、英語版では code から引く。
-                        // 知らない code や code 無しのときも json.message に落とさず、
-                        // 汎用の英文を出す（日本語が出る経路を残さない）。
-                        const GENERIC = 'We couldn\u2019t send your message. Please try again in a little while.';
-                        const EN = {
-                            invalid_json: 'Something went wrong with your request. Please reload the page and try again.',
-                            missing_field: 'Please fill in your name, email address, subject and message.',
-                            name_too_long: 'Your name must be 100 characters or fewer.',
-                            email_too_long: 'Your email address must be 200 characters or fewer.',
-                            invalid_email: 'Please enter a valid email address.',
-                            subject_too_long: 'The subject must be 100 characters or fewer.',
-                            invalid_characters: 'Your name and subject can\u2019t contain line breaks or other control characters.',
-                            message_too_long: 'Your message must be 5,000 characters or fewer.',
-                            server_misconfigured: 'We couldn\u2019t send your message because of a server configuration error. Please email support@snapenglishapp.com.',
-                            turnstile_missing: 'The verification check hasn\u2019t finished. Please reload the page and try again.',
-                            turnstile_failed: 'The verification check failed. Please reload the page and try again.',
-                            turnstile_error: 'Something went wrong with the verification check. Please try again in a little while.',
-                            mail_send_failed: GENERIC,
-                            internal_error: 'A server error occurred. Please try again in a little while.',
-                        };
-                        // "constructor" のような継承プロパティを拾わないよう、
-                        // 自前のキーかどうかを見てから引く。
-                        const msg = Object.prototype.hasOwnProperty.call(EN, json.code) ? EN[json.code] : GENERIC;
+                        const msg = json.message || 'We couldn\u2019t send your message. Please try again in a little while.';
                         result.textContent = '⚠ ' + msg;
                         result.className = 'sd-form-msg ng';
                     }
@@ -2896,13 +3294,14 @@
         var inbox=$('inbox'), go=$('go'), ansLine=$('ansLine');
         var cards={ load:$('cLoad'), band:$('cBand'), ans:$('cAns'), imp:$('cImp'),
                     alt:$('cAlt'), coach:$('cCoach'), pron:$('cPron') };
-        var imps=[$('imp1'),$('imp2')];
+        var imps=[$('imp1')];
+        var qCard=$('cQuestion'), cProb=$('cProb'), cBar=$('cBar');
         var sts=[].slice.call(root.querySelectorAll('.st'));
         if(!roll||!screenEl||!inbox||!go||!ansLine) return null;
         for(var key in cards){ if(!cards[key]) return null; }
-        if(!imps[0]||!imps[1]) return null;
+        if(!imps[0]) return null;
 
-        var ANSWER='I did overwork yesterday night.';
+        var ANSWER='I try to arrive 15 minutes before of the first meeting.';
         var PLACEHOLDER='<span class="ph">キーボード入力、またはマイクで音声入力</span>';
         var run=0;
         function show(el){
@@ -2921,6 +3320,7 @@
           imps.forEach(function(e){ e.classList.add('hide'); e.classList.remove('pop'); });
           sts.forEach(function(e){ e.className='st'; });
           ansLine.classList.remove('lined');
+          if(qCard) qCard.classList.remove('hide'); if(cProb){ cProb.classList.add('hide'); cProb.classList.remove('pop'); } if(cBar) cBar.classList.add('hide');
           inbox.innerHTML=PLACEHOLDER;
           go.classList.remove('on');
           kbShow(true);
@@ -2943,6 +3343,7 @@
           Object.keys(cards).forEach(function(k){ if(k!=='load') cards[k].classList.remove('hide'); });
           imps.forEach(function(e){ e.classList.remove('hide'); });
           ansLine.classList.add('lined');
+          if(qCard) qCard.classList.add('hide'); if(cProb) cProb.classList.remove('hide'); if(cBar) cBar.classList.remove('hide');
         }
 
         async function play(){
@@ -2975,8 +3376,11 @@
             sts[i].className='st done';
           }
           cards.load.classList.add('hide');
+          if(qCard) qCard.classList.add('hide');
+          if(cBar) cBar.classList.remove('hide');
 
           show(cards.band); scrollTo(cards.band);
+          if(cProb) show(cProb);
           await sleep(1000); if(my!==run) return;
 
           show(cards.ans); scrollTo(cards.ans);
@@ -2985,9 +3389,6 @@
 
           show(cards.imp); scrollTo(cards.imp);
           show(imps[0]); scrollTo(cards.imp);
-          await sleep(2300); if(my!==run) return;
-
-          show(imps[1]); scrollTo(cards.imp);
           await sleep(2300); if(my!==run) return;
 
           show(cards.alt); scrollTo(cards.alt);
@@ -3006,9 +3407,9 @@
       }
 
       /* ---------------- 英文法 ----------------
-         実機（使役・知覚動詞 3/20）の実データ。2幕構成。
+         実機（間接疑問文 18/20・biz_grammar_05_03_s_008）の実データ。2幕構成。
          第1幕＝正しく並べる: スロットはアクセント色のまま、「正解！」と回答例と要点。
-         第2幕＝had を have にしてしまう: 合っていた位置は灰色、have だけ明るい赤。
+         第2幕＝when の後を疑問文の語順にしてしまう: 合っていた位置は灰色、is the report が明るい赤。
                 回答例は直すべき語が橙・残りが緑、さらに AI の解説と「もう一度」。 */
       function initGrammar(root){
         var $ = function(n){ return root.querySelector('[data-el="'+n+'"]'); };
@@ -3019,17 +3420,16 @@
         var verdict=$('verdict'), verdictText=$('verdictText'), model=$('model'),
             exp=$('exp'), again=$('again'),
             subjBtn=$('subjBtn'), subj=$('subj'), okfx=$('okfx');
-        if(slots.length<7||!tiles.length||!go||!next||!cJudge||!cRes||!pool||
+        if(slots.length<9||!tiles.length||!go||!next||!cJudge||!cRes||!pool||
            !roll||!rollin||!act||!verdict||!model||!exp||!again||!subjBtn||!subj||!okfx) return null;
 
-        var CORRECT=['I','had','my','neighbor','water','my2','plants'];
-        var WRONG  =['I','have','my','neighbor','water','my2','plants'];
-        var LABEL={ I:'I', had:'had', have:'have', my:'my', my2:'my',
-                    neighbor:'neighbor', water:'water', plants:'plants', her:'her' };
+        var CORRECT=['Can','you','tell','me','when','the','report','is','due'];
+        var WRONG  =['Can','you','tell','me','when','is','the','report','due'];
+        var LABEL={}; CORRECT.concat(['Should','tells']).forEach(function(w){ LABEL[w]=w; });
         // 正解のときの回答例は黒の太字で、色分けしない（WordRearrangeView.swift）。
-        var MODEL_OK  = 'I had my neighbor water my plants.';
-        var MODEL_NG  = '<span class="g">I</span> <span class="o">had</span> '
-                      + '<span class="g">my neighbor water my plants.</span>';
+        var MODEL_OK  = 'Can you tell me when the report is due?';
+        var MODEL_NG  = '<span class="g">Can you tell me when</span> <span class="o">the report is</span> '
+                      + '<span class="g">due?</span>';
         var run=0;
         function show(el){ el.classList.remove('hide','pop'); void el.offsetWidth; el.classList.add('pop'); }
         function stop(){
@@ -3128,15 +3528,10 @@
           await sleep(3200); if(my!==run) return;
 
           /* --- 幕間 --- */
-          actText.textContent='では、had を have にしてしまうと';
-          act.classList.add('on');
-          await sleep(1400); if(my!==run) return;
+          await sleep(400); if(my!==run) return;
           reset(); run=my;
-          act.classList.add('on');
-          await sleep(200); if(my!==run) return;
-          act.classList.remove('on');
 
-          /* --- 第2幕: had を have にする --- */
+          /* --- 第2幕: 疑問文の語順（when is the report）にする --- */
           if(!(await placeAndAnswer(my, WRONG, false))) return;
           slots.forEach(function(s,i){ s.className='slot f '+(WRONG[i]===CORRECT[i]?'judged-ok':'judged-ng'); });
           verdict.className='verdict ng'; verdictText.textContent='不正解';
@@ -3195,7 +3590,7 @@
         if(!cards.length || nums.indexOf(null) >= 0) return;
         var fmt = function(n){ return n.toLocaleString('en-US'); };
         var done = false;
-        nums.forEach(function(el){ el.style.minWidth = el.textContent.length + 'ch'; });
+        
 
         function finish(){
           if(done) return;
@@ -3204,7 +3599,8 @@
           box.classList.remove('sd-anim-ready', 'sd-anim-go');
         }
         function count(el){
-          var to = +el.getAttribute('data-to'), t0 = null, DUR = 1100;
+          var to = +el.getAttribute('data-to'), t0 = null, DUR = 1600;
+          el.style.minWidth = el.getBoundingClientRect().width + 'px';
           el.textContent = '0';
           function tick(t){
             if(done) return;
@@ -3249,5 +3645,17 @@
       }
     })();
     </script>
+<script>
+(() => {
+  const fig = document.querySelector('.pp-srs-fig');
+  if (!fig) return;
+  if (!('IntersectionObserver' in window)) { fig.classList.add('run'); return; }
+  new IntersectionObserver(es => es.forEach(e => {
+    // 図の半分が見えた、または図が画面の高さの半分を占めたら（画面が低くて半分まで入らない場合も動く・Codex 指摘）
+    if (e.intersectionRatio >= 0.5 || e.intersectionRect.height >= window.innerHeight * 0.5) fig.classList.add('run');
+    else if (!e.isIntersecting) fig.classList.remove('run');
+  }), { threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5] }).observe(fig);
+})();
+</script>
 </body>
 </html>

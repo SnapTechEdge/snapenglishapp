@@ -4,9 +4,9 @@ module.exports = {
   // （含めると、いまはどこからも使っていないクラスが生成物に残る）。
   content: [
     "./index.html", "./about.html", "./terms.html", "./privacy.html",
-    "./tokushoho.html", "./404.html",
+    "./tokushoho.html", "./404.html", "./contact.html",
     "./en/index.html", "./en/about.html", "./en/terms.html",
-    "./en/privacy.html", "./en/404.html",
+    "./en/privacy.html", "./en/404.html", "./en/contact.html",
   ],
   theme: {
     extend: {
