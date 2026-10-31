@@ -91,7 +91,7 @@ export async function onRequestPost(context) {
       return jsonError(400, 'message_too_long', `メッセージが長すぎます (${FIELD_LIMITS.message} 文字まで)`);
     }
 
-    // 名前と件名はメールの件名ヘッダー (`[お問い合わせ] 件名 - 名前`) に入るので、改行などの
+    // 件名はメールの件名ヘッダー (`[お問い合わせ] 件名`) に入るので、改行などの
     // 制御文字を通さない。ヘッダーを足される余地を残さないため。見るのは trim 後の値で、
     // 端の改行や空白は trim で落ちたあと、中に残っているものを弾く (黙って削って送らない)。
     // 1 行の入力欄は改行を落とすが、貼り付けでは U+2028 などが残り得るので画面からも来る。
@@ -237,8 +237,8 @@ function autoReplyHtml(trimmed) {
 
   const text = 'margin:0 0 16px;';
   const label = 'margin:0 0 4px;font-size:13px;color:#5B646E;';
-  // 長い連続文字で横に伸びないようにする (ユーザーが貼った URL など)。名前・件名・本文の
-  // 3 か所すべてに効かせる。旧 Outlook はここを解釈できないので、下の mso 用の指定で補う。
+  // 長い連続文字で横に伸びないようにする (ユーザーが貼った URL など)。件名・本文の
+  // 両方に効かせる。旧 Outlook はここを解釈できないので、下の mso 用の指定で補う。
   const brk = 'word-break:break-word;overflow-wrap:anywhere;';
   const wrap = `margin:0 0 16px;${brk}`;
   const rule = '<hr style="border:0;border-top:1px solid #DED7CB;margin:20px 0;">';
