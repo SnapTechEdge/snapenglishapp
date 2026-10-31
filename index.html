@@ -1518,8 +1518,11 @@ header.nav-blur{ background:rgba(255,255,255,.9) !important; }
     position:relative;
     display:flex;
     align-items:center;
+    /* dvh を使う。svh だとアドレスバーが隠れて画面が広がったときに、
+       ヒーローが小さいままで次の節が顔を出す（Codex 指摘）。中身の寸法は svh 基準の
+       ままなので、バーが出ている狭いときでも収まる。 */
     min-height:calc(100vh - 65px);
-    min-height:calc(100svh - 65px);
+    min-height:calc(100dvh - 65px);
     padding-block:clamp(12px,2.5svh,56px);
 }
 .sd-hero > .sd-wrap{ width:100%; }
@@ -1566,8 +1569,13 @@ header.nav-blur{ background:rgba(255,255,255,.9) !important; }
 @media (prefers-reduced-motion:reduce){ .sd-scroll-cue svg{ animation:none; } }
 /* 低い画面では、数字の並びを 2 段から 1 段に詰める（高さを約 70px 節約）。 */
 @media (max-width:1000px) and (max-height:730px){
-    .sd-hero .pp-stats{ flex-wrap:nowrap; gap:0; }
-    .sd-hero .pp-stats .pp-stat{ min-width:0; padding:0 8px; }
+    /* 狭い画面では .pp-stats が 2 列のグリッドになっている（1508 行）ので、
+       grid-template-columns を上書きして 1 段にする。flex-wrap では効かない（Codex 指摘）。 */
+    .sd-hero .pp-stats{ display:grid; grid-template-columns:repeat(4,1fr); row-gap:0; gap:0; }
+    .sd-hero .pp-stats .pp-stat, .sd-hero .pp-stats .pp-stat.sd-mode{ min-width:0; padding:0 0 0 8px; border-left:1px solid var(--pp-rule); }
+    .sd-hero .pp-stats .pp-stat:first-child, .sd-hero .pp-stats .pp-stat.sd-mode:first-child{ padding-left:0; border-left:0; }
+    .sd-hero .pp-stats .pp-stat.sd-mode:nth-child(odd){ padding-left:8px; border-left:1px solid var(--pp-rule); }
+    .sd-hero .pp-stats .pp-stat.sd-mode:first-child{ padding-left:0; border-left:0; }
     .sd-hero .pp-stats .pp-stat b, .sd-hero .pp-stats .pp-stat.sd-mode b{ font-size:19px; }
     .sd-hero .pp-stats .pp-stat .pp-lab, .sd-hero .pp-stats .pp-stat.sd-mode .pp-lab{ font-size:11px; margin-top:3px; }
     .sd-hero .pp-stats .pp-stat b small{ font-size:11px; }
