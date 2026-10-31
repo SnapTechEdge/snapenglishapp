@@ -8,7 +8,6 @@
 //   2. ユーザーに自動返信メールを送信 (受付完了通知)
 
 const FIELD_LIMITS = {
-  name: 100,
   email: 200,
   subject: 100,
   message: 5000,
@@ -64,19 +63,15 @@ export async function onRequestPost(context) {
 
     // 必須チェック (subject も必須化)
     const trimmed = {
-      name: asText(data.name).trim(),
       email: asText(data.email).trim(),
       subject: asText(data.subject).trim(),
       message: asText(data.message).trim(),
     };
-    if (!trimmed.name || !trimmed.email || !trimmed.subject || !trimmed.message) {
+    if (!trimmed.email || !trimmed.subject || !trimmed.message) {
       return jsonError(400, 'missing_field', '名前・メールアドレス・件名・メッセージは必須です');
     }
 
     // 文字数制限 (各フィールド)
-    if (trimmed.name.length > FIELD_LIMITS.name) {
-      return jsonError(400, 'name_too_long', `名前が長すぎます (${FIELD_LIMITS.name} 文字まで)`);
-    }
     if (trimmed.email.length > FIELD_LIMITS.email) {
       return jsonError(400, 'email_too_long', `メールアドレスが長すぎます (${FIELD_LIMITS.email} 文字まで)`);
     }
@@ -103,8 +98,8 @@ export async function onRequestPost(context) {
     // 本文 (message) は改行が正しい入力なので対象にしない。
     // C0 と DEL に、行区切りとして扱われる U+0085・U+2028・U+2029 を足した集合。
     const CONTROL_CHARS = /[\u0000-\u001F\u007F\u0085\u2028\u2029]/;
-    if (CONTROL_CHARS.test(trimmed.name) || CONTROL_CHARS.test(trimmed.subject)) {
-      return jsonError(400, 'invalid_characters', 'お名前と件名に改行などの使えない文字が含まれています');
+    if (CONTROL_CHARS.test(trimmed.subject)) {
+      return jsonError(400, 'invalid_characters', '件名に改行などの使えない文字が含まれています');
     }
 
     // 環境変数チェック
@@ -151,9 +146,8 @@ export async function onRequestPost(context) {
       from: 'SnapEnglish <support@snapenglishapp.com>',
       to: ['support@snapenglishapp.com'],
       reply_to: trimmed.email,
-      subject: `[お問い合わせ] ${trimmed.subject} - ${trimmed.name}`,
+      subject: `[お問い合わせ] ${trimmed.subject}`,
       text: [
-        `お名前: ${trimmed.name}`,
         `メールアドレス: ${trimmed.email}`,
         `件名: ${trimmed.subject}`,
         '',
@@ -178,8 +172,6 @@ export async function onRequestPost(context) {
       to: [trimmed.email],
       subject: '【SnapEnglish】お問い合わせを受け付けました / We received your inquiry',
       text: [
-        `${trimmed.name} 様`,
-        '',
         'このたびは SnapEnglish へお問い合わせいただきありがとうございます。',
         '以下の内容で受け付けました。担当者より追ってご返信いたします。',
         'なお、内容によっては返信までお時間をいただく場合がございます。',
@@ -268,7 +260,6 @@ function autoReplyHtml(trimmed) {
     '<tr><td align="center">',
     '<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="max-width:600px;width:100%;border-collapse:collapse;background:#FFFFFF;border:1px solid #DED7CB;border-radius:12px;">',
     '<tr><td style="padding:24px;">',
-    `<p class="brk" style="${wrap}">${esc(trimmed.name)} 様</p>`,
     `<p style="${text}">このたびは SnapEnglish へお問い合わせいただきありがとうございます。<br>`,
     '以下の内容で受け付けました。担当者より追ってご返信いたします。<br>',
     'なお、内容によっては返信までお時間をいただく場合がございます。<br>',

@@ -1844,20 +1844,14 @@ html:not(.js) .pp-dots{ display:none !important; }
         <p class="sd-contact-lead">お気軽にご連絡ください。</p></div><div class="pp-contact-body">
 
         <form id="contact-form" class="sd-form" method="post" novalidate>
-            <div class="sd-form-row">
-                <label>
-                    <span class="sd-form-label">お名前(ニックネーム) <i>*</i></span>
-                    <input type="text" name="name" required maxlength="100" placeholder="○○○○">
-                </label>
-                <label>
-                    <span class="sd-form-label">メールアドレス <i>*</i></span>
-                    <input type="text" name="email" required maxlength="200" placeholder="you@example.com"
-                           inputmode="email" autocomplete="email" autocapitalize="off"
-                           autocorrect="off" spellcheck="false"
-                           aria-describedby="email-hint">
-                    <span class="sd-form-hint" id="email-hint" role="status"></span>
-                </label>
-            </div>
+            <label>
+                <span class="sd-form-label">メールアドレス <i>*</i></span>
+                <input type="text" name="email" required maxlength="200" placeholder="you@example.com"
+                       inputmode="email" autocomplete="email" autocapitalize="off"
+                       autocorrect="off" spellcheck="false"
+                       aria-describedby="email-hint">
+                <span class="sd-form-hint" id="email-hint" role="status"></span>
+            </label>
             <label>
                 <span class="sd-form-label">件名 <i>*</i></span>
                 <input type="text" name="subject" required maxlength="100" placeholder="例: 購入後の機能について">
@@ -2154,7 +2148,6 @@ html:not(.js) .pp-dots{ display:none !important; }
                 // FormData ベースで取得 (form.elements.name の予約語衝突を回避)
                 const fd = new FormData(form);
                 const data = {
-                    name: (fd.get('name') || '').toString().trim(),
                     email: (fd.get('email') || '').toString().trim(),
                     subject: (fd.get('subject') || '').toString().trim(),
                     message: (fd.get('message') || '').toString().trim(),
@@ -2179,14 +2172,12 @@ html:not(.js) .pp-dots{ display:none !important; }
                     return;
                 }
 
-                // 名前と件名はメールの件名ヘッダーに入るので、改行などの制御文字は送る前に弾く。
+                // 件名はメールの件名ヘッダーに入るので、改行などの制御文字は送る前に弾く。
                 // 1 行の入力欄は改行を落とすが、貼り付けでは U+2028 などが残り得る。判定はサーバと同じ。
                 const CONTROL_CHARS = /[\u0000-\u001F\u007F\u0085\u2028\u2029]/;
-                const ctrlField = CONTROL_CHARS.test(data.name) ? 'name'
-                    : CONTROL_CHARS.test(data.subject) ? 'subject'
-                    : '';
+                const ctrlField = CONTROL_CHARS.test(data.subject) ? 'subject' : '';
                 if (ctrlField) {
-                    result.textContent = '⚠ お名前と件名に改行などの使えない文字が含まれています。';
+                    result.textContent = '⚠ 件名に改行などの使えない文字が含まれています。';
                     result.className = 'sd-form-msg ng';
                     submitBtn.disabled = false;
                     submitLabel.textContent = '送信する';
