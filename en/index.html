@@ -1581,6 +1581,9 @@ header.nav-blur{ background:rgba(255,255,255,.9) !important; }
     .sd-hero .pp-stats .pp-stat b, .sd-hero .pp-stats .pp-stat.sd-mode b{ font-size:19px; }
     .sd-hero .pp-stats .pp-stat .pp-lab, .sd-hero .pp-stats .pp-stat.sd-mode .pp-lab{ font-size:11px; margin-top:3px; }
     .sd-hero .pp-stats .pp-stat b small{ font-size:11px; }
+    /* 英語は単位の語が長く、横に並べると隣の数字とぶつかる（Codex 指摘）。数字の下に送る。 */
+    .sd-hero .pp-stats .pp-stat b{ white-space:normal; }
+    .sd-hero .pp-stats .pp-stat b small{ display:block; margin-left:0; }
 }
 /* さらに低い画面では、見出しと本文も一段小さくする。 */
 @media (max-width:1000px) and (max-height:680px){
