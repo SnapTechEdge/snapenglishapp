@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://snapenglishapp.com/</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/"/>
@@ -12,7 +12,7 @@
   </url>
   <url>
     <loc>https://snapenglishapp.com/en/</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/"/>
@@ -75,7 +75,7 @@
   </url>
   <url>
     <loc>https://snapenglishapp.com/contact</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/contact"/>
@@ -84,7 +84,7 @@
   </url>
   <url>
     <loc>https://snapenglishapp.com/en/contact</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/contact"/>
