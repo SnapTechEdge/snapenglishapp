@@ -2,6 +2,9 @@
 <html lang="ja" class="no-js">
 <head>
     <meta charset="UTF-8">
+    <!-- pages.dev から来たら noindex を入れて本ドメインへ移す。
+         _redirects はホスト名を見ないので、ここで JS で受ける。 -->
+    <script>(function(){var h=location.hostname;if(h.endsWith('.pages.dev')){var m=document.createElement('meta');m.name='robots';m.content='noindex, nofollow';document.head.appendChild(m);location.replace('https://snapenglishapp.com'+location.pathname+location.search+location.hash);}})();</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>お問い合わせ | SnapEnglish</title>
     <meta name="description" content="SnapEnglish へのご質問・不具合報告・機能リクエストは、こちらのフォームからお送りください。">
@@ -95,8 +98,11 @@
     </script>
     <link rel="stylesheet" href="tailwind.css?v=20261012">
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <!-- 書体。@import だと <style> の中で描画を止めるので link に分ける。 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap');
 
         * { font-family: 'Inter', 'Noto Sans JP', sans-serif; }
 

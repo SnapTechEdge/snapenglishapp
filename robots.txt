@@ -1,4 +1,3 @@
-User-agent: *
-Allow: /
-
+# クロールの可否は Cloudflare 側の管理ブロックで配信される（AI 学習拒否・Content-Signal）。
+# ここで User-agent: * を重ねると意味が二重になるので、Sitemap だけ置く。
 Sitemap: https://snapenglishapp.com/sitemap.xml

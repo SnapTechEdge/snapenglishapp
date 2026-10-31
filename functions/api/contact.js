@@ -18,6 +18,18 @@ export async function onRequestPost(context) {
   const { request, env } = context;
 
   try {
+    // 本ドメイン以外 (snapenglishapp.pages.dev やプレビュー URL) からは受け付けない。
+    // 同じ内容が別ホストでも動くと、フォームの窓口が二重にできてしまう。
+    // 手元の開発 (wrangler) は localhost なので通す。
+    const host = (request.headers.get('host') || '').toLowerCase().split(':')[0];
+    const allowedHost = host === 'snapenglishapp.com'
+      || host === 'www.snapenglishapp.com'
+      || host === 'localhost'
+      || host === '127.0.0.1';
+    if (!allowedHost) {
+      return jsonError(403, 'bad_host', 'このホストからは受け付けていません');
+    }
+
     // JSON パース
     let data;
     try {
