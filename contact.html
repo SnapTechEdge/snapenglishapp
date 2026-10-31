@@ -96,7 +96,7 @@
       document.documentElement.className =
         document.documentElement.className.replace(/\bno-js\b/, '') + ' js';
     </script>
-    <link rel="stylesheet" href="tailwind.css?v=20261012">
+    <link rel="stylesheet" href="tailwind.css?v=20261101">
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <!-- 書体。@import だと <style> の中で描画を止めるので link に分ける。 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1809,9 +1809,7 @@ html:not(.js) .pp-dots{ display:none !important; }
             </nav>
             <div class="flex items-center gap-1.5">
                 <a href="/#cta" class="px-2.5 py-1.5 rounded-full bg-accent2 text-white text-xs font-bold hover:bg-accent3 transition whitespace-nowrap">無料で始める</a>
-                <a href="/en/contact" hreflang="en" lang="en"
-                    class="hidden md:inline-block px-2.5 py-1 rounded-md text-xs font-semibold text-slate-600 hover:text-emerald-700 hover:bg-slate-100 transition"
-                    title="English version">EN</a>
+                <span class="hidden md:inline-flex items-center gap-1.5 px-1 text-xs font-semibold"><a href="/contact" hreflang="ja" class="text-slate-900 underline underline-offset-4 decoration-slate-400" aria-current="page">JP</a><span class="text-slate-300" aria-hidden="true">|</span><a href="/en/contact" hreflang="en" lang="en" class="text-slate-600 hover:text-emerald-700 transition">EN</a></span>
                 <button id="mobile-menu-btn" type="button"
                     aria-label="メニューを開く"
                     aria-expanded="false"
