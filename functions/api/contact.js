@@ -68,7 +68,7 @@ export async function onRequestPost(context) {
       message: asText(data.message).trim(),
     };
     if (!trimmed.email || !trimmed.subject || !trimmed.message) {
-      return jsonError(400, 'missing_field', '名前・メールアドレス・件名・メッセージは必須です');
+      return jsonError(400, 'missing_field', 'メールアドレス・件名・メッセージは必須です');
     }
 
     // 文字数制限 (各フィールド)
