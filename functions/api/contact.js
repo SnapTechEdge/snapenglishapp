@@ -249,7 +249,7 @@ function autoReplyHtml(trimmed) {
     '<meta name="viewport" content="width=device-width,initial-scale=1">',
     // 明るい配色だけを用意しているので、ダークモードでの自動反転には任せない。
     '<meta name="color-scheme" content="light">',
-    // 旧 Outlook は語の途中で折れないので、ユーザーの入力を入れる 3 か所だけ
+    // 旧 Outlook は語の途中で折れないので、ユーザーの入力を入れる 2 か所（件名・本文）だけ
     // break-all にする。Outlook 以外はこの中を読まない。
     '<!--[if mso]><style>.brk{word-break:break-all;}</style><![endif]-->',
     '</head>',
