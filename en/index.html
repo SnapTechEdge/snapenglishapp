@@ -1542,13 +1542,15 @@ header.nav-blur{ background:rgba(255,255,255,.9) !important; }
     /* 縦に積む並びでは、文字とボタンに要る高さ（--hero-reserve）を引いた残りを絵に充てる。
        画面が高ければ元の大きさまで戻り、低ければ縮む。英語版は本文が 1 行多いので
        別の値を入れている。 */
-    .sd-hero-art img{ max-height:clamp(80px,calc(100svh - var(--hero-reserve)),332px); width:auto; margin-inline:auto; }
+    .sd-hero-art img{ max-height:clamp(200px,calc(100svh - var(--hero-reserve)),332px); width:auto; margin-inline:auto; }
     .sd-hero .pp-desc{ line-height:1.7; }
     .sd-hero .pp-stats{ margin-top:clamp(10px,2.2svh,34px); }
     .sd-hero .sd-badges{ margin-top:clamp(12px,2.6svh,48px); }
 }
-/* 低い画面では絵を出さない。文字とボタンを 1 画面に収めるため。 */
-@media (max-width:1000px) and (max-height:740px){ .sd-hero-art{ display:none; } }
+/* 低い画面では絵を出さない。文字とボタンを 1 画面に収めるため。
+   絵に 200px も割けない高さでも出さない。縮めて出しても小さすぎて意味がない（本人指摘）。
+   しきい値は「文字とボタンに要る高さ（--hero-reserve）＋200px」。@media は変数を読めないので実数で書く。 */
+@media (max-width:1000px) and (max-height:989px){ .sd-hero-art{ display:none; } }
 
 /* 下へ進む矢印。押すと次の節へ。中身と重ならないよう、器の下に矢印のぶんの余白を取る。 */
 .sd-hero > .sd-wrap{ padding-bottom:36px; }
