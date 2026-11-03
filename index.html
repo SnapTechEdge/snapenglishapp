@@ -1513,7 +1513,6 @@ header.nav-blur{ background:rgba(255,255,255,.9) !important; }
    svh を使うのは、スマホでアドレスバーが出ていても次の節が顔を出さないようにするため。
    中身の縦の間隔は画面の高さに連動させ、低い画面では詰める。 */
 .sd-hero{
-    --hero-reserve:710px;
     position:relative;
     display:flex;
     align-items:center;
@@ -1537,19 +1536,43 @@ header.nav-blur{ background:rgba(255,255,255,.9) !important; }
     .sd-hero-art img{ max-height:calc(100svh - 230px); width:auto; margin-inline:auto; }
 }
 @media (max-width:1000px){
-    .sd-hero-in{ gap:clamp(10px,1.6svh,34px); }
-    /* 縦に積む並びでは、文字とボタンに要る高さ（--hero-reserve）を引いた残りを絵に充てる。
-       画面が高ければ元の大きさまで戻り、低ければ縮む。英語版は本文が 1 行多いので
-       別の値を入れている。 */
-    .sd-hero-art img{ max-height:clamp(200px,calc(100svh - var(--hero-reserve)),332px); width:auto; margin-inline:auto; }
+    /* 縦に積む並びでは、絵の高さを「画面の残り」から決める。文字の高さを実数で決め打ちするのは
+       やめた。文字の側は縮めず、残りが 200px に満たないときだけヒーローが 1 画面を少し超える
+       （＝ヒーローの下のほうを見るのにスクロールが要る。次の節が顔を出すわけではない・Codex 指摘）。
+       絵の枠は 900/1150 のまま、高さに合わせて幅も変える＝切れ方（object-position 50% 60%）は
+       どの大きさでも変わらない。 */
+    .sd-hero{ align-items:stretch; }
+    /* News の帯を挿絵より上に出す（本人指示）。帯は文字の列の中、挿絵は列の外にあるので、
+       列を display:contents にして中身をそのまま同じ縦並びの項目にし、order で帯を先頭へ。
+       要素そのものは残るので `.sd-hero-col > X` の指定（order など）はそのまま効く。
+       項目の間隔は各要素の margin-top が持っているので、並びの gap は 0 にする（gap を残すと
+       全ての間に 10〜34px が足される）。挿絵の下だけ、その gap 相当を margin で補う。 */
+    /* 中身は左ぞろえ。基底の align-items:center が flex では横方向に効き、見出しや数字の箱だけが
+       中央に寄って「中央とも左ともつかない」見え方になるため、ここで打ち消す（本人「中央揃えはやめる」）。
+       挿絵だけは figure の margin-inline:auto で中央のまま。 */
+    .sd-hero-in{ display:flex; flex-direction:column; align-items:flex-start; gap:0; }
+    .sd-hero-col{ display:contents; }
+    .sd-hero-col > *{ flex-shrink:0; }   /* 縮めるのは挿絵だけ。文字は縮めない */
+    /* 高さの上限に幅の上限（68vw）由来の値も入れる。height だけで決めたあとに
+       max-width が効くと、枠が 900/1150 から外れて切り取り範囲が変わる（Codex 指摘）。
+       86.8889vw = 68vw x 1150/900。 */
+    .sd-hero-art{ flex:1 1 0; width:auto; min-height:200px; max-height:min(332px,86.8889vw);
+                  margin-bottom:calc(clamp(10px,1.6svh,34px) + 6px); }
+    .sd-hero-art img{ height:100%; width:auto; max-width:min(260px,68vw);
+                      aspect-ratio:900/1150; object-fit:cover; object-position:50% 60%;
+                      margin-inline:auto; }
     .sd-hero .pp-desc{ line-height:1.7; }
     .sd-hero .pp-stats{ margin-top:clamp(10px,2.2svh,34px); }
     .sd-hero .sd-badges{ margin-top:clamp(12px,2.6svh,48px); }
 }
-/* 低い画面では絵を出さない。文字とボタンを 1 画面に収めるため。
-   絵に 200px も割けない高さでも出さない。縮めて出しても小さすぎて意味がない（本人指摘）。
-   しきい値は「文字とボタンに要る高さ（--hero-reserve）＋200px」。@media は変数を読めないので実数で書く。 */
-@media (max-width:1000px) and (max-height:909px){ .sd-hero-art{ display:none; } }
+/* 携帯幅では挿絵の下マージンが 4px（701〜1000px は 6px）なので、そちらに合わせる。 */
+@media (max-width:700px){
+    .sd-hero-art{ margin-bottom:calc(clamp(10px,1.6svh,34px) + 4px); }
+}
+/* 横向きなど本当に低い画面だけは絵を出さない。200px の絵を足すと、ストアバッジと注記が
+   画面から大きく外れるため。普通のスマホ（縦）では出す＝文字ばかりの画面にしない（本人指摘）。
+   しきい値 660px は実測で決めた。375x667（iPhone SE）は出し、360x640 は出さない。 */
+@media (max-width:1000px) and (max-height:660px){ .sd-hero-art{ display:none; } }
 
 /* 下へ進む矢印。押すと次の節へ。中身と重ならないよう、器の下に矢印のぶんの余白を取る。 */
 .sd-hero > .sd-wrap{ padding-bottom:36px; }
@@ -1568,9 +1591,9 @@ header.nav-blur{ background:rgba(255,255,255,.9) !important; }
     50%    { transform:translateY(5px); opacity:1; }
 }
 @media (prefers-reduced-motion:reduce){ .sd-scroll-cue svg{ animation:none; } }
-/* 低い画面では、数字の並びを 2 段から 1 段に詰める（高さを約 70px 節約）。 */
+/* 縦に積む並びでは、数字の並びを 2 段から 1 段に詰める（高さを約 90px 節約し、そのぶんを絵に回す）。 */
 /* 4 列にするのは 360px 以上のときだけ。320px だと英語の単位が隣とぶつかる（Codex 指摘）。 */
-@media (min-width:360px) and (max-width:1000px) and (max-height:730px){
+@media (min-width:360px) and (max-width:1000px){
     /* 狭い画面では .pp-stats が 2 列のグリッドになっている（1508 行）ので、
        grid-template-columns を上書きして 1 段にする。flex-wrap では効かない（Codex 指摘）。 */
     .sd-hero .pp-stats{ display:grid; grid-template-columns:repeat(4,1fr); row-gap:0; gap:0; }
@@ -1581,6 +1604,12 @@ header.nav-blur{ background:rgba(255,255,255,.9) !important; }
     .sd-hero .pp-stats .pp-stat b, .sd-hero .pp-stats .pp-stat.sd-mode b{ font-size:19px; }
     .sd-hero .pp-stats .pp-stat .pp-lab, .sd-hero .pp-stats .pp-stat.sd-mode .pp-lab{ font-size:11px; margin-top:3px; }
     .sd-hero .pp-stats .pp-stat b small{ font-size:11px; }
+}
+/* 360〜380px 幅ではストアバッジが 2 段に折れ、高さを 60px 余計に使う。そのぶん挿絵が
+   下に押し出されてバッジ自体が画面の外へ出るので、ここだけ少し小さくして 1 段に収める。
+   （これより低い画面の 42px 指定を潰さないよう、その指定より前に置く。） */
+@media (min-width:360px) and (max-width:380px){
+    .sd-hero .sd-badges img{ height:44px; }
 }
 /* さらに低い画面では、見出しと本文も一段小さくする。 */
 @media (max-width:1000px) and (max-height:680px){
@@ -1893,7 +1922,10 @@ html:not(.js) .pp-dots{ display:none !important; }
 /* 最初の画面の最新お知らせ（1行・小さく） */
 /* 左列は flex 縦並びで order を振ってある（広い画面）。帯は先頭に置き、幅は中身なり */
 .sd-hero-col > .pp-hero-news{ order:0 !important; align-self:flex-start; }
-@media (min-width:1001px){ .sd-hero-col > .pp-hero-news{ margin-top:-24px; margin-bottom:46px; } }   /* 帯だけ少し上へ（10-27 本人）。下の見出しの位置は変えない。スマホはイラストに近づくので動かさない */
+@media (min-width:1001px){ .sd-hero-col > .pp-hero-news{ margin-top:-24px; margin-bottom:46px; } }
+/* スマホ（縦積み）では News の帯を挿絵より前に出す（本人指示）。上の order:0 !important と
+   詳細度が同じなので、打ち消すにはこの位置（あと）に置く必要がある（Codex 指摘）。 */
+@media (max-width:1000px){ .sd-hero-col > .pp-hero-news{ order:-2 !important; } }   /* 帯だけ少し上へ（10-27 本人）。下の見出しの位置は変えない。スマホ側は下の指定で先頭に出す */
 .pp-hero-news{ display:inline-flex; align-items:center; gap:10px; max-width:100%; margin-bottom:22px;
   padding:6px 14px 6px 6px; border:1px solid var(--pp-rule); border-radius:999px; background:#fff;
   font-size:13px; line-height:1.4; color:var(--pp-ink2); text-decoration:none; }
@@ -1960,6 +1992,19 @@ html:not(.js) .pp-dots{ display:none !important; }
   box-shadow: 0 0 0 calc(8px * var(--sd-phone-zoom,.74)) #0B0B0D, 0 0 0 calc(9.5px * var(--sd-phone-zoom,.74)) #8E9094,
               0 0 0 calc(11px * var(--sd-phone-zoom,.74)) #2B2C30,
               0 calc(30px * var(--sd-phone-zoom,.74)) calc(60px * var(--sd-phone-zoom,.74)) calc(-22px * var(--sd-phone-zoom,.74)) rgba(17,19,24,.45) !important; }
+/* スマホでも言語の切り替えを右上に出す（本人指示）。ヘッダーの幅が足りないので、出すのは
+   切り替え先の言語ひとつだけ（パソコンの JP | EN の対は 191px 要り、360px ではロゴの字が
+   CTA の札に重なる＝実測）。320px は対でなくても重なるので出さず、従来どおりメニューの中で
+   切り替える。768px 以上は従来の対をそのまま使う。
+   高さ 44px はタップの的。横幅は増やさない（左右の余白は 2px・Codex 指摘）。 */
+.sd-lang-sm{ display:none; }
+@media (min-width:360px) and (max-width:767px){
+  .sd-lang-sm{ display:inline-flex; align-items:center; height:44px; padding:0 2px;
+               font-size:12px; font-weight:700; color:#475569; text-decoration:none;
+               white-space:nowrap; }
+  .sd-lang-sm:hover{ color:#047857; }
+}
+
 /* ヒーローの文字の開始位置を、次の節のカードの文字にそろえる（本人指示）。
    カードの外枠ではなく中の文字に合わせるので、#features のカードと同じ内側の余白
    clamp(28px,5vw,80px) をヒーローの文字の列にも入れる。
@@ -1989,6 +2034,7 @@ html:not(.js) .pp-dots{ display:none !important; }
             <div class="flex items-center gap-1.5">
                 <a href="#cta" class="px-2.5 py-1.5 rounded-full bg-accent2 text-white text-xs font-bold hover:bg-accent3 transition whitespace-nowrap">無料で始める</a>
                 <span class="hidden md:inline-flex items-center gap-1.5 px-1 text-xs font-semibold"><a href="/" hreflang="ja" class="text-slate-900 underline underline-offset-4 decoration-slate-400" aria-current="page">JP</a><span class="text-slate-300" aria-hidden="true">|</span><a href="/en/" hreflang="en" lang="en" class="text-slate-600 hover:text-emerald-700 transition">EN</a></span>
+                <a class="sd-lang-sm" href="/en/" hreflang="en" lang="en" aria-label="English">EN</a>
                 <button id="mobile-menu-btn" type="button"
                     aria-label="メニューを開く"
                     aria-expanded="false"

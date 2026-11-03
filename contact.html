@@ -103,6 +103,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap">
     <style>
+/* スマホでも言語の切り替えを右上に出す（本人指示・トップと同じ作り）。幅が足りないので出すのは
+   切り替え先の言語ひとつだけ。320px はロゴに CTA の札が重なるので出さず、メニューの中で切り替える。
+   768px 以上は従来の JP | EN の対をそのまま使う。 */
+.sd-lang-sm{ display:none; }
+@media (min-width:360px) and (max-width:767px){
+  .sd-lang-sm{ display:inline-flex; align-items:center; height:44px; padding:0 2px;
+               font-size:12px; font-weight:700; color:#475569; text-decoration:none;
+               white-space:nowrap; }
+  .sd-lang-sm:hover{ color:#047857; }
+}
+
 
         * { font-family: 'Inter', 'Noto Sans JP', sans-serif; }
 
@@ -1810,6 +1821,7 @@ html:not(.js) .pp-dots{ display:none !important; }
             <div class="flex items-center gap-1.5">
                 <a href="/#cta" class="px-2.5 py-1.5 rounded-full bg-accent2 text-white text-xs font-bold hover:bg-accent3 transition whitespace-nowrap">無料で始める</a>
                 <span class="hidden md:inline-flex items-center gap-1.5 px-1 text-xs font-semibold"><a href="/contact" hreflang="ja" class="text-slate-900 underline underline-offset-4 decoration-slate-400" aria-current="page">JP</a><span class="text-slate-300" aria-hidden="true">|</span><a href="/en/contact" hreflang="en" lang="en" class="text-slate-600 hover:text-emerald-700 transition">EN</a></span>
+                <a class="sd-lang-sm" href="/en/contact" hreflang="en" lang="en" aria-label="English">EN</a>
                 <button id="mobile-menu-btn" type="button"
                     aria-label="メニューを開く"
                     aria-expanded="false"
