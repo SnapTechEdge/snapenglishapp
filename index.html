@@ -1958,6 +1958,13 @@ html:not(.js) .pp-dots{ display:none !important; }
   box-shadow: 0 0 0 calc(8px * var(--sd-phone-zoom,.74)) #0B0B0D, 0 0 0 calc(9.5px * var(--sd-phone-zoom,.74)) #8E9094,
               0 0 0 calc(11px * var(--sd-phone-zoom,.74)) #2B2C30,
               0 calc(30px * var(--sd-phone-zoom,.74)) calc(60px * var(--sd-phone-zoom,.74)) calc(-22px * var(--sd-phone-zoom,.74)) rgba(17,19,24,.45) !important; }
+/* ヒーローの文字の開始位置を、次の節のカードの文字にそろえる（本人指示）。
+   カードの外枠ではなく中の文字に合わせるので、#features のカードと同じ内側の余白
+   clamp(28px,5vw,80px) をヒーローの文字の列にも入れる。
+   1000px 以下ではカードの内側の余白が小さく、そろえると画面の幅を無駄にするので入れない。 */
+@media (min-width:1001px){
+  .sd-hero .sd-hero-col{ padding-inline-start:clamp(28px,5vw,80px); }
+}
 </style>
 
 </head>

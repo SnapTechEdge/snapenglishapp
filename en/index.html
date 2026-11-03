@@ -1984,6 +1984,13 @@ html[lang="en"] .pp-stat b small{ font-size:12px; }
   html[lang="en"] #features .sd-copy .pp-points{ gap:9px !important; margin-top:14px !important; }
   html[lang="en"] .pp-split .pp-keep-card{ min-height:518px; }
 }
+/* ヒーローの文字の開始位置を、次の節のカードの文字にそろえる（本人指示）。
+   カードの外枠ではなく中の文字に合わせるので、#features のカードと同じ内側の余白
+   clamp(28px,5vw,80px) をヒーローの文字の列にも入れる。
+   1000px 以下ではカードの内側の余白が小さく、そろえると画面の幅を無駄にするので入れない。 */
+@media (min-width:1001px){
+  .sd-hero .sd-hero-col{ padding-inline-start:clamp(28px,5vw,80px); }
+}
 </style>
 </head>
 <body class="text-slate-900 antialiased">
