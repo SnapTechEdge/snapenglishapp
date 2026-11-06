@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="UTF-8">
   <!-- pages.dev から来たら noindex を入れて本ドメインへ移す。
        _redirects はホスト名を見ないので、ここで JS で受ける。 -->
   <script>(function(){var h=location.hostname;if(h.endsWith('.pages.dev')){var m=document.createElement('meta');m.name='robots';m.content='noindex, nofollow';document.head.appendChild(m);location.replace('https://snapenglishapp.com'+location.pathname+location.search+location.hash);}})();</script>
+  <script>document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/, '') + ' js';</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#F1EDE6">
+  <meta name="theme-color" content="#FFFFFF">
   <title>What is SnapEnglish? | Developer, features and requirements</title>
   <link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/about">
   <link rel="alternate" hreflang="en" href="https://snapenglishapp.com/en/about">
+  <link rel="alternate" hreflang="x-default" href="https://snapenglishapp.com/about">
   <meta name="description" content="SnapEnglish is an English learning app developed and published by SnapTechEdge. It covers AI conversation practice, instant composition with AI feedback, grammar, vocabulary and spaced repetition (SRS).">
   <link rel="canonical" href="https://snapenglishapp.com/en/about">
-  <link rel="alternate" hreflang="x-default" href="https://snapenglishapp.com/about">
-  <link rel="icon" type="image/png" sizes="64x64" href="../icon-64.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="../icon-192.png">
-  <link rel="apple-touch-icon" sizes="192x192" href="../icon-192.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="/icon-64.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png">
+
 
   <!-- JSON-LD: AboutPage. Reuses the same @id values as the home page so search engines
        treat this as the same entity rather than a separate app. -->
@@ -60,95 +62,230 @@
   </script>
 
   <link rel="stylesheet" href="../tailwind.css?v=20261101">
+  <style>
+/* 新サイト（トップ・お問い合わせ）と同じ地と字。必要な分だけここに置く。
+   Tailwind のクラスは増やしていない＝tailwind.css の再ビルドは要らない。 */
+:root{ --pp-bg:#FFFFFF; --pp-ink:#16191D; --pp-ink2:#4A515A; --pp-ink3:#5F666F;
+       --pp-rule:#E6E6E3; --pp-link:#1F6B4A; }
+html, body{ overflow-x:clip; }
+body{ background:var(--pp-bg); color:var(--pp-ink); }
+/* ヘッダー（スクロールしても上に残る） */
+.nav-blur{ backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+           background:rgba(255,255,255,.9); }
+/* 器はトップ・お問い合わせと同じ（内容 1192px ＋ 左右 24px）。ヘッダーとフッターの
+   max-w-6xl（Tailwind の 1152px）も同じ幅に上書きして、左端を 1 本にそろえる。 */
+:root{ --pp-max:1192px; }
+.sd-wrap{ max-width:calc(var(--pp-max) + 48px); margin:0 auto; padding:0 24px; }
+header .max-w-6xl, footer .max-w-6xl{ max-width:calc(var(--pp-max) + 48px);
+                                      padding-left:24px; padding-right:24px; }
+@supports (padding: max(0px)){
+  .sd-wrap, header .max-w-6xl, footer .max-w-6xl{
+    padding-left:max(24px, env(safe-area-inset-left, 0px));
+    padding-right:max(24px, env(safe-area-inset-right, 0px)); }
+}
+.sd-footer{ background:var(--pp-bg); border-color:#DED7CB; }
+/* スマホの言語切り替え（トップと同じ作り）。360px 未満は幅が足りないのでメニューの中だけ */
+.sd-lang-sm{ display:none; }
+@media (min-width:360px) and (max-width:767px){
+  .sd-lang-sm{ display:inline-flex; align-items:center; height:44px; padding:0 2px;
+               font-size:12px; font-weight:700; color:#475569; text-decoration:none;
+               white-space:nowrap; }
+  .sd-lang-sm:hover{ color:#047857; }
+}
+/* JS が動かないとき: メニューは開いた状態で出し、開閉ボタンは隠す */
+@media (max-width:767px){
+  html.no-js #mobile-menu{ display:block !important; }
+  html.no-js #mobile-menu-btn{ display:none !important; }
+}
+/* 本文（法務ページ）。読む列は 46rem でそろえる。em にすると、字の小さい
+   「最終更新日」の行だけ列が狭くなって右端がずれる（実測）。 */
+.lg{ padding-block:clamp(36px,5vw,72px) clamp(48px,7vw,96px); }
+.lg-eyebrow{ font-size:12px; font-weight:700; letter-spacing:.14em; color:var(--pp-link); }
+.lg h1{ margin-top:12px; font-size:clamp(26px,3vw,38px); line-height:1.3;
+        letter-spacing:-.02em; font-weight:700; color:var(--pp-ink); }
+.lg-lead{ margin-top:18px; max-width:46rem; font-size:15.5px; line-height:1.95; color:var(--pp-ink2); }
+.lg-body{ margin-top:clamp(28px,4vw,44px); max-width:46rem; border-top:1px solid var(--pp-rule); }
+.lg-body section{ padding-block:clamp(24px,3vw,32px); border-bottom:1px solid var(--pp-rule); }
+.lg-body h2{ display:flex; align-items:baseline; gap:10px; margin:0;
+             font-size:17px; font-weight:700; line-height:1.6; color:var(--pp-ink); }
+.lg-body h2 .lg-no{ flex:none; font-size:13px; font-weight:700; color:var(--pp-link);
+                    font-variant-numeric:tabular-nums; white-space:nowrap; }
+.lg-body p{ margin:12px 0 0; font-size:15px; line-height:1.95; color:var(--pp-ink2); }
+.lg-body p.lg-note{ font-size:13px; line-height:1.85; color:var(--pp-ink3); }
+.lg-body ul{ margin:14px 0 0; padding-left:1.2em; list-style:disc; }
+.lg-body li{ margin-top:9px; font-size:15px; line-height:1.9; color:var(--pp-ink2); }
+.lg-body li::marker{ color:var(--pp-link); }
+.lg-body strong{ color:var(--pp-ink); font-weight:700; }
+.lg-body a{ color:var(--pp-link); text-decoration:underline; text-underline-offset:3px; }
+.lg-body a:hover{ color:var(--pp-ink); }
+.lg-updated{ margin-top:26px; max-width:46rem; text-align:right; font-size:13px; color:var(--pp-ink3); }
+/* 1001px 以上では、本文の始まりをトップの文字の線にそろえる（本人「インデント位置が異なるのでは？」）。
+   器の線から、トップの冒頭とカードの中の文字と同じ clamp(28px,5vw,80px) だけ内側に入れる。
+   ヘッダーとフッターは器の線のまま（トップと同じ）。1000px 以下は元から一致しているので触らない。 */
+@media (min-width:1001px){ .lg-in{ padding-inline-start:clamp(28px,5vw,80px); } }
+/* 会社概要: 箇条書きの見出し語 */
+.lg-body section > ul li strong:first-child{ color:var(--pp-ink); }
+/* 会社概要: ストアのボタン */
+.lg-buttons{ margin-top:18px; display:flex; flex-wrap:wrap; gap:12px; }
+.lg-buttons a{ display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:12px;
+               background:var(--pp-link); color:#fff; font-size:15px; font-weight:700; text-decoration:none; }
+.lg-buttons a:hover{ background:#14512F; color:#fff; }
+/* 特定商取引法に基づく表記の表 */
+.lg-table{ width:100%; max-width:46rem; margin-top:4px; border-collapse:collapse;
+           border-top:1px solid var(--pp-rule); font-size:15px; }
+.lg-table th, .lg-table td{ text-align:left; vertical-align:top; padding:16px 0;
+                            border-bottom:1px solid var(--pp-rule); line-height:1.9; }
+.lg-table th{ width:34%; padding-right:24px; font-weight:700; color:var(--pp-ink); }
+.lg-table td{ color:var(--pp-ink2); }
+.lg-table td strong{ color:var(--pp-ink); font-weight:700; }
+.lg-table td a{ color:var(--pp-link); text-decoration:underline; text-underline-offset:3px; }
+.lg-small{ display:inline-block; margin-top:4px; font-size:13px; color:var(--pp-ink3); }
+@media (max-width:640px){
+  /* 狭い画面では項目名と内容を縦に積む（旧ページと同じ見せ方） */
+  .lg-table, .lg-table tbody, .lg-table tr, .lg-table th, .lg-table td{ display:block; width:auto; }
+  .lg-table tr{ border-bottom:1px solid var(--pp-rule); padding-block:14px; }
+  .lg-table th{ padding:0 0 4px; font-size:13px; color:var(--pp-ink3); border:0; }
+  .lg-table td{ padding:0; border:0; }
+}
+@media (max-width:560px){
+  .lg-body h2{ display:block; }
+  .lg-body h2 .lg-no{ display:block; margin-bottom:4px; }
+  .lg-updated{ text-align:left; }
+}
+  </style>
 </head>
-<body class="bg-ivory text-ink antialiased">
+<body class="text-slate-900 antialiased">
 
-  <div class="max-w-3xl mx-auto safe-x pt-8 safe-pb-8">
-    <!-- Header -->
-    <header class="flex items-center justify-between mb-10">
-      <a href="/en/" class="inline-flex items-center gap-2 text-ink2 hover:text-ink transition whitespace-nowrap">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-        </svg>
-        <span>Back to home</span>
-      </a>
-      <div class="flex items-center gap-3">
-        <span class="inline-flex items-center gap-1.5 px-1 text-xs font-semibold"><a href="/about" hreflang="ja" class="text-ink2 hover:text-ink transition">JP</a><span class="text-rule" aria-hidden="true">|</span><a href="/en/about" hreflang="en" lang="en" class="text-ink underline underline-offset-4 decoration-ink2" aria-current="page">EN</a></span>
-        <a href="/en/" class="inline-flex items-center gap-2 text-lg font-bold p-1 -m-1">
-          <img src="../icon-64.png" alt="SnapEnglish" class="w-8 h-8 rounded-lg shadow-sm">
-          <span class="hidden xs:inline"><span style="color: #297849">Snap</span><span class="text-ink">English</span></span>
-        </a>
-      </div>
+    <!-- ヘッダー（トップ・お問い合わせと同じもの） -->
+    <header class="nav-blur sticky top-0 z-50 border-b border-slate-200/60">
+        <div class="max-w-6xl mx-auto safe-x h-16 flex items-center justify-between">
+            <a href="/en/" aria-label="SnapEnglish" class="flex items-center gap-2 text-base mini:text-lg font-bold">
+                <img src="/icon-64.png" alt="" aria-hidden="true" class="w-8 h-8 rounded-lg shadow-sm">
+                <span aria-hidden="true"><span style="color: #297849">Snap</span><span class="text-slate-800">English</span></span>
+            </a>
+            <nav class="hidden md:flex items-center gap-5 lg:gap-8 text-sm text-slate-600">
+                <a href="/en/#features" class="py-1 hover:text-emerald-700 transition">Features</a>
+                <a href="/en/#pricing" class="py-1 hover:text-emerald-700 transition">Pricing</a>
+                <a href="/en/#faq" class="py-1 hover:text-emerald-700 transition">FAQ</a>
+                <a href="/en/#news" class="py-1 hover:text-emerald-700 transition">News</a>
+                <a href="/en/contact" class="py-1 hover:text-emerald-700 transition">Contact</a>
+            </nav>
+            <div class="flex items-center gap-1.5">
+                <a href="/en/#cta" class="px-2.5 py-1.5 rounded-full bg-accent2 text-white text-xs font-bold hover:bg-accent3 transition whitespace-nowrap">Start free</a>
+                <span class="hidden md:inline-flex items-center gap-1.5 px-1 text-xs font-semibold"><a href="/about" hreflang="ja" lang="ja" class="text-slate-600 hover:text-emerald-700 transition">JP</a><span class="text-slate-300" aria-hidden="true">|</span><a href="/en/about" hreflang="en" class="text-slate-900 underline underline-offset-4 decoration-slate-400" aria-current="page">EN</a></span>
+                <a class="sd-lang-sm" href="/about" hreflang="ja" lang="ja" aria-label="日本語">JP</a>
+                <button id="mobile-menu-btn" type="button"
+                    aria-label="Open menu"
+                    aria-expanded="false"
+                    aria-controls="mobile-menu"
+                    class="md:hidden p-1.5 rounded-full text-slate-600 hover:text-emerald-700 hover:bg-slate-100 transition">
+                    <svg data-icon="menu" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    <svg data-icon="close" class="hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white/95 backdrop-blur">
+            <nav class="flex flex-col safe-x py-3 text-sm text-slate-700">
+                <a href="/en/#features" class="py-2.5 hover:text-emerald-700 transition">Features</a>
+                <a href="/en/#pricing" class="py-2.5 hover:text-emerald-700 transition">Pricing</a>
+                <a href="/en/#faq" class="py-2.5 hover:text-emerald-700 transition">FAQ</a>
+                <a href="/en/#news" class="py-2.5 hover:text-emerald-700 transition">News</a>
+                <a href="/en/contact" class="py-2.5 hover:text-emerald-700 transition">Contact</a>
+                <a href="/about" hreflang="ja" lang="ja" class="py-2.5 mt-1 border-t border-slate-200 hover:text-emerald-700 transition">日本語</a>
+            </nav>
+        </div>
     </header>
 
-    <!-- Content -->
-    <main class="pt-1">
-      <header class="mb-10">
-        <p class="text-sm font-medium text-accent2 mb-2">About</p>
-        <h1 class="text-2xl sm:text-3xl font-bold text-ink mb-4">What is SnapEnglish?</h1>
-        <p class="text-ink2 leading-relaxed">
-          SnapEnglish is an English learning app developed and published by <strong>SnapTechEdge</strong>. It brings AI conversation practice, instant composition, grammar, vocabulary and spaced repetition together in a single app.
-        </p>
-      </header>
+    <main class="lg">
+      <div class="sd-wrap"><div class="lg-in">
+        <p class="lg-eyebrow">About</p>
+        <h1>What is SnapEnglish?</h1>
+        <p class="lg-lead">SnapEnglish is an English learning app developed and published by <strong>SnapTechEdge</strong>. It brings AI conversation practice, instant composition, grammar, vocabulary and spaced repetition together in a single app.</p>
 
-      <section class="mb-10">
-        <h2 class="text-lg font-bold text-ink mb-3">What you can do</h2>
-        <ul class="space-y-3 text-ink2 leading-relaxed">
-          <li><strong class="text-ink">AI conversation</strong> — Complete a real-world task in English with an AI partner, such as checking rental car conditions. You can follow a script or speak freely in your own words.</li>
-          <li><strong class="text-ink">Instant composition</strong> — Turn a Japanese sentence into English on the spot and get AI feedback on clarity, grammar and naturalness.</li>
-          <li><strong class="text-ink">Grammar</strong> — Build sentences by arranging words to internalise sentence patterns and word order.</li>
-          <li><strong class="text-ink">Vocabulary</strong> — Study leveled vocabulary with example sentences.</li>
-          <li><strong class="text-ink">Spaced repetition (SRS)</strong> — Questions come back just before you forget them, so they stick.</li>
-        </ul>
-      </section>
-
-      <section class="mb-10">
-        <h2 class="text-lg font-bold text-ink mb-3">Developer</h2>
-        <p class="text-ink2 leading-relaxed">
-          SnapEnglish is developed and published by <strong>SnapTechEdge</strong>, which is also the seller listed on the App Store and Google Play. For the legal seller information, see <a href="/tokushoho" hreflang="ja" lang="ja" class="text-accent2 underline hover:text-ink">特定商取引法に基づく表記</a> (Japanese only).
-        </p>
-      </section>
-
-      <section class="mb-10">
-        <h2 class="text-lg font-bold text-ink mb-3">Requirements</h2>
-        <p class="text-ink2 leading-relaxed">
+        <div class="lg-body">
+        <section>
+          <h2><span>What you can do</span></h2>
+          <ul>
+          <li><strong>AI conversation</strong> — Complete a real-world task in English with an AI partner, such as checking rental car conditions. You can follow a script or speak freely in your own words.</li>
+          <li><strong>Instant composition</strong> — Turn a Japanese sentence into English on the spot and get AI feedback on clarity, grammar and naturalness.</li>
+          <li><strong>Grammar</strong> — Build sentences by arranging words to internalise sentence patterns and word order.</li>
+          <li><strong>Vocabulary</strong> — Study leveled vocabulary with example sentences.</li>
+          <li><strong>Spaced repetition (SRS)</strong> — Questions come back just before you forget them, so they stick.</li>
+          </ul>
+        </section>
+        <section>
+          <h2><span>Developer</span></h2>
+          <p>
+          SnapEnglish is developed and published by <strong>SnapTechEdge</strong>, which is also the seller listed on the App Store and Google Play. For the legal seller information, see <a href="/tokushoho" hreflang="ja" lang="ja">特定商取引法に基づく表記</a> (Japanese only).
+          </p>
+        </section>
+        <section>
+          <h2><span>Requirements</span></h2>
+          <p>
           Requires iPhone (iOS 18.0+), iPad (iPadOS 18.0+), or Android (8.0+). The interface and all explanations are in Japanese; the language you study is English.
-        </p>
-      </section>
-
-      <section class="mb-10">
-        <h2 class="text-lg font-bold text-ink mb-3">How you study</h2>
-        <p class="text-ink2 leading-relaxed">
+          </p>
+        </section>
+        <section>
+          <h2><span>How you study</span></h2>
+          <p>
           You learn by typing, speaking and arranging words. The app does not include any photo or image recognition based learning.
-        </p>
-      </section>
-
-      <section>
-        <h2 class="text-lg font-bold text-ink mb-3">Download</h2>
-        <p class="text-ink2 leading-relaxed">
+          </p>
+        </section>
+        <section>
+          <h2><span>Download</span></h2>
+          <p>
           Available on the App Store and Google Play, free to try.
-        </p>
-        <p class="mt-4 flex flex-wrap gap-3">
-          <a href="https://apps.apple.com/app/id6757105670?pt=127982208&amp;ct=web&amp;mt=8" target="_blank" rel="noopener"
-             class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-accent2 text-white font-semibold hover:bg-accent3 transition">
-            View on the App Store
-          </a>
-          <a href="https://play.google.com/store/apps/details?id=com.snaptechedge.snapenglish&amp;referrer=utm_source%3Dsnapenglishapp.com%26utm_medium%3Dweb%26utm_campaign%3Dweb_about" target="_blank" rel="noopener"
-             class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-accent2 text-white font-semibold hover:bg-accent3 transition">
-            View on Google Play
-          </a>
-        </p>
-      </section>
+          </p>
+          <p class="lg-buttons"><a class="lg-btn" href="https://apps.apple.com/app/id6757105670?pt=127982208&amp;ct=web&amp;mt=8" target="_blank" rel="noopener"> View on the App Store </a> <a class="lg-btn" href="https://play.google.com/store/apps/details?id=com.snaptechedge.snapenglish&amp;referrer=utm_source%3Dsnapenglishapp.com%26utm_medium%3Dweb%26utm_campaign%3Dweb_about" target="_blank" rel="noopener"> View on Google Play </a></p>
+        </section>
+        </div>
+      </div></div>
     </main>
 
-    <footer class="mt-8 mb-8 text-sm text-ink2 flex items-center justify-between">
-      <a href="/en/" class="inline-block py-1 hover:text-ink transition">Back to home</a>
-      <span>© <span id="year">2026</span> SnapTechEdge</span>
+    <footer class="sd-footer border-t">
+        <div class="max-w-6xl mx-auto safe-x pt-10 safe-pb-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-600">
+            <div class="flex items-center gap-2">
+                <img src="/icon-64.png" alt="SnapEnglish" class="w-7 h-7 rounded-lg shadow-sm">
+                <span class="font-semibold"><span style="color: #297849">Snap</span><span class="text-slate-800">English</span></span>
+                <span class="text-ink2">— © <span id="year">2026</span> SnapTechEdge</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-1 justify-center">
+                <a href="/en/about" class="py-1 hover:text-emerald-700 transition">About</a>
+                <a href="/en/terms" class="py-1 hover:text-emerald-700 transition">Terms</a>
+                <a href="/en/privacy" class="py-1 hover:text-emerald-700 transition">Privacy</a>
+                <a href="/tokushoho" class="py-1 hover:text-emerald-700 transition">特定商取引法に基づく表記</a>
+                <a href="/en/contact" class="py-1 hover:text-emerald-700 transition">Contact</a>
+                <a href="https://snaptechedge.com" class="py-1 hover:text-emerald-700 transition">Operated by SnapTechEdge</a>
+            </div>
+        </div>
     </footer>
-  </div>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // モバイルメニュー (ハンバーガー → ドロワー)。トップ・お問い合わせと同じもの。
+        (function() {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            if (!btn || !menu) return;
+            const iconMenu = btn.querySelector('[data-icon="menu"]');
+            const iconClose = btn.querySelector('[data-icon="close"]');
+            function setOpen(open) {
+                menu.classList.toggle('hidden', !open);
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                iconMenu.classList.toggle('hidden', open);
+                iconClose.classList.toggle('hidden', !open);
+            }
+            btn.addEventListener('click', () => {
+                setOpen(menu.classList.contains('hidden'));
+            });
+            menu.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => setOpen(false));
+            });
+            window.matchMedia('(min-width: 768px)').addEventListener('change', e => {
+                if (e.matches) setOpen(false);
+            });
+        })();
+    </script>
 </body>
 </html>

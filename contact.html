@@ -1799,6 +1799,13 @@ html:not(.js) .pp-dots{ display:none !important; }
   box-shadow: 0 0 0 calc(8px * var(--sd-phone-zoom,.74)) #0B0B0D, 0 0 0 calc(9.5px * var(--sd-phone-zoom,.74)) #8E9094,
               0 0 0 calc(11px * var(--sd-phone-zoom,.74)) #2B2C30,
               0 calc(30px * var(--sd-phone-zoom,.74)) calc(60px * var(--sd-phone-zoom,.74)) calc(-22px * var(--sd-phone-zoom,.74)) rgba(17,19,24,.45) !important; }
+
+/* 1001px 以上では、本文の始まりをトップの文字の線にそろえる（本人「インデント位置が異なるのでは？」）。
+   器の線から、トップの冒頭とカードの中の文字と同じ clamp(28px,5vw,80px) だけ内側に入れる。
+   ヘッダーとフッターは器の線のまま。1000px 以下は元から一致しているので触らない。 */
+@media (min-width:1001px){
+  .pp-contact-page > .sd-wrap > .pp-contact-in{ padding-inline-start:clamp(28px,5vw,80px); }
+}
 </style>
 
 </head>

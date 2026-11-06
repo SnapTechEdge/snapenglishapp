@@ -76,11 +76,10 @@ header .max-w-6xl, footer .max-w-6xl{ max-width:calc(var(--pp-max) + 48px);
 .lg-body a{ color:var(--pp-link); text-decoration:underline; text-underline-offset:3px; }
 .lg-body a:hover{ color:var(--pp-ink); }
 .lg-updated{ margin-top:26px; max-width:46rem; text-align:right; font-size:13px; color:var(--pp-ink3); }
-@media (max-width:560px){
-  .lg-body h2{ display:block; }
-  .lg-body h2 .lg-no{ display:block; margin-bottom:4px; }
-  .lg-updated{ text-align:left; }
-}
+/* 1001px 以上では、本文の始まりをトップの文字の線にそろえる（本人「インデント位置が異なるのでは？」）。
+   器の線から、トップの冒頭とカードの中の文字と同じ clamp(28px,5vw,80px) だけ内側に入れる。
+   ヘッダーとフッターは器の線のまま（トップと同じ）。1000px 以下は元から一致しているので触らない。 */
+@media (min-width:1001px){ .lg-in{ padding-inline-start:clamp(28px,5vw,80px); } }
   </style>
 </head>
 <body class="text-slate-900 antialiased">
@@ -126,7 +125,7 @@ header .max-w-6xl, footer .max-w-6xl{ max-width:calc(var(--pp-max) + 48px);
     </header>
 
     <main class="lg">
-      <div class="sd-wrap">
+      <div class="sd-wrap"><div class="lg-in">
         <p class="lg-eyebrow">Terms</p>
         <h1>Terms of Service</h1>
         <p class="lg-lead">These Terms of Service ("Terms") set out the conditions for using SnapEnglish ("the App"). Please use the App only after agreeing to these Terms. By installing or using the App, you are deemed to have agreed to these Terms.</p>
@@ -243,7 +242,7 @@ header .max-w-6xl, footer .max-w-6xl{ max-width:calc(var(--pp-max) + 48px);
         </div>
 
         <p class="lg-updated">Last updated: August 23, 2026</p>
-      </div>
+      </div></div>
     </main>
 
     <footer class="sd-footer border-t">

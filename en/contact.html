@@ -1904,6 +1904,13 @@ html[lang="en"] .pp-stat b small{ font-size:12px; }
   html[lang="en"] #features .sd-copy .pp-points{ gap:9px !important; margin-top:14px !important; }
   html[lang="en"] .pp-split .pp-keep-card{ min-height:518px; }
 }
+
+/* 1001px 以上では、本文の始まりをトップの文字の線にそろえる（本人「インデント位置が異なるのでは？」）。
+   器の線から、トップの冒頭とカードの中の文字と同じ clamp(28px,5vw,80px) だけ内側に入れる。
+   ヘッダーとフッターは器の線のまま。1000px 以下は元から一致しているので触らない。 */
+@media (min-width:1001px){
+  .pp-contact-page > .sd-wrap > .pp-contact-in{ padding-inline-start:clamp(28px,5vw,80px); }
+}
 </style>
 </head>
 <body class="text-slate-900 antialiased">

@@ -1,161 +1,281 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="no-js">
 <head>
   <meta charset="UTF-8">
   <!-- pages.dev から来たら noindex を入れて本ドメインへ移す。
        _redirects はホスト名を見ないので、ここで JS で受ける。 -->
   <script>(function(){var h=location.hostname;if(h.endsWith('.pages.dev')){var m=document.createElement('meta');m.name='robots';m.content='noindex, nofollow';document.head.appendChild(m);location.replace('https://snapenglishapp.com'+location.pathname+location.search+location.hash);}})();</script>
+  <script>document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/, '') + ' js';</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#F1EDE6">
+  <meta name="theme-color" content="#FFFFFF">
   <title>特定商取引法に基づく表記 | SnapEnglish</title>
-    <meta name="description" content="SnapEnglish の特定商取引法に基づく表記。販売事業者、料金、支払方法、解約方法について記載しています。">
+  <meta name="description" content="SnapEnglish の特定商取引法に基づく表記。販売事業者、料金、支払方法、解約方法について記載しています。">
   <link rel="canonical" href="https://snapenglishapp.com/tokushoho">
-  <link rel="icon" type="image/png" sizes="64x64" href="icon-64.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-  <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="/icon-64.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png">
   <link rel="stylesheet" href="tailwind.css?v=20261101">
+  <style>
+/* 新サイト（トップ・お問い合わせ）と同じ地と字。必要な分だけここに置く。
+   Tailwind のクラスは増やしていない＝tailwind.css の再ビルドは要らない。 */
+:root{ --pp-bg:#FFFFFF; --pp-ink:#16191D; --pp-ink2:#4A515A; --pp-ink3:#5F666F;
+       --pp-rule:#E6E6E3; --pp-link:#1F6B4A; }
+html, body{ overflow-x:clip; }
+body{ background:var(--pp-bg); color:var(--pp-ink); }
+/* ヘッダー（スクロールしても上に残る） */
+.nav-blur{ backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+           background:rgba(255,255,255,.9); }
+/* 器はトップ・お問い合わせと同じ（内容 1192px ＋ 左右 24px）。ヘッダーとフッターの
+   max-w-6xl（Tailwind の 1152px）も同じ幅に上書きして、左端を 1 本にそろえる。 */
+:root{ --pp-max:1192px; }
+.sd-wrap{ max-width:calc(var(--pp-max) + 48px); margin:0 auto; padding:0 24px; }
+header .max-w-6xl, footer .max-w-6xl{ max-width:calc(var(--pp-max) + 48px);
+                                      padding-left:24px; padding-right:24px; }
+@supports (padding: max(0px)){
+  .sd-wrap, header .max-w-6xl, footer .max-w-6xl{
+    padding-left:max(24px, env(safe-area-inset-left, 0px));
+    padding-right:max(24px, env(safe-area-inset-right, 0px)); }
+}
+.sd-footer{ background:var(--pp-bg); border-color:#DED7CB; }
+/* スマホの言語切り替え（トップと同じ作り）。360px 未満は幅が足りないのでメニューの中だけ */
+.sd-lang-sm{ display:none; }
+@media (min-width:360px) and (max-width:767px){
+  .sd-lang-sm{ display:inline-flex; align-items:center; height:44px; padding:0 2px;
+               font-size:12px; font-weight:700; color:#475569; text-decoration:none;
+               white-space:nowrap; }
+  .sd-lang-sm:hover{ color:#047857; }
+}
+/* JS が動かないとき: メニューは開いた状態で出し、開閉ボタンは隠す */
+@media (max-width:767px){
+  html.no-js #mobile-menu{ display:block !important; }
+  html.no-js #mobile-menu-btn{ display:none !important; }
+}
+/* 本文（法務ページ）。読む列は 46rem でそろえる。em にすると、字の小さい
+   「最終更新日」の行だけ列が狭くなって右端がずれる（実測）。 */
+.lg{ padding-block:clamp(36px,5vw,72px) clamp(48px,7vw,96px); }
+.lg-eyebrow{ font-size:12px; font-weight:700; letter-spacing:.14em; color:var(--pp-link); }
+.lg h1{ margin-top:12px; font-size:clamp(26px,3vw,38px); line-height:1.3;
+        letter-spacing:-.02em; font-weight:700; color:var(--pp-ink); }
+.lg-lead{ margin-top:18px; max-width:46rem; font-size:15.5px; line-height:1.95; color:var(--pp-ink2); }
+.lg-body{ margin-top:clamp(28px,4vw,44px); max-width:46rem; border-top:1px solid var(--pp-rule); }
+.lg-body section{ padding-block:clamp(24px,3vw,32px); border-bottom:1px solid var(--pp-rule); }
+.lg-body h2{ display:flex; align-items:baseline; gap:10px; margin:0;
+             font-size:17px; font-weight:700; line-height:1.6; color:var(--pp-ink); }
+.lg-body h2 .lg-no{ flex:none; font-size:13px; font-weight:700; color:var(--pp-link);
+                    font-variant-numeric:tabular-nums; white-space:nowrap; }
+.lg-body p{ margin:12px 0 0; font-size:15px; line-height:1.95; color:var(--pp-ink2); }
+.lg-body p.lg-note{ font-size:13px; line-height:1.85; color:var(--pp-ink3); }
+.lg-body ul{ margin:14px 0 0; padding-left:1.2em; list-style:disc; }
+.lg-body li{ margin-top:9px; font-size:15px; line-height:1.9; color:var(--pp-ink2); }
+.lg-body li::marker{ color:var(--pp-link); }
+.lg-body strong{ color:var(--pp-ink); font-weight:700; }
+.lg-body a{ color:var(--pp-link); text-decoration:underline; text-underline-offset:3px; }
+.lg-body a:hover{ color:var(--pp-ink); }
+.lg-updated{ margin-top:26px; max-width:46rem; text-align:right; font-size:13px; color:var(--pp-ink3); }
+/* 1001px 以上では、本文の始まりをトップの文字の線にそろえる（本人「インデント位置が異なるのでは？」）。
+   器の線から、トップの冒頭とカードの中の文字と同じ clamp(28px,5vw,80px) だけ内側に入れる。
+   ヘッダーとフッターは器の線のまま（トップと同じ）。1000px 以下は元から一致しているので触らない。 */
+@media (min-width:1001px){ .lg-in{ padding-inline-start:clamp(28px,5vw,80px); } }
+/* 会社概要: 箇条書きの見出し語 */
+.lg-body section > ul li strong:first-child{ color:var(--pp-ink); }
+/* 会社概要: ストアのボタン */
+.lg-buttons{ margin-top:18px; display:flex; flex-wrap:wrap; gap:12px; }
+.lg-buttons a{ display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:12px;
+               background:var(--pp-link); color:#fff; font-size:15px; font-weight:700; text-decoration:none; }
+.lg-buttons a:hover{ background:#14512F; color:#fff; }
+/* 特定商取引法に基づく表記の表 */
+.lg-table{ width:100%; max-width:46rem; margin-top:4px; border-collapse:collapse;
+           border-top:1px solid var(--pp-rule); font-size:15px; }
+.lg-table th, .lg-table td{ text-align:left; vertical-align:top; padding:16px 0;
+                            border-bottom:1px solid var(--pp-rule); line-height:1.9; }
+.lg-table th{ width:34%; padding-right:24px; font-weight:700; color:var(--pp-ink); }
+.lg-table td{ color:var(--pp-ink2); }
+.lg-table td strong{ color:var(--pp-ink); font-weight:700; }
+.lg-table td a{ color:var(--pp-link); text-decoration:underline; text-underline-offset:3px; }
+.lg-small{ display:inline-block; margin-top:4px; font-size:13px; color:var(--pp-ink3); }
+@media (max-width:640px){
+  /* 狭い画面では項目名と内容を縦に積む（旧ページと同じ見せ方） */
+  .lg-table, .lg-table tbody, .lg-table tr, .lg-table th, .lg-table td{ display:block; width:auto; }
+  .lg-table tr{ border-bottom:1px solid var(--pp-rule); padding-block:14px; }
+  .lg-table th{ padding:0 0 4px; font-size:13px; color:var(--pp-ink3); border:0; }
+  .lg-table td{ padding:0; border:0; }
+}
+@media (max-width:560px){
+  .lg-body h2{ display:block; }
+  .lg-body h2 .lg-no{ display:block; margin-bottom:4px; }
+  .lg-updated{ text-align:left; }
+}
+  </style>
 </head>
-<body class="bg-ivory text-ink antialiased">
+<body class="text-slate-900 antialiased">
 
-  <div class="max-w-3xl mx-auto safe-x pt-8 safe-pb-8">
-    <!-- ヘッダー -->
-    <header class="flex items-center justify-between mb-10">
-      <a href="/" class="inline-flex items-center gap-2 text-ink2 hover:text-ink transition whitespace-nowrap">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-        </svg>
-        <span>トップページに戻る</span>
-      </a>
-      <a href="/" class="inline-flex items-center gap-2 text-lg font-bold p-1 -m-1">
-        <img src="icon-64.png" alt="SnapEnglish" class="w-8 h-8 rounded-lg shadow-sm">
-        <span class="hidden xs:inline"><span style="color: #297849">Snap</span><span class="text-ink">English</span></span>
-      </a>
+    <!-- ヘッダー（トップと同じもの。このページは対応する英語版が無いので言語切り替えは置かない） -->
+    <header class="nav-blur sticky top-0 z-50 border-b border-slate-200/60">
+        <div class="max-w-6xl mx-auto safe-x h-16 flex items-center justify-between">
+            <a href="/" aria-label="SnapEnglish" class="flex items-center gap-2 text-base mini:text-lg font-bold">
+                <img src="/icon-64.png" alt="" aria-hidden="true" class="w-8 h-8 rounded-lg shadow-sm">
+                <span aria-hidden="true"><span style="color: #297849">Snap</span><span class="text-slate-800">English</span></span>
+            </a>
+            <nav class="hidden md:flex items-center gap-5 lg:gap-8 text-sm text-slate-600">
+                <a href="/#features" class="py-1 hover:text-emerald-700 transition">機能</a>
+                <a href="/#pricing" class="py-1 hover:text-emerald-700 transition">料金</a>
+                <a href="/#faq" class="py-1 hover:text-emerald-700 transition">FAQ</a>
+                <a href="/#news" class="py-1 hover:text-emerald-700 transition">News</a>
+                <a href="/contact" class="py-1 hover:text-emerald-700 transition">お問い合わせ</a>
+            </nav>
+            <div class="flex items-center gap-1.5">
+                <a href="/#cta" class="px-2.5 py-1.5 rounded-full bg-accent2 text-white text-xs font-bold hover:bg-accent3 transition whitespace-nowrap">無料で始める</a>
+                <button id="mobile-menu-btn" type="button"
+                    aria-label="メニューを開く"
+                    aria-expanded="false"
+                    aria-controls="mobile-menu"
+                    class="md:hidden p-1.5 rounded-full text-slate-600 hover:text-emerald-700 hover:bg-slate-100 transition">
+                    <svg data-icon="menu" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    <svg data-icon="close" class="hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white/95 backdrop-blur">
+            <nav class="flex flex-col safe-x py-3 text-sm text-slate-700">
+                <a href="/#features" class="py-2.5 hover:text-emerald-700 transition">機能</a>
+                <a href="/#pricing" class="py-2.5 hover:text-emerald-700 transition">料金</a>
+                <a href="/#faq" class="py-2.5 hover:text-emerald-700 transition">FAQ</a>
+                <a href="/#news" class="py-2.5 hover:text-emerald-700 transition">News</a>
+                <a href="/contact" class="py-2.5 hover:text-emerald-700 transition">お問い合わせ</a>
+            </nav>
+        </div>
     </header>
 
-    <!-- 本文 -->
-    <main class="pt-1">
-      <header class="mb-10">
-        <p class="text-sm font-medium text-accent2 mb-2">Legal</p>
-        <h1 class="text-2xl sm:text-3xl font-bold text-ink mb-4">特定商取引法に基づく表記</h1>
-        <p class="text-ink2">
-          特定商取引法第11条に基づき、以下の通り表記いたします。
-        </p>
-      </header>
+    <main class="lg">
+      <div class="sd-wrap"><div class="lg-in">
+        <p class="lg-eyebrow">Legal</p>
+        <h1>特定商取引法に基づく表記</h1>
+        <p class="lg-lead">特定商取引法第11条に基づき、以下の通り表記いたします。</p>
 
-      <div class="overflow-hidden rounded-2xl border border-rule">
-        <table class="w-full text-left text-sm">
-          <tbody class="divide-y divide-rule">
-            <tr class="block sm:table-row">
-              <th scope="row" class="block sm:table-cell bg-ivory2 px-5 pt-4 pb-2 sm:py-4 text-left text-ink2 font-medium sm:w-1/3 align-top whitespace-nowrap">販売事業者</th>
-              <td class="block sm:table-cell px-5 pt-2 pb-4 sm:py-4 text-ink font-medium">SnapTechEdge</td>
+        <table class="lg-table">
+          <tbody>
+            <tr>
+              <th scope="row">販売事業者</th>
+              <td>SnapTechEdge</td>
             </tr>
-            <tr class="block sm:table-row">
-              <th scope="row" class="block sm:table-cell bg-ivory2 px-5 pt-4 pb-2 sm:py-4 text-left text-ink2 font-medium align-top whitespace-nowrap">運営責任者</th>
-              <td class="block sm:table-cell px-5 pt-2 pb-4 sm:py-4 text-ink2">請求があった場合には遅滞なく開示いたします。</td>
+            <tr>
+              <th scope="row">運営責任者</th>
+              <td>請求があった場合には遅滞なく開示いたします。</td>
             </tr>
-            <tr class="block sm:table-row">
-              <th scope="row" class="block sm:table-cell bg-ivory2 px-5 pt-4 pb-2 sm:py-4 text-left text-ink2 font-medium align-top whitespace-nowrap">所在地</th>
-              <td class="block sm:table-cell px-5 pt-2 pb-4 sm:py-4 text-ink2">請求があった場合には遅滞なく開示いたします。</td>
+            <tr>
+              <th scope="row">所在地</th>
+              <td>請求があった場合には遅滞なく開示いたします。</td>
             </tr>
-            <tr class="block sm:table-row">
-              <th scope="row" class="block sm:table-cell bg-ivory2 px-5 pt-4 pb-2 sm:py-4 text-left text-ink2 font-medium align-top whitespace-nowrap">電話番号</th>
-              <td class="block sm:table-cell px-5 pt-2 pb-4 sm:py-4 text-ink2">請求があった場合には遅滞なく開示いたします。</td>
+            <tr>
+              <th scope="row">電話番号</th>
+              <td>請求があった場合には遅滞なく開示いたします。</td>
             </tr>
-            <tr class="block sm:table-row">
-              <th scope="row" class="block sm:table-cell bg-ivory2 px-5 pt-4 pb-2 sm:py-4 text-left text-ink2 font-medium align-top whitespace-nowrap">メールアドレス</th>
-              <td class="block sm:table-cell px-5 pt-2 pb-4 sm:py-4">
-                <a href="mailto:support@snapenglishapp.com" class="text-accent2 hover:text-ink font-medium">
+            <tr>
+              <th scope="row">メールアドレス</th>
+              <td><a href="mailto:support@snapenglishapp.com">
                   support@snapenglishapp.com
-                </a>
-              </td>
+                  </a></td>
             </tr>
-            <tr class="block sm:table-row">
-              <th scope="row" class="block sm:table-cell bg-ivory2 px-5 pt-4 pb-2 sm:py-4 text-left text-ink2 font-medium align-top whitespace-nowrap">販売商品</th>
-              <td class="block sm:table-cell px-5 pt-2 pb-4 sm:py-4 text-ink2">
-                <strong>SnapEnglish プレミアム</strong>（自動更新型サブスクリプション）<br>
-                <span class="text-ink2 text-xs">英語学習アプリ「SnapEnglish」内のすべての機能をご利用いただけます。</span>
-              </td>
+            <tr>
+              <th scope="row">販売商品</th>
+              <td><strong>SnapEnglish プレミアム</strong>（自動更新型サブスクリプション）<br>
+                  <span class="lg-small">英語学習アプリ「SnapEnglish」内のすべての機能をご利用いただけます。</span></td>
             </tr>
-            <tr class="block sm:table-row">
-              <th scope="row" class="block sm:table-cell bg-ivory2 px-5 pt-4 pb-2 sm:py-4 text-left text-ink2 font-medium align-top whitespace-nowrap">販売価格</th>
-              <td class="block sm:table-cell px-5 pt-2 pb-4 sm:py-4 text-ink2">
-                月額プラン: <strong>800 円（税込）</strong><br>
-                年額プラン: <strong>8,000 円（税込）</strong><br>
-                <span class="text-ink2 text-xs">価格は予告なく変更される場合があります。最新価格はアプリ内に表示されます。</span>
-              </td>
+            <tr>
+              <th scope="row">販売価格</th>
+              <td>月額プラン: <strong>800 円（税込）</strong><br>
+                  年額プラン: <strong>8,000 円（税込）</strong><br>
+                  <span class="lg-small">価格は予告なく変更される場合があります。最新価格はアプリ内に表示されます。</span></td>
             </tr>
-            <tr class="block sm:table-row">
-              <th scope="row" class="block sm:table-cell bg-ivory2 px-5 pt-4 pb-2 sm:py-4 text-left text-ink2 font-medium align-top whitespace-nowrap">無料体験</th>
-              <td class="block sm:table-cell px-5 pt-2 pb-4 sm:py-4 text-ink2">
-                インストール後 7 日間は全機能を無料でご利用いただけます（AI英会話は1日3本までの上限があります）。無料体験期間終了後にサブスクリプションを契約された時点で課金が開始されます。
-              </td>
+            <tr>
+              <th scope="row">無料体験</th>
+              <td>インストール後 7 日間は全機能を無料でご利用いただけます（AI英会話は1日3本までの上限があります）。無料体験期間終了後にサブスクリプションを契約された時点で課金が開始されます。</td>
             </tr>
-            <tr class="block sm:table-row">
-              <th scope="row" class="block sm:table-cell bg-ivory2 px-5 pt-4 pb-2 sm:py-4 text-left text-ink2 font-medium align-top whitespace-nowrap">販売価格以外の必要料金</th>
-              <td class="block sm:table-cell px-5 pt-2 pb-4 sm:py-4 text-ink2">
-                インターネット接続に必要な通信料等はお客様のご負担となります。
-              </td>
+            <tr>
+              <th scope="row">販売価格以外の必要料金</th>
+              <td>インターネット接続に必要な通信料等はお客様のご負担となります。</td>
             </tr>
-            <tr class="block sm:table-row">
-              <th scope="row" class="block sm:table-cell bg-ivory2 px-5 pt-4 pb-2 sm:py-4 text-left text-ink2 font-medium align-top whitespace-nowrap">支払方法</th>
-              <td class="block sm:table-cell px-5 pt-2 pb-4 sm:py-4 text-ink2">
-                ご利用の配信ストアの決済手段に準じます。<br>
-                ・iOS：Apple App Store（クレジットカード、キャリア決済、Apple ID 残高 等）<br>
-                ・Android：Google Play（クレジットカード、キャリア決済、Google Play 残高 等）
-              </td>
+            <tr>
+              <th scope="row">支払方法</th>
+              <td>ご利用の配信ストアの決済手段に準じます。<br>
+                  ・iOS：Apple App Store（クレジットカード、キャリア決済、Apple ID 残高 等）<br>
+                  ・Android：Google Play（クレジットカード、キャリア決済、Google Play 残高 等）</td>
             </tr>
-            <tr class="block sm:table-row">
-              <th scope="row" class="block sm:table-cell bg-ivory2 px-5 pt-4 pb-2 sm:py-4 text-left text-ink2 font-medium align-top whitespace-nowrap">支払時期</th>
-              <td class="block sm:table-cell px-5 pt-2 pb-4 sm:py-4 text-ink2">
-                サブスクリプション契約成立時に初回料金が請求され、以降は更新サイクル毎に、ご利用の配信ストアのアカウント（Apple ID または Google アカウント）に請求されます。
-              </td>
+            <tr>
+              <th scope="row">支払時期</th>
+              <td>サブスクリプション契約成立時に初回料金が請求され、以降は更新サイクル毎に、ご利用の配信ストアのアカウント（Apple ID または Google アカウント）に請求されます。</td>
             </tr>
-            <tr class="block sm:table-row">
-              <th scope="row" class="block sm:table-cell bg-ivory2 px-5 pt-4 pb-2 sm:py-4 text-left text-ink2 font-medium align-top whitespace-nowrap">商品の引渡時期</th>
-              <td class="block sm:table-cell px-5 pt-2 pb-4 sm:py-4 text-ink2">
-                決済完了後、直ちにご利用いただけます。
-              </td>
+            <tr>
+              <th scope="row">商品の引渡時期</th>
+              <td>決済完了後、直ちにご利用いただけます。</td>
             </tr>
-            <tr class="block sm:table-row">
-              <th scope="row" class="block sm:table-cell bg-ivory2 px-5 pt-4 pb-2 sm:py-4 text-left text-ink2 font-medium align-top whitespace-nowrap">サブスクリプションの自動更新</th>
-              <td class="block sm:table-cell px-5 pt-2 pb-4 sm:py-4 text-ink2">
-                サブスクリプションは、自動更新を解除しない限り自動的に更新されます。解除の期限および請求のタイミングは、ご利用の配信ストアにより異なります。<br>
-                ・iOS（Apple App Store）：現在の期間終了の 24 時間以上前に解除しない限り更新され、更新料金は期間終了前の 24 時間以内に Apple ID に請求されます。解除は Apple ID の「サブスクリプション設定」から行えます。<br>
-                ・Android（Google Play）：次回の更新日までに解除しない限り更新され、更新料金は更新日に Google アカウントに請求されます。解除は Google Play の「定期購入」から行えます。<br>
-                ・いずれの場合も、解除後は契約期間終了までプレミアム機能をご利用いただけます。
-              </td>
+            <tr>
+              <th scope="row">サブスクリプションの自動更新</th>
+              <td>サブスクリプションは、自動更新を解除しない限り自動的に更新されます。解除の期限および請求のタイミングは、ご利用の配信ストアにより異なります。<br>
+                  ・iOS（Apple App Store）：現在の期間終了の 24 時間以上前に解除しない限り更新され、更新料金は期間終了前の 24 時間以内に Apple ID に請求されます。解除は Apple ID の「サブスクリプション設定」から行えます。<br>
+                  ・Android（Google Play）：次回の更新日までに解除しない限り更新され、更新料金は更新日に Google アカウントに請求されます。解除は Google Play の「定期購入」から行えます。<br>
+                  ・いずれの場合も、解除後は契約期間終了までプレミアム機能をご利用いただけます。</td>
             </tr>
-            <tr class="block sm:table-row">
-              <th scope="row" class="block sm:table-cell bg-ivory2 px-5 pt-4 pb-2 sm:py-4 text-left text-ink2 font-medium align-top whitespace-nowrap">返品・キャンセル</th>
-              <td class="block sm:table-cell px-5 pt-2 pb-4 sm:py-4 text-ink2">
-                デジタルコンテンツの性質上、購入後の返品・返金は原則としてお受けしておりません。返金の可否は、ご利用の配信ストア（Apple App Store または Google Play）の返金ポリシーおよび適用法令に従います。
-              </td>
+            <tr>
+              <th scope="row">返品・キャンセル</th>
+              <td>デジタルコンテンツの性質上、購入後の返品・返金は原則としてお受けしておりません。返金の可否は、ご利用の配信ストア（Apple App Store または Google Play）の返金ポリシーおよび適用法令に従います。</td>
             </tr>
-            <tr class="block sm:table-row">
-              <th scope="row" class="block sm:table-cell bg-ivory2 px-5 pt-4 pb-2 sm:py-4 text-left text-ink2 font-medium align-top whitespace-nowrap">動作環境</th>
-              <td class="block sm:table-cell px-5 pt-2 pb-4 sm:py-4 text-ink2">
-                <strong>SnapEnglish</strong>: iOS 18.0 以降の iPhone、iPadOS 18.0 以降の iPad、および Android 8.0 以降の端末
-              </td>
+            <tr>
+              <th scope="row">動作環境</th>
+              <td><strong>SnapEnglish</strong>: iOS 18.0 以降の iPhone、iPadOS 18.0 以降の iPad、および Android 8.0 以降の端末</td>
             </tr>
           </tbody>
         </table>
-      </div>
 
-      <div class="mt-10 pt-6 border-t border-rule text-right text-sm text-ink2">
-        最終更新日：2026年8月23日
-      </div>
+        <p class="lg-updated">最終更新日：2026年8月23日</p>
+      </div></div>
     </main>
 
-    <!-- フッター -->
-    <footer class="mt-8 mb-8 text-sm text-ink2 flex items-center justify-between">
-      <a href="/" class="inline-block py-1 hover:text-ink transition">トップページへ</a>
-      <span>© <span id="year">2026</span> SnapTechEdge</span>
+    <footer class="sd-footer border-t">
+        <div class="max-w-6xl mx-auto safe-x pt-10 safe-pb-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-600">
+            <div class="flex items-center gap-2">
+                <img src="/icon-64.png" alt="SnapEnglish" class="w-7 h-7 rounded-lg shadow-sm">
+                <span class="font-semibold"><span style="color: #297849">Snap</span><span class="text-slate-800">English</span></span>
+                <span class="text-ink2">— © <span id="year">2026</span> SnapTechEdge</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-1 justify-center">
+                <a href="/about" class="py-1 hover:text-emerald-700 transition">SnapEnglish とは</a>
+                <a href="/terms" class="py-1 hover:text-emerald-700 transition">利用規約</a>
+                <a href="/privacy" class="py-1 hover:text-emerald-700 transition">プライバシー</a>
+                <a href="/tokushoho" class="py-1 hover:text-emerald-700 transition">特商法表記</a>
+                <a href="/contact" class="py-1 hover:text-emerald-700 transition">お問い合わせ</a>
+                <a href="https://snaptechedge.com" class="py-1 hover:text-emerald-700 transition">運営: SnapTechEdge</a>
+            </div>
+        </div>
     </footer>
-  </div>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // モバイルメニュー (ハンバーガー → ドロワー)。トップ・お問い合わせと同じもの。
+        (function() {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            if (!btn || !menu) return;
+            const iconMenu = btn.querySelector('[data-icon="menu"]');
+            const iconClose = btn.querySelector('[data-icon="close"]');
+            function setOpen(open) {
+                menu.classList.toggle('hidden', !open);
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                iconMenu.classList.toggle('hidden', open);
+                iconClose.classList.toggle('hidden', !open);
+            }
+            btn.addEventListener('click', () => {
+                setOpen(menu.classList.contains('hidden'));
+            });
+            menu.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => setOpen(false));
+            });
+            window.matchMedia('(min-width: 768px)').addEventListener('change', e => {
+                if (e.matches) setOpen(false);
+            });
+        })();
+    </script>
 </body>
 </html>
