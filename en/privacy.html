@@ -1,241 +1,299 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="UTF-8">
   <!-- pages.dev から来たら noindex を入れて本ドメインへ移す。
        _redirects はホスト名を見ないので、ここで JS で受ける。 -->
   <script>(function(){var h=location.hostname;if(h.endsWith('.pages.dev')){var m=document.createElement('meta');m.name='robots';m.content='noindex, nofollow';document.head.appendChild(m);location.replace('https://snapenglishapp.com'+location.pathname+location.search+location.hash);}})();</script>
+  <script>document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/, '') + ' js';</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#F1EDE6">
+  <meta name="theme-color" content="#FFFFFF">
   <title>Privacy Policy | SnapEnglish</title>
   <link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/privacy">
   <link rel="alternate" hreflang="en" href="https://snapenglishapp.com/en/privacy">
-    <meta name="description" content="SnapEnglish privacy policy: what we collect, how we use it, where data is sent when you use the AI features, and how to delete your account.">
+  <meta name="description" content="SnapEnglish privacy policy: what we collect, how we use it, where data is sent when you use the AI features, and how to delete your account.">
   <link rel="canonical" href="https://snapenglishapp.com/en/privacy">
   <link rel="alternate" hreflang="x-default" href="https://snapenglishapp.com/privacy">
-  <link rel="icon" type="image/png" sizes="64x64" href="../icon-64.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="../icon-192.png">
-  <link rel="apple-touch-icon" sizes="192x192" href="../icon-192.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="/icon-64.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png">
   <link rel="stylesheet" href="../tailwind.css?v=20261101">
+  <style>
+/* 新サイト（トップ・お問い合わせ）と同じ地と字。必要な分だけここに置く。
+   Tailwind のクラスは増やしていない＝tailwind.css の再ビルドは要らない。 */
+:root{ --pp-bg:#FFFFFF; --pp-ink:#16191D; --pp-ink2:#4A515A; --pp-ink3:#5F666F;
+       --pp-rule:#E6E6E3; --pp-link:#1F6B4A; }
+html, body{ overflow-x:clip; }
+body{ background:var(--pp-bg); color:var(--pp-ink); }
+/* ヘッダー（スクロールしても上に残る） */
+.nav-blur{ backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+           background:rgba(255,255,255,.9); }
+/* 器はトップ・お問い合わせと同じ（内容 1192px ＋ 左右 24px）。ヘッダーとフッターの
+   max-w-6xl（Tailwind の 1152px）も同じ幅に上書きして、左端を 1 本にそろえる。 */
+:root{ --pp-max:1192px; }
+.sd-wrap{ max-width:calc(var(--pp-max) + 48px); margin:0 auto; padding:0 24px; }
+header .max-w-6xl, footer .max-w-6xl{ max-width:calc(var(--pp-max) + 48px);
+                                      padding-left:24px; padding-right:24px; }
+@supports (padding: max(0px)){
+  .sd-wrap, header .max-w-6xl, footer .max-w-6xl{
+    padding-left:max(24px, env(safe-area-inset-left, 0px));
+    padding-right:max(24px, env(safe-area-inset-right, 0px)); }
+}
+.sd-footer{ background:var(--pp-bg); border-color:#DED7CB; }
+/* スマホの言語切り替え（トップと同じ作り）。360px 未満は幅が足りないのでメニューの中だけ */
+.sd-lang-sm{ display:none; }
+@media (min-width:360px) and (max-width:767px){
+  .sd-lang-sm{ display:inline-flex; align-items:center; height:44px; padding:0 2px;
+               font-size:12px; font-weight:700; color:#475569; text-decoration:none;
+               white-space:nowrap; }
+  .sd-lang-sm:hover{ color:#047857; }
+}
+/* JS が動かないとき: メニューは開いた状態で出し、開閉ボタンは隠す */
+@media (max-width:767px){
+  html.no-js #mobile-menu{ display:block !important; }
+  html.no-js #mobile-menu-btn{ display:none !important; }
+}
+/* 本文（法務ページ）。読む列は 46rem でそろえる。em にすると、字の小さい
+   「最終更新日」の行だけ列が狭くなって右端がずれる（実測）。 */
+.lg{ padding-block:clamp(36px,5vw,72px) clamp(48px,7vw,96px); }
+.lg-eyebrow{ font-size:12px; font-weight:700; letter-spacing:.14em; color:var(--pp-link); }
+.lg h1{ margin-top:12px; font-size:clamp(26px,3vw,38px); line-height:1.3;
+        letter-spacing:-.02em; font-weight:700; color:var(--pp-ink); }
+.lg-lead{ margin-top:18px; max-width:46rem; font-size:15.5px; line-height:1.95; color:var(--pp-ink2); }
+.lg-body{ margin-top:clamp(28px,4vw,44px); max-width:46rem; border-top:1px solid var(--pp-rule); }
+.lg-body section{ padding-block:clamp(24px,3vw,32px); border-bottom:1px solid var(--pp-rule); }
+.lg-body h2{ display:flex; align-items:baseline; gap:10px; margin:0;
+             font-size:17px; font-weight:700; line-height:1.6; color:var(--pp-ink); }
+.lg-body h2 .lg-no{ flex:none; font-size:13px; font-weight:700; color:var(--pp-link);
+                    font-variant-numeric:tabular-nums; white-space:nowrap; }
+.lg-body p{ margin:12px 0 0; font-size:15px; line-height:1.95; color:var(--pp-ink2); }
+.lg-body p.lg-note{ font-size:13px; line-height:1.85; color:var(--pp-ink3); }
+.lg-body ul{ margin:14px 0 0; padding-left:1.2em; list-style:disc; }
+.lg-body li{ margin-top:9px; font-size:15px; line-height:1.9; color:var(--pp-ink2); }
+.lg-body li::marker{ color:var(--pp-link); }
+.lg-body strong{ color:var(--pp-ink); font-weight:700; }
+.lg-body a{ color:var(--pp-link); text-decoration:underline; text-underline-offset:3px; }
+.lg-body a:hover{ color:var(--pp-ink); }
+.lg-updated{ margin-top:26px; max-width:46rem; text-align:right; font-size:13px; color:var(--pp-ink3); }
+@media (max-width:560px){
+  .lg-body h2{ display:block; }
+  .lg-body h2 .lg-no{ display:block; margin-bottom:4px; }
+  .lg-updated{ text-align:left; }
+}
+  </style>
 </head>
-<body class="bg-ivory text-ink antialiased">
-  <div class="max-w-3xl mx-auto safe-x pt-8 safe-pb-8">
-    <header class="flex items-center justify-between mb-10">
-      <a href="/en/" class="inline-flex items-center gap-2 text-ink2 hover:text-ink transition whitespace-nowrap">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-        </svg>
-        <span>Back to home</span>
-      </a>
-      <div class="flex items-center gap-3">
-        <span class="inline-flex items-center gap-1.5 px-1 text-xs font-semibold"><a href="/privacy" hreflang="ja" class="text-ink2 hover:text-ink transition">JP</a><span class="text-rule" aria-hidden="true">|</span><a href="/en/privacy" hreflang="en" lang="en" class="text-ink underline underline-offset-4 decoration-ink2" aria-current="page">EN</a></span>
-        <a href="/en/" class="inline-flex items-center gap-2 text-lg font-bold p-1 -m-1">
-          <img src="../icon-64.png" alt="SnapEnglish" class="w-8 h-8 rounded-lg shadow-sm">
-          <span class="hidden xs:inline"><span style="color: #297849">Snap</span><span class="text-ink">English</span></span>
-        </a>
-      </div>
+<body class="text-slate-900 antialiased">
+
+    <!-- ヘッダー（トップ・お問い合わせと同じもの） -->
+    <header class="nav-blur sticky top-0 z-50 border-b border-slate-200/60">
+        <div class="max-w-6xl mx-auto safe-x h-16 flex items-center justify-between">
+            <a href="/en/" aria-label="SnapEnglish" class="flex items-center gap-2 text-base mini:text-lg font-bold">
+                <img src="/icon-64.png" alt="" aria-hidden="true" class="w-8 h-8 rounded-lg shadow-sm">
+                <span aria-hidden="true"><span style="color: #297849">Snap</span><span class="text-slate-800">English</span></span>
+            </a>
+            <nav class="hidden md:flex items-center gap-5 lg:gap-8 text-sm text-slate-600">
+                <a href="/en/#features" class="py-1 hover:text-emerald-700 transition">Features</a>
+                <a href="/en/#pricing" class="py-1 hover:text-emerald-700 transition">Pricing</a>
+                <a href="/en/#faq" class="py-1 hover:text-emerald-700 transition">FAQ</a>
+                <a href="/en/#news" class="py-1 hover:text-emerald-700 transition">News</a>
+                <a href="/en/contact" class="py-1 hover:text-emerald-700 transition">Contact</a>
+            </nav>
+            <div class="flex items-center gap-1.5">
+                <a href="/en/#cta" class="px-2.5 py-1.5 rounded-full bg-accent2 text-white text-xs font-bold hover:bg-accent3 transition whitespace-nowrap">Start free</a>
+                <span class="hidden md:inline-flex items-center gap-1.5 px-1 text-xs font-semibold"><a href="/privacy" hreflang="ja" lang="ja" class="text-slate-600 hover:text-emerald-700 transition">JP</a><span class="text-slate-300" aria-hidden="true">|</span><a href="/en/privacy" hreflang="en" class="text-slate-900 underline underline-offset-4 decoration-slate-400" aria-current="page">EN</a></span>
+                <a class="sd-lang-sm" href="/privacy" hreflang="ja" lang="ja" aria-label="日本語">JP</a>
+                <button id="mobile-menu-btn" type="button"
+                    aria-label="Open menu"
+                    aria-expanded="false"
+                    aria-controls="mobile-menu"
+                    class="md:hidden p-1.5 rounded-full text-slate-600 hover:text-emerald-700 hover:bg-slate-100 transition">
+                    <svg data-icon="menu" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    <svg data-icon="close" class="hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white/95 backdrop-blur">
+            <nav class="flex flex-col safe-x py-3 text-sm text-slate-700">
+                <a href="/en/#features" class="py-2.5 hover:text-emerald-700 transition">Features</a>
+                <a href="/en/#pricing" class="py-2.5 hover:text-emerald-700 transition">Pricing</a>
+                <a href="/en/#faq" class="py-2.5 hover:text-emerald-700 transition">FAQ</a>
+                <a href="/en/#news" class="py-2.5 hover:text-emerald-700 transition">News</a>
+                <a href="/en/contact" class="py-2.5 hover:text-emerald-700 transition">Contact</a>
+                <a href="/privacy" hreflang="ja" lang="ja" class="py-2.5 mt-1 border-t border-slate-200 hover:text-emerald-700 transition">日本語</a>
+            </nav>
+        </div>
     </header>
 
-    <main class="pt-1">
-      <header class="mb-10">
-        <p class="text-sm font-medium text-accent2 mb-2">Policy</p>
-        <h1 class="text-2xl sm:text-3xl font-bold text-ink mb-4">Privacy Policy</h1>
-        <p class="text-ink2 leading-relaxed">
-          SnapTechEdge ("we" or "the operator") is committed to handling user personal information collected through our application "SnapEnglish" (the "App") and this website in compliance with the Japanese Act on the Protection of Personal Information and other applicable laws.
-        </p>
-      </header>
+    <main class="lg">
+      <div class="sd-wrap">
+        <p class="lg-eyebrow">Policy</p>
+        <h1>Privacy Policy</h1>
+        <p class="lg-lead">SnapTechEdge ("we" or "the operator") is committed to handling user personal information collected through our application "SnapEnglish" (the "App") and this website in compliance with the Japanese Act on the Protection of Personal Information and other applicable laws.</p>
 
-      <div class="space-y-8">
+        <div class="lg-body">
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">1</span>
-            Information We Collect
-          </h2>
-          <p class="text-ink2 mb-3">We collect the following information only as needed to provide the App.</p>
-          <ul class="text-ink2 space-y-1.5 ml-4">
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>Email address</strong>: collected when you sign in with Apple ID or Google. Used for account identification and authentication.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>User ID</strong>: a unique identifier issued by Firebase Authentication. Used to associate your learning data with your account, and to analyze how the App is used.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>Approximate location</strong>: the country, region, and city inferred from your IP address, used for usage analytics.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>Purchase history</strong>: to manage your subscription, RevenueCat processes information such as purchase status and expiration. Payment details such as credit card numbers are processed by Apple App Store or Google Play, and we do not receive them directly.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>Product activity (learning data)</strong>: answers, correctness, learning progress, review list, completion timestamps, etc. — data needed to provide the App and support continued learning — as well as usage such as screens viewed and time spent.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>English text you enter or speak (when using AI features)</strong>: to provide AI feedback, AI conversation, and pronunciation feedback, the English text you enter or speak (composition/rearrangement answers, conversation messages, etc.) is sent to <strong>Anthropic</strong> and <strong>Google</strong>, which provide the AI services. This is sent only when you use these features and is used solely to provide them. Before you first use an AI feature, we disclose what data is sent and to whom inside the app and obtain your consent before sending (you can withdraw it anytime in Settings). In addition, when you finish an AI conversation and its feedback is shown, we save the conversation (your messages and the AI partner's messages) and the feedback to your account as your "conversation history" so you can review it later.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>Composition feedback</strong>: we save the English text you entered and the feedback on it to your account so you can review it later.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>Voice data</strong>: only when you use the pronunciation practice feature, your recorded audio is sent to <strong>Microsoft</strong>'s speech analysis service (consent obtained in-app before sending). It is not stored on our servers. Voice input for question answers and for AI conversation is transcribed by Apple's speech recognition service on iOS (this includes server-side processing), and on Android by the speech recognition service built into your device's operating system (provided by Google on most devices; this may include server-side processing). Only when no speech recognition service is available on an Android device, voice input for AI conversation is sent to OpenAI's speech recognition service for transcription.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>Inquiry content</strong>: the email address, subject, and message you submit through the contact form on this website. We also collect technical information such as your IP address and User-Agent to prevent abuse. We use these solely to respond to your inquiry and to send the automatic acknowledgement email.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>Device identifier (Android only)</strong>: used to prevent repeated abuse of the free trial. We do not store the original identifier and do not link it to your account.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>Crash and error data</strong>: to diagnose faults, we collect technical information such as your device model, OS and app versions, and where the failure occurred.</span>
-            </li>
+          <h2><span class="lg-no">1</span>
+              <span>Information We Collect</span></h2>
+          <p>We collect the following information only as needed to provide the App.</p>
+          <ul>
+          <li><strong>Email address</strong>: collected when you sign in with Apple ID or Google. Used for account identification and authentication.</li>
+          <li><strong>User ID</strong>: a unique identifier issued by Firebase Authentication. Used to associate your learning data with your account, and to analyze how the App is used.</li>
+          <li><strong>Approximate location</strong>: the country, region, and city inferred from your IP address, used for usage analytics.</li>
+          <li><strong>Purchase history</strong>: to manage your subscription, RevenueCat processes information such as purchase status and expiration. Payment details such as credit card numbers are processed by Apple App Store or Google Play, and we do not receive them directly.</li>
+          <li><strong>Product activity (learning data)</strong>: answers, correctness, learning progress, review list, completion timestamps, etc. — data needed to provide the App and support continued learning — as well as usage such as screens viewed and time spent.</li>
+          <li><strong>English text you enter or speak (when using AI features)</strong>: to provide AI feedback, AI conversation, and pronunciation feedback, the English text you enter or speak (composition/rearrangement answers, conversation messages, etc.) is sent to <strong>Anthropic</strong> and <strong>Google</strong>, which provide the AI services. This is sent only when you use these features and is used solely to provide them. Before you first use an AI feature, we disclose what data is sent and to whom inside the app and obtain your consent before sending (you can withdraw it anytime in Settings). In addition, when you finish an AI conversation and its feedback is shown, we save the conversation (your messages and the AI partner's messages) and the feedback to your account as your "conversation history" so you can review it later.</li>
+          <li><strong>Composition feedback</strong>: we save the English text you entered and the feedback on it to your account so you can review it later.</li>
+          <li><strong>Voice data</strong>: only when you use the pronunciation practice feature, your recorded audio is sent to <strong>Microsoft</strong>'s speech analysis service (consent obtained in-app before sending). It is not stored on our servers. Voice input for question answers and for AI conversation is transcribed by Apple's speech recognition service on iOS (this includes server-side processing), and on Android by the speech recognition service built into your device's operating system (provided by Google on most devices; this may include server-side processing). Only when no speech recognition service is available on an Android device, voice input for AI conversation is sent to OpenAI's speech recognition service for transcription.</li>
+          <li><strong>Inquiry content</strong>: the email address, subject, and message you submit through the contact form on this website. We also collect technical information such as your IP address and User-Agent to prevent abuse. We use these solely to respond to your inquiry and to send the automatic acknowledgement email.</li>
+          <li><strong>Device identifier (Android only)</strong>: used to prevent repeated abuse of the free trial. We do not store the original identifier and do not link it to your account.</li>
+          <li><strong>Crash and error data</strong>: to diagnose faults, we collect technical information such as your device model, OS and app versions, and where the failure occurred.</li>
           </ul>
-          <p class="text-ink2 text-sm mt-3 ml-4">
-            * We do not collect addresses, phone numbers, dates of birth, or advertising identifiers such as IDFA, and we do not use your data for advertising or track you across other companies' apps and websites.
+          <p class="lg-note">
+          * We do not collect addresses, phone numbers, dates of birth, or advertising identifiers such as IDFA, and we do not use your data for advertising or track you across other companies' apps and websites.
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">2</span>
-            Purpose of Use
-          </h2>
-          <p class="text-ink2 mb-3">We use collected information only for the following purposes.</p>
-          <ul class="text-ink2 space-y-1.5 ml-4">
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Providing the App's features and managing learning progress</li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Providing learning support features such as AI feedback and pronunciation feedback</li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Managing subscriptions and verifying validity</li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Responding to user support inquiries and sending notifications</li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Ensuring service security and preventing abuse</li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Maintaining and improving the service, and announcing new features</li>
+          <h2><span class="lg-no">2</span>
+              <span>Purpose of Use</span></h2>
+          <p>We use collected information only for the following purposes.</p>
+          <ul>
+          <li>Providing the App's features and managing learning progress</li>
+          <li>Providing learning support features such as AI feedback and pronunciation feedback</li>
+          <li>Managing subscriptions and verifying validity</li>
+          <li>Responding to user support inquiries and sending notifications</li>
+          <li>Ensuring service security and preventing abuse</li>
+          <li>Maintaining and improving the service, and announcing new features</li>
           </ul>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">3</span>
-            Third-Party Services (Processors)
-          </h2>
-          <p class="text-ink2 mb-3">We use third-party services to deliver our features. The main services we currently use are listed below; they may change as we improve the product or change our infrastructure. Please also review each service's privacy policy.</p>
-          <ul class="text-ink2 space-y-1.5 ml-4">
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span><span><strong>Google (Firebase)</strong>: authentication, database (Firestore), audio file delivery (Cloud Storage), usage analytics (Google Analytics), crash reporting (Crashlytics)</span></li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span><span><strong>RevenueCat</strong>: subscription state management</span></li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span><span><strong>Apple</strong>: speech recognition on iOS (question answers and AI conversation voice input; includes server-side processing), Sign in with Apple</span></li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span><span><strong>The speech recognition service built into your device's operating system (Android)</strong>: transcription of voice input for question answers and AI conversation. The provider differs by device (Google on most devices). Depending on the device and its settings, audio is sent to that provider's servers for recognition.</span></li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span><span><strong>Anthropic</strong>: AI feedback (composition/rearrangement), AI conversation responses and grading, pronunciation feedback generation. Receives the English text you enter or speak.</span></li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span><span><strong>Google</strong>: AI conversation response generation. Receives your conversation messages.</span></li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span><span><strong>Microsoft</strong>: pronunciation analysis (sending recorded audio), AI conversation speech synthesis</span></li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span><span><strong>OpenAI</strong>: fallback speech synthesis for AI conversation, and fallback speech recognition (when no speech recognition service is available on an Android device)</span></li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span><span><strong>Studyplus (Studyplus Inc.)</strong>: study-record integration. Only if you enable the integration, the length of time you studied and the date and time are sent to Studyplus (your answers and the text you enter are not sent). You can unlink at any time from Settings.</span></li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span><span><strong>Cloudflare</strong>: hosting of this website, bot protection for the contact form, and website analytics. The analytics uses no cookies and collects no information that identifies individual visitors</span></li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span><span><strong>Resend</strong>: sending email from the contact form (notification to us and the automatic acknowledgement to you)</span></li>
+          <h2><span class="lg-no">3</span>
+              <span>Third-Party Services (Processors)</span></h2>
+          <p>We use third-party services to deliver our features. The main services we currently use are listed below; they may change as we improve the product or change our infrastructure. Please also review each service's privacy policy.</p>
+          <ul>
+          <li><strong>Google (Firebase)</strong>: authentication, database (Firestore), audio file delivery (Cloud Storage), usage analytics (Google Analytics), crash reporting (Crashlytics)</li>
+          <li><strong>RevenueCat</strong>: subscription state management</li>
+          <li><strong>Apple</strong>: speech recognition on iOS (question answers and AI conversation voice input; includes server-side processing), Sign in with Apple</li>
+          <li><strong>The speech recognition service built into your device's operating system (Android)</strong>: transcription of voice input for question answers and AI conversation. The provider differs by device (Google on most devices). Depending on the device and its settings, audio is sent to that provider's servers for recognition.</li>
+          <li><strong>Anthropic</strong>: AI feedback (composition/rearrangement), AI conversation responses and grading, pronunciation feedback generation. Receives the English text you enter or speak.</li>
+          <li><strong>Google</strong>: AI conversation response generation. Receives your conversation messages.</li>
+          <li><strong>Microsoft</strong>: pronunciation analysis (sending recorded audio), AI conversation speech synthesis</li>
+          <li><strong>OpenAI</strong>: fallback speech synthesis for AI conversation, and fallback speech recognition (when no speech recognition service is available on an Android device)</li>
+          <li><strong>Studyplus (Studyplus Inc.)</strong>: study-record integration. Only if you enable the integration, the length of time you studied and the date and time are sent to Studyplus (your answers and the text you enter are not sent). You can unlink at any time from Settings.</li>
+          <li><strong>Cloudflare</strong>: hosting of this website, bot protection for the contact form, and website analytics. The analytics uses no cookies and collects no information that identifies individual visitors</li>
+          <li><strong>Resend</strong>: sending email from the contact form (notification to us and the automatic acknowledgement to you)</li>
           </ul>
-          <p class="text-ink2 text-sm mt-3 ml-4">
-            When we share data with the third parties above, we confirm through their privacy policies and data processing terms that they protect the data to a standard equal to or stronger than this policy. Data sent to AI services (Anthropic, Google, OpenAI) is processed under their respective policies solely to provide the relevant feature.
+          <p class="lg-note">
+          When we share data with the third parties above, we confirm through their privacy policies and data processing terms that they protect the data to a standard equal to or stronger than this policy. Data sent to AI services (Anthropic, Google, OpenAI) is processed under their respective policies solely to provide the relevant feature.
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">4</span>
-            International Transfers
-          </h2>
-          <p class="text-ink2 leading-relaxed">
-            Some of the third-party services above operate on servers in the United States and other countries, and your information may be transferred there. We confirm the data protection level at the destination and apply appropriate safeguards before such transfers. By using the App, you are deemed to consent to these transfers.
+          <h2><span class="lg-no">4</span>
+              <span>International Transfers</span></h2>
+          <p>
+          Some of the third-party services above operate on servers in the United States and other countries, and your information may be transferred there. We confirm the data protection level at the destination and apply appropriate safeguards before such transfers. By using the App, you are deemed to consent to these transfers.
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">5</span>
-            Security Measures
-          </h2>
-          <p class="text-ink2 leading-relaxed">
-            We implement appropriate organizational, personnel, and technical measures to prevent leakage, loss, or damage of personal information. Learning data and account information are transmitted over encrypted communications (HTTPS) and stored securely in the cloud.
+          <h2><span class="lg-no">5</span>
+              <span>Security Measures</span></h2>
+          <p>
+          We implement appropriate organizational, personnel, and technical measures to prevent leakage, loss, or damage of personal information. Learning data and account information are transmitted over encrypted communications (HTTPS) and stored securely in the cloud.
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">6</span>
-            Disclosure to Third Parties
-          </h2>
-          <p class="text-ink2 leading-relaxed">
-            We do not provide personal information to third parties without your prior consent, except as permitted by law or in the case of the processors described above. We never sell personal information.
+          <h2><span class="lg-no">6</span>
+              <span>Disclosure to Third Parties</span></h2>
+          <p>
+          We do not provide personal information to third parties without your prior consent, except as permitted by law or in the case of the processors described above. We never sell personal information.
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">7</span>
-            Data Retention, User Rights & Account Deletion
-          </h2>
-          <p class="text-ink2 mb-3">We keep your account details and learning data for as long as your account exists, and we delete the associated data when you delete your account. We keep inquiry content for as long as we need it to respond and to prevent abuse. Audio sent to provide the AI features is not stored on our servers. English text sent to provide the AI features is not stored on our servers, except for what we save as your conversation history and your composition feedback (how the receiving services handle the data is governed by their own policies). We keep both for as long as your account exists, and you can delete your conversation history anytime in the app under Library → 会話の履歴 (Conversation history). The record used to prevent abuse of the free trial is retained after account deletion for as long as that purpose requires. Where the law requires us to retain information, we keep it for the period the law requires.</p>
-          <p class="text-ink2 mb-3">You have the following rights:</p>
-          <ul class="text-ink2 space-y-1.5 ml-4">
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Request disclosure, correction, deletion, or suspension of use of your personal information</li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Immediately delete your account and related data via "My Page → Delete Account" in the App</li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Opt out of notifications and data collection</li>
+          <h2><span class="lg-no">7</span>
+              <span>Data Retention, User Rights & Account Deletion</span></h2>
+          <p>We keep your account details and learning data for as long as your account exists, and we delete the associated data when you delete your account. We keep inquiry content for as long as we need it to respond and to prevent abuse. Audio sent to provide the AI features is not stored on our servers. English text sent to provide the AI features is not stored on our servers, except for what we save as your conversation history and your composition feedback (how the receiving services handle the data is governed by their own policies). We keep both for as long as your account exists, and you can delete your conversation history anytime in the app under Library → 会話の履歴 (Conversation history). The record used to prevent abuse of the free trial is retained after account deletion for as long as that purpose requires. Where the law requires us to retain information, we keep it for the period the law requires.</p>
+          <p>You have the following rights:</p>
+          <ul>
+          <li>Request disclosure, correction, deletion, or suspension of use of your personal information</li>
+          <li>Immediately delete your account and related data via "My Page → Delete Account" in the App</li>
+          <li>Opt out of notifications and data collection</li>
           </ul>
-          <p class="text-ink2 mt-3">
-            For requests that cannot be handled in-app, please contact us at the address in the last section after identity verification.
+          <p>
+          For requests that cannot be handled in-app, please contact us at the address in the last section after identity verification.
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">8</span>
-            Children's Privacy
-          </h2>
-          <p class="text-ink2 leading-relaxed">
-            The App is not intended for children under 13. If a user under 13 wishes to use it, please do so under the consent and supervision of a guardian. If we discover that we have unintentionally collected personal information from a child under 13, we will delete it promptly.
+          <h2><span class="lg-no">8</span>
+              <span>Children's Privacy</span></h2>
+          <p>
+          The App is not intended for children under 13. If a user under 13 wishes to use it, please do so under the consent and supervision of a guardian. If we discover that we have unintentionally collected personal information from a child under 13, we will delete it promptly.
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">9</span>
-            Policy Changes
-          </h2>
-          <p class="text-ink2 leading-relaxed">
-            We may update this policy as needed. For significant changes, we will notify users through in-app notices or on the website.
+          <h2><span class="lg-no">9</span>
+              <span>Policy Changes</span></h2>
+          <p>
+          We may update this policy as needed. For significant changes, we will notify users through in-app notices or on the website.
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">10</span>
-            Contact
-          </h2>
-          <p class="text-ink2 mb-3">For inquiries about the handling of personal information, please contact:</p>
-          <a href="mailto:support@snapenglishapp.com" class="text-accent2 hover:text-ink font-medium">
-            support@snapenglishapp.com
+          <h2><span class="lg-no">10</span>
+              <span>Contact</span></h2>
+          <p>For inquiries about the handling of personal information, please contact:</p>
+          <a href="mailto:support@snapenglishapp.com">
+          support@snapenglishapp.com
           </a>
         </section>
-      </div>
+        </div>
 
-      <div class="mt-10 pt-6 border-t border-rule text-right text-sm text-ink2">
-        Last updated: September 23, 2026
+        <p class="lg-updated">Last updated: September 23, 2026</p>
       </div>
     </main>
 
-    <footer class="mt-8 mb-8 text-sm text-ink2 flex items-center justify-between">
-      <a href="/en/" class="inline-block py-1 hover:text-ink transition">Back to top</a>
-      <span>© <span id="year">2026</span> SnapTechEdge</span>
+    <footer class="sd-footer border-t">
+        <div class="max-w-6xl mx-auto safe-x pt-10 safe-pb-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-600">
+            <div class="flex items-center gap-2">
+                <img src="/icon-64.png" alt="SnapEnglish" class="w-7 h-7 rounded-lg shadow-sm">
+                <span class="font-semibold"><span style="color: #297849">Snap</span><span class="text-slate-800">English</span></span>
+                <span class="text-ink2">— © <span id="year">2026</span> SnapTechEdge</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-1 justify-center">
+                <a href="/en/about" class="py-1 hover:text-emerald-700 transition">About</a>
+                <a href="/en/terms" class="py-1 hover:text-emerald-700 transition">Terms</a>
+                <a href="/en/privacy" class="py-1 hover:text-emerald-700 transition">Privacy</a>
+                <a href="/tokushoho" class="py-1 hover:text-emerald-700 transition">特定商取引法に基づく表記</a>
+                <a href="/en/contact" class="py-1 hover:text-emerald-700 transition">Contact</a>
+                <a href="https://snaptechedge.com" class="py-1 hover:text-emerald-700 transition">Operated by SnapTechEdge</a>
+            </div>
+        </div>
     </footer>
-  </div>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // モバイルメニュー (ハンバーガー → ドロワー)。トップ・お問い合わせと同じもの。
+        (function() {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            if (!btn || !menu) return;
+            const iconMenu = btn.querySelector('[data-icon="menu"]');
+            const iconClose = btn.querySelector('[data-icon="close"]');
+            function setOpen(open) {
+                menu.classList.toggle('hidden', !open);
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                iconMenu.classList.toggle('hidden', open);
+                iconClose.classList.toggle('hidden', !open);
+            }
+            btn.addEventListener('click', () => {
+                setOpen(menu.classList.contains('hidden'));
+            });
+            menu.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => setOpen(false));
+            });
+            window.matchMedia('(min-width: 768px)').addEventListener('change', e => {
+                if (e.matches) setOpen(false);
+            });
+        })();
+    </script>
 </body>
 </html>

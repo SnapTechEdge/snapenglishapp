@@ -1,210 +1,295 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="UTF-8">
   <!-- pages.dev から来たら noindex を入れて本ドメインへ移す。
        _redirects はホスト名を見ないので、ここで JS で受ける。 -->
   <script>(function(){var h=location.hostname;if(h.endsWith('.pages.dev')){var m=document.createElement('meta');m.name='robots';m.content='noindex, nofollow';document.head.appendChild(m);location.replace('https://snapenglishapp.com'+location.pathname+location.search+location.hash);}})();</script>
+  <script>document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/, '') + ' js';</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#F1EDE6">
+  <meta name="theme-color" content="#FFFFFF">
   <title>Terms of Service | SnapEnglish</title>
   <link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/terms">
   <link rel="alternate" hreflang="en" href="https://snapenglishapp.com/en/terms">
-    <meta name="description" content="SnapEnglish terms of service: the features provided, subscriptions and the free trial, prohibited conduct, and disclaimers.">
+  <meta name="description" content="SnapEnglish terms of service: the features provided, subscriptions and the free trial, prohibited conduct, and disclaimers.">
   <link rel="canonical" href="https://snapenglishapp.com/en/terms">
   <link rel="alternate" hreflang="x-default" href="https://snapenglishapp.com/terms">
-  <link rel="icon" type="image/png" sizes="64x64" href="../icon-64.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="../icon-192.png">
-  <link rel="apple-touch-icon" sizes="192x192" href="../icon-192.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="/icon-64.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png">
   <link rel="stylesheet" href="../tailwind.css?v=20261101">
+  <style>
+/* 新サイト（トップ・お問い合わせ）と同じ地と字。必要な分だけここに置く。
+   Tailwind のクラスは増やしていない＝tailwind.css の再ビルドは要らない。 */
+:root{ --pp-bg:#FFFFFF; --pp-ink:#16191D; --pp-ink2:#4A515A; --pp-ink3:#5F666F;
+       --pp-rule:#E6E6E3; --pp-link:#1F6B4A; }
+html, body{ overflow-x:clip; }
+body{ background:var(--pp-bg); color:var(--pp-ink); }
+/* ヘッダー（スクロールしても上に残る） */
+.nav-blur{ backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+           background:rgba(255,255,255,.9); }
+/* 器はトップ・お問い合わせと同じ（内容 1192px ＋ 左右 24px）。ヘッダーとフッターの
+   max-w-6xl（Tailwind の 1152px）も同じ幅に上書きして、左端を 1 本にそろえる。 */
+:root{ --pp-max:1192px; }
+.sd-wrap{ max-width:calc(var(--pp-max) + 48px); margin:0 auto; padding:0 24px; }
+header .max-w-6xl, footer .max-w-6xl{ max-width:calc(var(--pp-max) + 48px);
+                                      padding-left:24px; padding-right:24px; }
+@supports (padding: max(0px)){
+  .sd-wrap, header .max-w-6xl, footer .max-w-6xl{
+    padding-left:max(24px, env(safe-area-inset-left, 0px));
+    padding-right:max(24px, env(safe-area-inset-right, 0px)); }
+}
+.sd-footer{ background:var(--pp-bg); border-color:#DED7CB; }
+/* スマホの言語切り替え（トップと同じ作り）。360px 未満は幅が足りないのでメニューの中だけ */
+.sd-lang-sm{ display:none; }
+@media (min-width:360px) and (max-width:767px){
+  .sd-lang-sm{ display:inline-flex; align-items:center; height:44px; padding:0 2px;
+               font-size:12px; font-weight:700; color:#475569; text-decoration:none;
+               white-space:nowrap; }
+  .sd-lang-sm:hover{ color:#047857; }
+}
+/* JS が動かないとき: メニューは開いた状態で出し、開閉ボタンは隠す */
+@media (max-width:767px){
+  html.no-js #mobile-menu{ display:block !important; }
+  html.no-js #mobile-menu-btn{ display:none !important; }
+}
+/* 本文（法務ページ）。読む列は 46rem でそろえる。em にすると、字の小さい
+   「最終更新日」の行だけ列が狭くなって右端がずれる（実測）。 */
+.lg{ padding-block:clamp(36px,5vw,72px) clamp(48px,7vw,96px); }
+.lg-eyebrow{ font-size:12px; font-weight:700; letter-spacing:.14em; color:var(--pp-link); }
+.lg h1{ margin-top:12px; font-size:clamp(26px,3vw,38px); line-height:1.3;
+        letter-spacing:-.02em; font-weight:700; color:var(--pp-ink); }
+.lg-lead{ margin-top:18px; max-width:46rem; font-size:15.5px; line-height:1.95; color:var(--pp-ink2); }
+.lg-body{ margin-top:clamp(28px,4vw,44px); max-width:46rem; border-top:1px solid var(--pp-rule); }
+.lg-body section{ padding-block:clamp(24px,3vw,32px); border-bottom:1px solid var(--pp-rule); }
+.lg-body h2{ display:flex; align-items:baseline; gap:10px; margin:0;
+             font-size:17px; font-weight:700; line-height:1.6; color:var(--pp-ink); }
+.lg-body h2 .lg-no{ flex:none; font-size:13px; font-weight:700; color:var(--pp-link);
+                    font-variant-numeric:tabular-nums; white-space:nowrap; }
+.lg-body p{ margin:12px 0 0; font-size:15px; line-height:1.95; color:var(--pp-ink2); }
+.lg-body p.lg-note{ font-size:13px; line-height:1.85; color:var(--pp-ink3); }
+.lg-body ul{ margin:14px 0 0; padding-left:1.2em; list-style:disc; }
+.lg-body li{ margin-top:9px; font-size:15px; line-height:1.9; color:var(--pp-ink2); }
+.lg-body li::marker{ color:var(--pp-link); }
+.lg-body strong{ color:var(--pp-ink); font-weight:700; }
+.lg-body a{ color:var(--pp-link); text-decoration:underline; text-underline-offset:3px; }
+.lg-body a:hover{ color:var(--pp-ink); }
+.lg-updated{ margin-top:26px; max-width:46rem; text-align:right; font-size:13px; color:var(--pp-ink3); }
+@media (max-width:560px){
+  .lg-body h2{ display:block; }
+  .lg-body h2 .lg-no{ display:block; margin-bottom:4px; }
+  .lg-updated{ text-align:left; }
+}
+  </style>
 </head>
-<body class="bg-ivory text-ink antialiased">
-  <div class="max-w-3xl mx-auto safe-x pt-8 safe-pb-8">
-    <header class="flex items-center justify-between mb-10">
-      <a href="/en/" class="inline-flex items-center gap-2 text-ink2 hover:text-ink transition whitespace-nowrap">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-        </svg>
-        <span>Back to home</span>
-      </a>
-      <div class="flex items-center gap-3">
-        <span class="inline-flex items-center gap-1.5 px-1 text-xs font-semibold"><a href="/terms" hreflang="ja" class="text-ink2 hover:text-ink transition">JP</a><span class="text-rule" aria-hidden="true">|</span><a href="/en/terms" hreflang="en" lang="en" class="text-ink underline underline-offset-4 decoration-ink2" aria-current="page">EN</a></span>
-        <a href="/en/" class="inline-flex items-center gap-2 text-lg font-bold p-1 -m-1">
-          <img src="../icon-64.png" alt="SnapEnglish" class="w-8 h-8 rounded-lg shadow-sm">
-          <span class="hidden xs:inline"><span style="color: #297849">Snap</span><span class="text-ink">English</span></span>
-        </a>
-      </div>
+<body class="text-slate-900 antialiased">
+
+    <!-- ヘッダー（トップ・お問い合わせと同じもの） -->
+    <header class="nav-blur sticky top-0 z-50 border-b border-slate-200/60">
+        <div class="max-w-6xl mx-auto safe-x h-16 flex items-center justify-between">
+            <a href="/en/" aria-label="SnapEnglish" class="flex items-center gap-2 text-base mini:text-lg font-bold">
+                <img src="/icon-64.png" alt="" aria-hidden="true" class="w-8 h-8 rounded-lg shadow-sm">
+                <span aria-hidden="true"><span style="color: #297849">Snap</span><span class="text-slate-800">English</span></span>
+            </a>
+            <nav class="hidden md:flex items-center gap-5 lg:gap-8 text-sm text-slate-600">
+                <a href="/en/#features" class="py-1 hover:text-emerald-700 transition">Features</a>
+                <a href="/en/#pricing" class="py-1 hover:text-emerald-700 transition">Pricing</a>
+                <a href="/en/#faq" class="py-1 hover:text-emerald-700 transition">FAQ</a>
+                <a href="/en/#news" class="py-1 hover:text-emerald-700 transition">News</a>
+                <a href="/en/contact" class="py-1 hover:text-emerald-700 transition">Contact</a>
+            </nav>
+            <div class="flex items-center gap-1.5">
+                <a href="/en/#cta" class="px-2.5 py-1.5 rounded-full bg-accent2 text-white text-xs font-bold hover:bg-accent3 transition whitespace-nowrap">Start free</a>
+                <span class="hidden md:inline-flex items-center gap-1.5 px-1 text-xs font-semibold"><a href="/terms" hreflang="ja" lang="ja" class="text-slate-600 hover:text-emerald-700 transition">JP</a><span class="text-slate-300" aria-hidden="true">|</span><a href="/en/terms" hreflang="en" class="text-slate-900 underline underline-offset-4 decoration-slate-400" aria-current="page">EN</a></span>
+                <a class="sd-lang-sm" href="/terms" hreflang="ja" lang="ja" aria-label="日本語">JP</a>
+                <button id="mobile-menu-btn" type="button"
+                    aria-label="Open menu"
+                    aria-expanded="false"
+                    aria-controls="mobile-menu"
+                    class="md:hidden p-1.5 rounded-full text-slate-600 hover:text-emerald-700 hover:bg-slate-100 transition">
+                    <svg data-icon="menu" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    <svg data-icon="close" class="hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white/95 backdrop-blur">
+            <nav class="flex flex-col safe-x py-3 text-sm text-slate-700">
+                <a href="/en/#features" class="py-2.5 hover:text-emerald-700 transition">Features</a>
+                <a href="/en/#pricing" class="py-2.5 hover:text-emerald-700 transition">Pricing</a>
+                <a href="/en/#faq" class="py-2.5 hover:text-emerald-700 transition">FAQ</a>
+                <a href="/en/#news" class="py-2.5 hover:text-emerald-700 transition">News</a>
+                <a href="/en/contact" class="py-2.5 hover:text-emerald-700 transition">Contact</a>
+                <a href="/terms" hreflang="ja" lang="ja" class="py-2.5 mt-1 border-t border-slate-200 hover:text-emerald-700 transition">日本語</a>
+            </nav>
+        </div>
     </header>
 
-    <main class="pt-1">
-      <header class="mb-10">
-        <p class="text-sm font-medium text-accent2 mb-2">Terms</p>
-        <h1 class="text-2xl sm:text-3xl font-bold text-ink mb-4">Terms of Service</h1>
-        <p class="text-ink2 leading-relaxed">
-          These Terms of Service ("Terms") set out the conditions for using SnapEnglish ("the App"). Please use the App only after agreeing to these Terms. By installing or using the App, you are deemed to have agreed to these Terms.
-        </p>
-      </header>
+    <main class="lg">
+      <div class="sd-wrap">
+        <p class="lg-eyebrow">Terms</p>
+        <h1>Terms of Service</h1>
+        <p class="lg-lead">These Terms of Service ("Terms") set out the conditions for using SnapEnglish ("the App"). Please use the App only after agreeing to these Terms. By installing or using the App, you are deemed to have agreed to these Terms.</p>
 
-      <div class="space-y-8">
+        <div class="lg-body">
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="text-accent2 text-sm font-bold">Article 1</span>
-            Application
-          </h2>
-          <p class="text-ink2 leading-relaxed">
-            These Terms apply to all relationships concerning use of the App. Matters not covered herein are governed by applicable laws and regulations.
+          <h2><span class="lg-no">Article 1</span>
+              <span>Application</span></h2>
+          <p>
+          These Terms apply to all relationships concerning use of the App. Matters not covered herein are governed by applicable laws and regulations.
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="text-accent2 text-sm font-bold">Article 2</span>
-            Service Content
-          </h2>
-          <p class="text-ink2 mb-3">The App provides the following English-learning features:</p>
-          <ul class="text-ink2 space-y-1.5 ml-4">
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>AI conversation (script mode and ad-lib mode)</li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>English composition practice (input mode and arrange mode)</li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Vocabulary practice (sentence fill-in mode)</li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Speech recognition input and pronunciation practice</li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>AI-graded answer feedback and pronunciation feedback</li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Grammar practice (arranging word tiles) and display of grammar explanations</li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Audio playback of example sentences</li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Learning progress management and visualization</li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Optional Studyplus integration for study records (study duration and timestamp only)</li>
+          <h2><span class="lg-no">Article 2</span>
+              <span>Service Content</span></h2>
+          <p>The App provides the following English-learning features:</p>
+          <ul>
+          <li>AI conversation (script mode and ad-lib mode)</li>
+          <li>English composition practice (input mode and arrange mode)</li>
+          <li>Vocabulary practice (sentence fill-in mode)</li>
+          <li>Speech recognition input and pronunciation practice</li>
+          <li>AI-graded answer feedback and pronunciation feedback</li>
+          <li>Grammar practice (arranging word tiles) and display of grammar explanations</li>
+          <li>Audio playback of example sentences</li>
+          <li>Learning progress management and visualization</li>
+          <li>Optional Studyplus integration for study records (study duration and timestamp only)</li>
           </ul>
-          <p class="text-ink2 mt-3">
-            Features and content provided may be changed, added, or discontinued without notice.
+          <p>
+          Features and content provided may be changed, added, or discontinued without notice.
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="text-accent2 text-sm font-bold">Article 3</span>
-            Account
-          </h2>
-          <p class="text-ink2 leading-relaxed">
-            The App's basic features can be used without signing in. Optional sign-in with a Google account or Apple ID is available only when you wish to sync or migrate learning data across multiple devices. Signed-in users are responsible for managing their account information appropriately and may not transfer or lend it to third parties. If misuse is identified, the operator reserves the right to suspend or delete the affected account.
+          <h2><span class="lg-no">Article 3</span>
+              <span>Account</span></h2>
+          <p>
+          The App's basic features can be used without signing in. Optional sign-in with a Google account or Apple ID is available only when you wish to sync or migrate learning data across multiple devices. Signed-in users are responsible for managing their account information appropriately and may not transfer or lend it to third parties. If misuse is identified, the operator reserves the right to suspend or delete the affected account.
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="text-accent2 text-sm font-bold">Article 4</span>
-            Fees
-          </h2>
-          <p class="text-ink2 leading-relaxed">
-            The App provides a 7-day free trial after download. After the trial ends, a subscription is required. Fees, periods, renewal, and cancellation conditions follow the rules of the store you purchased from (Apple App Store or Google Play) and the <a href="/tokushoho" hreflang="ja" lang="ja" class="text-accent2 underline">特定商取引法に基づく表記</a> (Japanese only) on this site.
+          <h2><span class="lg-no">Article 4</span>
+              <span>Fees</span></h2>
+          <p>
+          The App provides a 7-day free trial after download. After the trial ends, a subscription is required. Fees, periods, renewal, and cancellation conditions follow the rules of the store you purchased from (Apple App Store or Google Play) and the <a href="/tokushoho" hreflang="ja" lang="ja">特定商取引法に基づく表記</a> (Japanese only) on this site.
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="text-accent2 text-sm font-bold">Article 5</span>
-            Prohibited Conduct
-          </h2>
-          <p class="text-ink2 mb-3">Users must not engage in the following:</p>
-          <ul class="text-ink2 space-y-1.5 ml-4">
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Unauthorized access, reverse engineering, or tampering</li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Unauthorized copying, reposting, or redistribution of the App's content</li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Harassment of or defamation against other users or third parties</li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Unauthorized commercial use of the App</li>
-            <li class="flex items-start gap-2"><span class="text-accent2 mt-1.5">•</span>Other actions deemed inappropriate by the operator</li>
+          <h2><span class="lg-no">Article 5</span>
+              <span>Prohibited Conduct</span></h2>
+          <p>Users must not engage in the following:</p>
+          <ul>
+          <li>Unauthorized access, reverse engineering, or tampering</li>
+          <li>Unauthorized copying, reposting, or redistribution of the App's content</li>
+          <li>Harassment of or defamation against other users or third parties</li>
+          <li>Unauthorized commercial use of the App</li>
+          <li>Other actions deemed inappropriate by the operator</li>
           </ul>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="text-accent2 text-sm font-bold">Article 6</span>
-            Intellectual Property
-          </h2>
-          <p class="text-ink2 leading-relaxed">
-            All intellectual property rights in the content of the App (questions, audio data, design, source code, etc.) belong to the operator or rightful owners.
+          <h2><span class="lg-no">Article 6</span>
+              <span>Intellectual Property</span></h2>
+          <p>
+          All intellectual property rights in the content of the App (questions, audio data, design, source code, etc.) belong to the operator or rightful owners.
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="text-accent2 text-sm font-bold">Article 7</span>
-            Audio Features
-          </h2>
-          <div class="text-ink2 leading-relaxed space-y-3">
-            <p><strong>(1) Voice input</strong></p>
-            <p class="ml-4">The App may request microphone access for answering, AI conversation, and pronunciation practice. Your audio is processed by services that provide speech recognition and pronunciation analysis, including the speech recognition service built into your device's operating system, and is sent to those providers' servers depending on the feature and your device environment. In no case is audio stored on the operator's servers. For details on where data is sent, see our <a href="/en/privacy" class="text-accent2 underline">Privacy Policy</a>.</p>
-            <p><strong>(2) Audio playback</strong></p>
-            <p class="ml-4">Example audio for composition and vocabulary is delivered from the operator's cloud storage over HTTPS. Playing audio does not transmit any of your personal data externally.</p>
+          <h2><span class="lg-no">Article 7</span>
+              <span>Audio Features</span></h2>
+          <div>
+          <p><strong>(1) Voice input</strong></p>
+          <p>The App may request microphone access for answering, AI conversation, and pronunciation practice. Your audio is processed by services that provide speech recognition and pronunciation analysis, including the speech recognition service built into your device's operating system, and is sent to those providers' servers depending on the feature and your device environment. In no case is audio stored on the operator's servers. For details on where data is sent, see our <a href="/en/privacy">Privacy Policy</a>.</p>
+          <p><strong>(2) Audio playback</strong></p>
+          <p>Example audio for composition and vocabulary is delivered from the operator's cloud storage over HTTPS. Playing audio does not transmit any of your personal data externally.</p>
           </div>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="text-accent2 text-sm font-bold">Article 8</span>
-            Disclaimer
-          </h2>
-          <p class="text-ink2 leading-relaxed">
-            The App is provided "as is" and does not guarantee any improvement in your English skills or any specific learning outcome. To the extent permitted by law, the operator is not liable for damages arising from use of the App. Some features may not work properly depending on network conditions or device state.
+          <h2><span class="lg-no">Article 8</span>
+              <span>Disclaimer</span></h2>
+          <p>
+          The App is provided "as is" and does not guarantee any improvement in your English skills or any specific learning outcome. To the extent permitted by law, the operator is not liable for damages arising from use of the App. Some features may not work properly depending on network conditions or device state.
           </p>
-          <p class="text-ink2 leading-relaxed mt-3">
-            The App's AI features (feedback and pronunciation feedback) rely on external AI and speech analysis services and may be temporarily unavailable due to server load or maintenance. AI results are reference information and are not guaranteed to be accurate or complete.
+          <p>
+          The App's AI features (feedback and pronunciation feedback) rely on external AI and speech analysis services and may be temporarily unavailable due to server load or maintenance. AI results are reference information and are not guaranteed to be accurate or complete.
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="text-accent2 text-sm font-bold">Article 9</span>
-            Service Suspension and Termination
-          </h2>
-          <p class="text-ink2 leading-relaxed">
-            The operator may temporarily suspend or terminate the service without notice due to system maintenance, natural disasters, or other unavoidable circumstances.
+          <h2><span class="lg-no">Article 9</span>
+              <span>Service Suspension and Termination</span></h2>
+          <p>
+          The operator may temporarily suspend or terminate the service without notice due to system maintenance, natural disasters, or other unavoidable circumstances.
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="text-accent2 text-sm font-bold">Article 10</span>
-            Changes to These Terms
-          </h2>
-          <p class="text-ink2 leading-relaxed">
-            The operator may revise these Terms as needed. Significant changes will be announced in-app or on the website. Continued use of the App after changes constitutes acceptance of the revised Terms.
+          <h2><span class="lg-no">Article 10</span>
+              <span>Changes to These Terms</span></h2>
+          <p>
+          The operator may revise these Terms as needed. Significant changes will be announced in-app or on the website. Continued use of the App after changes constitutes acceptance of the revised Terms.
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="text-accent2 text-sm font-bold">Article 11</span>
-            Governing Law and Jurisdiction
-          </h2>
-          <p class="text-ink2 leading-relaxed">
-            These Terms are governed by the laws of Japan. Any dispute concerning these Terms shall be subject to the exclusive jurisdiction of the Tokyo District Court as the court of first instance.
+          <h2><span class="lg-no">Article 11</span>
+              <span>Governing Law and Jurisdiction</span></h2>
+          <p>
+          These Terms are governed by the laws of Japan. Any dispute concerning these Terms shall be subject to the exclusive jurisdiction of the Tokyo District Court as the court of first instance.
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="text-accent2 text-sm font-bold">Article 12</span>
-            Contact
-          </h2>
-          <p class="text-ink2 mb-3">For questions about these Terms, please contact:</p>
-          <a href="mailto:support@snapenglishapp.com" class="text-accent2 hover:text-ink font-medium">
-            support@snapenglishapp.com
+          <h2><span class="lg-no">Article 12</span>
+              <span>Contact</span></h2>
+          <p>For questions about these Terms, please contact:</p>
+          <a href="mailto:support@snapenglishapp.com">
+          support@snapenglishapp.com
           </a>
         </section>
-      </div>
+        </div>
 
-      <div class="mt-10 pt-6 border-t border-rule text-right text-sm text-ink2">
-        Last updated: August 23, 2026
+        <p class="lg-updated">Last updated: August 23, 2026</p>
       </div>
     </main>
 
-    <footer class="mt-8 mb-8 text-sm text-ink2 flex items-center justify-between">
-      <a href="/en/" class="inline-block py-1 hover:text-ink transition">Back to top</a>
-      <span>© <span id="year">2026</span> SnapTechEdge</span>
+    <footer class="sd-footer border-t">
+        <div class="max-w-6xl mx-auto safe-x pt-10 safe-pb-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-600">
+            <div class="flex items-center gap-2">
+                <img src="/icon-64.png" alt="SnapEnglish" class="w-7 h-7 rounded-lg shadow-sm">
+                <span class="font-semibold"><span style="color: #297849">Snap</span><span class="text-slate-800">English</span></span>
+                <span class="text-ink2">— © <span id="year">2026</span> SnapTechEdge</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-1 justify-center">
+                <a href="/en/about" class="py-1 hover:text-emerald-700 transition">About</a>
+                <a href="/en/terms" class="py-1 hover:text-emerald-700 transition">Terms</a>
+                <a href="/en/privacy" class="py-1 hover:text-emerald-700 transition">Privacy</a>
+                <a href="/tokushoho" class="py-1 hover:text-emerald-700 transition">特定商取引法に基づく表記</a>
+                <a href="/en/contact" class="py-1 hover:text-emerald-700 transition">Contact</a>
+                <a href="https://snaptechedge.com" class="py-1 hover:text-emerald-700 transition">Operated by SnapTechEdge</a>
+            </div>
+        </div>
     </footer>
-  </div>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // モバイルメニュー (ハンバーガー → ドロワー)。トップ・お問い合わせと同じもの。
+        (function() {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            if (!btn || !menu) return;
+            const iconMenu = btn.querySelector('[data-icon="menu"]');
+            const iconClose = btn.querySelector('[data-icon="close"]');
+            function setOpen(open) {
+                menu.classList.toggle('hidden', !open);
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                iconMenu.classList.toggle('hidden', open);
+                iconClose.classList.toggle('hidden', !open);
+            }
+            btn.addEventListener('click', () => {
+                setOpen(menu.classList.contains('hidden'));
+            });
+            menu.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => setOpen(false));
+            });
+            window.matchMedia('(min-width: 768px)').addEventListener('change', e => {
+                if (e.matches) setOpen(false);
+            });
+        })();
+    </script>
 </body>
 </html>

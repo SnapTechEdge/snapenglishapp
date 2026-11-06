@@ -1,305 +1,315 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="no-js">
 <head>
   <meta charset="UTF-8">
   <!-- pages.dev から来たら noindex を入れて本ドメインへ移す。
        _redirects はホスト名を見ないので、ここで JS で受ける。 -->
   <script>(function(){var h=location.hostname;if(h.endsWith('.pages.dev')){var m=document.createElement('meta');m.name='robots';m.content='noindex, nofollow';document.head.appendChild(m);location.replace('https://snapenglishapp.com'+location.pathname+location.search+location.hash);}})();</script>
+  <script>document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/, '') + ' js';</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#F1EDE6">
+  <meta name="theme-color" content="#FFFFFF">
   <title>プライバシーポリシー | SnapEnglish</title>
   <link rel="alternate" hreflang="ja" href="https://snapenglishapp.com/privacy">
   <link rel="alternate" hreflang="en" href="https://snapenglishapp.com/en/privacy">
-    <meta name="description" content="SnapEnglish のプライバシーポリシー。取得する情報、利用目的、AI 機能利用時の送信先、アカウント削除の方法を記載しています。">
+  <meta name="description" content="SnapEnglish のプライバシーポリシー。取得する情報、利用目的、AI 機能利用時の送信先、アカウント削除の方法を記載しています。">
   <link rel="canonical" href="https://snapenglishapp.com/privacy">
   <link rel="alternate" hreflang="x-default" href="https://snapenglishapp.com/privacy">
-  <link rel="icon" type="image/png" sizes="64x64" href="icon-64.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-  <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="/icon-64.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png">
   <link rel="stylesheet" href="tailwind.css?v=20261101">
+  <style>
+/* 新サイト（トップ・お問い合わせ）と同じ地と字。必要な分だけここに置く。
+   Tailwind のクラスは増やしていない＝tailwind.css の再ビルドは要らない。 */
+:root{ --pp-bg:#FFFFFF; --pp-ink:#16191D; --pp-ink2:#4A515A; --pp-ink3:#5F666F;
+       --pp-rule:#E6E6E3; --pp-link:#1F6B4A; }
+html, body{ overflow-x:clip; }
+body{ background:var(--pp-bg); color:var(--pp-ink); }
+/* ヘッダー（スクロールしても上に残る） */
+.nav-blur{ backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+           background:rgba(255,255,255,.9); }
+/* 器はトップ・お問い合わせと同じ（内容 1192px ＋ 左右 24px）。ヘッダーとフッターの
+   max-w-6xl（Tailwind の 1152px）も同じ幅に上書きして、左端を 1 本にそろえる。 */
+:root{ --pp-max:1192px; }
+.sd-wrap{ max-width:calc(var(--pp-max) + 48px); margin:0 auto; padding:0 24px; }
+header .max-w-6xl, footer .max-w-6xl{ max-width:calc(var(--pp-max) + 48px);
+                                      padding-left:24px; padding-right:24px; }
+@supports (padding: max(0px)){
+  .sd-wrap, header .max-w-6xl, footer .max-w-6xl{
+    padding-left:max(24px, env(safe-area-inset-left, 0px));
+    padding-right:max(24px, env(safe-area-inset-right, 0px)); }
+}
+.sd-footer{ background:var(--pp-bg); border-color:#DED7CB; }
+/* スマホの言語切り替え（トップと同じ作り）。360px 未満は幅が足りないのでメニューの中だけ */
+.sd-lang-sm{ display:none; }
+@media (min-width:360px) and (max-width:767px){
+  .sd-lang-sm{ display:inline-flex; align-items:center; height:44px; padding:0 2px;
+               font-size:12px; font-weight:700; color:#475569; text-decoration:none;
+               white-space:nowrap; }
+  .sd-lang-sm:hover{ color:#047857; }
+}
+/* JS が動かないとき: メニューは開いた状態で出し、開閉ボタンは隠す */
+@media (max-width:767px){
+  html.no-js #mobile-menu{ display:block !important; }
+  html.no-js #mobile-menu-btn{ display:none !important; }
+}
+/* 本文（法務ページ）。読む列は 46rem でそろえる。em にすると、字の小さい
+   「最終更新日」の行だけ列が狭くなって右端がずれる（実測）。 */
+.lg{ padding-block:clamp(36px,5vw,72px) clamp(48px,7vw,96px); }
+.lg-eyebrow{ font-size:12px; font-weight:700; letter-spacing:.14em; color:var(--pp-link); }
+.lg h1{ margin-top:12px; font-size:clamp(26px,3vw,38px); line-height:1.3;
+        letter-spacing:-.02em; font-weight:700; color:var(--pp-ink); }
+.lg-lead{ margin-top:18px; max-width:46rem; font-size:15.5px; line-height:1.95; color:var(--pp-ink2); }
+.lg-body{ margin-top:clamp(28px,4vw,44px); max-width:46rem; border-top:1px solid var(--pp-rule); }
+.lg-body section{ padding-block:clamp(24px,3vw,32px); border-bottom:1px solid var(--pp-rule); }
+.lg-body h2{ display:flex; align-items:baseline; gap:10px; margin:0;
+             font-size:17px; font-weight:700; line-height:1.6; color:var(--pp-ink); }
+.lg-body h2 .lg-no{ flex:none; font-size:13px; font-weight:700; color:var(--pp-link);
+                    font-variant-numeric:tabular-nums; white-space:nowrap; }
+.lg-body p{ margin:12px 0 0; font-size:15px; line-height:1.95; color:var(--pp-ink2); }
+.lg-body p.lg-note{ font-size:13px; line-height:1.85; color:var(--pp-ink3); }
+.lg-body ul{ margin:14px 0 0; padding-left:1.2em; list-style:disc; }
+.lg-body li{ margin-top:9px; font-size:15px; line-height:1.9; color:var(--pp-ink2); }
+.lg-body li::marker{ color:var(--pp-link); }
+.lg-body strong{ color:var(--pp-ink); font-weight:700; }
+.lg-body a{ color:var(--pp-link); text-decoration:underline; text-underline-offset:3px; }
+.lg-body a:hover{ color:var(--pp-ink); }
+.lg-updated{ margin-top:26px; max-width:46rem; text-align:right; font-size:13px; color:var(--pp-ink3); }
+@media (max-width:560px){
+  .lg-body h2{ display:block; }
+  .lg-body h2 .lg-no{ display:block; margin-bottom:4px; }
+  .lg-updated{ text-align:left; }
+}
+  </style>
 </head>
-<body class="bg-ivory text-ink antialiased">
+<body class="text-slate-900 antialiased">
 
-  <div class="max-w-3xl mx-auto safe-x pt-8 safe-pb-8">
-    <!-- ヘッダー -->
-    <header class="flex items-center justify-between mb-10">
-      <a href="/" class="inline-flex items-center gap-2 text-ink2 hover:text-ink transition whitespace-nowrap">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-        </svg>
-        <span>トップページに戻る</span>
-      </a>
-      <div class="flex items-center gap-3">
-        <span class="inline-flex items-center gap-1.5 px-1 text-xs font-semibold"><a href="/privacy" hreflang="ja" class="text-ink underline underline-offset-4 decoration-ink2" aria-current="page">JP</a><span class="text-rule" aria-hidden="true">|</span><a href="/en/privacy" hreflang="en" lang="en" class="text-ink2 hover:text-ink transition">EN</a></span>
-        <a href="/" class="inline-flex items-center gap-2 text-lg font-bold p-1 -m-1">
-          <img src="icon-64.png" alt="SnapEnglish" class="w-8 h-8 rounded-lg shadow-sm">
-          <span class="hidden xs:inline"><span style="color: #297849">Snap</span><span class="text-ink">English</span></span>
-        </a>
-      </div>
+    <!-- ヘッダー（トップ・お問い合わせと同じもの） -->
+    <header class="nav-blur sticky top-0 z-50 border-b border-slate-200/60">
+        <div class="max-w-6xl mx-auto safe-x h-16 flex items-center justify-between">
+            <a href="/" aria-label="SnapEnglish" class="flex items-center gap-2 text-base mini:text-lg font-bold">
+                <img src="/icon-64.png" alt="" aria-hidden="true" class="w-8 h-8 rounded-lg shadow-sm">
+                <span aria-hidden="true"><span style="color: #297849">Snap</span><span class="text-slate-800">English</span></span>
+            </a>
+            <nav class="hidden md:flex items-center gap-5 lg:gap-8 text-sm text-slate-600">
+                <a href="/#features" class="py-1 hover:text-emerald-700 transition">機能</a>
+                <a href="/#pricing" class="py-1 hover:text-emerald-700 transition">料金</a>
+                <a href="/#faq" class="py-1 hover:text-emerald-700 transition">FAQ</a>
+                <a href="/#news" class="py-1 hover:text-emerald-700 transition">News</a>
+                <a href="/contact" class="py-1 hover:text-emerald-700 transition">お問い合わせ</a>
+            </nav>
+            <div class="flex items-center gap-1.5">
+                <a href="/#cta" class="px-2.5 py-1.5 rounded-full bg-accent2 text-white text-xs font-bold hover:bg-accent3 transition whitespace-nowrap">無料で始める</a>
+                <span class="hidden md:inline-flex items-center gap-1.5 px-1 text-xs font-semibold"><a href="/privacy" hreflang="ja" class="text-slate-900 underline underline-offset-4 decoration-slate-400" aria-current="page">JP</a><span class="text-slate-300" aria-hidden="true">|</span><a href="/en/privacy" hreflang="en" lang="en" class="text-slate-600 hover:text-emerald-700 transition">EN</a></span>
+                <a class="sd-lang-sm" href="/en/privacy" hreflang="en" lang="en" aria-label="English">EN</a>
+                <button id="mobile-menu-btn" type="button"
+                    aria-label="メニューを開く"
+                    aria-expanded="false"
+                    aria-controls="mobile-menu"
+                    class="md:hidden p-1.5 rounded-full text-slate-600 hover:text-emerald-700 hover:bg-slate-100 transition">
+                    <svg data-icon="menu" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    <svg data-icon="close" class="hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white/95 backdrop-blur">
+            <nav class="flex flex-col safe-x py-3 text-sm text-slate-700">
+                <a href="/#features" class="py-2.5 hover:text-emerald-700 transition">機能</a>
+                <a href="/#pricing" class="py-2.5 hover:text-emerald-700 transition">料金</a>
+                <a href="/#faq" class="py-2.5 hover:text-emerald-700 transition">FAQ</a>
+                <a href="/#news" class="py-2.5 hover:text-emerald-700 transition">News</a>
+                <a href="/contact" class="py-2.5 hover:text-emerald-700 transition">お問い合わせ</a>
+                <a href="/en/privacy" hreflang="en" lang="en" class="py-2.5 mt-1 border-t border-slate-200 hover:text-emerald-700 transition">English</a>
+            </nav>
+        </div>
     </header>
 
-    <!-- 本文 -->
-    <main class="pt-1">
-      <header class="mb-10">
-        <p class="text-sm font-medium text-accent2 mb-2">Policy</p>
-        <h1 class="text-2xl sm:text-3xl font-bold text-ink mb-4">プライバシーポリシー</h1>
-        <p class="text-ink2 leading-relaxed">
-          SnapTechEdge（以下「当組織」）は、提供するアプリケーション「SnapEnglish」（以下「本アプリ」）および本ウェブサイトにおけるユーザーの個人情報の取扱いについて、個人情報の保護に関する法律その他関連法令を遵守し、適切に管理・保護することに努めます。
-        </p>
-      </header>
+    <main class="lg">
+      <div class="sd-wrap">
+        <p class="lg-eyebrow">Policy</p>
+        <h1>プライバシーポリシー</h1>
+        <p class="lg-lead">SnapTechEdge（以下「当組織」）は、提供するアプリケーション「SnapEnglish」（以下「本アプリ」）および本ウェブサイトにおけるユーザーの個人情報の取扱いについて、個人情報の保護に関する法律その他関連法令を遵守し、適切に管理・保護することに努めます。</p>
 
-      <div class="space-y-8">
+        <div class="lg-body">
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">1</span>
-            収集する情報
-          </h2>
-          <p class="text-ink2 mb-3">当組織は、本アプリの提供に必要な範囲で、以下の情報を取得します。</p>
-          <ul class="text-ink2 space-y-1.5 ml-4">
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>メールアドレス</strong>：Apple ID または Google アカウントによるサインイン時に取得します。アカウント識別および本人確認に使用します。</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>ユーザー ID</strong>：認証基盤（Firebase Authentication）が発行する一意の識別子です。学習データとアカウントの紐付けに使用します。あわせて、アプリの利用状況の分析にも使用します。</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>概算の所在地</strong>：IP アドレスから推定される国・地域・市区町村を、利用状況の分析に使用します。</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>購入履歴</strong>：サブスクリプション契約状況を管理するため、購入処理事業者（RevenueCat）を介して購入有無・有効期限等の情報を処理します。クレジットカード番号等の決済情報は Apple App Store または Google Play により処理され、当組織が直接取得することはありません。</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>プロダクト操作（学習データ）</strong>：問題への回答・正誤情報・学習進捗・復習リスト・完了日時など、本アプリの機能提供および学習継続に必要なデータのほか、画面の閲覧や利用時間などの利用状況を取得します。</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>入力・発話した英文（AI 機能利用時）</strong>：AI 添削・AI 英会話・発音フィードバックを提供するため、ユーザーが入力または発話した英文（英作文・並び替えの回答、会話メッセージ等）を、AI サービスを提供する <strong>Anthropic</strong> および <strong>Google</strong> へ送信します。送信はこれらの機能を利用したときに限られ、機能の提供以外の目的には使用しません。AI 機能を初めて利用する前に、アプリ内で送信内容・送信先を明示し、ユーザーの同意を得たうえで送信します（設定からいつでも撤回できます）。また、AI 英会話を最後まで終えてフィードバックが表示された場合は、あとから見返せるよう、その会話の内容（相手とユーザーのメッセージ）とフィードバックを「会話の履歴」としてアカウントに保存します。</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>作文の添削結果</strong>：あとから見返せるよう、入力した英文と添削結果をアカウントに保存します。</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>音声データ</strong>：発音練習機能利用時に限り、ユーザーの録音音声を <strong>Microsoft</strong> の音声解析サービスへ送信します（送信前にアプリ内で同意を取得）。当組織のサーバーには保存されません。問題の回答入力および AI 英会話の音声入力は、iOS では Apple の音声認識サービス（サーバーでの処理を含みます）、Android では端末に搭載された OS 標準の音声認識サービス（多くの端末では Google が提供します。サーバーでの処理を含む場合があります）で文字起こしされます。Android の端末に音声認識サービスがない場合に限り、AI 英会話の音声入力を OpenAI の音声認識サービスへ送信して文字起こしします。</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>お問い合わせ内容</strong>：本ウェブサイトの問い合わせフォームを送信された場合に取得する、メールアドレス、件名、本文。あわせて、不正利用の防止のため IP アドレス、User-Agent 等の技術情報を取得します。これらは問い合わせへの対応と自動受付メールの送信にのみ使用します。</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>端末の識別子（Android のみ）</strong>：無料体験の不正な繰り返しを防ぐために利用します。当組織は元の識別子を保存せず、アカウントと結び付けません。</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>クラッシュ・エラー情報</strong>：不具合の調査のため、機種、OS とアプリのバージョン、発生箇所などの技術情報を取得します。</span>
-            </li>
+          <h2><span class="lg-no">1</span>
+              <span>収集する情報</span></h2>
+          <p>当組織は、本アプリの提供に必要な範囲で、以下の情報を取得します。</p>
+          <ul>
+          <li><strong>メールアドレス</strong>：Apple ID または Google アカウントによるサインイン時に取得します。アカウント識別および本人確認に使用します。</li>
+          <li><strong>ユーザー ID</strong>：認証基盤（Firebase Authentication）が発行する一意の識別子です。学習データとアカウントの紐付けに使用します。あわせて、アプリの利用状況の分析にも使用します。</li>
+          <li><strong>概算の所在地</strong>：IP アドレスから推定される国・地域・市区町村を、利用状況の分析に使用します。</li>
+          <li><strong>購入履歴</strong>：サブスクリプション契約状況を管理するため、購入処理事業者（RevenueCat）を介して購入有無・有効期限等の情報を処理します。クレジットカード番号等の決済情報は Apple App Store または Google Play により処理され、当組織が直接取得することはありません。</li>
+          <li><strong>プロダクト操作（学習データ）</strong>：問題への回答・正誤情報・学習進捗・復習リスト・完了日時など、本アプリの機能提供および学習継続に必要なデータのほか、画面の閲覧や利用時間などの利用状況を取得します。</li>
+          <li><strong>入力・発話した英文（AI 機能利用時）</strong>：AI 添削・AI 英会話・発音フィードバックを提供するため、ユーザーが入力または発話した英文（英作文・並び替えの回答、会話メッセージ等）を、AI サービスを提供する <strong>Anthropic</strong> および <strong>Google</strong> へ送信します。送信はこれらの機能を利用したときに限られ、機能の提供以外の目的には使用しません。AI 機能を初めて利用する前に、アプリ内で送信内容・送信先を明示し、ユーザーの同意を得たうえで送信します（設定からいつでも撤回できます）。また、AI 英会話を最後まで終えてフィードバックが表示された場合は、あとから見返せるよう、その会話の内容（相手とユーザーのメッセージ）とフィードバックを「会話の履歴」としてアカウントに保存します。</li>
+          <li><strong>作文の添削結果</strong>：あとから見返せるよう、入力した英文と添削結果をアカウントに保存します。</li>
+          <li><strong>音声データ</strong>：発音練習機能利用時に限り、ユーザーの録音音声を <strong>Microsoft</strong> の音声解析サービスへ送信します（送信前にアプリ内で同意を取得）。当組織のサーバーには保存されません。問題の回答入力および AI 英会話の音声入力は、iOS では Apple の音声認識サービス（サーバーでの処理を含みます）、Android では端末に搭載された OS 標準の音声認識サービス（多くの端末では Google が提供します。サーバーでの処理を含む場合があります）で文字起こしされます。Android の端末に音声認識サービスがない場合に限り、AI 英会話の音声入力を OpenAI の音声認識サービスへ送信して文字起こしします。</li>
+          <li><strong>お問い合わせ内容</strong>：本ウェブサイトの問い合わせフォームを送信された場合に取得する、メールアドレス、件名、本文。あわせて、不正利用の防止のため IP アドレス、User-Agent 等の技術情報を取得します。これらは問い合わせへの対応と自動受付メールの送信にのみ使用します。</li>
+          <li><strong>端末の識別子（Android のみ）</strong>：無料体験の不正な繰り返しを防ぐために利用します。当組織は元の識別子を保存せず、アカウントと結び付けません。</li>
+          <li><strong>クラッシュ・エラー情報</strong>：不具合の調査のため、機種、OS とアプリのバージョン、発生箇所などの技術情報を取得します。</li>
           </ul>
-          <p class="text-ink2 text-sm mt-3 ml-4">
-            ※ 当組織は、住所、電話番号、生年月日、IDFA 等の広告識別子を取得しません。広告を目的とした利用や、他社のアプリ・ウェブサイトを横断した追跡は行いません。
+          <p class="lg-note">
+          ※ 当組織は、住所、電話番号、生年月日、IDFA 等の広告識別子を取得しません。広告を目的とした利用や、他社のアプリ・ウェブサイトを横断した追跡は行いません。
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">2</span>
-            利用目的
-          </h2>
-          <p class="text-ink2 mb-3">取得した情報は、以下の目的の範囲でのみ利用します。</p>
-          <ul class="text-ink2 space-y-1.5 ml-4">
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              本アプリの機能提供および学習進捗の管理
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              AI 添削・発音フィードバックなど学習支援機能の提供
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              サブスクリプションの管理および有効性の確認
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              ユーザーサポートへの対応および通知
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              サービスの安全性確保および不正利用の防止
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              サービスの維持・改善および新機能のご案内
-            </li>
+          <h2><span class="lg-no">2</span>
+              <span>利用目的</span></h2>
+          <p>取得した情報は、以下の目的の範囲でのみ利用します。</p>
+          <ul>
+          <li>
+          本アプリの機能提供および学習進捗の管理
+          </li>
+          <li>
+          AI 添削・発音フィードバックなど学習支援機能の提供
+          </li>
+          <li>
+          サブスクリプションの管理および有効性の確認
+          </li>
+          <li>
+          ユーザーサポートへの対応および通知
+          </li>
+          <li>
+          サービスの安全性確保および不正利用の防止
+          </li>
+          <li>
+          サービスの維持・改善および新機能のご案内
+          </li>
           </ul>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">3</span>
-            外部サービス（処理委託先）
-          </h2>
-          <p class="text-ink2 mb-3">本サービスでは、機能提供のために外部サービスを利用しています。現在利用している主なサービスは以下のとおりで、機能の改善や提供環境の変更により変更される場合があります。各サービスのプライバシーポリシーもあわせてご確認ください。</p>
-          <ul class="text-ink2 space-y-1.5 ml-4">
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>Google（Firebase）</strong>：認証、データベース（Firestore）、音声ファイル配信（Cloud Storage）、利用状況の分析（Google アナリティクス）、クラッシュ情報の収集（Crashlytics）</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>RevenueCat</strong>：サブスクリプション状態の管理</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>Apple</strong>：iOS の音声認識（回答入力および AI 英会話の音声入力。サーバーでの処理を含みます）、Sign in with Apple</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>端末の OS 標準の音声認識サービス（Android）</strong>：回答入力および AI 英会話の音声入力の文字起こし。提供者は端末により異なります（多くの端末では Google）。端末や設定によっては、認識のために音声が提供者のサーバーへ送信されます。</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>Anthropic</strong>：AI 添削（英作文・並び替え）、AI 英会話の応答・採点、発音フィードバックの生成。ユーザーが入力・発話した英文を送信します。</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>Google</strong>：AI 英会話の応答生成。ユーザーの会話メッセージを送信します。</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>Microsoft</strong>：発音解析処理（録音音声の送信）、AI 英会話の音声合成</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>OpenAI</strong>：AI 英会話の音声合成の代替、および音声認識の代替（Android で端末の音声認識サービスが利用できない場合）</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>Studyplus（スタディプラス株式会社）</strong>：学習記録の連携。ユーザーが連携を有効にした場合に限り、学習した時間と日時を Studyplus へ送信します（回答内容や入力した英文は送信しません）。連携は設定からいつでも解除できます。</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>Cloudflare</strong>：本ウェブサイトの配信、問い合わせフォームのボット対策、およびアクセス解析。このうちアクセス解析は Cookie を使用せず、訪問者個人を識別する情報を取得しません</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span><strong>Resend</strong>：問い合わせフォームからのメール送信（運営への通知と自動受付メール）</span>
-            </li>
+          <h2><span class="lg-no">3</span>
+              <span>外部サービス（処理委託先）</span></h2>
+          <p>本サービスでは、機能提供のために外部サービスを利用しています。現在利用している主なサービスは以下のとおりで、機能の改善や提供環境の変更により変更される場合があります。各サービスのプライバシーポリシーもあわせてご確認ください。</p>
+          <ul>
+          <li><strong>Google（Firebase）</strong>：認証、データベース（Firestore）、音声ファイル配信（Cloud Storage）、利用状況の分析（Google アナリティクス）、クラッシュ情報の収集（Crashlytics）</li>
+          <li><strong>RevenueCat</strong>：サブスクリプション状態の管理</li>
+          <li><strong>Apple</strong>：iOS の音声認識（回答入力および AI 英会話の音声入力。サーバーでの処理を含みます）、Sign in with Apple</li>
+          <li><strong>端末の OS 標準の音声認識サービス（Android）</strong>：回答入力および AI 英会話の音声入力の文字起こし。提供者は端末により異なります（多くの端末では Google）。端末や設定によっては、認識のために音声が提供者のサーバーへ送信されます。</li>
+          <li><strong>Anthropic</strong>：AI 添削（英作文・並び替え）、AI 英会話の応答・採点、発音フィードバックの生成。ユーザーが入力・発話した英文を送信します。</li>
+          <li><strong>Google</strong>：AI 英会話の応答生成。ユーザーの会話メッセージを送信します。</li>
+          <li><strong>Microsoft</strong>：発音解析処理（録音音声の送信）、AI 英会話の音声合成</li>
+          <li><strong>OpenAI</strong>：AI 英会話の音声合成の代替、および音声認識の代替（Android で端末の音声認識サービスが利用できない場合）</li>
+          <li><strong>Studyplus（スタディプラス株式会社）</strong>：学習記録の連携。ユーザーが連携を有効にした場合に限り、学習した時間と日時を Studyplus へ送信します（回答内容や入力した英文は送信しません）。連携は設定からいつでも解除できます。</li>
+          <li><strong>Cloudflare</strong>：本ウェブサイトの配信、問い合わせフォームのボット対策、およびアクセス解析。このうちアクセス解析は Cookie を使用せず、訪問者個人を識別する情報を取得しません</li>
+          <li><strong>Resend</strong>：問い合わせフォームからのメール送信（運営への通知と自動受付メール）</li>
           </ul>
-          <p class="text-ink2 text-sm mt-3 ml-4">
-            ※ 上記の第三者へデータを提供する場合、当組織は各社が本ポリシーと同等以上の水準でデータを保護することを、各社のプライバシーポリシー・データ処理条項により確認しています。AI サービス（Anthropic・Google・OpenAI）へ送信したデータは、各社のポリシーに従い、当該機能の提供のために処理されます。
+          <p class="lg-note">
+          ※ 上記の第三者へデータを提供する場合、当組織は各社が本ポリシーと同等以上の水準でデータを保護することを、各社のプライバシーポリシー・データ処理条項により確認しています。AI サービス（Anthropic・Google・OpenAI）へ送信したデータは、各社のポリシーに従い、当該機能の提供のために処理されます。
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">4</span>
-            国外への移転
-          </h2>
-          <p class="text-ink2 leading-relaxed">
-            上記の外部サービスの一部は米国その他の海外サーバー上で運用されており、ユーザー情報がそれらの国に移転される場合があります。当組織は、移転先における個人情報保護水準を確認し、適切な保護措置を講じた上で利用します。本アプリを利用することにより、当該移転に同意したものとみなします。
+          <h2><span class="lg-no">4</span>
+              <span>国外への移転</span></h2>
+          <p>
+          上記の外部サービスの一部は米国その他の海外サーバー上で運用されており、ユーザー情報がそれらの国に移転される場合があります。当組織は、移転先における個人情報保護水準を確認し、適切な保護措置を講じた上で利用します。本アプリを利用することにより、当該移転に同意したものとみなします。
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">5</span>
-            安全管理措置
-          </h2>
-          <p class="text-ink2 leading-relaxed">
-            当組織は、個人情報の漏えい、滅失または毀損の防止のために、適切な組織的、人的、技術的施策を講じます。学習データおよびアカウント情報は暗号化された通信（HTTPS）で送受信され、クラウド上に安全に保管されます。
+          <h2><span class="lg-no">5</span>
+              <span>安全管理措置</span></h2>
+          <p>
+          当組織は、個人情報の漏えい、滅失または毀損の防止のために、適切な組織的、人的、技術的施策を講じます。学習データおよびアカウント情報は暗号化された通信（HTTPS）で送受信され、クラウド上に安全に保管されます。
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">6</span>
-            第三者提供
-          </h2>
-          <p class="text-ink2 leading-relaxed">
-            当組織は、法令に基づき開示が認められる場合および第 3 項に記載の処理委託の場合を除き、あらかじめユーザーの同意を得ることなく個人情報を第三者に提供することはありません。当組織は、個人情報を販売することはありません。
+          <h2><span class="lg-no">6</span>
+              <span>第三者提供</span></h2>
+          <p>
+          当組織は、法令に基づき開示が認められる場合および第 3 項に記載の処理委託の場合を除き、あらかじめユーザーの同意を得ることなく個人情報を第三者に提供することはありません。当組織は、個人情報を販売することはありません。
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">7</span>
-            保有期間・ユーザーの権利・アカウント削除
-          </h2>
-          <p class="text-ink2 mb-3">アカウント情報および学習データは、アカウントが存続する間保持し、アカウントの削除にあわせて関連データを削除します。お問い合わせ内容は、対応および不正利用の防止に必要な期間保持します。AI 機能の提供のために送信した音声は、当組織のサーバーには保存しません。英文は、「会話の履歴」および「作文の添削結果」として保存するものを除き、当組織のサーバーには保存しません（送信先での取扱いは各社のポリシーによります）。これらはアカウントが存続する間保持し、「会話の履歴」はアプリ内の「Library → 会話の履歴」からいつでも削除できます。無料体験の不正利用を防ぐための記録は、その目的に必要な期間、アカウント削除後も保持します。また、法令により保存が必要な情報は、法令の定める期間保持します。</p>
-          <p class="text-ink2 mb-3">ユーザーは以下の権利を有します。</p>
-          <ul class="text-ink2 space-y-1.5 ml-4">
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              自身の個人情報の開示、訂正、削除、利用停止の請求
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              <span>アプリ内「マイページ → アカウント削除」からのアカウントおよび関連データの即時削除</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-accent2 mt-1.5">•</span>
-              通知やデータ収集のオプトアウト
-            </li>
+          <h2><span class="lg-no">7</span>
+              <span>保有期間・ユーザーの権利・アカウント削除</span></h2>
+          <p>アカウント情報および学習データは、アカウントが存続する間保持し、アカウントの削除にあわせて関連データを削除します。お問い合わせ内容は、対応および不正利用の防止に必要な期間保持します。AI 機能の提供のために送信した音声は、当組織のサーバーには保存しません。英文は、「会話の履歴」および「作文の添削結果」として保存するものを除き、当組織のサーバーには保存しません（送信先での取扱いは各社のポリシーによります）。これらはアカウントが存続する間保持し、「会話の履歴」はアプリ内の「Library → 会話の履歴」からいつでも削除できます。無料体験の不正利用を防ぐための記録は、その目的に必要な期間、アカウント削除後も保持します。また、法令により保存が必要な情報は、法令の定める期間保持します。</p>
+          <p>ユーザーは以下の権利を有します。</p>
+          <ul>
+          <li>
+          自身の個人情報の開示、訂正、削除、利用停止の請求
+          </li>
+          <li>アプリ内「マイページ → アカウント削除」からのアカウントおよび関連データの即時削除</li>
+          <li>
+          通知やデータ収集のオプトアウト
+          </li>
           </ul>
-          <p class="text-ink2 mt-3">
-            アプリ内の機能で対応できない請求については、本人確認の上、最終項のお問い合わせ先にご連絡ください。
+          <p>
+          アプリ内の機能で対応できない請求については、本人確認の上、最終項のお問い合わせ先にご連絡ください。
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">8</span>
-            子どものプライバシー
-          </h2>
-          <p class="text-ink2 leading-relaxed">
-            本アプリは 13 歳未満の児童を対象としていません。13 歳未満の方が利用される場合は、保護者の同意と監督のもとでご利用ください。13 歳未満の児童から意図せず個人情報を取得したことが判明した場合、速やかに削除します。
+          <h2><span class="lg-no">8</span>
+              <span>子どものプライバシー</span></h2>
+          <p>
+          本アプリは 13 歳未満の児童を対象としていません。13 歳未満の方が利用される場合は、保護者の同意と監督のもとでご利用ください。13 歳未満の児童から意図せず個人情報を取得したことが判明した場合、速やかに削除します。
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">9</span>
-            プライバシーポリシーの改定
-          </h2>
-          <p class="text-ink2 leading-relaxed">
-            当組織は、必要に応じて本ポリシーを変更することがあります。重要な変更がある場合は、本アプリ内またはウェブサイト上での掲示によりユーザーに通知いたします。
+          <h2><span class="lg-no">9</span>
+              <span>プライバシーポリシーの改定</span></h2>
+          <p>
+          当組織は、必要に応じて本ポリシーを変更することがあります。重要な変更がある場合は、本アプリ内またはウェブサイト上での掲示によりユーザーに通知いたします。
           </p>
         </section>
-
         <section>
-          <h2 class="text-lg font-bold text-ink mb-3 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-ivory2 text-accent2 text-sm flex items-center justify-center font-bold">10</span>
-            お問い合わせ先
-          </h2>
-          <p class="text-ink2 mb-3">個人情報の取扱いに関するお問い合わせは、以下までお願いいたします。</p>
-          <a href="mailto:support@snapenglishapp.com" class="text-accent2 hover:text-ink font-medium">
-            support@snapenglishapp.com
+          <h2><span class="lg-no">10</span>
+              <span>お問い合わせ先</span></h2>
+          <p>個人情報の取扱いに関するお問い合わせは、以下までお願いいたします。</p>
+          <a href="mailto:support@snapenglishapp.com">
+          support@snapenglishapp.com
           </a>
         </section>
-      </div>
+        </div>
 
-      <div class="mt-10 pt-6 border-t border-rule text-right text-sm text-ink2">
-        最終更新日：2026年9月23日
+        <p class="lg-updated">最終更新日：2026年9月23日</p>
       </div>
     </main>
 
-    <!-- フッター -->
-    <footer class="mt-8 mb-8 text-sm text-ink2 flex items-center justify-between">
-      <a href="/" class="inline-block py-1 hover:text-ink transition">トップページへ</a>
-      <span>© <span id="year">2026</span> SnapTechEdge</span>
+    <footer class="sd-footer border-t">
+        <div class="max-w-6xl mx-auto safe-x pt-10 safe-pb-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-600">
+            <div class="flex items-center gap-2">
+                <img src="/icon-64.png" alt="SnapEnglish" class="w-7 h-7 rounded-lg shadow-sm">
+                <span class="font-semibold"><span style="color: #297849">Snap</span><span class="text-slate-800">English</span></span>
+                <span class="text-ink2">— © <span id="year">2026</span> SnapTechEdge</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-1 justify-center">
+                <a href="/about" class="py-1 hover:text-emerald-700 transition">SnapEnglish とは</a>
+                <a href="/terms" class="py-1 hover:text-emerald-700 transition">利用規約</a>
+                <a href="/privacy" class="py-1 hover:text-emerald-700 transition">プライバシー</a>
+                <a href="/tokushoho" class="py-1 hover:text-emerald-700 transition">特商法表記</a>
+                <a href="/contact" class="py-1 hover:text-emerald-700 transition">お問い合わせ</a>
+                <a href="https://snaptechedge.com" class="py-1 hover:text-emerald-700 transition">運営: SnapTechEdge</a>
+            </div>
+        </div>
     </footer>
-  </div>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // モバイルメニュー (ハンバーガー → ドロワー)。トップ・お問い合わせと同じもの。
+        (function() {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            if (!btn || !menu) return;
+            const iconMenu = btn.querySelector('[data-icon="menu"]');
+            const iconClose = btn.querySelector('[data-icon="close"]');
+            function setOpen(open) {
+                menu.classList.toggle('hidden', !open);
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                iconMenu.classList.toggle('hidden', open);
+                iconClose.classList.toggle('hidden', !open);
+            }
+            btn.addEventListener('click', () => {
+                setOpen(menu.classList.contains('hidden'));
+            });
+            menu.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => setOpen(false));
+            });
+            window.matchMedia('(min-width: 768px)').addEventListener('change', e => {
+                if (e.matches) setOpen(false);
+            });
+        })();
+    </script>
 </body>
 </html>
