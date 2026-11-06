@@ -404,7 +404,7 @@
        枠・角丸・影は付けない。絵の地色をページの地色に合わせたうえで、
        四辺をマスクでぼかして、貼り込んだ矩形に見えないようにする。 */
     .sd-hero-art{ margin:0; width:clamp(280px,34vw,440px); }
-    .sd-hero-art img{ display:block; width:100%; height:auto;
+    .sd-hero-art :is(img,video){ display:block; width:100%; height:auto;
                  -webkit-mask-image:
                     linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%),
                     linear-gradient(to bottom, transparent 0, #000 6%, #000 93%, transparent 100%);
@@ -1335,7 +1335,7 @@
            四辺のぼかしは desktop 側の指定のまま。 */
         @media (max-width:700px){
             .sd-hero-art{ width:min(260px,68vw); margin:0 auto 4px; }
-            .sd-hero-art img{ aspect-ratio:900/1150; object-fit:cover;
+            .sd-hero-art :is(img,video){ aspect-ratio:900/1150; object-fit:cover;
                       object-position:50% 60%; }
         }
         .sd-modes{ grid-template-columns:repeat(2,minmax(0,1fr)); max-width:none; }
@@ -1534,7 +1534,7 @@ header.nav-blur{ background:rgba(255,255,255,.9) !important; }
 
 @media (min-width:1001px){
     /* 横に並ぶ絵は、画面が低いときに縦をはみ出さないよう上限を付ける */
-    .sd-hero-art img{ max-height:calc(100svh - 230px); width:auto; margin-inline:auto; }
+    .sd-hero-art :is(img,video){ max-height:calc(100svh - 230px); width:auto; margin-inline:auto; }
 }
 @media (max-width:1000px){
     /* 縦に積む並びでは、絵の高さを「画面の残り」から決める。文字の高さを実数で決め打ちするのは
@@ -1559,7 +1559,7 @@ header.nav-blur{ background:rgba(255,255,255,.9) !important; }
        86.8889vw = 68vw x 1150/900。 */
     .sd-hero-art{ flex:1 1 0; width:auto; min-height:200px; max-height:min(332px,86.8889vw);
                   margin-bottom:calc(clamp(10px,1.6svh,34px) + 6px); }
-    .sd-hero-art img{ height:100%; width:auto; max-width:min(260px,68vw);
+    .sd-hero-art :is(img,video){ height:100%; width:auto; max-width:min(260px,68vw);
                       aspect-ratio:900/1150; object-fit:cover; object-position:50% 60%;
                       margin-inline:auto; }
     .sd-hero .pp-desc{ line-height:1.7; }
@@ -2115,8 +2115,32 @@ html[lang="en"] .pp-stat b small{ font-size:12px; }
              枠も影も付けない＝「画像を貼った」ようには見せず、そのまま地に溶かす。
              3D 版（hero-3d.webp）に差し替えたが、オーナー判断でこちらに戻した。 -->
         <figure class="sd-hero-art" aria-hidden="true">
-            <img src="/demo/hero-train-white.webp" alt=""
-                 width="900" height="1399" decoding="async">
+            <!-- 同じ絵を 10 秒だけ動かしたループ（Kling O1・最初と最後のコマ＝この絵）。
+                 poster は元の静止画＝読み込み前も、動きを減らす設定でも、今までと同じ見た目。
+                 再生は下の小さなスクリプトが始める（autoplay 属性は付けない）。 -->
+            <video class="sd-hero-video" src="/demo/hero-train-loop.mp4"
+                   poster="/demo/hero-train-white.webp"
+                   width="900" height="1400" muted loop playsinline preload="metadata"
+                   disablepictureinpicture disableremoteplayback tabindex="-1"></video>
+            <script>
+            (function(){
+                var v=document.currentScript.previousElementSibling;
+                var mq=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)');
+                var src=v.getAttribute('src'), seen=true;
+                function sync(){
+                    // 動きを減らす設定では src を外して poster（元の静止画）に戻す。
+                    if(mq&&mq.matches){ v.pause(); if(v.getAttribute('src')){ v.removeAttribute('src'); v.load(); } return; }
+                    if(!v.getAttribute('src')) v.setAttribute('src',src);
+                    if(!seen){ v.pause(); return; }  // 画面外では止める
+                    v.muted=true; var p=v.play(); if(p&&p.catch) p.catch(function(){});
+                }
+                sync();
+                if(mq&&mq.addEventListener) mq.addEventListener('change',sync);
+                if('IntersectionObserver' in window){
+                    new IntersectionObserver(function(es){ seen=es[0].isIntersecting; sync(); }).observe(v);
+                }
+            })();
+            </script>
         </figure>
     </div>
 
