@@ -123,6 +123,12 @@ header .max-w-6xl, footer .max-w-6xl{ max-width:calc(var(--pp-max) + 48px);
    器の線から、トップの冒頭とカードの中の文字と同じ clamp(28px,5vw,80px) だけ内側に入れる。
    ヘッダーとフッターは器の線のまま（トップと同じ）。1000px 以下は元から一致しているので触らない。 */
 @media (min-width:1001px){ .lg-in{ padding-inline-start:clamp(28px,5vw,80px); } }
+/* 狭い画面では、節の番号を見出しの上の行に置く（横に並べると見出しが窮屈） */
+@media (max-width:560px){
+  .lg-body h2{ display:block; }
+  .lg-body h2 .lg-no{ display:block; margin-bottom:4px; }
+  .lg-updated{ text-align:left; }
+}
 /* 会社概要: 箇条書きの見出し語 */
 .lg-body section > ul li strong:first-child{ color:var(--pp-ink); }
 /* 会社概要: ストアのボタン */
@@ -146,11 +152,6 @@ header .max-w-6xl, footer .max-w-6xl{ max-width:calc(var(--pp-max) + 48px);
   .lg-table tr{ border-bottom:1px solid var(--pp-rule); padding-block:14px; }
   .lg-table th{ padding:0 0 4px; font-size:13px; color:var(--pp-ink3); border:0; }
   .lg-table td{ padding:0; border:0; }
-}
-@media (max-width:560px){
-  .lg-body h2{ display:block; }
-  .lg-body h2 .lg-no{ display:block; margin-bottom:4px; }
-  .lg-updated{ text-align:left; }
 }
   </style>
 </head>
