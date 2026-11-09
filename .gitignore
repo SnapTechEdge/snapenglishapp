@@ -2,3 +2,10 @@
 node_modules/
 .claude/
 WEB_REDESIGN_PLAN.md
+
+# 秘密の値（このリポジトリは公開しているので、誤って commit しないようにする）
+.env
+.env.*
+.dev.vars
+.dev.vars.*
+.wrangler/
