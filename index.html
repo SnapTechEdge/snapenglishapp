@@ -363,7 +363,8 @@
     /* バッジの大きさは既存の .app-store-badge / .google-play-badge が持つ。
        Google の公式 PNG は上下 11.6% が透明余白なので、ここで height だけ揃えると
        黒い角丸が Apple より小さく見える。実測済みの補正を使い回す。 */
-    .sd-badges{ margin-top:34px; display:flex; flex-wrap:wrap; align-items:center; gap:12px; }
+    /* gap はバッジ高の 1/4 以上（56px のとき 14px）。折り返したときの縦にも効く。 */
+    .sd-badges{ margin-top:34px; display:flex; flex-wrap:wrap; align-items:center; gap:14px; }
     .sd-hero .sd-plus{ margin-top:8px; font-size:12.5px; color:var(--sd-ink-2); }
     /* 「＋」の1本目だけ前と離す。DOM では詳しい説明（.sd-sub）の次に来る。 */
     .sd-hero .sd-sub + .sd-plus{ margin-top:11px; }
@@ -1543,7 +1544,11 @@ header.nav-blur{ background:rgba(255,255,255,.9) !important; }
 .sd-hero .pp-desc{ margin-top:clamp(8px,2svh,22px); }
 .sd-hero .pp-stats{ margin-top:clamp(10px,3svh,34px); }
 .sd-hero .sd-badges{ margin-top:clamp(12px,3.4svh,48px); }
-.sd-hero .sd-note{ margin-top:clamp(4px,1svh,14px); }
+/* バッジの下はバッジ高の 1/4 以上あける（Apple・Google のクリアスペース）。
+   縦積みのバッジは 50px なので下限 12.5px、高い画面では今までどおり 14px まで。 */
+.sd-hero .sd-note{ margin-top:clamp(12.5px,1svh,14px); }
+/* 幅 640px 以上はバッジ 56px になりうるので 14px を確保する。 */
+@media (min-width:640px){ .sd-hero .sd-note{ margin-top:14px; } }
 
 @media (min-width:1001px){
     /* 横に並ぶ絵は、画面が低いときに縦をはみ出さないよう上限を付ける */
@@ -1652,8 +1657,8 @@ header.nav-blur{ background:rgba(255,255,255,.9) !important; }
 @media (max-width:359px) and (max-height:700px){
     .sd-hero .pp-desc{ line-height:1.5; }
     .sd-hero .pp-stats{ row-gap:2px; margin-top:10px; }
-    .sd-hero .sd-badges{ margin-top:10px; }
-    .sd-hero .sd-note{ margin-top:3px; }
+    .sd-hero .sd-badges{ margin-top:10.5px; }   /* 42px バッジの 1/4 */
+    .sd-hero .sd-note{ margin-top:10.5px; }
 }
 
 </style>
