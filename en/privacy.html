@@ -145,11 +145,11 @@ header .max-w-6xl, footer .max-w-6xl{ max-width:calc(var(--pp-max) + 48px);
           <li><strong>Approximate location</strong>: the country, region, and city inferred from your IP address, used for usage analytics.</li>
           <li><strong>Purchase history</strong>: to manage your subscription, RevenueCat processes information such as purchase status and expiration. Payment details such as credit card numbers are processed by Apple App Store or Google Play, and we do not receive them directly.</li>
           <li><strong>Product activity (learning data)</strong>: answers, correctness, learning progress, review list, completion timestamps, etc. — data needed to provide the App and support continued learning — as well as usage such as screens viewed and time spent.</li>
-          <li><strong>English text you enter or speak (when using AI features)</strong>: to provide AI feedback, AI conversation, and pronunciation feedback, the English text you enter or speak (composition/rearrangement answers, conversation messages, etc.) is sent to <strong>Anthropic</strong> and <strong>Google</strong>, which provide the AI services. This is sent only when you use these features and is used solely to provide them. Before you first use an AI feature, we disclose what data is sent and to whom inside the app and obtain your consent before sending (you can withdraw it anytime in Settings). In addition, when you finish an AI conversation and its feedback is shown, we save the conversation (your messages and the AI partner's messages) and the feedback to your account as your "conversation history" so you can review it later.</li>
+          <li><strong>What you enter or speak (when using AI features)</strong>: to provide the features that use AI (feedback and grading, AI conversation, pronunciation advice, questions about a practice item, and the like), we send what you entered, transcripts of what you spoke, your answers and the feedback on them, your learning level, and the results of pronunciation analysis &mdash; as each feature requires &mdash; to <strong>Anthropic</strong> and <strong>Google</strong>, which provide the AI services. This is sent only when you use these features and is used solely to provide them. Before you first use an AI feature, we disclose what data is sent and to whom inside the app and obtain your consent before sending (you can withdraw it anytime in Settings). In addition, when you end an AI conversation, we save the conversation (your messages and the AI partner's messages), together with its feedback where feedback was produced, to your account as your "conversation history" so you can review it later.</li>
           <li><strong>Composition feedback</strong>: we save the English text you entered and the feedback on it to your account so you can review it later.</li>
-          <li><strong>Voice data</strong>: only when you use the pronunciation practice feature, your recorded audio is sent to <strong>Microsoft</strong>'s speech analysis service (consent obtained in-app before sending). It is not stored on our servers. Voice input for question answers and for AI conversation is transcribed by Apple's speech recognition service on iOS (this includes server-side processing), and on Android by the speech recognition service built into your device's operating system (provided by Google on most devices; this may include server-side processing). Only when no speech recognition service is available on an Android device, voice input for AI conversation is sent to OpenAI's speech recognition service for transcription.</li>
-          <li><strong>Inquiry content</strong>: the email address, subject, and message you submit through the contact form on this website. We also collect technical information such as your IP address and User-Agent to prevent abuse. We use these solely to respond to your inquiry and to send the automatic acknowledgement email.</li>
-          <li><strong>Device identifier (Android only)</strong>: used to prevent repeated abuse of the free trial. We do not store the original identifier and do not link it to your account.</li>
+          <li><strong>Voice data</strong>: only when you use the pronunciation practice feature, your recorded audio is sent to <strong>Microsoft</strong>'s speech analysis service (consent obtained in-app before sending). It is not stored on our servers. Voice input for question answers and for AI conversation is transcribed by a speech recognition service. Depending on your OS, your device and your settings in the app, it is processed by Apple, by the speech recognition service built into your device&rsquo;s operating system (provided by Google on most devices), or by OpenAI, and in each case the audio may be sent to that provider&rsquo;s servers for recognition.</li>
+          <li><strong>Inquiry content</strong>: the email address, subject, and message you submit through the contact form on this website. We also collect technical information such as your IP address and User-Agent to prevent abuse. We use these solely to respond to your inquiry, to send the automatic acknowledgement email, and to prevent abuse.</li>
+          <li><strong>Device identifier (Android only)</strong>: to prevent repeated abuse of the free trial, we convert the device identifier into a value that cannot be reversed. In some cases we record that value against your account.</li>
           <li><strong>Crash and error data</strong>: to diagnose faults, we collect technical information such as your device model, OS and app versions, and where the failure occurred.</li>
           </ul>
           <p class="lg-note">
@@ -175,13 +175,13 @@ header .max-w-6xl, footer .max-w-6xl{ max-width:calc(var(--pp-max) + 48px);
           <p>We use third-party services to deliver our features. The main services we currently use are listed below; they may change as we improve the product or change our infrastructure. Please also review each service's privacy policy.</p>
           <ul>
           <li><strong>Google (Firebase)</strong>: authentication, database (Firestore), audio file delivery (Cloud Storage), usage analytics (Google Analytics), crash reporting (Crashlytics)</li>
-          <li><strong>RevenueCat</strong>: subscription state management</li>
+          <li><strong>RevenueCat</strong>: subscription state management (receives your user ID and purchase information)</li>
           <li><strong>Apple</strong>: speech recognition on iOS (question answers and AI conversation voice input; includes server-side processing), Sign in with Apple</li>
           <li><strong>The speech recognition service built into your device's operating system (Android)</strong>: transcription of voice input for question answers and AI conversation. The provider differs by device (Google on most devices). Depending on the device and its settings, audio is sent to that provider's servers for recognition.</li>
-          <li><strong>Anthropic</strong>: AI feedback (composition/rearrangement), AI conversation responses and grading, pronunciation feedback generation. Receives the English text you enter or speak.</li>
-          <li><strong>Google</strong>: AI conversation response generation. Receives your conversation messages.</li>
+          <li><strong>Anthropic</strong>: processing for the features that use AI (feedback and grading, AI conversation, pronunciation advice, and the like). Receives what you entered, transcripts of what you spoke, your answers and the feedback on them, your learning level, and the results of pronunciation analysis.</li>
+          <li><strong>Google</strong>: processing for the features that use AI (AI conversation responses, review of composition feedback, and the like), and speech synthesis for AI conversation. Receives what you entered, transcripts of what you spoke, your answers and the feedback on them, and your learning level.</li>
           <li><strong>Microsoft</strong>: pronunciation analysis (sending recorded audio), AI conversation speech synthesis</li>
-          <li><strong>OpenAI</strong>: fallback speech synthesis for AI conversation, and fallback speech recognition (when no speech recognition service is available on an Android device)</li>
+          <li><strong>OpenAI</strong>: speech recognition (question answers and AI conversation voice input; used depending on your OS, device and settings), speech synthesis for AI conversation</li>
           <li><strong>Studyplus (Studyplus Inc.)</strong>: study-record integration. Only if you enable the integration, the length of time you studied and the date and time are sent to Studyplus (your answers and the text you enter are not sent). You can unlink at any time from Settings.</li>
           <li><strong>Cloudflare</strong>: hosting of this website, bot protection for the contact form, and website analytics. The analytics uses no cookies and collects no information that identifies individual visitors</li>
           <li><strong>Resend</strong>: sending email from the contact form (notification to us and the automatic acknowledgement to you)</li>
@@ -194,7 +194,7 @@ header .max-w-6xl, footer .max-w-6xl{ max-width:calc(var(--pp-max) + 48px);
           <h2><span class="lg-no">4</span>
               <span>International Transfers</span></h2>
           <p>
-          Some of the third-party services above operate on servers in the United States and other countries, and your information may be transferred there. We confirm the data protection level at the destination and apply appropriate safeguards before such transfers. By using the App, you are deemed to consent to these transfers.
+          Some of the third-party services above operate on servers in the United States and other countries, and your information may be handled there. Before using such a service, we require the provider, under its data processing terms, to continuously maintain measures equivalent to those required by Japan&rsquo;s Act on the Protection of Personal Information, and we review how those measures are implemented on a regular basis while we use the service. On request, we provide the information required by law, including the name of the destination country and an outline of those measures.
           </p>
         </section>
         <section>
@@ -214,15 +214,15 @@ header .max-w-6xl, footer .max-w-6xl{ max-width:calc(var(--pp-max) + 48px);
         <section>
           <h2><span class="lg-no">7</span>
               <span>Data Retention, User Rights & Account Deletion</span></h2>
-          <p>We keep your account details and learning data for as long as your account exists, and we delete the associated data when you delete your account. We keep inquiry content for as long as we need it to respond and to prevent abuse. Audio sent to provide the AI features is not stored on our servers. English text sent to provide the AI features is not stored on our servers, except for what we save as your conversation history and your composition feedback (how the receiving services handle the data is governed by their own policies). We keep both for as long as your account exists, and you can delete your conversation history anytime in the app under Library → 会話の履歴 (Conversation history). The record used to prevent abuse of the free trial is retained after account deletion for as long as that purpose requires. Where the law requires us to retain information, we keep it for the period the law requires.</p>
+          <p>We keep your account details and learning data for as long as your account exists, and we delete the associated data when you delete your account. We keep inquiry content for as long as we need it to respond and to prevent abuse. Audio sent to provide the AI features is not stored on our servers. Some of what you enter or speak, and some of the results produced by AI, are kept for as long as your account exists so that the features work and so that you can review them later (your conversation history, your composition feedback, and the like; how the receiving services handle the data is governed by their own policies). You can delete your conversation history anytime in the app under Library → 会話の履歴 (Conversation history). The record used to prevent abuse of the free trial is retained after account deletion for as long as that purpose requires. Where the law requires us to retain information, we keep it for the period the law requires.</p>
           <p>You have the following rights:</p>
           <ul>
           <li>Request disclosure, correction, deletion, or suspension of use of your personal information</li>
-          <li>Immediately delete your account and related data via "My Page → Delete Account" in the App</li>
+          <li>Request deletion of your account via "My Page → Delete Account" in the App (we delete the related data after you submit the request)</li>
           <li>Opt out of notifications and data collection</li>
           </ul>
           <p>
-          For requests that cannot be handled in-app, please contact us at the address in the last section after identity verification.
+          For requests that cannot be handled in-app, please contact us at the address in the last section. We will verify your identity before acting on the request.
           </p>
         </section>
         <section>
@@ -242,14 +242,14 @@ header .max-w-6xl, footer .max-w-6xl{ max-width:calc(var(--pp-max) + 48px);
         <section>
           <h2><span class="lg-no">10</span>
               <span>Contact</span></h2>
-          <p>For inquiries about the handling of personal information, please contact:</p>
+          <p>For inquiries about the handling of personal information, for requests such as disclosure, and for our name, address and representative, please contact:</p>
           <a href="mailto:support@snapenglishapp.com">
           support@snapenglishapp.com
           </a>
         </section>
         </div>
 
-        <p class="lg-updated">Last updated: September 23, 2026</p>
+        <p class="lg-updated">Last updated: November 22, 2026</p>
       </div></div>
     </main>
 
