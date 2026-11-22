@@ -334,7 +334,7 @@
     /* 見出しは「技能」だけを並べる。文法・英単語は技能と並列ではない（土台）ので、
        下のモードカードと ＋ の行で受け持つ。 */
     .sd-hero h1{ margin-top:20px; font-size:clamp(26px,3.6vw,48px); line-height:1.26;
-                 letter-spacing:-.03em; font-weight:700; }
+                 letter-spacing:-.03em; font-weight:600; }
     /* 1行目＝思想。本文より一段強く置く。2行目＝その中身。 */
     .sd-hero .sd-lead{ margin-top:22px; max-width:30em; color:var(--sd-ink);
                  font-size:clamp(16px,1.7vw,20px); font-weight:600; line-height:1.6; }
@@ -365,11 +365,11 @@
        黒い角丸が Apple より小さく見える。実測済みの補正を使い回す。 */
     /* gap はバッジ高の 1/4 以上（56px のとき 14px）。折り返したときの縦にも効く。 */
     .sd-badges{ margin-top:34px; display:flex; flex-wrap:wrap; align-items:center; gap:14px; }
-    .sd-hero .sd-plus{ margin-top:8px; font-size:12.5px; color:var(--sd-ink-2); }
+    .sd-hero .sd-plus{ margin-top:8px; font-size:12px; color:var(--sd-ink-2); }
     /* 「＋」の1本目だけ前と離す。DOM では詳しい説明（.sd-sub）の次に来る。 */
     .sd-hero .sd-sub + .sd-plus{ margin-top:11px; }
     .sd-hero .sd-plus b{ color:var(--sd-ink); font-weight:700; }
-    .sd-hero .sd-note, .sd-midcta .sd-note{ margin-top:18px; font-size:12.5px; color:var(--sd-ink-2); }
+    .sd-hero .sd-note, .sd-midcta .sd-note{ margin-top:18px; font-size:12px; color:var(--sd-ink-2); }
 
     /* ヒーローの左列。HTML はモバイルの順（見出し→モード→バッジ→注記→詳しい説明）で
        書いてあり、折り返しより上に入手の導線まで入る。読み上げの順も同じ。
@@ -440,8 +440,8 @@
     .sd-copy .sd-eyebrow::before{ width:44px; height:2px; }
     /* 38px だと 29em(464px) の列で「書いてから返ってくるまで、」が途中で割れて
        3行になる（実測）。34px なら3本とも意図した行数で収まる。 */
-    .sd-copy h2{ margin-top:14px; font-size:clamp(23px,2.7vw,34px); line-height:1.36;
-                 letter-spacing:-.025em; font-weight:700; }
+    .sd-copy h2{ margin-top:14px; font-size:clamp(23px,2.7vw,32px); line-height:1.36;
+                 letter-spacing:-.025em; font-weight:600; }
     /* 「シチュエーションの設定があるから、」は 17 字。34px で1行に収めるには 560px 余り要る。
        改行は読点のところだけにしたいので、この1本だけ文章の列を広げる（オーナー指示）。 */
     .sd-v .sd-copy{ max-width:36em; }
@@ -558,7 +558,7 @@
        ここに .sd-still h2 を残すと、同じ器なのに 42px と 34px で揃わなかった。 */
     /* 箇条書き。デモの .sd-copy にも同じ要素があるので、この2枚に限る。 */
     .sd-still .sd-copy ul{ margin:18px 0 0; padding:0; list-style:none; display:grid; gap:7px; }
-    .sd-still .sd-copy li{ display:flex; gap:8px; font-size:13.5px; color:var(--sd-ink-2); }
+    .sd-still .sd-copy li{ display:flex; gap:8px; font-size:14px; color:var(--sd-ink-2); }
     .sd-still .sd-copy li::before{ content:"—"; color:var(--sd-accent); flex:none; }
     /* 縁は画像の外側に描くので、器が切らないように縁のぶん余白を取る。
        間隔も縁の 2 枚分を足して、見かけの隙間を 14px に保つ。 */
@@ -588,7 +588,7 @@
                      0 0 0 var(--sd-bezel) #45474D,
                      0 calc(2px * var(--sd-phone-zoom,.74)) calc(4px * var(--sd-phone-zoom,.74)) calc(12px * var(--sd-phone-zoom,.74)) rgba(17,19,24,.16),
                      0 calc(30px * var(--sd-phone-zoom,.74)) calc(60px * var(--sd-phone-zoom,.74)) calc(-22px * var(--sd-phone-zoom,.74)) rgba(17,19,24,.45); }
-    .sd-shots figcaption{ margin-top:calc(7px + var(--sd-bezel)); font-size:12.5px;
+    .sd-shots figcaption{ margin-top:calc(7px + var(--sd-bezel)); font-size:12px;
                    color:var(--sd-ink-2); text-align:center; }
 
     /* ---- 狭い画面の画面写真 ----
@@ -635,8 +635,8 @@
     /* ---- 料金 ----
        金額はグラデーションで塗らない。カードは面を張らず、細い枠と数字の大きさだけで見せる。 */
     .sd-price{ padding-block:clamp(52px,7vw,84px) clamp(56px,7vw,88px); }
-    .sd-price h2{ margin-top:20px; font-size:clamp(25px,3.4vw,42px); line-height:1.28;
-                letter-spacing:-.03em; font-weight:700; }
+    .sd-price h2{ margin-top:20px; font-size:clamp(25px,3.4vw,40px); line-height:1.28;
+                letter-spacing:-.03em; font-weight:600; }
     .sd p.sd-price-lead{ margin-top:18px; max-width:42em; color:var(--sd-ink-2);
                 font-size:clamp(14px,1.35vw,16px); }
     .sd-plans{ margin-top:38px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
@@ -644,20 +644,20 @@
     .sd-plan{ border:1px solid var(--sd-rule); border-radius:16px; padding:24px 22px 26px;
                 background:rgba(255,255,255,.5); }
     .sd-plan.rec{ border-color:var(--sd-accent); }
-    .sd-plan-name{ font-size:13px; font-weight:700; display:flex; align-items:center; gap:10px; }
+    .sd-plan-name{ font-size:14px; font-weight:700; display:flex; align-items:center; gap:10px; }
     .sd-plan-tag{ font-size:12px; font-weight:700; color:var(--sd-accent);
                 border:1px solid var(--sd-accent); border-radius:999px; padding:2px 9px; }
     .sd p.sd-plan-price{ margin-top:12px; display:flex; align-items:baseline; flex-wrap:wrap; gap:8px; }
-    .sd-plan-price b{ font-size:clamp(32px,3.4vw,42px); font-weight:700; letter-spacing:-.02em;
+    .sd-plan-price b{ font-size:clamp(32px,3.4vw,40px); font-weight:700; letter-spacing:-.02em;
                 font-variant-numeric:tabular-nums; }
-    .sd-plan-price span{ font-size:12.5px; color:var(--sd-ink-2); }
+    .sd-plan-price span{ font-size:12px; color:var(--sd-ink-2); }
     .sd-plan-list{ margin:20px 0 0; padding:0; list-style:none; display:grid; gap:9px; }
-    .sd-plan-list li{ display:flex; gap:9px; font-size:13.5px; color:var(--sd-ink-2); }
+    .sd-plan-list li{ display:flex; gap:9px; font-size:14px; color:var(--sd-ink-2); }
     .sd-plan-list li::before{ content:"—"; color:var(--sd-accent); flex:none; }
-    .sd p.sd-price-fine{ margin-top:22px; max-width:52em; font-size:12.5px; line-height:1.9; color:var(--sd-ink-2); }
+    .sd p.sd-price-fine{ margin-top:22px; max-width:52em; font-size:14px; line-height:1.9; color:var(--sd-ink-2); }
     .sd-price-why{ margin-top:34px; max-width:52em; border-top:1px solid var(--sd-rule); padding-top:26px; }
     .sd-price-why h3{ font-size:16px; font-weight:700; }
-    .sd-price-why p{ margin-top:10px; font-size:13.5px; color:var(--sd-ink-2); max-width:44em; }
+    .sd-price-why p{ margin-top:10px; font-size:14px; color:var(--sd-ink-2); max-width:44em; }
 
     /* ---- フッター ----
        本文と地続きにする。白い帯で切らない。 */
@@ -666,35 +666,35 @@
 
     /* ---- よくある質問 ---- */
     .sd-faq{ padding-block:clamp(52px,7vw,84px) clamp(52px,7vw,84px); }
-    .sd-faq h2{ margin-top:20px; font-size:clamp(25px,3.4vw,42px); line-height:1.28;
-                letter-spacing:-.03em; font-weight:700; }
+    .sd-faq h2{ margin-top:20px; font-size:clamp(25px,3.4vw,40px); line-height:1.28;
+                letter-spacing:-.03em; font-weight:600; }
     .sd-faq-list{ margin-top:36px; max-width:46em; border-top:1px solid var(--sd-rule); }
     .sd-faq-item{ border-bottom:1px solid var(--sd-rule); }
     .sd-faq-item summary{ list-style:none; cursor:pointer; display:flex; align-items:center;
                 justify-content:space-between; gap:16px; padding:18px 2px;
-                font-size:15px; font-weight:700; }
+                font-size:16px; font-weight:700; }
     .sd-faq-item summary::-webkit-details-marker{ display:none; }
     .sd-faq-item summary svg{ width:18px; height:18px; flex:none; color:#9A948C;
                 transition:transform .2s ease; }
     .sd-faq-item[open] summary svg{ transform:rotate(180deg); }
-    .sd-faq-a{ padding:0 2px 20px; font-size:13.5px; line-height:1.95; color:var(--sd-ink-2);
+    .sd-faq-a{ padding:0 2px 20px; font-size:14px; line-height:1.95; color:var(--sd-ink-2);
                 max-width:44em; }
     .sd-faq-a a{ color:var(--sd-accent); }
 
     /* ---- お問い合わせ ---- */
     .sd-contact{ padding-block:clamp(52px,7vw,84px) clamp(56px,7vw,88px); }
-    .sd-contact h2{ margin-top:20px; font-size:clamp(25px,3.4vw,42px); line-height:1.28;
+    .sd-contact h2{ margin-top:20px; font-size:clamp(25px,3.4vw,40px); line-height:1.28;
                 letter-spacing:-.03em; font-weight:700; }
     .sd p.sd-contact-lead{ margin-top:18px; max-width:34em; color:var(--sd-ink-2);
                 font-size:clamp(14px,1.35vw,16px); }
     .sd-form{ margin-top:34px; max-width:40em; display:grid; gap:18px; }
     .sd-form-row{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
     .sd-form label{ display:block; }
-    .sd-form-label{ display:block; font-size:13px; font-weight:700; }
+    .sd-form-label{ display:block; font-size:14px; font-weight:700; }
     .sd-form-label i{ font-style:normal; color:#C0392B; }
     .sd-form input, .sd-form textarea{ margin-top:7px; width:100%; background:#fff;
                 border:1px solid var(--sd-rule); border-radius:10px; padding:11px 13px;
-                font-family:inherit; font-size:14.5px; color:var(--sd-ink);
+                font-family:inherit; font-size:16px; color:var(--sd-ink);
                 transition:border-color .15s ease; }
     .sd-form textarea{ resize:vertical; line-height:1.7; }
     .sd-form input::placeholder, .sd-form textarea::placeholder{ color:#B9B4AD; }
@@ -705,7 +705,7 @@
     .sd-form-count{ display:block; margin-top:5px; font-size:12px; color:var(--sd-ink-2);
                 font-variant-numeric:tabular-nums; }
     .sd-form-hp{ position:absolute; left:-9999px; opacity:0; pointer-events:none; }
-    .sd-form-note{ font-size:12.5px; line-height:1.9; color:var(--sd-ink-2); }
+    .sd-form-note{ font-size:12px; line-height:1.9; color:var(--sd-ink-2); }
     .sd-form-note a{ color:#0F6E4C; display:inline-block; padding-block:5px; }
     .sd-form-turnstile{ display:flex; justify-content:center; }
     /* Turnstile の既定サイズ（normal）は 300x65px。320px の画面では
@@ -718,7 +718,7 @@
     .sd-form-submit:hover{ filter:brightness(1.06); }
     .sd-form-submit:disabled{ opacity:.5; cursor:not-allowed; }
     /* 送信結果。JS が .hide / .ok / .ng を付け替える。 */
-    .sd-form-msg{ font-size:13px; font-weight:700; text-align:center; }
+    .sd-form-msg{ font-size:14px; font-weight:700; text-align:center; }
     /* 送信後の完了表示。13px の 1 行だけだと、入力欄が空に戻ったこともあって
        送れたのか分からない。フォームと入れ替えて出す。
        .sd-form は display:grid なので、hidden を効かせるには明示が要る。 */
@@ -744,10 +744,10 @@
        ヒーローと同じ地で閉じる。面を張らず、上の細い罫線だけで前と切る。 */
     .sd-close{ padding-block:clamp(52px,7vw,84px) clamp(56px,7vw,92px); }
     .sd-close .sd-wrap{ border-top:1px solid var(--sd-rule); padding-top:clamp(40px,5vw,60px); }
-    .sd-close h2{ margin-top:20px; font-size:clamp(25px,3.4vw,42px); line-height:1.28;
-                letter-spacing:-.03em; font-weight:700; }
+    .sd-close h2{ margin-top:20px; font-size:clamp(25px,3.4vw,40px); line-height:1.28;
+                letter-spacing:-.03em; font-weight:600; }
     .sd p.sd-close-note{ margin-top:18px; max-width:34em; color:var(--sd-ink-2);
-                font-size:clamp(13.5px,1.3vw,15px); }
+                font-size:clamp(14px,1.3vw,16px); }
     .sd-close .sd-badges{ margin-top:28px; }
 
     /* ---- 1列で完結するセクションは器の中で中央に置く ----------------------
@@ -1437,36 +1437,41 @@
 
 <style id="proto-polish">
 /* ==== 試作: 洗練（2026-10-26）。参考 kumakikai.top＝白地・うすいグレーの面・短い文・左右交互・News ==== */
-:root{ --pp-bg:#FFFFFF; --pp-panel:#F5F5F3; --pp-ink:#16191D; --pp-ink2:#4A515A; --pp-ink3:#5F666F; --pp-rule:#E6E6E3; --pp-link:#1F6B4A; }
+:root{ --pp-bg:#FFFFFF; --pp-panel:#F5F5F3; --pp-band:#E1EDE6; --pp-ink:#16191D; --pp-ink2:#4A515A; --pp-ink3:#5F666F; --pp-rule:#E6E6E3; --pp-link:#1F6B4A; }
 body, .sd{ background:var(--pp-bg) !important; }
 header.nav-blur{ background:rgba(255,255,255,.9) !important; }
 /* 冒頭 */
 .sd-hero{ padding-block:clamp(40px,6vw,96px) clamp(48px,6vw,88px); }
 .sd-hero .sd-kicker{ font-size:12px; letter-spacing:.08em; color:var(--pp-ink3); font-weight:600; }
-.sd-hero h1{ margin-top:18px; font-size:clamp(26px,3vw,42px); line-height:1.2; letter-spacing:-.02em; }
+.sd-hero h1{ margin-top:18px; font-size:clamp(26px,3vw,40px); line-height:1.2; letter-spacing:-.02em; }
 .sd-hero .pp-desc{ margin-top:22px; max-width:30em; font-size:16px; line-height:1.9; color:var(--pp-ink2); }
 .pp-stats{ margin-top:34px; display:flex; flex-wrap:wrap; gap:0; max-width:560px; }
 .pp-stat{ flex:1 1 0; min-width:110px; padding:0 18px; border-left:1px solid var(--pp-rule); text-decoration:none; color:var(--pp-ink); }
 .pp-stat:first-child{ padding-left:0; border-left:0; }
-.pp-stat b{ display:block; white-space:nowrap; font-size:26px; font-weight:700; letter-spacing:-.02em; font-variant-numeric:tabular-nums; line-height:1.15; }
-.pp-stat b small{ font-size:13px; font-weight:600; margin-left:2px; color:var(--pp-ink2); }
-.pp-stat .pp-lab{ display:inline-block; margin-top:6px; font-size:13px; color:var(--pp-ink2); border-bottom:1px solid currentColor; padding-bottom:1px; }
+.pp-stat b{ display:block; white-space:nowrap; font-size:24px; font-weight:700; letter-spacing:-.02em; font-variant-numeric:tabular-nums; line-height:1.15; }
+.pp-stat b small{ font-size:12px; font-weight:600; margin-left:2px; color:var(--pp-ink2); }
+.pp-stat .pp-lab{ display:inline-block; margin-top:6px; font-size:14px; color:var(--pp-ink2); border-bottom:1px solid currentColor; padding-bottom:1px; }
 .pp-stat:hover .pp-lab{ color:var(--pp-link); }
 /* 数え上げ（本人 10-26「以前のようにカウントアップ」）は既存の .sd-modes / .sd-mode / .sd-num の JS をそのまま使う。
    .sd-mode の箱の見た目（枠・地・角丸・名前の行の横並び）だけ打ち消す。 */
 .sd-hero .pp-stats .pp-stat.sd-mode{ border:0; border-left:1px solid var(--pp-rule); border-radius:0; background:none; padding:0 18px; color:var(--pp-ink); }
 .sd-hero .pp-stats .pp-stat.sd-mode:first-child{ padding-left:0; border-left:0; }
 .sd-hero .pp-stats .pp-stat.sd-mode:hover{ background:none; border-color:var(--pp-rule); }
-.sd-hero .pp-stats .pp-stat.sd-mode b{ display:block; font-size:26px; }
-.sd-hero .pp-stats .pp-stat.sd-mode .pp-lab{ display:inline-block; margin-top:6px; font-size:13px; color:var(--pp-ink2); border-bottom:1px solid currentColor; padding-bottom:1px; }
+.sd-hero .pp-stats .pp-stat.sd-mode b{ display:block; font-size:24px; }
+.sd-hero .pp-stats .pp-stat.sd-mode .pp-lab{ display:inline-block; margin-top:6px; font-size:14px; color:var(--pp-ink2); border-bottom:1px solid currentColor; padding-bottom:1px; }
 .sd-hero .pp-stats .pp-stat.sd-mode:hover .pp-lab{ color:var(--pp-link); }
 .sd-hero .pp-stats .pp-stat.sd-mode .sd-num{ display:inline-block; margin:0; font-size:inherit; color:inherit; text-align:right; }
 .sd-hero .sd-badges{ margin-top:48px; }
-.sd-hero .sd-note{ margin-top:14px; font-size:12.5px; color:var(--pp-ink3); }
+.sd-hero .sd-note{ margin-top:14px; font-size:12px; color:var(--pp-ink3); }
 .sd-hero-col > .pp-desc{ order:3 !important; } .sd-hero-col > .pp-stats{ order:4 !important; }
 .sd-hero-col > .sd-badges{ order:6 !important; } .sd-hero-col > .sd-note{ order:7 !important; }
 @media (min-width:1001px){ .sd-hero h1{ white-space:nowrap; } }
 .sd-panel{ background:var(--pp-panel) !important; box-shadow:none !important; border-radius:28px !important; }
+/* ==== Google ストアの作り: 色はセクションの地に置き、境目だけグラデで溶かす（2026-11-22） ====
+   白のセクションと色のセクションを交互にし、上下 40px のつなぎで隣とつなげる。
+   色地のセクションの中のカードは白にする（Google も色ベタの地に白カードを乗せている）。 */
+#composition, #vocabulary{ background:linear-gradient(180deg, #FFFFFF 0, var(--pp-band) 40px, var(--pp-band) calc(100% - 40px), #FFFFFF 100%) !important; }
+#composition .sd-panel, #vocabulary .sd-still-panel{ background:#FFFFFF !important; }
 /* 各カードの高さを抑える（本人 10-26「少し小さく」）: 端末を 0.74→0.64 倍、面の上下の余白を詰める */
 /* 既存の画面の高さ別の段（.74/.70/.65/.58/.52）より大きくならないよう、段ごとに置き換える（Codex 指摘） */
 @media (min-width:1001px){
@@ -1485,8 +1490,8 @@ header.nav-blur{ background:rgba(255,255,255,.9) !important; }
 .sd-hero .pp-stats.sd-modes.sd-anim-go .sd-mode:nth-child(4){ animation-delay:.18s; }
 /* 名前は JS が animationstart で見ているので sd-mode-in のまま、中身だけ「ふわっと出す」に置き換える */
 @keyframes sd-mode-in{ from{ opacity:0; } to{ opacity:1; } }
-/* 英作文: 面はうすいグレー・影なし。端末を左、文を右（左右交互） */
-#composition .sd-panel{ background:var(--pp-panel); box-shadow:none; border-radius:28px;
+/* 英作文: 面は影なし。端末を左、文を右（左右交互） */
+#composition .sd-panel{ box-shadow:none; border-radius:28px;
    grid-template-columns:auto minmax(0,1fr) !important; grid-template-rows:auto !important; align-items:center !important; }
 @media (min-width:1001px){ #composition .sd-panel{ padding:clamp(24px,2.6vw,40px) clamp(28px,5vw,80px) !important; } }
 #composition .sd-panel > .sd-stage{ grid-column:1 !important; grid-row:1 !important; }
@@ -1499,7 +1504,7 @@ header.nav-blur{ background:rgba(255,255,255,.9) !important; }
 .pp-points{ margin:30px 0 0; padding:0; list-style:none; display:grid; gap:16px; }
 .pp-points li{ display:grid; grid-template-columns:22px 1fr; column-gap:12px; }
 .pp-points li::before{ content:""; width:8px; height:8px; margin-top:8px; border-radius:50%; background:var(--sd-accent); justify-self:center; }
-.pp-points b{ display:block; font-size:15px; font-weight:700; color:var(--pp-ink); }
+.pp-points b{ display:block; font-size:16px; font-weight:700; color:var(--pp-ink); }
 .pp-points span{ grid-column:2; display:block; margin-top:2px; font-size:14px; line-height:1.75; color:var(--pp-ink2); }
 .pp-cta{ margin-top:30px; display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:700; color:var(--pp-link); text-decoration:none; }
 /* News */
@@ -1508,10 +1513,10 @@ header.nav-blur{ background:rgba(255,255,255,.9) !important; }
 .pp-news-head h2{ font-size:24px; font-weight:700; letter-spacing:-.01em; }
 .pp-news ul{ margin:22px 0 0; padding:0; list-style:none; border-top:1px solid var(--pp-rule); }
 .pp-news li{ display:grid; grid-template-columns:120px 110px 1fr; gap:16px; align-items:baseline; padding:20px 4px; border-bottom:1px solid var(--pp-rule); }
-.pp-news time{ font-size:13.5px; color:var(--pp-ink3); font-variant-numeric:tabular-nums; }
+.pp-news time{ font-size:14px; color:var(--pp-ink3); font-variant-numeric:tabular-nums; }
 .pp-news .tag{ justify-self:start; font-size:11.5px; font-weight:700; color:var(--pp-link); border:1px solid #CFE0D6; border-radius:999px; padding:2px 10px; }
-.pp-news p{ margin:0; font-size:15px; font-weight:600; color:var(--pp-ink); line-height:1.6; }
-.pp-news p small{ display:block; font-weight:400; font-size:13.5px; color:var(--pp-ink2); margin-top:2px; }
+.pp-news p{ margin:0; font-size:16px; font-weight:600; color:var(--pp-ink); line-height:1.6; }
+.pp-news p small{ display:block; font-weight:400; font-size:14px; color:var(--pp-ink2); margin-top:2px; }
 @media (max-width:1000px){
   #composition .sd-panel{ grid-template-columns:1fr !important; }
   #composition .sd-panel > .sd-copy{ grid-column:1 !important; grid-row:1 !important; }
@@ -1620,9 +1625,9 @@ header.nav-blur{ background:rgba(255,255,255,.9) !important; }
     .sd-hero .pp-stats .pp-stat:first-child, .sd-hero .pp-stats .pp-stat.sd-mode:first-child{ padding-left:0; border-left:0; }
     .sd-hero .pp-stats .pp-stat.sd-mode:nth-child(odd){ padding-left:8px; border-left:1px solid var(--pp-rule); }
     .sd-hero .pp-stats .pp-stat.sd-mode:first-child{ padding-left:0; border-left:0; }
-    .sd-hero .pp-stats .pp-stat b, .sd-hero .pp-stats .pp-stat.sd-mode b{ font-size:19px; }
-    .sd-hero .pp-stats .pp-stat .pp-lab, .sd-hero .pp-stats .pp-stat.sd-mode .pp-lab{ font-size:11px; margin-top:3px; }
-    .sd-hero .pp-stats .pp-stat b small{ font-size:11px; }
+    .sd-hero .pp-stats .pp-stat b, .sd-hero .pp-stats .pp-stat.sd-mode b{ font-size:20px; }
+    .sd-hero .pp-stats .pp-stat .pp-lab, .sd-hero .pp-stats .pp-stat.sd-mode .pp-lab{ font-size:12px; margin-top:3px; }
+    .sd-hero .pp-stats .pp-stat b small{ font-size:12px; }
 }
 /* 360〜380px 幅ではストアバッジが 2 段に折れ、高さを 60px 余計に使う。そのぶん挿絵が
    下に押し出されてバッジ自体が画面の外へ出るので、ここだけ少し小さくして 1 段に収める。
@@ -1634,8 +1639,8 @@ header.nav-blur{ background:rgba(255,255,255,.9) !important; }
 /* さらに低い画面では、見出しと本文も一段小さくする。 */
 @media (max-width:1000px) and (max-height:680px){
     .sd-hero h1{ font-size:clamp(21px,5.6vw,26px); }
-    .sd-hero .pp-desc{ font-size:14.5px; line-height:1.6; }
-    .sd-hero .sd-note{ font-size:11.5px; }
+    .sd-hero .pp-desc{ font-size:14px; line-height:1.6; }
+    .sd-hero .sd-note{ font-size:12px; }
     .sd-hero .sd-badges img{ height:42px; }
     .sd-hero .sd-badges .google-play-badge img{ height:54.7px; margin:-6.3px 0; }   /* 絵柄 42px 相当 */
 }
@@ -1644,13 +1649,13 @@ header.nav-blur{ background:rgba(255,255,255,.9) !important; }
 @media (max-width:359px){
     .sd-hero-art{ display:none; }
     .sd-hero h1{ font-size:21px; }
-    .sd-hero .pp-desc{ font-size:14.5px; line-height:1.6; }
-    .sd-hero .sd-note{ font-size:11.5px; }
+    .sd-hero .pp-desc{ font-size:14px; line-height:1.6; }
+    .sd-hero .sd-note{ font-size:12px; }
     .sd-hero .sd-badges img{ height:42px; }
     .sd-hero .sd-badges .google-play-badge img{ height:54.7px; margin:-6.3px 0; }   /* 絵柄 42px 相当 */
-    .sd-hero .pp-stats .pp-stat b, .sd-hero .pp-stats .pp-stat.sd-mode b{ font-size:19px; }
-    .sd-hero .pp-stats .pp-stat .pp-lab, .sd-hero .pp-stats .pp-stat.sd-mode .pp-lab{ font-size:11px; margin-top:3px; }
-    .sd-hero .pp-stats .pp-stat b small{ font-size:11px; }
+    .sd-hero .pp-stats .pp-stat b, .sd-hero .pp-stats .pp-stat.sd-mode b{ font-size:20px; }
+    .sd-hero .pp-stats .pp-stat .pp-lab, .sd-hero .pp-stats .pp-stat.sd-mode .pp-lab{ font-size:12px; margin-top:3px; }
+    .sd-hero .pp-stats .pp-stat b small{ font-size:12px; }
     .sd-hero .pp-stats{ row-gap:6px; }
 }
 /* 320px 幅かつ低い画面は、英語版がもう少しだけ溢れるので詰める。 */
@@ -1762,7 +1767,7 @@ html:not(.js) .sd-w .cbar, .sd-w.sd-static .cbar, .sd-w.still .cbar{ display:gri
 .sd-panel > .sd-copy, .sd-still-panel > .sd-copy{ align-self:center; }
 .sd-copy .sd-eyebrow{ font-size:14px !important; letter-spacing:.06em !important; }
 .sd-copy .sd-eyebrow::before{ width:28px !important; height:2px !important; }
-.sd-copy h2{ font-size:clamp(24px,2.6vw,34px) !important; line-height:1.3 !important; }
+.sd-copy h2{ font-size:clamp(24px,2.6vw,32px) !important; line-height:1.3 !important; }
 .sd .sd-copy p.sd-lead{ margin-top:16px; font-size:16px; line-height:1.85; color:var(--pp-ink2); }
 @media (min-width:1001px){
   #features .sd-panel, #grammar .sd-panel{ grid-template-columns:minmax(0,1fr) auto !important; grid-template-rows:auto !important; align-items:center !important; }
@@ -1837,25 +1842,25 @@ header .max-w-6xl, footer .max-w-6xl{ max-width:calc(var(--pp-max) + 48px) !impo
 #composition .sd-copy .sd-eyebrow::before{ width:24px !important; height:24px !important; background:currentColor; -webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%2C23%20L4.5%2C12.5%20L12%2C1%20L19.5%2C12.5%20Z%20M11.2%2C21.5%20Q11.2%2C21.831%2011.434%2C22.066%20Q11.669%2C22.3%2012%2C22.3%20Q12.331%2C22.3%2012.566%2C22.066%20Q12.8%2C21.831%2012.8%2C21.5%20L12.8%2C13.5%20Q12.8%2C13.471%2012.798%2C13.443%20C13.562%2C13.129%2014.1%2C12.377%2014.1%2C11.5%20C14.1%2C10.34%2013.16%2C9.4%2012%2C9.4%20C10.84%2C9.4%209.9%2C10.34%209.9%2C11.5%20C9.9%2C12.377%2010.438%2C13.129%2011.202%2C13.443%20Q11.2%2C13.471%2011.2%2C13.5%20Z%22/%3E%3C/svg%3E") center/contain no-repeat; mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%2C23%20L4.5%2C12.5%20L12%2C1%20L19.5%2C12.5%20Z%20M11.2%2C21.5%20Q11.2%2C21.831%2011.434%2C22.066%20Q11.669%2C22.3%2012%2C22.3%20Q12.331%2C22.3%2012.566%2C22.066%20Q12.8%2C21.831%2012.8%2C21.5%20L12.8%2C13.5%20Q12.8%2C13.471%2012.798%2C13.443%20C13.562%2C13.129%2014.1%2C12.377%2014.1%2C11.5%20C14.1%2C10.34%2013.16%2C9.4%2012%2C9.4%20C10.84%2C9.4%209.9%2C10.34%209.9%2C11.5%20C9.9%2C12.377%2010.438%2C13.129%2011.202%2C13.443%20Q11.2%2C13.471%2011.2%2C13.5%20Z%22/%3E%3C/svg%3E") center/contain no-repeat; }
 #grammar .sd-copy .sd-eyebrow::before{ width:24px !important; height:24px !important; background:currentColor; -webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M1.5%2C7%20C1.5%2C5.895%202.395%2C5%203.5%2C5%20L11.3%2C5%20L11.3%2C9.775%20C11.771%2C9.414%2012.361%2C9.2%2013%2C9.2%20C14.546%2C9.2%2015.8%2C10.454%2015.8%2C12%20C15.8%2C13.546%2014.546%2C14.8%2013%2C14.8%20C12.361%2C14.8%2011.771%2C14.586%2011.3%2C14.225%20L11.3%2C19%20L3.5%2C19%20C2.395%2C19%201.5%2C18.105%201.5%2C17%20Z%20M12.8%2C5%20L20.5%2C5%20C21.605%2C5%2022.5%2C5.895%2022.5%2C7%20L22.5%2C17%20C22.5%2C18.105%2021.605%2C19%2020.5%2C19%20L12.8%2C19%20L12.8%2C15.995%20C12.866%2C15.998%2012.933%2C16%2013%2C16%20C15.209%2C16%2017%2C14.209%2017%2C12%20C17%2C9.791%2015.209%2C8%2013%2C8%20C12.933%2C8%2012.866%2C8.002%2012.8%2C8.005%20Z%22/%3E%3C/svg%3E") center/contain no-repeat; mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M1.5%2C7%20C1.5%2C5.895%202.395%2C5%203.5%2C5%20L11.3%2C5%20L11.3%2C9.775%20C11.771%2C9.414%2012.361%2C9.2%2013%2C9.2%20C14.546%2C9.2%2015.8%2C10.454%2015.8%2C12%20C15.8%2C13.546%2014.546%2C14.8%2013%2C14.8%20C12.361%2C14.8%2011.771%2C14.586%2011.3%2C14.225%20L11.3%2C19%20L3.5%2C19%20C2.395%2C19%201.5%2C18.105%201.5%2C17%20Z%20M12.8%2C5%20L20.5%2C5%20C21.605%2C5%2022.5%2C5.895%2022.5%2C7%20L22.5%2C17%20C22.5%2C18.105%2021.605%2C19%2020.5%2C19%20L12.8%2C19%20L12.8%2C15.995%20C12.866%2C15.998%2012.933%2C16%2013%2C16%20C15.209%2C16%2017%2C14.209%2017%2C12%20C17%2C9.791%2015.209%2C8%2013%2C8%20C12.933%2C8%2012.866%2C8.002%2012.8%2C8.005%20Z%22/%3E%3C/svg%3E") center/contain no-repeat; }
 #vocabulary .sd-copy .sd-eyebrow::before{ width:24px !important; height:24px !important; background:currentColor; -webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%2C7%20L17.5%2C7%20C18.881%2C7%2020%2C8.119%2020%2C9.5%20L20%2C19.5%20C20%2C20.881%2018.881%2C22%2017.5%2C22%20L4%2C22%20C2.619%2C22%201.5%2C20.881%201.5%2C19.5%20L1.5%2C9.5%20C1.5%2C8.119%202.619%2C7%204%2C7%20Z%20M9.5%2C1.5%20L20%2C1.5%20C21.381%2C1.5%2022.5%2C2.619%2022.5%2C4%20L22.5%2C13%20C22.5%2C13.772%2022.15%2C14.462%2021.6%2C14.921%20L21.6%2C9.5%20Q21.6%2C5.4%2017.5%2C5.4%20L7%2C5.4%20L7%2C4%20C7%2C2.619%208.119%2C1.5%209.5%2C1.5%20Z%20M8.5%2C15.8%20Q8.086%2C15.8%207.793%2C16.093%20Q7.5%2C16.386%207.5%2C16.8%20Q7.5%2C17.214%207.793%2C17.507%20Q8.086%2C17.8%208.5%2C17.8%20L15.5%2C17.8%20Q15.914%2C17.8%2016.207%2C17.507%20Q16.5%2C17.214%2016.5%2C16.8%20Q16.5%2C16.386%2016.207%2C16.093%20Q15.914%2C15.8%2015.5%2C15.8%20Z%20M7%2C10.142%20C6.707%2C9.81%206.278%2C9.6%205.8%2C9.6%20C4.916%2C9.6%204.2%2C10.316%204.2%2C11.2%20C4.2%2C12.084%204.916%2C12.8%205.8%2C12.8%20C6.278%2C12.8%206.707%2C12.59%207%2C12.258%20L7%2C10.142%20Z%22/%3E%3C/svg%3E") center/contain no-repeat; mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%2C7%20L17.5%2C7%20C18.881%2C7%2020%2C8.119%2020%2C9.5%20L20%2C19.5%20C20%2C20.881%2018.881%2C22%2017.5%2C22%20L4%2C22%20C2.619%2C22%201.5%2C20.881%201.5%2C19.5%20L1.5%2C9.5%20C1.5%2C8.119%202.619%2C7%204%2C7%20Z%20M9.5%2C1.5%20L20%2C1.5%20C21.381%2C1.5%2022.5%2C2.619%2022.5%2C4%20L22.5%2C13%20C22.5%2C13.772%2022.15%2C14.462%2021.6%2C14.921%20L21.6%2C9.5%20Q21.6%2C5.4%2017.5%2C5.4%20L7%2C5.4%20L7%2C4%20C7%2C2.619%208.119%2C1.5%209.5%2C1.5%20Z%20M8.5%2C15.8%20Q8.086%2C15.8%207.793%2C16.093%20Q7.5%2C16.386%207.5%2C16.8%20Q7.5%2C17.214%207.793%2C17.507%20Q8.086%2C17.8%208.5%2C17.8%20L15.5%2C17.8%20Q15.914%2C17.8%2016.207%2C17.507%20Q16.5%2C17.214%2016.5%2C16.8%20Q16.5%2C16.386%2016.207%2C16.093%20Q15.914%2C15.8%2015.5%2C15.8%20Z%20M7%2C10.142%20C6.707%2C9.81%206.278%2C9.6%205.8%2C9.6%20C4.916%2C9.6%204.2%2C10.316%204.2%2C11.2%20C4.2%2C12.084%204.916%2C12.8%205.8%2C12.8%20C6.278%2C12.8%206.707%2C12.59%207%2C12.258%20L7%2C10.142%20Z%22/%3E%3C/svg%3E") center/contain no-repeat; }
-#features .sd-copy .sd-eyebrow, #composition .sd-copy .sd-eyebrow, #grammar .sd-copy .sd-eyebrow, #vocabulary .sd-copy .sd-eyebrow{ font-size:19px !important; gap:10px !important; letter-spacing:.02em !important; }
+#features .sd-copy .sd-eyebrow, #composition .sd-copy .sd-eyebrow, #grammar .sd-copy .sd-eyebrow, #vocabulary .sd-copy .sd-eyebrow{ font-size:20px !important; gap:10px !important; letter-spacing:.02em !important; }
 #features .sd-copy h2, #composition .sd-copy h2, #grammar .sd-copy h2, #vocabulary .sd-copy h2{ margin-top:6px !important; }
 /* 共通の小見出し・見出し */
-.pp-kicker{ font-size:13px; font-weight:700; letter-spacing:.08em; color:var(--pp-link); }
-.pp-h2{ margin-top:10px !important; font-size:clamp(24px,2.6vw,34px); font-weight:700; letter-spacing:-.02em; line-height:1.3; color:var(--pp-ink); }
+.pp-kicker{ font-size:12px; font-weight:700; letter-spacing:.08em; color:var(--pp-link); }
+.pp-h2{ margin-top:10px !important; font-size:clamp(24px,2.6vw,32px); font-weight:600; letter-spacing:-.02em; line-height:1.3; color:var(--pp-ink); }
 /* 続ける仕組み */
 .pp-keep{ padding-block:clamp(48px,6vw,88px); }
 .pp-keep-grid{ margin-top:32px; display:grid; grid-template-columns:1fr 1fr; gap:24px; }
 .pp-keep-card{ display:grid; grid-template-columns:150px minmax(0,1fr); gap:24px; align-items:start; background:var(--pp-panel); border-radius:24px; padding:28px; }
 .pp-keep-card figure{ margin:0; }
 .pp-keep-card img{ display:block; width:100%; height:auto; border-radius:18px; box-shadow:0 0 0 5px #17181B, 0 12px 28px -16px rgba(17,19,24,.5); }
-.pp-keep-card h3{ font-size:19px; font-weight:700; color:var(--pp-ink); }
-.pp-keep-card p{ margin-top:10px !important; font-size:15px; line-height:1.85; color:var(--pp-ink2); }
+.pp-keep-card h3{ font-size:20px; font-weight:700; color:var(--pp-ink); }
+.pp-keep-card p{ margin-top:10px !important; font-size:16px; line-height:1.85; color:var(--pp-ink2); }
 /* 料金・FAQ の見出しを左右の節とそろえる */
-.sd-price .sd-eyebrow, .sd-faq .sd-eyebrow, .sd-close .sd-eyebrow{ font-size:13px; letter-spacing:.08em; }
+.sd-price .sd-eyebrow, .sd-faq .sd-eyebrow, .sd-close .sd-eyebrow{ font-size:12px; letter-spacing:.08em; }
 /* 運営について */
 .pp-about{ padding-block:clamp(48px,6vw,88px); border-top:1px solid var(--pp-rule); }
 .pp-about-in{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.6fr); gap:32px; }
-.pp-about p:not(.pp-kicker){ margin-top:14px !important; max-width:34em; font-size:15px; line-height:1.9; color:var(--pp-ink2); }
+.pp-about p:not(.pp-kicker){ margin-top:14px !important; max-width:34em; font-size:16px; line-height:1.9; color:var(--pp-ink2); }
 /* フッター・最後の申し込み欄も白に */
 .sd-footer{ background:var(--pp-bg) !important; }
 .sd-close{ border-top:1px solid var(--pp-rule); }
@@ -1884,7 +1889,7 @@ html:not(.js) .pp-dots{ display:none !important; }
 @media (max-width:1000px){ .sd-still-panel > .sd-shots-nav.pp-dots{ margin-top:-22px !important; } }
 
 .pp-ast{ font-size:.7em; vertical-align:super; margin-left:1px; font-weight:600; }
-.pp-keep-card p.pp-srs-what{ margin-top:10px !important; font-size:13.5px; line-height:1.8; color:var(--pp-ink3); }   /* SRS の説明（10-27 本人「SRS およびその説明も追記」） */
+.pp-keep-card p.pp-srs-what{ margin-top:10px !important; font-size:14px; line-height:1.8; color:var(--pp-ink3); }   /* SRS の説明（10-27 本人「SRS およびその説明も追記」） */
 /* 反復学習の図を動かす（10-27 本人「矢印はアニメーション化しない？」）。画面に入ると、段が1つずつ伸び、
    続けて緑の矢印、最後に赤の戻り矢印。JS が無い・動きを減らす設定では、最初から完成形を見せる。 */
 @media (prefers-reduced-motion: no-preference){
